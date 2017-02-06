@@ -1,0 +1,19 @@
+{
+    "remotePath": "/public_html/",
+    "host": "xw000111.ferozo.com",
+    "username": "xw000111",
+    "password": "ga00vuboMA",
+    "port": 21,
+    "secure": false,
+    "protocol": "ftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ]
+}
