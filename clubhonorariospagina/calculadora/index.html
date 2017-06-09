@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Club Honorarios</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Theme CSS -->
+    <link href="../css/agency.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		
+
+</head>
+
+
+<body id="page-top" class="index">
+
+<div id="main">
+
+    <!-- Navigation -->
+    <nav id="mainNav" style ="background-color: #002775;" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="http://www.clubhonorarios.com"><img class="logo-principal" src="../img/logo/logo-max.png" style="margin-top: -6px;"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="http://www.clubhonorarios.com">Volver a pagina principal</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+ 
+    <!-- Header -->
+    <header>  
+		
+                
+
+    </header>
+
+    <!-- Inicio Section -->
+    <section id="inicio" class="bg-light-gray">
+		<div class="col-lg-12 text-center">
+			<h2 class="section-heading">CALCULADORA DE CUOTAS</h2>
+		</div>
+        <div id="calculadora">
+			<form class="form-horizontal">
+			<div class="form-group">
+			<label for="inputImporte" class="col-md-3 col-md-offset-2 control-label">
+			Importe:
+			</label>
+			<div class="col-md-3">
+			<input type="number" class="form-control" id="inputImporte" autofocus="" required="">
+			</div>
+			</div>
+			<div class="form-group">
+			<label for="inputTarjeta" class="col-md-3 col-md-offset-2 control-label">
+			Tarjeta:
+			</label>
+			<div class="col-md-3">
+			<select id="inputTarjeta" class="form-control">
+				<option value="0">Seleccionar...</option>
+				<option value="Visa">Visa</option>
+				<option value="Mastercard">Mastercard</option>
+				<option value="American Express">American Express</option>
+				<!-- <option value="Cabal">Cabal</option> -->
+<!-- 				<option value="Naranja">Naranja</option> -->
+			</select>
+			</div>
+			</div>
+			<div id="inputCuotasNarDiv" class="form-group" style="display:none;">
+			<label for="inputCuotasNar" class="col-md-3 col-md-offset-2 control-label">
+			Cantidad de cuotas:
+			</label>
+			<div class="col-md-3">
+			<select id="inputCuotasNar" class="form-control" >
+				<option value="0">Seleccionar...</option>
+				<option value="3">3</option>
+				<option value="6">6</option>
+				<option value="12">12</option>
+			</select>
+			</div>
+			</div>
+			<div id="inputCuotasAllDiv" class="form-group" style="display:none;">
+			<label for="inputCuotasAll" class="col-md-3 col-md-offset-2 control-label">
+			Cantidad de cuotas:
+			</label>
+			<div class="col-md-3">
+			<select id="inputCuotasAll" class="form-control">
+				<option value="0">Seleccionar...</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+			</div>
+			</div>
+			<div class="form-group text-center">
+			<div class="col-md-3 col-md-offset-5">
+			<button type="submit" class="btn btn-default btn-block text-uppercase calcular" style="background-color: #002775; color:white;">Calcular</button>
+			</div>
+			</div>
+			</form>
+		</div>
+		
+		<div class="text-center results col-md-10 col-md-offset-1" style="display: block;">
+		</div>
+	
+    </section>
+
+    
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="../js/agency.min.js"></script>
+    <script src="../js/action.js"></script>
+	
+	<!-- Calculadora -->
+    <script src="../js/calculadora.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+
+    
+</div>
+</body>
+
+<footer>
+
+<div class="col-lg-12 text-center">
+	<p class="section-heading">IMPORTANTE: Los valores de las cuotas son una simulación aproximada. A la hora de hacer una operación, dichos valores pueden sufrir una mínima variación</p>
+</div>
+</footer>
+
+
+</html>
