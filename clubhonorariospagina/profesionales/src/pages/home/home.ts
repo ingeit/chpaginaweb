@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
-import { ListPage } from '../list/list';
+import { SideMenu } from '../sideMenu/sideMenu';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -49,7 +49,7 @@ export class HomePage {
             console.log(this.respuesta.mensaje);
           }else{
             console.log(this.respuesta.mensaje);
-            this.navCtrl.setRoot(ListPage);
+            this.navCtrl.setRoot(SideMenu);
           }
         }, (err) => {
             this.loading.dismiss();
