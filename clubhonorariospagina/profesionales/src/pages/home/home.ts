@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
-import { SideMenu } from '../sideMenu/sideMenu';
+import { NuevoprofesionalPage } from '../nuevoprofesional/nuevoprofesional';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -49,7 +50,7 @@ export class HomePage {
             console.log(this.respuesta.mensaje);
           }else{
             console.log(this.respuesta.mensaje);
-            this.navCtrl.setRoot(SideMenu);
+            this.navCtrl.setRoot(NuevoprofesionalPage);
           }
         }, (err) => {
             this.loading.dismiss();
