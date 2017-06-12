@@ -14,7 +14,7 @@ import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage; 
+  rootPage: any = NuevoprofesionalPage; 
 
   pages: Array<{title: string, component: any}>;
 
