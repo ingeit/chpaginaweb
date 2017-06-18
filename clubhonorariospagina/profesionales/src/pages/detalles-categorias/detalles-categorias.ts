@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginProvider } from '../../providers/login/login'; 
 import { Categorias } from '../../modelos/categoria.interface';
+import { Observable } from "rxjs/Observable";
+
 /**
  * Generated class for the DetallesCategoriasPage page.
  *
@@ -17,7 +19,7 @@ import { Categorias } from '../../modelos/categoria.interface';
 })
 export class DetallesCategoriasPage {
   postId: number;
-  categoria: Categorias;
+  categoria: Observable <Categorias>;
 
   constructor(public navCtrl: NavController, 
               public data: LoginProvider, 
@@ -27,7 +29,8 @@ export class DetallesCategoriasPage {
   ionViewDidLoad() {
     this.postId = this.navParams.get('categoriaId');
     console.log(this.postId);
-    console.log(this.data.obtenerCategoriasPorId(this.postId));
+    this.categoria = this.data.obtenerCategoriasPorId(this.postId);
+    console.log(this.categoria);
   }
 
 }
