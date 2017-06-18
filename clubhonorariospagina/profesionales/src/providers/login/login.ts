@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http ,Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../../server'
+import 'rxjs/add/operator/take'
+import { Observable } from "rxjs/Observable";
+import { Categorias } from '../../modelos/categoria.interface';
+
 /*
   Generated class for the LoginProvider provider.
 
@@ -10,6 +14,9 @@ import * as configServer from './../../server'
 */
 @Injectable()
 export class LoginProvider {
+
+  rootURL: string ='https://jsonplaceholder.typicode.com';
+  categorias: string ='posts';
 
   constructor(public http: Http) {
     console.log('Hello LoginProvider Provider');
@@ -38,5 +45,13 @@ export class LoginProvider {
     });
  
   }
+
+  obtenerCategorias(){
+    return this.http.get(`${this.rootURL}/${this.categorias}`).map(res => res.json()).take(1);
+  }
   
+  obtenerCategoriasPorId(id:number){
+    return this.http.get(`${this.rootURL}/${this.categorias}/${id}`).map(res => res.json()).take(1);
+  }
+
 }
