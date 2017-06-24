@@ -29,7 +29,7 @@ export class CategoriasPage{
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriasPage');
+
   }
 
   obtenerCategorias(){

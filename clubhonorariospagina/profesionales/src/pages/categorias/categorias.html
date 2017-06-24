@@ -14,16 +14,15 @@
 
 
 <ion-content padding>
-
-    <ion-card *ngFor="let c of categorias | async" (click)="navegateToDetail(c.id)">
-      <ion-card-header>
-        {{c.id}} - {{c.title}}
-      </ion-card-header>
-
-      <ion-card-content>
-        <p> {{c.body}} </p>
-        <p> {{c.userID}} </p>
-      </ion-card-content>
-    </ion-card>
-
+    <button ion-button icon-left float-right>
+      <ion-icon name="add"></ion-icon>
+      Agregar
+    </button>
+    <ion-content padding style="max-height:400px;">
+      <ion-list>
+        <button ion-item *ngFor="let c of categorias | async" (click)="navegateToDetail(c.id)">
+          {{c.id}} - {{c.title}}
+        </button>  
+      </ion-list>
+    </ion-content>
 </ion-content>
