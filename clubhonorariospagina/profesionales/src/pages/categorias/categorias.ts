@@ -12,14 +12,14 @@ import { LoginProvider } from '../../providers/login/login';
  */
 @IonicPage({
   name: 'listarCategorias',
-  segment: 'categorias-listar'
+  segment: 'adminCategorias/:categoriaId'
 })
 @Component({
   selector: 'page-categorias',
   templateUrl: 'categorias.html',
 })
 export class CategoriasPage{
-
+  postId: number;
   categorias: Observable <Array<Categorias>>;
 
   constructor(public navCtrl: NavController,
@@ -29,7 +29,7 @@ export class CategoriasPage{
   }
 
   ionViewDidLoad() {
-
+    this.postId = this.navParams.get('categoriaId');
   }
 
   obtenerCategorias(){
