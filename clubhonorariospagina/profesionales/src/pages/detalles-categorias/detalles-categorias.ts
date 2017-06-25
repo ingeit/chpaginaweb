@@ -29,7 +29,7 @@ export class DetallesCategoriasPage {
   ionViewDidLoad() {
     this.postId = this.navParams.get('categoriaId');
     console.log(this.postId);
-    this.categoria = this.data.obtenerCategoriasPorId(this.postId);
+    //this.categoria = this.data.obtenerCategoriasPorId(this.postId);
     console.log(this.categoria);
   }
 

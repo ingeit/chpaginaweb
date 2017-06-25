@@ -20,8 +20,8 @@
     </button>
     <ion-content padding style="max-height:400px;">
       <ion-list>
-        <button ion-item *ngFor="let c of categorias | async" (click)="navegateToDetail(c.id)">
-          {{c.id}} - {{c.title}}
+        <button ion-item *ngFor="let c of categorias | async">
+          {{c.codigo}} - {{c.nombre}}
         </button>  
       </ion-list>
     </ion-content>

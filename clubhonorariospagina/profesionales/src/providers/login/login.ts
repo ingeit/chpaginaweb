@@ -15,9 +15,6 @@ import { Categorias } from '../../modelos/categoria.interface';
 @Injectable()
 export class LoginProvider {
 
-  rootURL: string ='https://jsonplaceholder.typicode.com';
-  categorias: string ='posts';
-
   constructor(public http: Http) {
     console.log('Hello LoginProvider Provider');
   }
@@ -46,12 +43,19 @@ export class LoginProvider {
  
   }
 
-  obtenerCategorias(){
-    return this.http.get(`${this.rootURL}/${this.categorias}`).map(res => res.json()).take(1);
-  }
+  // obtenerCategorias(){
+  //   return this.http.get(`${configServer.data.urlServidor}/${this.categorias}`).map(res => res.json()).take(1);
+  // }
   
-  obtenerCategoriasPorId(id:number){
-    return this.http.get(`${this.rootURL}/${this.categorias}/${id}`).map(res => res.json()).take(1);
+  obtenerCategorias(id:number){
+    let url;
+    if(id){
+      url = `${configServer.data.urlServidor}/api/listarCategorias/${id}`
+    }else{
+      url = `${configServer.data.urlServidor}/api/listarCategorias/`
+    }
+    console.log(url);
+    return this.http.get(url).map(res => res.json()).take(1);
   }
 
 }

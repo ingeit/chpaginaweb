@@ -25,18 +25,15 @@ export class CategoriasPage{
   constructor(public navCtrl: NavController,
               public data: LoginProvider, 
               public navParams: NavParams) {
-                this.obtenerCategorias();
+                this.obtenerCategorias(null);
   }
 
   ionViewDidLoad() {
     this.postId = this.navParams.get('categoriaId');
   }
 
-  obtenerCategorias(){
-    this.categorias = this.data.obtenerCategorias();
+  obtenerCategorias(categoriaId: number){
+    this.categorias = this.data.obtenerCategorias(categoriaId);
   }
 
-  navegateToDetail(categoriaId: number){
-    this.navCtrl.push('DetallesCategoriasPage',{categoriaId});
-  }
 }
