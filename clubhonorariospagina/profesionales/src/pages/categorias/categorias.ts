@@ -21,6 +21,7 @@ import { LoginProvider } from '../../providers/login/login';
 export class CategoriasPage{
   postId: number;
   categorias: Observable <Array<Categorias>>;
+  root:string = 'Home/';
 
   constructor(public navCtrl: NavController,
               public data: LoginProvider, 

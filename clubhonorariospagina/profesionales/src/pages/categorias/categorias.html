@@ -14,10 +14,15 @@
 
 
 <ion-content padding>
+  <div padding style="display: flow-root;"> 
     <button ion-button icon-left float-right>
       <ion-icon name="add"></ion-icon>
       Agregar
     </button>
+    <p float-left   style="left: 14px;
+    position: relative;"  > {{root}} </p>
+  </div>
+    
     <ion-content padding style="max-height:400px;">
       <ion-list>
         <button ion-item *ngFor="let c of categorias | async" (click)="listar(c.codigo)">
