@@ -20,7 +20,7 @@
     </button>
     <ion-content padding style="max-height:400px;">
       <ion-list>
-        <button ion-item *ngFor="let c of categorias | async">
+        <button ion-item *ngFor="let c of categorias | async" (click)="listar(c.codigo)">
           {{c.codigo}} - {{c.nombre}}
         </button>  
       </ion-list>

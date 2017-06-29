@@ -12,7 +12,7 @@ import { LoginProvider } from '../../providers/login/login';
  */
 @IonicPage({
   name: 'listarCategorias',
-  segment: 'adminCategorias/:categoriaId'
+  segment: 'categorias/:categoriaId'
 })
 @Component({
   selector: 'page-categorias',
@@ -25,15 +25,25 @@ export class CategoriasPage{
   constructor(public navCtrl: NavController,
               public data: LoginProvider, 
               public navParams: NavParams) {
-                this.obtenerCategorias(null);
+                
   }
 
   ionViewDidLoad() {
     this.postId = this.navParams.get('categoriaId');
+    if(isNaN(this.postId)){
+      this.obtenerCategorias(null);
+      console.log('no es un numero');
+    }else{
+      this.obtenerCategorias(this.postId);
+    }
   }
 
   obtenerCategorias(categoriaId: number){
     this.categorias = this.data.obtenerCategorias(categoriaId);
+  }
+
+  listar(id: number){
+    this.navCtrl.push('listarCategorias',{categoriaId: id});
   }
 
 }
