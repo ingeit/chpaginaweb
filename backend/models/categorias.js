@@ -14,4 +14,16 @@ exports.getCategorias = function(id, fn){
                 if (err) fn (err);  
                 fn(rows[0]); 
             });
+}
+
+
+exports.getCategoriasConPath = function(id, fn){
+    this.getCategorias(id, function(consulta1){
+        console.log('el id es: ',id);
+        console.log('la consulta es: ',consulta1);
+        connection.query('call categoria_listarAnsestros('+id+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0],consulta1); 
+        });
+    });
 } 

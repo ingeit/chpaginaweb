@@ -8,7 +8,9 @@ exports.getCategorias = function(req, res, next){
     }else{
         console.log('la categoria es:',id);
     }
-    categorias.getCategorias(id,function(consulta){
+    categorias.getCategoriasConPath(id,function(consulta){
         res.json(consulta);
     });
 }
+
+
