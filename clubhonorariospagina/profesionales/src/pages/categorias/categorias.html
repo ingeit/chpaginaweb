@@ -19,13 +19,24 @@
       <ion-icon name="add"></ion-icon>
       Agregar
     </button>
-    <p float-left   style="left: 14px;
-    position: relative;"  > {{root}} </p>
+    <div style="width: 80%;" float-left >
+      <p style="display: inline-block;">
+        <a (click)="home()"  style="left: 14px;cursor:pointer;text-decoration: underline;
+        position: relative;    margin-right: 11px;"  > Home </a>
+      </p>
+      <p style="display: inline-block; margin-left: 4px;" *ngFor="let c of root;let last = last">
+         - 
+        <a *ngIf="!last" (click)="listar(c.idCategoria)" style="cursor:pointer;text-decoration: underline;">
+            {{c.nombre}}
+        </a> 
+        <span *ngIf="last" style="font-weight: 900;">{{c.nombre | uppercase}}</span>
+      </p> 
+    </div>
   </div>
     
     <ion-content padding style="max-height:400px;">
       <ion-list>
-        <button ion-item *ngFor="let c of categorias | async" (click)="listar(c.codigo)">
+        <button ion-item *ngFor="let c of categorias" (click)="listar(c.codigo)">
           {{c.codigo}} - {{c.nombre}}
         </button>  
       </ion-list>

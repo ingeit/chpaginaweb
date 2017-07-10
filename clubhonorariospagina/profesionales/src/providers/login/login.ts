@@ -47,15 +47,23 @@ export class LoginProvider {
   //   return this.http.get(`${configServer.data.urlServidor}/${this.categorias}`).map(res => res.json()).take(1);
   // }
   
-  obtenerCategorias(id:number){
-    let url;
-    if(id){
-      url = `${configServer.data.urlServidor}/api/listarCategorias/${id}`
-    }else{
-      url = `${configServer.data.urlServidor}/api/listarCategorias/`
-    }
-    console.log(url);
-    return this.http.get(url).map(res => res.json()).take(1);
+  public obtenerCategorias(id:number){
+    return new Promise((resolve, reject) => {
+      let url;
+      if(id){
+        url = `${configServer.data.urlServidor}/api/listarCategorias/${id}`
+      }else{
+        url = `${configServer.data.urlServidor}/api/listarCategorias/`
+      }
+        this.http.get(url).map(res => res.json())
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+ 
+    });
+    //return this.http.get(url).map(res => res.json());
   }
 
 }

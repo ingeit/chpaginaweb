@@ -20,8 +20,9 @@ import { LoginProvider } from '../../providers/login/login';
 })
 export class CategoriasPage{
   postId: number;
-  categorias: Observable <Array<Categorias>>;
-  root:string = 'Home/';
+  categorias: any;
+  respuesta:any;
+  root:any;
 
   constructor(public navCtrl: NavController,
               public data: LoginProvider, 
@@ -33,18 +34,25 @@ export class CategoriasPage{
     this.postId = this.navParams.get('categoriaId');
     if(isNaN(this.postId)){
       this.obtenerCategorias(null);
-      console.log('no es un numero');
     }else{
       this.obtenerCategorias(this.postId);
     }
   }
 
   obtenerCategorias(categoriaId: number){
-    this.categorias = this.data.obtenerCategorias(categoriaId);
+    this.data.obtenerCategorias(categoriaId).then((data)=>{
+      this.respuesta = data;
+      this.categorias = this.respuesta.subCategorias;
+      this.root = this.respuesta.ansestros;
+    });
   }
 
   listar(id: number){
-    this.navCtrl.push('listarCategorias',{categoriaId: id});
+    this.navCtrl.setRoot('listarCategorias',{categoriaId: id});
+  }
+
+  home(){
+    this.navCtrl.setRoot('listarCategorias',{categoriaId: 'all'});
   }
 
 }
