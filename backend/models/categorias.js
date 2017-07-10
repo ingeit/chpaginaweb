@@ -20,10 +20,15 @@ exports.getCategorias = function(id, fn){
 exports.getCategoriasConPath = function(id, fn){
     this.getCategorias(id, function(consulta1){
         console.log('el id es: ',id);
-        console.log('la consulta es: ',consulta1);
         connection.query('call categoria_listarAnsestros('+id+')', function(err, rows){  
                 if (err) fn (err);  
-                fn(rows[0],consulta1); 
+                console.log('la consulta es: ',consulta1);
+                console.log('la segunda consulta es: ',rows[0]);
+                let resp = {
+                'subCategorias'  : consulta1,
+                'ansestros': rows[0]
+                };
+                fn(resp); 
         });
     });
 } 
