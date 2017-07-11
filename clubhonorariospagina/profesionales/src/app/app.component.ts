@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 
@@ -14,11 +14,14 @@ import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = 'listarCategorias'; 
+  rootPage: any; 
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, 
+              public statusBar: StatusBar,
+              public storage: Storage,
+              public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -31,12 +34,34 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-    });
+
+      this.storage.get('token').then((token) => {
+         console.log('token is', token);
+         if(token === ''){
+           this.rootPage = HomePage;
+         }else{
+           this.storage.get('rol').then((rol) => {
+             console.log('el usario tiene el rol de',rol);
+              // if(rol === 'usuario'){
+              //   this.menu.enable(false,'admin');
+              //   this.menu.enable(true,'user');
+              // }else{
+              //     this.menu.enable(true,'admin');
+              //     this.menu.enable(false,'user');
+              // }
+              this.rootPage = NuevoprofesionalPage;
+           });
+         }
+       }).catch((err)=>{ 
+            console.log(err);
+       });
+
+     });
+    
   }
+
 
   openPage(page) {
     // Reset the content nav to have just this page

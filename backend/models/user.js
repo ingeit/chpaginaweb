@@ -14,4 +14,13 @@ exports.login = function(usuario, contrasenia, fn){
                 if (err) fn (err);  
                 fn(rows[0]); 
             });
-} 
+}
+
+// exports.login = function(usuario,fn){
+//     connection.query('call usuario_ingresar('+usuario+')', function(err, rows){  
+//                 if (err) fn (err);  
+//                 fn(rows[0]); 
+//             });
+// } 
+
+

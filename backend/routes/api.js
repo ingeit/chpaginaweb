@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var LoginController = require('./../controllers/login'); 
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
 
-router.post('/login', LoginController.login);
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 
 module.exports = router; 

@@ -6,18 +6,14 @@ import 'rxjs/add/operator/take'
 import { Observable } from "rxjs/Observable";
 import { Categorias } from '../../modelos/categoria.interface';
 
-/*
-  Generated class for the LoginProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class LoginProvider {
 
   constructor(public http: Http) {
-    console.log('Hello LoginProvider Provider');
+
   }
+
+  
 
   public login(credentials){
  
@@ -42,6 +38,7 @@ export class LoginProvider {
     });
  
   }
+
 
   // obtenerCategorias(){
   //   return this.http.get(`${configServer.data.urlServidor}/${this.categorias}`).map(res => res.json()).take(1);
