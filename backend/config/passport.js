@@ -12,11 +12,8 @@ var localLogin = new LocalStrategy(
     process.nextTick(function () {
         var user = '"'+username+'"';
         var pass = '"'+password+'"';
-        console.log(user);
-        console.log(pass);
         User.login(user,pass, function(response) {
             var respuesta = response[0];
-            console.log(respuesta);
             if(respuesta.codigo != 0){
                 return done(null, username);
             }else{

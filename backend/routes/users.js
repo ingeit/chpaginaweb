@@ -1,7 +1,10 @@
 var express = require('express');
-var LoginController = require('./../controllers/login'); 
+var LoginController = require('./../controllers/login');
+// Llamo a toda la configuracion de Passport.
 var passportService = require('./../config/passport');
+// Llamo a Passport 
 var passport = require('passport');
+// Creo una instancia de Rutas.
 var authRoutes = express.Router();
 
 var requireAuth = passport.authenticate('jwt', {session: false}),

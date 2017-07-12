@@ -16,4 +16,11 @@ exports.login = function(usuario, contrasenia, fn){
             });
 }
 
+exports.buscarPorUsername = function(usuario, fn){
+    connection.query('call usuario_buscarPorUsername('+usuario+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}
+
 
