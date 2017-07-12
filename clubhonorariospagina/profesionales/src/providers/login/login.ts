@@ -5,11 +5,13 @@ import * as configServer from './../../server'
 import 'rxjs/add/operator/take'
 import { Observable } from "rxjs/Observable";
 import { Categorias } from '../../modelos/categoria.interface';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class LoginProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: Http,
+              public storage: Storage) {
 
   }
 
@@ -22,14 +24,12 @@ export class LoginProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         
-        this.http.post(configServer.data.urlServidor+'/api/login', JSON.stringify(credentials), {headers: headers})
+        this.http.post(configServer.data.urlServidor+'/auth/login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
             let data = res.json();
-            data = data[0];
-            // this.token = data.token;
-            // this.storage.set('token', data.token);
-            // this.storage.set('idUsuario', data.user._id);
-            // this.storage.set('rol', data.user.rol);
+            this.storage.set('token', data.token);
+            this.storage.set('idUsuario', data.user._id);
+            this.storage.set('rol', data.user.rol);
             resolve(data);
           }, (err) => {
             reject(err);
@@ -39,6 +39,14 @@ export class LoginProvider {
  
   }
 
+  logout(){
+    return new Promise((resolve, reject) => {
+      this.storage.set('token', '');
+      this.storage.set('idUsuario', '');
+      this.storage.set('rol', '');
+      resolve(42);
+    });
+  }
 
   // obtenerCategorias(){
   //   return this.http.get(`${configServer.data.urlServidor}/${this.categorias}`).map(res => res.json()).take(1);

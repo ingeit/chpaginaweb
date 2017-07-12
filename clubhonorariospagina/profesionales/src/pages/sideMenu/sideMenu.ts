@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { LoginProvider } from './../../providers/login/login';
+import { HomePage } from './../../pages/home/home';
+
 
 @Component({
   selector: 'page-sideMenu',
@@ -10,7 +13,9 @@ export class SideMenu {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public loginProviderCtrl:LoginProvider,
+              public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -34,4 +39,15 @@ export class SideMenu {
       item: item
     });
   }
+
+  public logout(){
+      console.log('saliendo logout');
+      this.loginProviderCtrl.logout().then(()=>{
+      console.log('listo borrado, dirijiendo al login');
+      this.navCtrl.setRoot(HomePage);
+      });
+  }
+
+
+
 }

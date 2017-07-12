@@ -8,6 +8,7 @@ exports.login = function(req, res, next){
         var userInfo = setUserInfo(user[0]);
         res.status(200).json({
             token: 'JWT ' + generateToken(userInfo),
+            codigo: userInfo._id,
             user: userInfo
         });
     });

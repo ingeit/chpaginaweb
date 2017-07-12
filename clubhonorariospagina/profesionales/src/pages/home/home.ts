@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
 import { NuevoprofesionalPage } from '../nuevoprofesional/nuevoprofesional';
+
+
 
 @Component({
   selector: 'page-home',
@@ -18,6 +20,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               public loginProviderCtrl:LoginProvider,
+              public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder) {
 
@@ -46,26 +49,32 @@ export class HomePage {
         this.loginProviderCtrl.login(details).then((result) => {
           this.loading.dismiss();
           this.respuesta = result;
-          if(this.respuesta.codigo === 0){
-            console.log(this.respuesta.mensaje);
-          }else{
-            console.log(this.respuesta.mensaje);
+          if(this.respuesta.codigo === 1){
             this.navCtrl.setRoot(NuevoprofesionalPage);
           }
         }, (err) => {
             this.loading.dismiss();
+            this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
         });    
       }
   }
 
   showLoader(){
- 
     this.loading = this.loadingCtrl.create({
       content: 'Ingresando...'
     });
- 
     this.loading.present();
- 
   }
+
+  mostrarAlerta(titulo,mensaje) {
+    let alert = this.alertCtrl.create({
+    title: titulo,
+    subTitle: mensaje,
+    buttons: ['ACEPTAR']
+    });
+    alert.present();
+  }
+
+
 
 }
