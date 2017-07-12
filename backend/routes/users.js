@@ -1,7 +1,8 @@
 var express = require('express');
+var LoginController = require('./../controllers/login'); 
+var passportService = require('./../config/passport');
 var passport = require('passport');
 var authRoutes = express.Router();
-var LoginController = require('./../controllers/login'); 
 
 var requireAuth = passport.authenticate('jwt', {session: false}),
     requireLogin = passport.authenticate('local', {session: false});
@@ -11,8 +12,8 @@ authRoutes.use('/auth', authRoutes);
 
 authRoutes.post('/login', requireLogin, LoginController.login);
 
-// authRoutes.get('/login', function(req, res, next) {
-//   res.send('todo bien ');
+// authRoutes.post('/login', function(req, res, next) {
+//   res.send(req.body.username);
 // });
 
 module.exports = authRoutes;
