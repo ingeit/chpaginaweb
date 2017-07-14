@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginProvider } from './../../providers/login/login';
 import { HomePage } from './../../pages/home/home';
@@ -12,6 +12,7 @@ export class SideMenu {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
+  @Input() altura;
 
   constructor(public navCtrl: NavController,
               public loginProviderCtrl:LoginProvider,

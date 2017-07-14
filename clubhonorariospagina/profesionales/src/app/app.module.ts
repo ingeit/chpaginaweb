@@ -10,11 +10,12 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional';
-
+import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 
 // Providers
 import { Storage } from '@ionic/storage';
 import { LoginProvider } from '../providers/login/login';
+import { OperacionesProvider } from '../providers/operaciones/operaciones';
 
 
 
@@ -23,6 +24,7 @@ import { LoginProvider } from '../providers/login/login';
     MyApp,
     HomePage,
     NuevoprofesionalPage,
+    ListaOperacionesPage,
     SideMenu
   ],
   imports: [
@@ -35,6 +37,7 @@ import { LoginProvider } from '../providers/login/login';
     MyApp,
     HomePage,
     NuevoprofesionalPage,
+    ListaOperacionesPage,
     SideMenu
   ],
   providers: [
@@ -42,7 +45,8 @@ import { LoginProvider } from '../providers/login/login';
     SplashScreen,
     Storage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LoginProvider
+    LoginProvider,
+    OperacionesProvider
   ]
 })
 export class AppModule {}

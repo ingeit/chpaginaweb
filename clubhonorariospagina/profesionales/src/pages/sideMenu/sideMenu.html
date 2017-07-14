@@ -228,7 +228,7 @@
         </nav>
 
 
-<nav class="navbar-m2p sidebar" role="navigation">
+<nav class="navbar-m2p sidebar" [style.height.px]="this.altura" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <!--<div class="navbar-header">
@@ -244,13 +244,13 @@
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <!-- Dashboard -->
-                <li class="active open">
+                <!-- <li class="active open">
                   <a href="#">
                       <span class="pull-right hidden-xs showopacity glyphicon material-icons">av_timer</span> Dashboard
                   </a>
-                </li>
+                </li> -->
                 <!-- Banner -->
-                <li class="">
+                <!-- <li class="">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="menu-icon pull-right hidden-xs showopacity glyphicon material-icons">burst_mode</span>
                         Profesional <span class="caret"></span>
@@ -259,19 +259,19 @@
                         <li><a href="#"><i class="material-icons">add</i> Agregar</a></li>
                         <li><a href="#"><i class="material-icons">sort</i> Listar</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="separator">Administrar</li>
                 <!-- Page -->
-                <li class="">
+                 <li class="">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="menu-icon pull-right hidden-xs showopacity glyphicon material-icons">description</span>
-                        Categorias <span class="caret"></span>
+                        Operaciones <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu forAnimate" role="menu">
-                        <li><a href="#"><i class="material-icons">add</i> Agregar</a></li>
                         <li><a href="#"><i class="material-icons">sort</i> Listar</a></li>
+                        <li><a href="#"><i class="material-icons">launch</i> Exportar</a></li>
                     </ul>
-                </li>
+                </li> 
                 <!-- Blog -->
                 <!--<li class="">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -294,9 +294,9 @@
                         <li><a href="#"> <i class="material-icons">sort</i> sideMenu</a></li>
                     </ul>
                 </li>-->
-                <li class="separator">Sistema</li>
+                <!-- <li class="separator">Sistema</li> -->
                 <!-- Users -->
-                <li class="#">
+                <!-- <li class="#">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="menu-icon pull-right hidden-xs showopacity glyphicon material-icons">group</span>
                         Usuario <span class="caret"></span>
@@ -305,7 +305,7 @@
                         <li><a href="#"><i class="material-icons">add</i> Agregar</a></li>
                         <li><a href="#"><i class="material-icons">sort</i> Listar</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- Exit -->
                 <li>
                     <a (click)="logout()" >

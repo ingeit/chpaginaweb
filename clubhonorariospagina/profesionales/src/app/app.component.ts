@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
-
+import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional';
 
 @Component({
@@ -51,7 +51,7 @@ export class MyApp {
               //     this.menu.enable(true,'admin');
               //     this.menu.enable(false,'user');
               // }
-              this.rootPage = NuevoprofesionalPage;
+              this.rootPage = ListaOperacionesPage;
            });
          }
        }).catch((err)=>{ 
