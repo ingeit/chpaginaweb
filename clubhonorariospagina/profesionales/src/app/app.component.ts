@@ -16,7 +16,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any; 
-
+  mostrar = false;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, 
@@ -70,8 +70,12 @@ export class MyApp {
     this.loginProviderCtrl.logout().then(()=>{
     console.log('listo borrado, dirijiendo al login');
     this.menu.enable(false);
-    this.rootPage = HomePage;
+    this.nav.setRoot(HomePage) ;
     });
+  }
+
+  public mostrarElementos(){
+    this.mostrar = !this.mostrar;
   }
 
 }

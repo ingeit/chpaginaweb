@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
+var OperacionController = require('./../controllers/operacionController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
+router.get('/listarOperaciones', OperacionController.getOperaciones);
 
 module.exports = router; 
  

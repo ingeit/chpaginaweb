@@ -8,18 +8,26 @@
 
     <ion-content class="menuStyle">
       <ion-list>
-        <button menuClose ion-item>
-          Listar Operaciones
-          <ion-icon name="list" float-right></ion-icon>
+        <ion-list-header (click)="mostrarElementos()" class="item list-header">
+          OPERACIONES
+          <ion-icon name="card" float-left></ion-icon>
+        </ion-list-header>
+        <button *ngIf="mostrar" menuClose ion-item>
+          Listar
+          <ion-icon name="list" float-left></ion-icon>
         </button>
-        <button menuClose ion-item>
-          Exportar Operaciones
-          <ion-icon name="redo" float-right></ion-icon>
+        <button *ngIf="mostrar" menuClose ion-item>
+          Exportar
+          <ion-icon name="redo" float-left></ion-icon>
         </button>
-        <button menuClose ion-item (click)="logout()">
+        <ion-list-header  (click)="logout()" class="item list-header">
+          SALIR
+          <ion-icon name="exit" float-left></ion-icon>
+        </ion-list-header>
+        <!-- <button menuClose ion-item >
           Salir
-          <ion-icon name="exit" float-right></ion-icon>
-        </button>
+          
+        </button> -->
       </ion-list>
     </ion-content>
 

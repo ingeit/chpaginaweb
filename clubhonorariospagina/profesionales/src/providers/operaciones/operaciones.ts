@@ -13,7 +13,7 @@ export class OperacionesProvider {
 
   obtenerOperaciones(){
     return new Promise((resolve, reject) => {
-        this.http.get('https://jsonplaceholder.typicode.com/todos').map(res => res.json())
+        this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`).map(res => res.json())
         .subscribe(res => {
           resolve(res);
         }, (err) => {

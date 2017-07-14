@@ -9,13 +9,13 @@
 
 
 
-<ion-content style="margin-top: 10px;">
+<ion-content>
       <ion-card *ngFor="let o of Operaciones">
         <ion-card-header>
-          {{o.id}}
+          {{o.idOperacion}}
         </ion-card-header>
         <ion-card-content>
-          The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+          {{o.dniProfesional}}
         </ion-card-content>
       </ion-card>
 </ion-content>

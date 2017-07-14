@@ -5,16 +5,18 @@
             <img id="profile-img" class="profile-img-card" src="http://clubhonorarios.com/img/logo/logo-max.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form [formGroup]="login" method="post" class="form-signin" id="myform" name="login">
-                <span id="reauth-email" class="reauth-email"></span>
-                <div class="form-group" >
-                    <input  formControlName="username" type="text" class="form-control" name="user" placeholder="Usario" id="user" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)">
-                    <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.username.valid  && (login.controls.username.touched || submitAttempt)">Por Favor Ingrese un Usuario</p>
-                </div>
-                <div class="form-group">
-                    <input formControlName="password" type="password" class="form-control" name="password" placeholder="Contraseña" id="password" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)">
-                     <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.password.valid  && (login.controls.password.touched || submitAttempt)">Por Favor Ingrese el Password</p>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="ingresar()" type="submit">Ingresar</button>
+                <ion-item>
+                    <ion-label>Usuario</ion-label>
+                    <ion-input type="text" formControlName="username" name="user" id="user" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)"></ion-input>
+                </ion-item>
+                <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.username.valid  && (login.controls.username.touched || submitAttempt)">Por Favor Ingrese un Usuario</p>
+                <ion-item>
+                    <ion-label>Contraseña</ion-label>
+                    <ion-input formControlName="password" type="password" class="form-control" name="password" id="password" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)"></ion-input>
+                </ion-item>
+                <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.password.valid  && (login.controls.password.touched || submitAttempt)">Por Favor Ingrese el Password</p>
+                
+                <button style="margin-top: 20px;" ion-button type="submit" (click)="ingresar()">Ingresar</button>
             </form><!-- /form -->
         </div><!-- /card-container -->
     </div>
