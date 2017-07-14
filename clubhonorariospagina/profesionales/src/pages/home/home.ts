@@ -3,7 +3,7 @@ import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
 import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
-
+import { MenuController } from 'ionic-angular';
 
 
 @Component({
@@ -21,6 +21,7 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               public loginProviderCtrl:LoginProvider,
               public alertCtrl: AlertController,
+              private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder) {
 
@@ -50,6 +51,7 @@ export class HomePage {
           this.loading.dismiss();
           this.respuesta = result;
           if(this.respuesta.codigo === 1){
+            this.menu.enable(true);
             this.navCtrl.setRoot(ListaOperacionesPage);
           }
         }, (err) => {

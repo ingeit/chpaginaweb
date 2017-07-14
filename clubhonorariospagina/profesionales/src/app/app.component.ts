@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
+import { MenuController } from 'ionic-angular';
+import { LoginProvider } from './../providers/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,19 +21,21 @@ export class MyApp {
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar,
+              public loginProviderCtrl:LoginProvider,
               public storage: Storage,
+              private menu: MenuController,
               public splashScreen: SplashScreen) {
-    this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-    ];
-
+                this.initializeApp();
+                
+                // used for an example of ngFor and navigation
+                this.pages = [
+                  { title: 'Home', component: HomePage },
+                ];
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.menu.enable(false);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
@@ -42,13 +46,7 @@ export class MyApp {
          }else{
            this.storage.get('rol').then((rol) => {
              console.log('el usario tiene el rol de',rol);
-              // if(rol === 'usuario'){
-              //   this.menu.enable(false,'admin');
-              //   this.menu.enable(true,'user');
-              // }else{
-              //     this.menu.enable(true,'admin');
-              //     this.menu.enable(false,'user');
-              // }
+              this.menu.enable(true);
               this.rootPage = ListaOperacionesPage;
            });
          }
@@ -66,4 +64,14 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  public logout(){
+    console.log('saliendo logout');
+    this.loginProviderCtrl.logout().then(()=>{
+    console.log('listo borrado, dirijiendo al login');
+    this.menu.enable(false);
+    this.rootPage = HomePage;
+    });
+  }
+
 }

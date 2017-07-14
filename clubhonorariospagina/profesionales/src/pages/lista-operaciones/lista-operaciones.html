@@ -1,14 +1,15 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Operaciones</ion-title>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+     <ion-title><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 
-<ion-content>
+<ion-content style="margin-top: 10px;">
       <ion-card *ngFor="let o of Operaciones">
         <ion-card-header>
           {{o.id}}

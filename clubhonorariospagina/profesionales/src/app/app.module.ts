@@ -28,7 +28,15 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      backButtonText: 'Ir Atras',
+      mode: "md",
+      iconMode: 'md',
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      tabsPlacement: 'bottom',
+      pageTransition: 'md-transition'
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

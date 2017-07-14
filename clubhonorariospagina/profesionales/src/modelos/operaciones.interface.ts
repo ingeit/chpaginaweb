@@ -9,7 +9,7 @@ export interface Operaciones{
     dniCliente:string;
     apellidoCliente:string;
     nombreCliente:string;
-    telefonoCliente:number;
+    telefonoCliente:string;
     mailCliente:string;
     tarjeta:string;
     importeVenta:number;
