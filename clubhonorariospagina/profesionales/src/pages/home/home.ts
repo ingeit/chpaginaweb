@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
-import { NuevoprofesionalPage } from '../nuevoprofesional/nuevoprofesional';
+import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
 
 
 
@@ -50,7 +50,7 @@ export class HomePage {
           this.loading.dismiss();
           this.respuesta = result;
           if(this.respuesta.codigo === 1){
-            this.navCtrl.setRoot(NuevoprofesionalPage);
+            this.navCtrl.setRoot(ListaOperacionesPage);
           }
         }, (err) => {
             this.loading.dismiss();

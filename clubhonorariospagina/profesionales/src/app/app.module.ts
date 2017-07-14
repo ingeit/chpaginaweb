@@ -9,7 +9,6 @@ import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
-import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 
 // Providers
@@ -23,7 +22,6 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   declarations: [
     MyApp,
     HomePage,
-    NuevoprofesionalPage,
     ListaOperacionesPage,
     SideMenu
   ],
@@ -36,7 +34,6 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   entryComponents: [
     MyApp,
     HomePage,
-    NuevoprofesionalPage,
     ListaOperacionesPage,
     SideMenu
   ],

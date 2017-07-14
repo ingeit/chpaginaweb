@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
-import { NuevoprofesionalPage } from '../pages/nuevoprofesional/nuevoprofesional';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +26,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'sideMenu', component: SideMenu }
     ];
 
   }

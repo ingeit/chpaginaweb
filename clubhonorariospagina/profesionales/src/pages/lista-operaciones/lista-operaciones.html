@@ -1,9 +1,14 @@
-<ion-content>
-  <page-sideMenu [altura]="altura"> </page-sideMenu>
+<ion-header>
 
-  <div #contenedor class="row main">
-		<div class="main-center">
-      <a (click)="consutlarAlto()">test</a>
+  <ion-navbar>
+    <ion-title>Operaciones</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content>
       <ion-card *ngFor="let o of Operaciones">
         <ion-card-header>
           {{o.id}}
@@ -12,10 +17,4 @@
           The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
         </ion-card-content>
       </ion-card>
-      
-
-      
-    </div>
-  </div>
-  
 </ion-content>

@@ -25,27 +25,12 @@ export class ListaOperacionesPage {
   ionViewDidLoad() {
     this.obtenerOperaciones();
   }
-
-  // ngAfterViewChecked() {
-  //   if(this.contenedor.nativeElement.offsetHeight > 40){
-  //     console.log('es mayor');
-  //       if(this.altura != (this.contenedor.nativeElement.offsetHeight + 50)){
-  //         console.log('entro');
-  //         this.altura = this.contenedor.nativeElement.offsetHeight + 50;
-  //         console.log(this.altura);
-  //       }
-  //   }
-  // }
-
+  
   obtenerOperaciones(){
     this.data.obtenerOperaciones().then((data)=>{
       this.Operaciones = data;
     });
   }
 
-  consutlarAlto(){
-    
-    
-  }
 
 }
