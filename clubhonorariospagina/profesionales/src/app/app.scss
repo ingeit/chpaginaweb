@@ -48,10 +48,27 @@
     border-bottom: 0px solid !important;
 } 
 
-    
+ion-nav .scroll-content{
+    display: block;
+    margin: 0 auto;
+    padding: 20px 40px;
+}
 
 @media (min-width: 768px) { 
-  ion-menu {
-      max-width: 250px!important;
-  }
+    ion-menu {
+        max-width: 250px!important;
+        margin-left: -198px;
+    }
+
+    ion-menu ion-title {
+        display: none;
+    }
+
+    ion-menu:hover {
+        margin-left: 0px;
+    }
+
+    ion-menu:hover ion-title {
+      display: block;
+    }
 }
