@@ -13,12 +13,6 @@
   <div class="soporte-mesa-header">
     <div class="container-content">
       <h4>Filtra por fecha</h4>
-         <!-- <form>
-          <div class="input-icon-container">
-            <input class="campoFiltro" type="text" placeholder="Buscar..">
-            <ion-icon name="search"></ion-icon>
-          </div>
-        </form>  -->
       <ion-row class="input-icon-container">
         <ion-col >
           <ion-item class="campoFiltro" >
@@ -42,35 +36,39 @@
   </div> 
   <div class="contenedor">
     <h3>Mis Operaciones</h3>
-    <ion-card *ngFor="let o of Operaciones">
-      <ion-card-header>
-        {{o.apellidoProfesional}} {{o.nombreProfesional}} | {{o.dniProfesional}}
-      </ion-card-header>
-      <ion-card-content>
-        {{o.tarjeta}} | {{o.codigoAuto}} | {{o.fechaTransaccion | date:'dd/MM/yy hh:mm a'}}
-    </ion-card-content>
+    <div *ngIf="mostrarTarjetas">
+      <ion-card  *ngFor="let o of Operaciones">
+        <ion-card-header>
+          {{o.apellidoProfesional}} {{o.nombreProfesional}} - {{o.dniProfesional}}
+        </ion-card-header>
+        <ion-card-content>
+          {{o.tarjeta}} - {{o.codigoAuto}} - {{o.fechaTransaccion | date:'dd/MM/yy hh:mm a'}}
+        </ion-card-content>
 
-    <ion-row class="row" no-padding="">
-      <ion-col class="col">
-        <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
-        <ion-icon name="cart"></ion-icon>
-        $ {{o.importeVenta}}
-        </span><div class="button-effect"></div></button>
-      </ion-col>
-      <ion-col class="col" text-center="">
-        <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
-        <ion-icon name="cash"></ion-icon>
-        $ {{o.importeCarga}}
-        </span><div class="button-effect"></div></button>
-      </ion-col>
-      <ion-col class="col" text-right="">
-        <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
-        <ion-icon name="share-alt" role="img" class="icon icon-md ion-md-share-alt" aria-label="share alt"></ion-icon>
-          Ver
-        </span><div class="button-effect"></div></button>
-      </ion-col>
-    </ion-row>
-
-    </ion-card>
+        <ion-row class="row" no-padding="">
+          <ion-col class="col">
+            <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
+            <ion-icon name="cart"></ion-icon>
+            $ {{o.importeVenta}}
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+          <ion-col class="col" text-center="">
+            <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
+            <ion-icon name="cash"></ion-icon>
+            $ {{o.importeCarga}}
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+          <ion-col class="col" text-right="">
+            <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
+            <ion-icon name="share-alt" role="img" class="icon icon-md ion-md-share-alt" aria-label="share alt"></ion-icon>
+              Ver
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+    <div *ngIf="!mostrarTarjetas">
+      <h3> No se encontraron Operaciones</h3>
+    </div>
   </div>
 </ion-content>

@@ -31,7 +31,6 @@ export class OperacionesProvider {
         this.http.post(`${configServer.data.urlServidor}/api/listarOperacionesPorFecha/`, JSON.stringify(credentials), {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
-          console.log(res);
           resolve(res);
         }, (err) => {
           reject(err);
