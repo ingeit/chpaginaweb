@@ -6,4 +6,12 @@ exports.getOperaciones = function(req, res, next){
     });
 }
 
+exports.getOperacionesPorFecha = function(req, res, next){
+    var fechaInicio = '"'+req.body.fechaInicio+'"';
+    var fechaFin = '"'+req.body.fechaFin+'"';
+    
+    operacion.getOperacionesPorFecha(fechaInicio,fechaFin,function(consulta){
+        res.json(consulta);
+    });
+}
 

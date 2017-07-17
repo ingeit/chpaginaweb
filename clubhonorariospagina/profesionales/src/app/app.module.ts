@@ -35,7 +35,8 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
       modalEnter: 'modal-slide-in',
       modalLeave: 'modal-slide-out',
       tabsPlacement: 'bottom',
-      pageTransition: 'md-transition'
+      pageTransition: 'md-transition',
+      monthShortNames: ['Ene', 'Feb', 'Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
     }),
   ],
   bootstrap: [IonicApp],

@@ -15,3 +15,10 @@ exports.getOperaciones = function(fn){
                 fn(rows[0]); 
             });
 }
+
+exports.getOperacionesPorFecha = function(fechaInicio,fechaFin,fn){
+    connection.query('call operacion_listar_rango('+fechaInicio+','+fechaFin+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}

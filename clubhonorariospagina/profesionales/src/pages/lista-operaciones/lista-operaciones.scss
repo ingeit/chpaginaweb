@@ -37,12 +37,12 @@ page-lista-operaciones {
         margin: 0 auto;
     }
 
-    .soporte-mesa-header input {
+    .soporte-mesa-header .campoFiltro {
         border: 1px solid #B0BFC6;
         color: #B0BFC6;
         border-radius: 3px;
         background-color: rgba(0,0,0,0.15);
-        padding: 15px 25px;
+        padding: 5px 10px;
         font-size: 20px;
         height: inherit;
         box-sizing: border-box;
@@ -69,4 +69,9 @@ page-lista-operaciones {
     .col ion-icon{
         margin-right: 8px;
     }
+
+    ion-card-content{
+        color: #868686 !important;
+    }
+    
 }
