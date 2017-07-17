@@ -2,7 +2,7 @@
   <ion-menu [content]="content">
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title><img class="titleMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
+        <!-- <ion-title><img class="titleMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title> -->
       </ion-toolbar>
     </ion-header>
 
@@ -10,19 +10,19 @@
       <ion-list>
         <ion-list-header (click)="mostrarElementos()" class="item list-header">
           OPERACIONES
-          <ion-icon name="card" float-left></ion-icon>
+          <ion-icon name="card" float-right></ion-icon>
         </ion-list-header>
         <button *ngIf="mostrar" menuClose ion-item>
           Listar
-          <ion-icon name="list" float-left></ion-icon>
+          <ion-icon name="list" float-right></ion-icon>
         </button>
         <button *ngIf="mostrar" menuClose ion-item>
           Exportar
-          <ion-icon name="redo" float-left></ion-icon>
+          <ion-icon name="redo" float-right></ion-icon>
         </button>
         <ion-list-header  (click)="logout()" class="item list-header">
           SALIR
-          <ion-icon name="exit" float-left></ion-icon>
+          <ion-icon name="exit" float-right></ion-icon>
         </ion-list-header>
         <!-- <button menuClose ion-item >
           Salir
