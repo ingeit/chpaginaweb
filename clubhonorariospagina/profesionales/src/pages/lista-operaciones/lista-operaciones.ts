@@ -17,6 +17,7 @@ export class ListaOperacionesPage {
   altura:any;
   fechaInicio:any;
   fechaFin:any;
+  mostrarTarjetas = false;
 
   constructor(public navCtrl: NavController,
               public data: OperacionesProvider,
@@ -33,7 +34,11 @@ export class ListaOperacionesPage {
   obtenerOperaciones(){
     this.data.obtenerOperaciones().then((data)=>{
       this.Operaciones = data;
-    });
+      console.log(this.Operaciones[0].codigo)
+      if(this.Operaciones[0].codigo != 0){
+          this.mostrarTarjetas = true;
+      }
+    }); 
   }
 
   filtrar(){
@@ -46,6 +51,11 @@ export class ListaOperacionesPage {
       this.data.obtenerOperacionesFiltrado(details).then((data)=>{
         this.loading.dismiss();
         this.Operaciones = data;
+        if(this.Operaciones[0].codigo != 0){
+          this.mostrarTarjetas = true;
+        }else{
+          this.mostrarTarjetas = false;
+        }
       });
     }else{
       this.mostrarAlerta('Error','Seleccione un rango de Fechas');
