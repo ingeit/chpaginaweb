@@ -20,6 +20,7 @@ export class FormularioWebPage {
   submitAttempt: boolean = false;
   loading:any;
   respuesta:any;
+  
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -28,11 +29,51 @@ export class FormularioWebPage {
               public formBuilder: FormBuilder) {
 
       this.login = formBuilder.group({
-        username: ['',Validators.compose([
+        fechaTransaccion: ['',Validators.compose([
           Validators.maxLength(30),
           Validators.minLength(5), 
           Validators.required])],
-        password: ['',Validators.compose([
+        fechaPago: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        dniProfesional: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        apellidoProfesional: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        nombreProfesional: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        mailProfesional: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        dniCliente: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        apellidoCliente: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        nombreCliente: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        telefonoCliente: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        mailCliente: ['',Validators.compose([
+          Validators.maxLength(30),
+          Validators.minLength(5), 
+          Validators.required])],
+        tarjeta: ['',Validators.compose([
           Validators.maxLength(30),
           Validators.minLength(5), 
           Validators.required])],
@@ -41,6 +82,10 @@ export class FormularioWebPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FormularioWebPage');
+  }
+
+  generar(){
+    console.log(this.login.value.tarjeta);
   }
 
 }
