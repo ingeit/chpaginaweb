@@ -4,6 +4,7 @@ import { SideMenu } from '../sideMenu/sideMenu';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { Operaciones } from '../../modelos/operaciones.interface';
 import { Observable } from 'rxjs/Observable';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @IonicPage()
 @Component({
@@ -22,7 +23,8 @@ export class ListaOperacionesPage {
   constructor(public navCtrl: NavController,
               public data: OperacionesProvider,
               public loadingCtrl: LoadingController,
-              public alertCtrl: AlertController, 
+              public alertCtrl: AlertController,
+              public iab: InAppBrowser,
               public navParams: NavParams) {
                 
   }
@@ -62,7 +64,11 @@ export class ListaOperacionesPage {
     }
   }
 
-   mostrarAlerta(titulo,mensaje) {
+  exportar(){
+    const browser = this.iab.create('http://localhost:3000/api/excel');
+  }
+
+  mostrarAlerta(titulo,mensaje) {
     let alert = this.alertCtrl.create({
     title: titulo,
     subTitle: mensaje,
@@ -77,6 +83,8 @@ export class ListaOperacionesPage {
     });
     this.loading.present();
   }
+
+  
 
 
 

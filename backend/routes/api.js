@@ -7,6 +7,7 @@ var OperacionController = require('./../controllers/operacionController');
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
+router.get('/excel', OperacionController.excel);
 
 module.exports = router; 
  

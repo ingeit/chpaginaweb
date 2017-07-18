@@ -34,8 +34,18 @@
       </ion-row>
     </div>  
   </div> 
+
   <div class="contenedor">
-    <h3>Mis Operaciones</h3>
+    
+    <ion-row>
+        <ion-col>
+          <h3>Mis Operaciones</h3>
+        </ion-col>
+        <ion-col>
+          <!-- <a href="localhost:3000/api/excel" target="_blank">exportar</a> -->
+           <button (click)="exportar()" ion-button color="letra"  outline>Exportar</button> 
+        </ion-col>
+      </ion-row>
     <div *ngIf="mostrarTarjetas">
       <ion-card  *ngFor="let o of Operaciones">
         <ion-card-header>
