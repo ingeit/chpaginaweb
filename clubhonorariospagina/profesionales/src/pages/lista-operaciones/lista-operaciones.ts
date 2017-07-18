@@ -26,6 +26,8 @@ export class ListaOperacionesPage {
               public alertCtrl: AlertController,
               public iab: InAppBrowser,
               public navParams: NavParams) {
+                this.fechaInicio = new Date().toISOString();
+                this.fechaFin = new Date().toISOString();
                 
   }
 
@@ -65,7 +67,13 @@ export class ListaOperacionesPage {
   }
 
   exportar(){
-    const browser = this.iab.create('http://localhost:3000/api/excel');
+    if(this.fechaInicio && this.fechaFin){
+      console.log(this.fechaFin);
+      const browser = this.iab.create('http://localhost:3000/api/excel/'+this.fechaInicio+'/'+this.fechaFin+'');
+    }else{
+      this.mostrarAlerta('Error','Seleccione un rango de Fechas');
+    }
+    
   }
 
   mostrarAlerta(titulo,mensaje) {
