@@ -6,12 +6,12 @@
             <p id="profile-name" class="profile-name-card"></p>
             <form [formGroup]="login" method="post" class="form-signin" id="myform" name="login">
                 <ion-item>
-                    <ion-label>Usuario</ion-label>
+                    <ion-label floating>Usuario</ion-label>
                     <ion-input type="text" formControlName="username" name="user" id="user" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)"></ion-input>
                 </ion-item>
                 <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.username.valid  && (login.controls.username.touched || submitAttempt)">Por Favor Ingrese un Usuario</p>
                 <ion-item>
-                    <ion-label>Contraseña</ion-label>
+                    <ion-label floating>Contraseña</ion-label>
                     <ion-input formControlName="password" type="password" class="form-control" name="password" id="password" [class.errorClubHonorarios]="!login.controls.username.valid && (login.controls.username.touched || submitAttempt)"></ion-input>
                 </ion-item>
                 <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!login.controls.password.valid  && (login.controls.password.touched || submitAttempt)">Por Favor Ingrese el Password</p>
