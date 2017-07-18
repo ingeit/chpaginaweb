@@ -9,6 +9,7 @@ router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
 router.get('/dameFechas', FormularioController.getFechas);
+router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 
 module.exports = router; 
  

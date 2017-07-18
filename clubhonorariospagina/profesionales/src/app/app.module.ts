@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule} from '@angular/http';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 //Pages
 import { MyApp } from './app.component';
@@ -49,6 +50,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     Storage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
