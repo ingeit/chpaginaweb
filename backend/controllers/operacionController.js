@@ -52,7 +52,7 @@ exports.excel = function(req, res, next){
 
         var result=nodeExcel.execute(conf);
         res.setHeader('Content-Type','application/vnd.openxmlformates');
-        res.setHeader("Content-Disposition","attachment;filename="+"todo.xlsx");
+        res.setHeader("Content-Disposition","attachment;filename="+"Operaciones.xlsx");
         res.end(result,'binary');
     });  
 }
