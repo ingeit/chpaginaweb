@@ -28,6 +28,21 @@ export class FormularioProvider {
           });
  
     });
-
   }
+
+  public dameComisiones(){
+    return new Promise((resolve, reject) => {
+      let url;
+      url = `${configServer.data.urlServidor}/api/dameComisiones`
+        this.http.get(url).map(res => res.json())
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+ 
+    });
+  }
+
+
 }

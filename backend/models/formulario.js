@@ -16,3 +16,10 @@ exports.getFechas = function(fn){
                 fn(rows[0]); 
             });
 }
+
+exports.getComisiones = function(fn){
+    connection.query('call dame_comisiones()', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}
