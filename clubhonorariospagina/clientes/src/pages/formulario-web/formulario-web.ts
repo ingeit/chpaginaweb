@@ -109,6 +109,7 @@ export class FormularioWebPage {
     }else{
         
     }
+    // importante.. ESTE CONFIRMAR VA DENTRO DEL ELSE para que no permita campos vacios.
     this.confirmar();
   }
 
