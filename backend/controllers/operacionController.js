@@ -1,4 +1,6 @@
 var operacion = require('./../models/operaciones');
+var fechas = require('./../models/operaciones');
+var comisiones = require('./../models/operaciones');
 
 exports.getOperaciones = function(req, res, next){
     operacion.getOperaciones(function(consulta){
@@ -10,6 +12,18 @@ exports.getOperacionesPorFecha = function(req, res, next){
     var fechaInicio = '"'+req.body.fechaInicio+'"';
     var fechaFin = '"'+req.body.fechaFin+'"';
     operacion.getOperacionesPorFecha(fechaInicio,fechaFin,function(consulta){
+        res.json(consulta);
+    });
+}
+
+exports.getFechas = function(req, res, next){
+    fechas.getFechas(function(consulta){
+        res.json(consulta);
+    });
+}
+
+exports.getComisiones = function(req, res, next){
+    comisiones.getComisiones(function(consulta){
         res.json(consulta);
     });
 }
