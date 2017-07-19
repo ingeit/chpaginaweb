@@ -37,3 +37,10 @@ exports.getComisiones = function(fn){
                 fn(rows[0]); 
             });
 }
+
+exports.operacionNueva = function(fechaInicio,fechaFin,fn){
+    connection.query('call operacion_listar_rango('+fechaInicio+','+fechaFin+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}
