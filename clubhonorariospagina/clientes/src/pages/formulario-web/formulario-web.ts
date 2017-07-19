@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController,AlertController } from 'ionic-angular';
+import { IonicPage,NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
-/**
- * Generated class for the FormularioWebPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+@IonicPage({
+  name: 'formulario',
+})
 
 @Component({
   selector: 'page-formulario-web',
