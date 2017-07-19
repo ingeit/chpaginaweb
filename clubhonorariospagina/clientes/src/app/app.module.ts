@@ -6,7 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-// import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
+import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
+import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario-web-paso2';
 import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
@@ -14,6 +15,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   declarations: [
     MyApp,
     HomePage,
+    FormularioWebPage,
+    FormularioWebPaso2Page
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
   entryComponents: [
     MyApp,
     HomePage,
+    FormularioWebPage,
+    FormularioWebPaso2Page
   ],
   providers: [
     StatusBar,
