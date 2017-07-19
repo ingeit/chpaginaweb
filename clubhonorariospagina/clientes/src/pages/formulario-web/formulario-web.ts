@@ -37,7 +37,33 @@ export class FormularioWebPage {
               public formularioProvider:FormularioProvider
           ) {
 
-      // 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
+      this.dameFechasyComisiones();
+
+      this.formulario = formBuilder.group({
+        dniProfesional: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
+        apellidoProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        nombreProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        mailProfesional: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(5),Validators.email, Validators.required])],
+        dniCliente: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
+        apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        telefonoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(5),Validators.pattern(/()\d/g),Validators.required])],
+        mailCliente: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(5),Validators.email, Validators.required])],
+        tarjeta: ['',Validators.compose([Validators.required])],
+        cuotas: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
+        importeVenta: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+        importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
+        importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+        importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+      });
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad FormularioWebPage');
+  }
+
+  dameFechasyComisiones(){
+          // 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
       this.showLoader('Consultando Hora en servidor');
       this.formularioProvider.dameFechas().then((result) => {
           console.log("consulta anidada 1 ");
@@ -74,82 +100,6 @@ export class FormularioWebPage {
             // this.loading.dismiss();
             // this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
         });
-
-          
-
-      this.formulario = formBuilder.group({
-        dniProfesional: ['',Validators.compose([
-          Validators.maxLength(11),
-          Validators.minLength(8),
-          Validators.pattern(/()\d/g),
-          Validators.required])],
-        apellidoProfesional: ['',Validators.compose([
-          Validators.maxLength(15),
-          Validators.minLength(1),
-          Validators.pattern(/()\w/g),
-          Validators.required])],
-        nombreProfesional: ['',Validators.compose([
-          Validators.maxLength(15),
-          Validators.minLength(1),
-          Validators.pattern(/()\w/g),
-          Validators.required])],
-        mailProfesional: ['',Validators.compose([
-          Validators.maxLength(30),
-          Validators.minLength(5),
-          Validators.email, 
-          Validators.required])],
-        dniCliente: ['',Validators.compose([
-          Validators.maxLength(11),
-          Validators.minLength(8),
-          Validators.pattern(/()\d/g),
-          Validators.required])],
-        apellidoCliente: ['',Validators.compose([
-           Validators.maxLength(15),
-          Validators.minLength(1),
-          Validators.pattern(/()\w/g),
-          Validators.required])],
-        nombreCliente: ['',Validators.compose([
-           Validators.maxLength(15),
-          Validators.minLength(1),
-          Validators.pattern(/()\w/g),
-          Validators.required])],
-        telefonoCliente: ['',Validators.compose([
-          Validators.maxLength(15),
-          Validators.minLength(5),
-          Validators.pattern(/()\d/g),
-          Validators.required])],
-        mailCliente: ['',Validators.compose([
-          Validators.maxLength(30),
-          Validators.minLength(5),
-          Validators.email, 
-          Validators.required])],
-        tarjeta: ['',Validators.compose([
-          Validators.required])],
-        cuotas: ['',Validators.compose([
-          Validators.maxLength(2),
-          Validators.minLength(1), 
-          Validators.required])],
-        importeVenta: ['',Validators.compose([
-          Validators.maxLength(30),
-          Validators.minLength(1), 
-          Validators.required])],
-        importeCobrar: ['',Validators.compose([
-          Validators.maxLength(30),
-          Validators.minLength(1),
-          Validators.required])],
-        importeCarga: ['',Validators.compose([
-           Validators.maxLength(30),
-          Validators.minLength(1), 
-          Validators.required])],
-        importeCuota: ['',Validators.compose([
-           Validators.maxLength(30),
-          Validators.minLength(1), 
-          Validators.required])],
-      });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FormularioWebPage');
   }
 
   generar(){
@@ -230,7 +180,7 @@ export class FormularioWebPage {
                 'Al finalizar la operacion en dicha pagina, debera copiar el codigo de autorizacion y numero de cupon '+
                 'facilitados en la operacion realizada. A continuacion, seleccione en la parte superior del navegador '+
                 'la pestaña del formulario de Club Honorarios, y debera pegar dichos codigos de la operacion en los campos '+
-                'correspondientes',
+                'correspondientes de manera inmediata y hacer clic en el boton "Enviar"',
 
 
       buttons: [
