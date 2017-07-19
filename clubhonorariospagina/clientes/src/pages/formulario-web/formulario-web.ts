@@ -132,8 +132,8 @@ export class FormularioWebPage {
         tarjeta: ['',Validators.compose([
           Validators.required])],
         cuotas: ['',Validators.compose([
-          Validators.maxLength(1),
-          Validators.minLength(2), 
+          Validators.maxLength(2),
+          Validators.minLength(1), 
           Validators.required])],
         importeVenta: ['',Validators.compose([
           Validators.maxLength(30),
@@ -159,23 +159,25 @@ export class FormularioWebPage {
   }
 
   generar(){
-    this.navCtrl.setRoot('codigo');
-    // Visa y Amex
-    if(this.tarjeta === "1" || this.tarjeta === "3"){
-      console.log(this.tarjeta);
-      const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
-    }else{
-      //Master
-     const browser = this.iab.create('https://www1.posnet.com.ar/webpos-frontend/start/');
-    }
-    
-    // if(!this.formulario.valid){
-    //     this.submitAttempt = true; 
-    //   }   
-  }
 
-  generar1(){
-    this.navCtrl.setRoot('codigo');
+    if(!this.formulario.valid){
+        this.submitAttempt = true;
+    }else{
+        
+    }
+
+    this.navCtrl.setRoot('codigo',{fechaTransaccion: this.fechaTransaccionMysql,
+                                    fechaPago: this.fechaPagoMysql,
+                                    formulario: this.formulario.controls
+        });
+        // Visa y Amex
+        if(this.tarjeta === "1" || this.tarjeta === "3"){
+          console.log(this.tarjeta);
+          const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
+        }else{
+          //Master
+        const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
+        }
   }
 
       autoCompletarImportes(){
