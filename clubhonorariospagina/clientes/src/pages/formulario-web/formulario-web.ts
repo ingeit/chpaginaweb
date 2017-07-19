@@ -4,10 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
-@IonicPage({
-  name: 'formulario',
-})
+import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
 
 @Component({
   selector: 'page-formulario-web',
@@ -163,7 +160,7 @@ export class FormularioWebPage {
         
     }
 
-    this.navCtrl.setRoot('codigo',{fechaTransaccion: this.fechaTransaccionMysql,
+    this.navCtrl.push(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
                                     fechaPago: this.fechaPagoMysql,
                                     formulario: this.formulario.controls
         });
