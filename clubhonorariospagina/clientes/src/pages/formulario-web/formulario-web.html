@@ -76,23 +76,23 @@
               <ion-item>
                 <ion-label floating>Tarjeta</ion-label>
                     <ion-select (ionChange)='autoCompletarImportes()' interface="popover" formControlName="tarjeta">
-                        <ion-option value="VISA">VISA</ion-option>
-                        <ion-option value="MASTER">MASTERCARD</ion-option>
-                        <ion-option value="AMEX">AMERICAN EX.</ion-option>
+                        <ion-option value="3">VISA</ion-option>
+                        <ion-option value="2">MASTERCARD</ion-option>
+                        <ion-option value="1">AMERICAN EX.</ion-option>
                     </ion-select>
                 </ion-item>
                 <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.tarjeta.valid  &&  submitAttempt">Elija una tarjeta</p>
                <ion-item>
                 <ion-label floating>Cuotas</ion-label>
                     <ion-select  (ionChange)='autoCompletarImportes()' interface="popover" formControlName="cuotas">
-                        <ion-option value="2">2</ion-option>
-                        <ion-option value="3">3</ion-option>
-                        <ion-option value="4">4</ion-option>
-                        <ion-option value="5">5</ion-option>
-                        <ion-option value="6">6</ion-option>
-                        <ion-option value="7">7</ion-option>
-                        <ion-option value="8">8</ion-option>
-                        <ion-option value="9">9</ion-option>
+                        <ion-option value="02">2</ion-option>
+                        <ion-option value="03">3</ion-option>
+                        <ion-option value="04">4</ion-option>
+                        <ion-option value="05">5</ion-option>
+                        <ion-option value="06">6</ion-option>
+                        <ion-option value="07">7</ion-option>
+                        <ion-option value="08">8</ion-option>
+                        <ion-option value="09">9</ion-option>
                         <ion-option value="10">10</ion-option>
                         <ion-option value="11">11</ion-option>
                         <ion-option value="12">12</ion-option>
@@ -118,7 +118,10 @@
                   <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control" name="importeCuota" id="importeCuota"></ion-input>
               </ion-item> 
               <button style="margin-top: 20px;" ion-button type="submit" (click)="generar()">Generar</button>
+              
           </form><!-- /form -->
+
+          <button style="margin-top: 20px;" (click)="generar1()">Generar1</button>
       </div><!-- /card-container -->
   </div>
 </ion-content>

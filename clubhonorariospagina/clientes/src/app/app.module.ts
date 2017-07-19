@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
 import { FormularioProvider } from '../providers/formulario/formulario';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FormularioProvider } from '../providers/formulario/formulario';
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FormularioProvider
   ]

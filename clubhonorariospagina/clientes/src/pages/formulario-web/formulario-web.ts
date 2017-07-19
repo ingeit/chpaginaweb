@@ -3,6 +3,7 @@ import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
  * Generated class for the FormularioWebPage page.
@@ -38,6 +39,7 @@ export class FormularioWebPage {
               private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder,
+              public iab: InAppBrowser,
               public formularioProvider:FormularioProvider
           ) {
 
@@ -157,10 +159,23 @@ export class FormularioWebPage {
   }
 
   generar(){
-    console.log(this.formulario.value.tarjeta);
-    if(!this.formulario.valid){
-        this.submitAttempt = true; 
-      }   
+    this.navCtrl.setRoot('codigo');
+    // Visa y Amex
+    if(this.tarjeta === "1" || this.tarjeta === "3"){
+      console.log(this.tarjeta);
+      const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
+    }else{
+      //Master
+     const browser = this.iab.create('https://www1.posnet.com.ar/webpos-frontend/start/');
+    }
+    
+    // if(!this.formulario.valid){
+    //     this.submitAttempt = true; 
+    //   }   
+  }
+
+  generar1(){
+    this.navCtrl.setRoot('codigo');
   }
 
       autoCompletarImportes(){
@@ -174,56 +189,37 @@ export class FormularioWebPage {
           // obtener importe venta del input
           this.importeVenta = this.formulario.get('importeVenta').value;
           // seteo importe a cobrar del 95%  del valor de importe venta traido del input.
-          this.importeCobrar = this.importeVenta*0.95;
+          this.importeCobrar = Math.round(this.importeVenta*0.95*100)/100;
           this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
-
           // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
           this.tarjeta=this.formulario.get('tarjeta').value;
           this.cuotas=this.formulario.get('cuotas').value;
           
-          if(this.tarjeta === 'VISA'){
-            x="3";
-            // this.comision = 2; // seria el 100%, para hacerlo visible rapido.
-          }else if (this.tarjeta === 'MASTER'){
-            x="2";
-            // this.comision = 3; 
-          }else if(this.tarjeta === 'AMEX'){
-            x="1";
-            // this.comision = 4; 
-          }
+          x=this.tarjeta;
             //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
-            if(this.cuotas >= 2 && this.cuotas <=9 ){
-              yy="0"+this.cuotas.toString();
-            }else{
-              yy=this.cuotas.toString();
-            }
+            
+          yy=this.cuotas;
             // Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
-            xyy=x+yy;
+          xyy=x+yy;
 
-              for (let t of this.tarjetasComisiones) {
-                  if(t.idTarjeta.toString() === xyy){
-                    console.log("coincidencia en "+t.idTarjeta);
-                    this.comision = t.tasa;
-                    console.log(" y la comision es "+this.comision);
-                  }
+          for (let t of this.tarjetasComisiones) {
+              if(t.idTarjeta.toString() === xyy){
+                console.log("coincidencia en "+t.idTarjeta);
+                this.comision = t.tasa;
+                console.log(" y la comision es "+this.comision);
               }
-            // calculo importe carga con la misma formula que en MYSQL redondeando al proximo 0.05 arriba.
-            // SET tImporteCarga = (oImporteVenta*tTasa DIV 0.05) * 0.05 + IF(oImporteVenta*tTasa MOD 0.05 = 0, 0, 0.05);                
-            this.importeCarga = (this.importeVenta*this.comision/0.05)* 0.05;
-            if(this.importeVenta*this.comision % 0.05){
-                this.importeCarga = this.importeCarga + 0;
-            }else{
-              this.importeCarga = this.importeCarga+0.05;
-            }
-            let impCar: any;
-            impCar = this.importeCarga.toFixed(2);
-            console.log(impCar); 
-            this.importeCarga = impCar; 
+          }
+          // Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
+          // Ej: 10.225 = 10.23
+          //     10.223 = 10.22 
+          console.log("importe carga original "+ this.importeVenta*this.comision);              
+          this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
+          console.log("importe carga redondeado "+ this.importeCarga);
+          
+          this.formulario.controls['importeCarga'].setValue(this.importeCarga);
 
-            this.formulario.controls['importeCarga'].setValue(this.importeCarga);
-
-            this.importeCuota = this.importeCarga / this.cuotas;
-            this.formulario.controls['importeCuota'].setValue(this.importeCuota);
+          this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
+          this.formulario.controls['importeCuota'].setValue(this.importeCuota);
         }
       }
 
