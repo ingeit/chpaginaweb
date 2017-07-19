@@ -4,12 +4,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
+import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario-web-paso2';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = FormularioWebPage;
+  rootPage:any = FormularioWebPaso2Page;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
