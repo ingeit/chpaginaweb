@@ -3,13 +3,12 @@ var router = express.Router();
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
-var FormularioController = require('./../controllers/formularioController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
-router.get('/dameFechas', FormularioController.getFechas);
-router.get('/dameComisiones', FormularioController.getComisiones);
+router.get('/dameFechas', OperacionController.getFechas);
+router.get('/dameComisiones', OperacionController.getComisiones);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 
 module.exports = router; 
