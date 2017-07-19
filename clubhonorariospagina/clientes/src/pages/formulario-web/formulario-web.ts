@@ -162,19 +162,7 @@ export class FormularioWebPage {
     }else{
         
     }
-
-    this.navCtrl.setRoot('codigo',{fechaTransaccion: this.fechaTransaccionMysql,
-                                    fechaPago: this.fechaPagoMysql,
-                                    formulario: this.formulario.controls
-        });
-        // Visa y Amex
-        if(this.tarjeta === "1" || this.tarjeta === "3"){
-          console.log(this.tarjeta);
-          const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
-        }else{
-          //Master
-        const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
-        }
+    this.confirmar();
   }
 
       autoCompletarImportes(){
@@ -237,4 +225,49 @@ export class FormularioWebPage {
       });
       alert.present();
   }
+
+  confirmar() {
+    let confirm = this.alertCtrl.create({
+      title: 'IMPORTANTE',
+      message: 'Paso 2: A continuacion se abrira una nueva pestaña con redireccion a la pagina de la tarjeta seleccionada.'+ 
+                'Al finalizar la operacion en dicha pagina, debera copiar el codigo de autorizacion y numero de cupon '+
+                'facilitados en la operacion realizada. A continuacion, seleccione en la parte superior del navegador '+
+                'la pestaña del formulario de Club Honorarios, y debera pegar dichos codigos de la operacion en los campos '+
+                'correspondientes',
+
+
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.irPaso2();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  irPaso2(){
+    this.navCtrl.setRoot('codigo',{fechaTransaccion: this.fechaTransaccionMysql,
+                                fechaPago: this.fechaPagoMysql,
+                                formulario: this.formulario.controls
+    });
+    // Visa y Amex
+    if(this.tarjeta === "1" || this.tarjeta === "3"){
+      console.log(this.tarjeta);
+      const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
+    }else{
+      //Master
+    const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
+    }
+
+  }
+
 }
