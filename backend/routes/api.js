@@ -17,19 +17,23 @@ router.get('/pdf', OperacionController.pdf);
 router.get('/email',function (req, res) {
   //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
   var transporter = nodemailer.createTransport({
-        host: 'mail.xw000111.ferozo.com',
+        host: 'smtp.gmail.com', // mail.clubhonorarios.com
         port: 587,
-        requireTLS: true,
-        secure: false, // secure:true for port 465, secure:false for port 587
+        // opportunisticTLS: true,
+        // secure: false, // secure:true for port 465, secure:false for port 587
+        // auth: {
+        //     user: 'op@clubhonorarios.com', // chonorarios@gmail.com -- ramiro123
+        //     pass: 'Astrid2017' // Your password
+        // }
         auth: {
-            user: 'op@clubhonorarios.com', // chonorarios@gmail.com -- ramiro123
-            pass: 'Astrid2017' // Your password
+            user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
+            pass: 'ramiro123' // Your password
         }
     });
   //Mail options
   var mailOptions = {
-      from: 'CLub Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
-      to: 'rbrunount@gmail.com',
+      from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
+      to: 'masterk63@gmail.com',
       subject: 'HOlaaa node',
       text: 'holaaa node cuerpo!!!'
   };
