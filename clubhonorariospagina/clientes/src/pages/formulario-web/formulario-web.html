@@ -37,8 +37,8 @@
               </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreProfesional.valid  &&  submitAttempt">Ingrese el nombre del profesional</p>
               <ion-item>
-                  <ion-label floating>Mail</ion-label>
-                  <ion-input formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional" [class.errorClubHonorarios]="!formulario.controls.mailProfesional.valid && submitAttempt"></ion-input>
+                  <ion-label stacked>Mail</ion-label>
+                  <ion-input placeholder="Se usara para el envio del comprobante de pago (Campo opcional)" formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional" [class.errorClubHonorarios]="!formulario.controls.mailProfesional.valid && submitAttempt"></ion-input>
               </ion-item>
             <h2 style="margin-top: 0.3rem;" >Datos del titular de la tarjeta</h2>
               <ion-item>
@@ -62,8 +62,8 @@
               </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.telefonoCliente.valid  && submitAttempt">Ingrese el telefono del titular de tarjeta</p>
               <ion-item>
-                  <ion-label floating>Mail</ion-label>
-                  <ion-input formControlName="mailCliente" type="text" class="form-control" name="mailCliente" id="mailCliente" [class.errorClubHonorarios]="!formulario.controls.mailCliente.valid && submitAttempt"></ion-input>
+                  <ion-label stacked>Mail</ion-label>
+                  <ion-input placeholder="Se usara para el envio del comprobante de pago (Campo opcional)" formControlName="mailCliente" type="text" class="form-control" name="mailCliente" id="mailCliente" [class.errorClubHonorarios]="!formulario.controls.mailCliente.valid && submitAttempt"></ion-input>
               </ion-item>
               <h2>Informacion de operacion</h2>
               <ion-item>

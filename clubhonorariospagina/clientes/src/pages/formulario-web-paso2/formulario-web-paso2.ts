@@ -1,6 +1,7 @@
 import { Component,HostListener } from '@angular/core';
-import { NavController, NavParams, IonicPage,AlertController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage,AlertController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
 
 @Component({
@@ -17,19 +18,23 @@ export class FormularioWebPaso2Page {
   fechaTransaccionMysql: any;
   fechaPago:any;
   formulario:any;
-  codigo:any;
+  formulario2:any;
   tarjeta:any;
-  codigoAuto:any;
+  codigoAutoLabel: any;
+  submitAttempt: boolean = false;
+  mensaje:any;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              public opProv: OperacionesProvider,
               public formBuilder: FormBuilder,
               public navParams: NavParams) {
                 
 
-      this.codigo = formBuilder.group({
-        dniProfesional: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
-        apellidoProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])]
+      this.formulario2 = formBuilder.group({
+        codigoAuto: ['',Validators.compose([Validators.maxLength(6),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
+        cupon: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])]
       });
   }
 
@@ -41,24 +46,82 @@ export class FormularioWebPaso2Page {
     switch (this.formulario.tarjeta.value)
       {
         case '1':
-          this.tarjeta = 'AMERICAN EX.';
-          this.codigoAuto = 'Cod Auto'
+          this.tarjeta = 'AMEX';
+          this.codigoAutoLabel = 'AUTORIZ(ON-LINE)'
           break;
         case '2':
-          this.tarjeta = 'MASTERCARD';
-          this.codigoAuto = 'Auto-Cod'
+          this.tarjeta = 'MASTER';
+          this.codigoAutoLabel = 'AUTORIZ(ON-LINE)'
           break;
         case '3':
           this.tarjeta = 'VISA';
-          this.codigoAuto = 'Cod Auto'
+          this.codigoAutoLabel = 'AUT'
           break;
         default:
           this.tarjeta = '';
-          this.codigoAuto = 'Cod Auto'
+          this.codigoAutoLabel = 'Cod Auto'
           break;
       }
     console.log(this.fechaTransaccionMysql,this.fechaPago,this.formulario);  
   }
 
+  botonEnviar(){
+    if(!this.formulario2.valid){
+        this.submitAttempt = true;
+    }else{
+        this.operacionNueva();
+    }
+  }
 
+  operacionNueva(){
+    
+    console.log("en operacionNueva");
+     let details = {
+              dniProfesional: this.formulario.dniProfesional.value,
+              apellidoProfesional: this.formulario.apellidoProfesional.value,
+              nombreProfesional: this.formulario.nombreProfesional.value,
+              mailProfesional: this.formulario.mailProfesional.value,
+              dniCliente: this.formulario.dniCliente.value,
+              apellidoCliente: this.formulario.apellidoCliente.value,
+              nombreCliente: this.formulario.nombreCliente.value,
+              telefonoCliente: this.formulario.telefonoCliente.value,
+              mailCliente: this.formulario.mailCliente.value,
+              tarjeta: this.tarjeta,
+              cuotas: this.formulario.cuotas.value,
+              importeVenta: this.formulario.importeVenta.value,
+              importeCobrar: this.formulario.importeCobrar.value,
+              importeCarga: this.formulario.importeCarga.value,
+              importeCuota: this.formulario.importeCuota.value,
+              codigoAuto: this.formulario2.get('codigoAuto').value,
+              cupon: this.formulario2.get('cupon').value
+
+        };
+            console.log(details);
+
+      this.opProv.operacionNueva(details).then((data)=>{
+        this.mensaje = data;
+        console.log(this.mensaje);
+        if(this.mensaje[0].codigo != 0){
+          let fechaTransaccion = "Fecha de transaccion: "+this.mensaje[0].fechaTransaccion.toLocaleString();
+          let fechaPago = "Fecha de pago: "+this.mensaje[0].fechaPago.toLocaleString();
+          let t = this.mensaje[0].mensaje;
+          let m = fechaTransaccion+"\n"+fechaPago;
+          this.showAlert(t,m);
+        }else{
+          let t = this.mensaje[0].mensaje;
+          let m = "Por favor intente nuevamente, sin cargar la operacion en visa";
+          this.showAlert(t,m);
+        }
+      });
+
+  }
+
+  showAlert(titulo,mensaje) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      subTitle: mensaje,
+      buttons: ['Aceptar']
+    });
+    alert.present();
+  }
 }
