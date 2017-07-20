@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var nodemailer = require('nodemailer');
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
@@ -14,40 +13,7 @@ router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 
 
-router.get('/email',function (req, res) {
-  //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
-  var transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com', // mail.clubhonorarios.com
-        port: 587,
-        // opportunisticTLS: true,
-        // secure: false, // secure:true for port 465, secure:false for port 587
-        // auth: {
-        //     user: 'op@clubhonorarios.com', // chonorarios@gmail.com -- ramiro123
-        //     pass: 'Astrid2017' // Your password
-        // }
-        auth: {
-            user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
-            pass: 'ramiro123' // Your password
-        }
-    });
-  //Mail options
-  var mailOptions = {
-      from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
-      to: 'masterk63@gmail.com',
-      subject: 'HOlaaa node',
-      text: 'holaaa node cuerpo!!!'
-  };
-
-  transporter.sendMail(mailOptions,function(error, info){
-    if(error){
-        console.log(error);
-        res.json({yo: 'error'});
-    }else{
-        console.log('Message sent: ' + info.response);
-        res.json({yo: info.response});
-    };
-});
-});
+router.get('/email',OperacionController.email);
 
 
 

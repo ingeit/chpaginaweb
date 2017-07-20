@@ -1,6 +1,7 @@
 var operacion = require('./../models/operaciones');
 var fechas = require('./../models/operaciones');
 var comisiones = require('./../models/operaciones');
+var nodemailer = require('nodemailer');
 
 exports.getOperaciones = function(req, res, next){
     operacion.getOperaciones(function(consulta){
@@ -98,5 +99,40 @@ exports.excel = function(req, res, next){
         res.setHeader("Content-Disposition","attachment;filename="+"Operaciones.xlsx");
         res.end(result,'binary');
     });  
+}
+
+exports.email = function (req, res) {
+  //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
+  var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com', // mail.clubhonorarios.com
+        port: 587,
+        // opportunisticTLS: true,
+        // secure: false, // secure:true for port 465, secure:false for port 587
+        // auth: {
+        //     user: 'op@clubhonorarios.com', // chonorarios@gmail.com -- ramiro123
+        //     pass: 'Astrid2017' // Your password
+        // }
+        auth: {
+            user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
+            pass: 'ramiro123' // Your password
+        }
+    });
+  //Mail options
+  var mailOptions = {
+      from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
+      to: 'masterk63@gmail.com',
+      subject: 'prueba bien',
+      text: 'holaaa node cuerpo!!!'
+  };
+
+  transporter.sendMail(mailOptions,function(error, info){
+    if(error){
+        console.log(error);
+        res.json({yo: 'error'});
+    }else{
+        console.log('Message sent: ' + info.response);
+        res.json({yo: info.response});
+    };
+});
 }
 
