@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   user     : databaseConfig.user,
   password : databaseConfig.password,
   database : databaseConfig.database,
-  timezone : 'utc'
+//   timezone : 'utc'
 });
 
 exports.getOperaciones = function(fn){
