@@ -10,7 +10,7 @@ import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = FormularioWebPaso2Page;
+  rootPage:any = FormularioWebPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

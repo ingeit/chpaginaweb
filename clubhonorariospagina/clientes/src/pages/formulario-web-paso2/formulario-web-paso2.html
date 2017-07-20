@@ -15,13 +15,13 @@
         <h2>Copiar Codigos</h2>
         <form [formGroup]="codigo" method="post" class="form-signin" id="myform" name="codigo">
             <ion-item>
-                <ion-label stacked>Codigo Atomatico</ion-label>
-                <ion-input type="number" placeholder="y ella" formControlName="dniProfesional" name="dniProfesional" id="dniProfesional" [class.errorClubHonorarios]="!codigo.controls.dniProfesional.valid &&  submitAttempt"></ion-input>
+                <ion-label stacked>{{codigoAuto}}</ion-label>
+                <ion-input type="number" placeholder="N° 6 Digitos" formControlName="dniProfesional" name="dniProfesional" id="dniProfesional" [class.errorClubHonorarios]="!codigo.controls.dniProfesional.valid &&  submitAttempt"></ion-input>
             </ion-item>
             <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!codigo.controls.dniProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
             <ion-item>
-                <ion-label stacked>N° de Cupon</ion-label>
-                <ion-input placeholder="y ella" formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional" [class.errorClubHonorarios]="!codigo.controls.apellidoProfesional.valid && submitAttempt"></ion-input>
+                <ion-label stacked>Cupon</ion-label>
+                <ion-input placeholder="N° 4 Digitos" formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional" [class.errorClubHonorarios]="!codigo.controls.apellidoProfesional.valid && submitAttempt"></ion-input>
             </ion-item>
             <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!codigo.controls.apellidoProfesional.valid  && submitAttempt">Ingrese el apellido del profesional</p>
           </form><!-- /form -->
@@ -32,10 +32,9 @@
         <div class="titulo">
           <span>Datos Previos</span>
         </div>
-        <span class="datos">Datos Previos</span>
-        <span class="datos">Datos Previos</span>
-        <span class="datos">Datos Previos</span>
-        <span class="datos">Datos Previos</span>
+        <span class="datos"><strong>Datos Profesional: </strong>{{this.formulario?.apellidoProfesional.value}} {{this.formulario?.nombreProfesional.value}} - DNI: {{this.formulario?.dniProfesional.value}} - {{this.formulario?.mailProfesional.value}}</span> 
+        <span class="datos"><strong>Datos Cliente: </strong>{{this.formulario?.apellidoCliente.value}} {{this.formulario?.nombreCliente.value}} - DNI: {{this.formulario?.dniCliente.value}} - {{this.formulario?.mailCliente.value}} - Telefono: {{this.formulario?.telefonoCliente.value}}</span> 
+        <span class="datos"><strong>Datos Venta: </strong>{{this.tarjeta}} - I.Carga: ${{this.formulario?.importeCarga.value}} - I.Cobrar: ${{this.formulario?.importeCobrar.value}} - Cant. Coutas: {{this.formulario?.cuotas.value}} - I.Couta: ${{this.formulario?.importeCuota.value}} - I.Venta: ${{this.formulario?.importeVenta.value}}</span>
       </div>
   </div>
 </ion-content>
