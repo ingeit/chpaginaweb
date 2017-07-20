@@ -12,7 +12,7 @@ router.get('/dameFechas', OperacionController.getFechas);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
-
+router.get('/pdf', OperacionController.pdf);
 
 router.get('/email',function (req, res) {
   //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.

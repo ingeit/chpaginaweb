@@ -100,3 +100,16 @@ exports.excel = function(req, res, next){
     });  
 }
 
+
+exports.pdf = function(req, res, next){
+    var pdf = require('html-pdf');
+    var fs = require('fs');
+    
+    var html = '<h3>hola</h3><p>chau</p>'
+
+    pdf.create(html).toStream(function(err, stream){
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+        stream.pipe(res);
+    });
+}
