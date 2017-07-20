@@ -102,10 +102,10 @@ export class FormularioWebPaso2Page {
         this.mensaje = data;
         console.log(this.mensaje);
         if(this.mensaje[0].codigo != 0){
-          let fechaTransaccion = "Fecha de transaccion: "+this.mensaje[0].fechaTransaccion.toLocaleString();
-          let fechaPago = "Fecha de pago: "+this.mensaje[0].fechaPago.toLocaleString();
+          let fechaTransaccion = "Fecha de transaccion: <br>"+this.mensaje[0].fechaTransaccion.toLocaleString();
+          let fechaPago = "Fecha de pago: <br>"+this.mensaje[0].fechaPago.toLocaleString();
           let t = this.mensaje[0].mensaje;
-          let m = fechaTransaccion+"\n"+fechaPago;
+          let m = fechaTransaccion+"<br>"+fechaPago;
           this.showAlert(t,m);
         }else{
           let t = this.mensaje[0].mensaje;
@@ -118,8 +118,8 @@ export class FormularioWebPaso2Page {
 
   showAlert(titulo,mensaje) {
     let alert = this.alertCtrl.create({
-      title: titulo,
-      subTitle: mensaje,
+      subTitle: titulo,
+      message: mensaje,
       buttons: ['Aceptar']
     });
     alert.present();
