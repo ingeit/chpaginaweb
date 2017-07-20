@@ -29,8 +29,6 @@ exports.getComisiones = function(req, res, next){
 }
 
 exports.operacionNueva = function(req, res, next){
-    TINYINT,  DECIMAL(10,2),
-     DECIMAL(10,2),  INT,  INT
     
     var oDniProfesional = req.body.dniProfesional;
     var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';

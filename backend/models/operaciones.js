@@ -38,8 +38,15 @@ exports.getComisiones = function(fn){
             });
 }
 
-exports.operacionNueva = function(fechaInicio,fechaFin,fn){
-    connection.query('call operacion_listar_rango('+fechaInicio+','+fechaFin+')', function(err, rows){  
+exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+        oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+        oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,fn){
+        //     console.log(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+        // oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+        // oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon);
+    connection.query('call operacion_nueva('+oDniProfesional+','+oApellidoProfesional+','+oNombreProfesional+','+oMailProfesional+','+
+        oDniCliente+','+oApellidoCliente+','+oNombreCliente+','+oTelefonoCliente+','+oMailCliente+','+oTarjeta+','+oImporteVenta+','+
+        oImporteCobrar+','+oCuotas+','+oImporteCarga+','+oImporteCuota+','+oCodigoAuto+','+oCupon+')', function(err, rows){  
                 if (err) fn (err);  
                 fn(rows[0]); 
             });
