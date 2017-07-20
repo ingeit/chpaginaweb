@@ -43,12 +43,12 @@ export class FormularioWebPage {
         dniProfesional: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
         apellidoProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        mailProfesional: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(5),Validators.email, Validators.required])],
+        mailProfesional: [''],
         dniCliente: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
         apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         telefonoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(5),Validators.pattern(/()\d/g),Validators.required])],
-        mailCliente: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(5),Validators.email, Validators.required])],
+        mailCliente: [''],
         tarjeta: ['',Validators.compose([Validators.required])],
         cuotas: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
         importeVenta: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
@@ -103,14 +103,15 @@ export class FormularioWebPage {
   }
 
   generar(){
-
+    console.log("dentro de genererar");
     if(!this.formulario.valid){
+      console.log("formulario invalido");
         this.submitAttempt = true;
     }else{
-        
+      console.log("form valido");
+        this.confirmar();
     }
-    // importante.. ESTE CONFIRMAR VA DENTRO DEL ELSE para que no permita campos vacios.
-    this.confirmar();
+    
   }
 
       autoCompletarImportes(){

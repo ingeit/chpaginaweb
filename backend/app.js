@@ -9,7 +9,8 @@ var express       = require('express'),
     flash = require('express-flash'),
     session = require('express-session'),
     logger        = require('morgan');
-
+    
+var nodemailer = require('nodemailer');
 var users = require('./routes/users');
 var index = require('./routes/index');
 var api = require('./routes/api');
