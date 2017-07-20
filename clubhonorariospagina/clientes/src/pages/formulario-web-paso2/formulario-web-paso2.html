@@ -13,19 +13,19 @@
   <div class="contenedor"> 
       <div class="card card-container">
         <h2>Copiar Codigos</h2>
-        <form [formGroup]="codigo" method="post" class="form-signin" id="myform" name="codigo">
+        <form [formGroup]="formulario2" method="post" class="form-signin" id="myform" name="formulario2">
             <ion-item>
-                <ion-label stacked>{{codigoAuto}}</ion-label>
-                <ion-input type="number" placeholder="N° 6 Digitos" formControlName="dniProfesional" name="dniProfesional" id="dniProfesional" [class.errorClubHonorarios]="!codigo.controls.dniProfesional.valid &&  submitAttempt"></ion-input>
+                <ion-label stacked>{{codigoAutoLabel}}</ion-label>
+                <ion-input type="number" placeholder="N° 6 Digitos" formControlName="codigoAuto" name="codigoAuto" id="codigoAuto" [class.errorClubHonorarios]="!formulario2.controls.codigoAuto.valid &&  submitAttempt"></ion-input>
             </ion-item>
-            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!codigo.controls.dniProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.codigoAuto.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
             <ion-item>
-                <ion-label stacked>Cupon</ion-label>
-                <ion-input placeholder="N° 4 Digitos" formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional" [class.errorClubHonorarios]="!codigo.controls.apellidoProfesional.valid && submitAttempt"></ion-input>
+                <ion-label stacked>CUPON</ion-label>
+                <ion-input placeholder="N° 4 Digitos" formControlName="cupon" type="number" class="form-control" name="cupon" id="cupon" [class.errorClubHonorarios]="!formulario2.controls.cupon.valid && submitAttempt"></ion-input>
             </ion-item>
-            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!codigo.controls.apellidoProfesional.valid  && submitAttempt">Ingrese el apellido del profesional</p>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.cupon.valid  && submitAttempt">Ingrese el apellido del profesional</p>
           </form><!-- /form -->
-          <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="generar()">Enviar</button>
+          <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="botonEnviar()">Enviar</button>
       </div>
       
       <div class="bloque card-container">

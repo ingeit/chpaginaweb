@@ -10,6 +10,7 @@ import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
 import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario-web-paso2';
 import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { OperacionesProvider } from '../providers/operaciones/operaciones';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SplashScreen,
     InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FormularioProvider
+    FormularioProvider,
+    OperacionesProvider
   ]
 })
 export class AppModule {}
