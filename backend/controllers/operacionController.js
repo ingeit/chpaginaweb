@@ -102,8 +102,12 @@ exports.excel = function(req, res, next){
 }
 
 exports.email = function (req, res) {
-  //Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
-  var transporter = nodemailer.createTransport({
+    var pdf = require('html-pdf');
+    var fs = require('fs');
+    
+    var html = '<h3>hola</h3><p>chau</p>'
+
+  	var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com', // mail.clubhonorarios.com
         port: 587,
         // opportunisticTLS: true,
@@ -113,37 +117,162 @@ exports.email = function (req, res) {
         //     pass: 'Astrid2017' // Your password
         // }
         auth: {
-            user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
+             user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
             pass: 'ramiro123' // Your password
         }
     });
-  //Mail options
-  var mailOptions = {
-      from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
-      to: 'masterk63@gmail.com',
-      subject: 'prueba bien',
-      text: 'holaaa node cuerpo!!!'
-  };
 
-  transporter.sendMail(mailOptions,function(error, info){
-    if(error){
-        console.log(error);
-        res.json({yo: 'error'});
-    }else{
-        console.log('Message sent: ' + info.response);
-        res.json({yo: info.response});
-    };
-});
+    pdf.create(html).toStream(function(err, stream){
+      var mailOptions = {
+        from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
+        to: 'rbrunount@gmail.com',
+        subject: 'PDF',
+        text: 'holaaa node cuerpo!!!',
+        attachments: [
+          {   // stream as an attachment
+              filename: 'ejemplo.pdf',
+              content: stream
+          }],
+       };
+      transporter.sendMail(mailOptions,function(error, info){
+        if(error){
+            console.log(error);
+            res.json({yo: 'error'});
+        }else{
+            console.log('Message sent: ' + info.response);
+            res.json({yo: info.response});
+        };
+      });
+    });
 }
+
 
 
 exports.pdf = function(req, res, next){
     var pdf = require('html-pdf');
     var fs = require('fs');
     
-    var html = '<h3>hola</h3><p>chau</p>'
+    var html = 
+    `<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
 
-    pdf.create(html).toStream(function(err, stream){
+        <title>The HTML5 Herald</title>
+        <meta name="description" content="The HTML5 Herald">
+        <meta name="author" content="SitePoint">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+
+    <body>
+ 
+        <div class="container-fluid navbar-default">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              <img alt="Brand" src="http://clubhonorarios.com/img/logo/logo-max.png">
+            </a>
+          </div>
+        </div>
+   ]
+        <div class="container-fluid contenedorCentro">
+            <div class="row centrado tabla">
+              <div class="panel panel-default">
+                <div class="panel-heading">Datos de Transaccion</div>
+                <div class="panel-body">
+                  <table class="table">
+                    <tbody>
+                        <tr>
+                        <th>CUIT Profesional</th>
+                            <td>20341591814</td>
+                        </tr>
+                        <tr>
+                        <th>Fecha Transaccion</th>
+                            <td>20/12/2017</td>
+                        </tr>
+                        <tr>
+                        <th>Fecha de Pago</th>
+                            <td>25/12/2017</td>
+                        </tr>
+                        <tr>
+                          <th>DNI Cliente</th>
+                            <td>35953451</td>
+                        </tr>
+                          <tr>
+                        <th>APELLDIO Cliente</th>
+                            <td>Bruno</td>
+                        </tr>
+                        <tr>
+                        <th>Nombre Cliente</th>
+                            <td>Ricardo</td>
+                        </tr>
+                        <tr>
+                        <th>Tarjeta</th>
+                            <td>VISA</td>
+                        </tr>
+                        <tr>
+                          <th>Honorarios Profesional</th>
+                            <td>$ 1000</td>
+                        </tr>
+                        <tr>
+                          <th>Monto Acreditado</th>
+                            <td>$ 950</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <style> 
+          .tabla{
+            max-width: 400px;
+          }
+          	.contenedorCentro {
+              position: absolute;
+              display: table;
+              height: 100%;
+              width: 100%;
+              text-align: center;
+            }
+            .centrado {
+              display: table-cell;
+              vertical-align: middle;
+            }
+
+            html {
+              height: 100%;
+            }
+            body {
+              min-height: 100%;
+            }
+
+            .navbar-default {
+                min-height: 95px;
+                background-color: #002775;
+                border-color: #002775;
+            }
+        </style>
+    </body>
+    </html>`;
+    
+    config = {
+  "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+  "orientation": "portrait", // portrait or landscape 
+ 
+ 
+  "header": {
+    "height": "45mm",
+    "contents": '<div style="text-align: center;">Author: Marc Bachmann</div>'
+  },
+
+  // Zooming option, can be used to scale images if `options.type` is not pdf 
+  "zoomFactor": "1", // default is 1 
+ 
+}
+
+    pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
         stream.pipe(res);
