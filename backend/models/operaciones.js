@@ -24,6 +24,14 @@ exports.getOperacionesPorFecha = function(fechaInicio,fechaFin,fn){
             });
 }
 
+exports.dameOperacion = function(idOperacion,fn){
+    connection.query('call operacion_dame('+idOperacion+')', function(err, rows){  
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}
+
+
 exports.getFechas = function(fn){
     connection.query('call dame_fechas()', function(err, rows){  
                 if (err) fn (err);  

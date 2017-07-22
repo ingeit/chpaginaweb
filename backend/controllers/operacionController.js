@@ -29,6 +29,16 @@ exports.getComisiones = function(req, res, next){
     });
 }
 
+exports.dameOperacion = function(req, res, next){
+    console.log("dentro de controller nodjs "+req.body.idOperacion);
+    var idOperacion = req.body.idOperacion;
+    operacion.dameOperacion(idOperacion,function(consulta){
+        res.json(consulta);
+    });
+}
+
+
+
 exports.operacionNueva = function(req, res, next){
     
     var oDniProfesional = req.body.dniProfesional;

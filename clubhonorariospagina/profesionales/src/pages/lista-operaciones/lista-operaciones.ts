@@ -14,6 +14,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class ListaOperacionesPage {
 
   Operaciones: any;
+  operacion: any;
   loading:any;
   altura:any;
   fechaInicio:any;
@@ -44,6 +45,20 @@ export class ListaOperacionesPage {
       }
     }); 
   }
+
+  verOperacion(idOperacion){
+    console.log("boton ver op");
+      this.data.dameOperacion(idOperacion).then((data)=>{
+        this.loading.dismiss();
+        this.operacion = data;
+        console.log(this.operacion);
+        // if(this.operacion[0].codigo != 0){
+        //   this.mostrarTarjetas = true;
+        // }else{
+        //   this.mostrarAlerta('Error',this.operacion[0].mensaje);
+        // }
+      });
+    }
 
   filtrar(){
     if(this.fechaInicio && this.fechaFin){

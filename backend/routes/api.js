@@ -7,12 +7,14 @@ var OperacionController = require('./../controllers/operacionController');
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
+router.post('/dameOperacion',OperacionController.dameOperacion);
 router.get('/dameFechas', OperacionController.getFechas);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
 router.get('/email',OperacionController.email);
+
 
 
 
