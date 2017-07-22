@@ -5,4 +5,12 @@ page-formulario-web-paso2 {
         display: list-item;
         padding: 12px 15px;
     }
+
+    #preloadfont {
+    font-family: BeautifulCreatures;
+    // opacity:0;
+    height:0;
+    width:0;
+    display:inline-block;
+    }
 }

@@ -11,6 +11,7 @@ import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario
 import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OperacionesProvider } from '../providers/operaciones/operaciones';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   imports: [
     BrowserModule,
     HttpModule,
+    IonicImageViewerModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
       mode: "md",
