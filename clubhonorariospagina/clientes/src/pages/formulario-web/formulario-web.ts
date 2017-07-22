@@ -114,6 +114,10 @@ export class FormularioWebPage {
     
   }
 
+  generarDebug(){
+    this.irPaso2();   
+  }
+
       autoCompletarImportes(){
         //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
         let x;
