@@ -39,26 +39,30 @@ export class ListaOperacionesPage {
   obtenerOperaciones(){
     this.data.obtenerOperaciones().then((data)=>{
       this.Operaciones = data;
-      console.log(this.Operaciones[0].codigo)
       if(this.Operaciones[0].codigo != 0){
           this.mostrarTarjetas = true;
       }
     }); 
   }
 
-  verOperacion(idOperacion){
-    console.log("boton ver op");
-      this.data.dameOperacion(idOperacion).then((data)=>{
-        this.loading.dismiss();
-        this.operacion = data;
-        console.log(this.operacion);
-        // if(this.operacion[0].codigo != 0){
-        //   this.mostrarTarjetas = true;
-        // }else{
-        //   this.mostrarAlerta('Error',this.operacion[0].mensaje);
-        // }
-      });
-    }
+  verOperacion(id){
+
+    let details = {
+        idOperacion: id,
+    };
+
+    this.data.dameOperacion(details).then((data)=>{
+      this.loading.dismiss();
+      this.operacion = data;
+      console.log(this.operacion);
+      // if(this.operacion[0].codigo != 0){
+      //   this.mostrarTarjetas = true;
+      // }else{
+      //   this.mostrarAlerta('Error',this.operacion[0].mensaje);
+      // }
+    });
+    
+  }
 
   filtrar(){
     if(this.fechaInicio && this.fechaFin){

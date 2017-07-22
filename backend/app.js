@@ -16,16 +16,25 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 
 
+app.use(cors());
+app.all('*', function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "X-Requested-With");
+       res.header('Access-Control-Allow-Headers', 'Content-Type');
+       next();
+});
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(validator());
-app.use(cors());
+
 app.use(cookieParser());
+
 app.use(session({ secret: 'session secret key' }));
 app.use(flash()); 
+
 
 app.use(users);
 app.use('/', index);
