@@ -7,11 +7,15 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
 
-  <button (click)="formularioWeb()" >Formulario web</button>
+
+    <img #imagen  src=",,/../assets/cupon.png" style="display:none" crossorigin="anonymous"/>
+
+  <button (click)="escribrir()">Save</button>
+
+
+<canvas style="display:none" #myCanvas></canvas>
+
+<img #imagen  style="    max-width: 600px;" [src]="urlImagenCanvas"/>
 
 </ion-content>
