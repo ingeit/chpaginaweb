@@ -1,0 +1,15 @@
+page-modal {
+
+    .toolbar-background.toolbar-background-md{
+        background-color: #efb500;
+    }
+
+    .botones{
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+    }
+    .botones:last-child{
+        margin-right: 100px;
+    }
+}

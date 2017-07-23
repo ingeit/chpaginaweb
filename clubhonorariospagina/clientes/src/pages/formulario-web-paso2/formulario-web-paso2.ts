@@ -54,7 +54,8 @@ export class FormularioWebPaso2Page {
   ionViewDidLoad() {
     this.fechaTransaccionMysql = this.navParams.get('fechaTransaccion');
     let datePipe = new DatePipe('es-AR');
-    this.fechaTransaccionMysql = datePipe.transform(this.fechaTransaccionMysql, 'dd/MM/yyyy');
+    this.fechaTransaccionMysql = datePipe.transform(this.fechaTransaccionMysql, 'dd/MM/yyyy H:m');
+    console.log(this.fechaTransaccionMysql);
     this.fechaPago = this.navParams.get('fechaPago');
     this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
     this.formulario = this.navParams.get('formulario');  

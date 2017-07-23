@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavController,LoadingController,AlertController } from 'ionic-angular';
+import { IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
+import { ModalPage } from '../modal/modal';
 
 @Component({
   selector: 'page-formulario-web',
@@ -33,6 +34,7 @@ export class FormularioWebPage {
               private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder,
+              public modalCtrl: ModalController,
               public iab: InAppBrowser,
               public formularioProvider:FormularioProvider
           ) {
@@ -114,10 +116,6 @@ export class FormularioWebPage {
     
   }
 
-  generarDebug(){
-    this.irPaso2();   
-  }
-
       autoCompletarImportes(){
         //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
         let x;
@@ -180,47 +178,11 @@ export class FormularioWebPage {
   }
 
   confirmar() {
-    let confirm = this.alertCtrl.create({
-      title: 'IMPORTANTE',
-      message: 'Paso 2: A continuacion se abrira una nueva pestaña con redireccion a la pagina de la tarjeta seleccionada.'+ 
-                'Al finalizar la operacion en dicha pagina, debera copiar el codigo de autorizacion y numero de cupon '+
-                'facilitados en la operacion realizada. A continuacion, seleccione en la parte superior del navegador '+
-                'la pestaña del formulario de Club Honorarios, y debera pegar dichos codigos de la operacion en los campos '+
-                'correspondientes de manera inmediata y hacer clic en el boton "Enviar"',
-
-
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.irPaso2();
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }
-
-  irPaso2(){
-    this.navCtrl.push(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
-                                fechaPago: this.fechaPagoMysql,
-                                formulario: this.formulario.controls
-    });
-    // Visa y Amex
-    if(this.tarjeta === "1" || this.tarjeta === "3"){
-      console.log(this.tarjeta);
-      const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
-    }else{
-      //Master
-    const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
-    }
-
+    // confirmar mediante modal
+    let confirmarModal = this.modalCtrl.create(ModalPage, {fechaTransaccion: this.fechaTransaccionMysql,
+                                                            fechaPago: this.fechaPagoMysql,
+                                                            formulario: this.formulario.controls });
+    confirmarModal.present();
   }
 
 }

@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ModalPage } from '../pages/modal/modal';
 import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
 import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario-web-paso2';
 import { FormularioProvider } from '../providers/formulario/formulario';
@@ -17,6 +18,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
   declarations: [
     MyApp,
     HomePage,
+    ModalPage,
     FormularioWebPage,
     FormularioWebPaso2Page
   ],
@@ -40,6 +42,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
   entryComponents: [
     MyApp,
     HomePage,
+    ModalPage,
     FormularioWebPage,
     FormularioWebPaso2Page
   ],

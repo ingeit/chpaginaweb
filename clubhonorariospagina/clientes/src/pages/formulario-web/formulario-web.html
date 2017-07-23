@@ -111,7 +111,8 @@
                   <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control" name="importeCuota" id="importeCuota"></ion-input>
               </ion-item> 
             </form><!-- /form -->
-            <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="generarDebug()">Generar</button>
+            <!-- OJO! El boton va a la funcion GENERAR, no CONFIRMAR.. -->
+            <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="confirmar()">Generar</button>
         </div>
     </div>
 </ion-content>
