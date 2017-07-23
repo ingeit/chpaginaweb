@@ -41,7 +41,6 @@ formulario: any;
  }
 
   irPaso2(){
-    this.viewCtrl.dismiss();
     this.navCtrl.push(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
                                 fechaPago: this.fechaPago,
                                 formulario: this.formulario
@@ -54,7 +53,7 @@ formulario: any;
       //Master
     const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
     }
-    
+    this.viewCtrl.dismiss();
   }
 
   
