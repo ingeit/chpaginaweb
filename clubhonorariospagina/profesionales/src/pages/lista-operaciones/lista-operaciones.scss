@@ -73,5 +73,21 @@ page-lista-operaciones {
     ion-card-content{
         color: #868686 !important;
     }
+
+    @media (max-width: 768px) { 
+        h3 {
+            font-size: 25px;
+        }
+    }
+
+    p{
+        margin-left: 8px;
+        word-break: break-all;
+        white-space: normal;    
+    }
+
+    .card .col button{
+        padding: 0px !important;
+    }
     
 }

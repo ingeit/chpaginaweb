@@ -29,8 +29,28 @@ export class ListaOperacionesPage {
               public navParams: NavParams) {
                 this.fechaInicio = new Date().toISOString();
                 this.fechaFin = new Date().toISOString();
+
+                
                 
   }
+
+  setClasses(terjetaIn){
+    let tar;
+    switch (terjetaIn)
+    {
+      case 'AMEX':
+        tar = 'fa-cc-amex';
+        break;
+      case 'VISA':
+        tar = 'fa-cc-visa';
+        break;
+      case 'MASTER':
+        tar = 'fa-cc-mastercard';
+        break;
+    }
+      return tar;
+  }
+  
 
   ionViewDidLoad() {
     this.obtenerOperaciones();
