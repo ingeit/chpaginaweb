@@ -73,31 +73,33 @@
         </ion-card-content>
 
         <ion-row class="row" no-padding="">
-          <ion-col col-3 col-sm class="col">
+          <ion-col col-4 col-sm class="col" >
             <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
             <ion-icon name="cart"></ion-icon>
             $ {{o.importeVenta}}
             </span><div class="button-effect"></div></button>
           </ion-col>
-          <ion-col col-3 col-sm class="col">
+          <ion-col col-4 col-sm class="col" text-center>
             <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
             <ion-icon name="card"></ion-icon>
             $ {{o.importeCarga}}
             </span><div class="button-effect"></div></button>
           </ion-col>
-          <ion-col style="padding-left: 27px;" col-3 col-sm class="col" text-center="">
+          <ion-col col-4 col-sm class="col"text-right>
             <button clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
             <ion-icon name="cash"></ion-icon>
             $ {{o.importeCobrar}}
             </span><div class="button-effect"></div></button>
           </ion-col>
-          <ion-col col-3 col-sm class="col" text-right="">
-            <button (click)="verOperacion(o.idOperacion)" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
+        </ion-row>
+         <ion-row>
+        <ion-col class="col titulo" style="padding: 8px 28px;" text-center>
+            <button (click)="verOperacion(o.idOperacion)" style="color: #515e70;" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
             <ion-icon name="share-alt" role="img" class="icon icon-md ion-md-share-alt" aria-label="share alt"></ion-icon>
               Ver
             </span><div class="button-effect"></div></button>
           </ion-col>
-        </ion-row>
+        </ion-row> 
       </ion-card>
     </div>
     <div *ngIf="!mostrarTarjetas">

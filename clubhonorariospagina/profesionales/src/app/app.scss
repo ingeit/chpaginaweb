@@ -56,6 +56,15 @@
     max-width: 1006px;
 }
 
+.titulo {
+    display: block;
+    padding: 18px 28px;
+    font-weight: 600;
+    color: #515e70;
+    background-color: #f8f8f8;
+    text-transform: uppercase;
+}
+
 @media (min-width: 768px) { 
     ion-menu {
         max-width: 250px!important;
