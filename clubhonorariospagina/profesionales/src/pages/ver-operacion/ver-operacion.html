@@ -24,14 +24,55 @@
           <p>Profesional: {{operacion.apellidoProfesional | uppercase}}, {{operacion.nombreProfesional}} - DNI: {{operacion.dniProfesional}}</p>
         </ion-item>
         <ion-card-content>
-          <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
+          <table class="table">
+                    <tbody>
+                        <tr>
+                        <th>CUIT Profesional</th>
+                            <td>20341591814</td>
+                        </tr>
+                        <tr>
+                        <th>Fecha Transaccion</th>
+                            <td>20/12/2017</td>
+                        </tr>
+                        <tr>
+                        <th>Fecha de Pago</th>
+                            <td>25/12/2017</td>
+                        </tr>
+                        <tr>
+                          <th>DNI Cliente</th>
+                            <td>35953451</td>
+                        </tr>
+                          <tr>
+                        <th>APELLDIO Cliente</th>
+                            <td>Bruno</td>
+                        </tr>
+                        <tr>
+                        <th>Nombre Cliente</th>
+                            <td>Ricardo</td>
+                        </tr>
+                        <tr>
+                        <th>Tarjeta</th>
+                            <td>VISA</td>
+                        </tr>
+                        <tr>
+                          <th>Honorarios Profesional</th>
+                            <td>$ 1000</td>
+                        </tr>
+                        <tr>
+                          <th>Monto Acreditado</th>
+                            <td>$ 950</td>
+                        </tr>
+                    </tbody>
+                      </table>
+           <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  
           Fecha: {{operacion.fechaTransaccion | date:'dd/MM/yy H:mm'}}<br> 
-          {{operacion.tarjeta}} - {{operacion.cuotas}} cuotas &bull; CodAuto: {{operacion.codigoAuto}} &bull; Cupon: {{operacion.cupon}}
+          {{operacion.tarjeta}} - {{operacion.cuotas}} cuotas &bull; CodAuto: {{operacion.codigoAuto}} &bull; Cupon: {{operacion.cupon}} -->
         </ion-card-content>
-
+<!-- 
         <ion-row class="row" no-padding="">
           <ion-col col-4 col-sm class="col" >
-            <!-- 
+
+             
               Para snippet:
               npm install @angular/animations@4.1.3 --save
               npm install ionic-tooltips --save 
@@ -44,7 +85,8 @@
               .....
               tooltips propiedades::
              tooltip="hello" positionV="top" arrow (este arrow saca una flecha del tag de donde viene)
-            duration="2500" (en ms)  -->
+            duration="2500" (en ms)  
+            
             <button tooltip="Importe de venta" positionV="top" duration="1500" arrow  clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
             <ion-icon name="cart"></ion-icon>
             &nbsp;${{operacion.importeVenta}}
@@ -63,7 +105,7 @@
             </span><div class="button-effect"></div></button>
           </ion-col>
 
-        </ion-row> 
+        </ion-row>  -->
       </ion-card>
 
 </ion-content>
