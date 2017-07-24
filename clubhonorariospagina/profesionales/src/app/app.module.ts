@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule} from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { TooltipsModule } from 'ionic-tooltips';
 
 //Pages
 import { MyApp } from './app.component';
@@ -29,6 +30,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   imports: [
     BrowserModule,
     HttpModule,
+    TooltipsModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
       mode: "md",

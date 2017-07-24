@@ -61,6 +61,8 @@ export class ListaOperacionesPage {
     this.data.obtenerOperaciones().then((data)=>{
       this.Operaciones = data;
       if(this.Operaciones[0].codigo != 0){
+        // transformo fechas mediante la funcion
+          this.Operaciones = this.transformarFechas(this.Operaciones);
           this.mostrarTarjetas = true;
           console.log(this.Operaciones);
       }
@@ -76,6 +78,7 @@ export class ListaOperacionesPage {
     this.data.dameOperacion(details).then((data)=>{
       this.loading.dismiss();
       this.operacion = data;
+      this.operacion = this.transformarFechas(this.operacion);
       console.log(this.operacion);
       // if(this.operacion[0].codigo != 0){
       //   this.mostrarTarjetas = true;
@@ -97,6 +100,7 @@ export class ListaOperacionesPage {
         this.loading.dismiss();
         this.Operaciones = data;
         if(this.Operaciones[0].codigo != 0){
+          this.Operaciones = this.transformarFechas(this.Operaciones);
           this.mostrarTarjetas = true;
         }else{
           this.mostrarTarjetas = false;
@@ -131,6 +135,19 @@ export class ListaOperacionesPage {
       content: 'Cargando...'
     });
     this.loading.present();
+  }
+
+  transformarFechas(valores){
+    valores.forEach((element, index) => {    
+        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion);
+        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion.getUTCFullYear(),
+                                                  valores[index].fechaTransaccion.getUTCMonth(),
+                                                  valores[index].fechaTransaccion.getUTCDate(),
+                                                  valores[index].fechaTransaccion.getUTCHours(),
+                                                  valores[index].fechaTransaccion.getUTCMinutes(),
+                                                  valores[index].fechaTransaccion.getUTCSeconds());
+    });
+    return valores;
   }
 
   
