@@ -68,10 +68,9 @@ export class FormularioWebPage {
           // 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
       this.showLoader('Consultando Hora en servidor');
       this.formularioProvider.dameFechas().then((result) => {
-          console.log("consulta anidada 1 ");
           this.respuesta = result[0];
           if(this.respuesta.codigo === 1){
-            console.log(this.respuesta.fechaTransaccion);
+            console.log("fecha transaccion desde formulario 1 provider", this.respuesta.fechaTransaccion);
             this.fechaTransaccionMysql = this.respuesta.fechaTransaccion;
             this.fechaPagoMysql = this.respuesta.fechaPago;
               // CONSULTA ANIDADA para comisiones

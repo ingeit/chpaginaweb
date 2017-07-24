@@ -52,11 +52,27 @@ export class FormularioWebPaso2Page {
   }
 
   ionViewDidLoad() {
-    this.fechaTransaccionMysql = this.navParams.get('fechaTransaccion');
+    // creamos una instancia del objeto DatePipe para usar en las fechas luego.
     let datePipe = new DatePipe('es-AR');
+    // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
+    this.fechaTransaccionMysql = new Date(this.navParams.get('fechaTransaccion'));
+    console.log("fecha transaccion desde form 2 en view load", this.fechaTransaccionMysql);
+    this.fechaTransaccionMysql = new Date(this.fechaTransaccionMysql.getUTCFullYear(),
+                                          this.fechaTransaccionMysql.getUTCMonth(),
+                                          this.fechaTransaccionMysql.getUTCDate(),
+                                          this.fechaTransaccionMysql.getUTCHours(),
+                                          this.fechaTransaccionMysql.getUTCMinutes(),
+                                          this.fechaTransaccionMysql.getUTCSeconds());
     this.fechaTransaccionMysql = datePipe.transform(this.fechaTransaccionMysql, 'dd/MM/yyyy H:m');
-    console.log(this.fechaTransaccionMysql);
-    this.fechaPago = this.navParams.get('fechaPago');
+    console.log("fecha transaccion desde form 2 en view load despues de PIPE ", this.fechaTransaccionMysql);
+    //Hacemos lo mismo para fecha de pago..
+    this.fechaPago = new Date(this.navParams.get('fechaPago'));
+    this.fechaPago = new Date(this.fechaPago.getUTCFullYear(),
+                              this.fechaPago.getUTCMonth(),
+                              this.fechaPago.getUTCDate(),
+                              this.fechaPago.getUTCHours(),
+                              this.fechaPago.getUTCMinutes(),
+                              this.fechaPago.getUTCSeconds());
     this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
     this.formulario = this.navParams.get('formulario');  
     switch (this.formulario.tarjeta.value)

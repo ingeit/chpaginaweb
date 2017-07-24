@@ -33,7 +33,8 @@ exports.dameOperacion = function(idOperacion,fn){
 
 
 exports.getFechas = function(fn){
-    connection.query('call dame_fechas()', function(err, rows){  
+    connection.query('call dame_fechas()', function(err, rows){
+                console.log("fechas desde nodejs", rows[0]);  
                 if (err) fn (err);  
                 fn(rows[0]); 
             });

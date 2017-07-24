@@ -31,6 +31,8 @@ formulario: any;
     this.fechaTransaccion = navParams.get('fechaTransaccion');
     this.fechaPago = navParams.get('fechaPago');
     this.formulario = navParams.get('formulario');
+
+    console.log("fecha transaccion desde modal page",this.fechaTransaccion);
   }
 
   ionViewDidLoad() {
@@ -41,6 +43,7 @@ formulario: any;
  }
 
   irPaso2(){
+    console.log("fecha transaccion desde modal page justo por hacer push a formulario 2",this.fechaTransaccion);
     this.navCtrl.push(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
                                 fechaPago: this.fechaPago,
                                 formulario: this.formulario
