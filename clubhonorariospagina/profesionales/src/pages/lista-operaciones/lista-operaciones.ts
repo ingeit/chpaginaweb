@@ -57,10 +57,12 @@ export class ListaOperacionesPage {
   }
   
   obtenerOperaciones(){
+    //el problema de la fecha no esta aqui.. esta en el pipe del HTML...
     this.data.obtenerOperaciones().then((data)=>{
       this.Operaciones = data;
       if(this.Operaciones[0].codigo != 0){
           this.mostrarTarjetas = true;
+          console.log(this.Operaciones);
       }
     }); 
   }

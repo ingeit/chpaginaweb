@@ -12,6 +12,7 @@ var connection = mysql.createConnection({
 
 exports.getOperaciones = function(fn){
     connection.query('call operacion_listar_dia()', function(err, rows){  
+            console.log(rows[0]);
                 if (err) fn (err);  
                 fn(rows[0]); 
             });

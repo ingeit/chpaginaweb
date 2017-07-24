@@ -67,6 +67,7 @@
           <p>Profesional: {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} - DNI: {{o.dniProfesional}}</p>
         </ion-item>
         <ion-card-content>
+          <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
           Fecha: {{o.fechaTransaccion | date:'dd/MM/yy hh:mm a'}}<br> 
           {{o.tarjeta}} - {{o.cuotas}} cuotas &bull; CodAuto: {{o.codigoAuto}} &bull; Cupon: {{o.cupon}}
         </ion-card-content>
