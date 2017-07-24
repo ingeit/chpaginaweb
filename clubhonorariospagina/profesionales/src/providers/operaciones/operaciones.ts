@@ -13,8 +13,11 @@ export class OperacionesProvider {
 
   obtenerOperaciones(){
     return new Promise((resolve, reject) => {
-        this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`).map(res => res.json())
+        this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`)
+        .map(res => res.json())
         .subscribe(res => {
+          // transformamos las fechas a UTC por culpa del pipe...
+          res = this.transformarFechas(res);
           resolve(res);
         }, (err) => {
           reject(err);
@@ -31,6 +34,7 @@ export class OperacionesProvider {
         this.http.post(`${configServer.data.urlServidor}/api/listarOperacionesPorFecha/`, JSON.stringify(credentials), {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
+          res = this.transformarFechas(res);
           resolve(res);
         }, (err) => {
           reject(err);
@@ -47,11 +51,25 @@ export class OperacionesProvider {
         this.http.post(`${configServer.data.urlServidor}/api/dameOperacion`, JSON.stringify(credentials), {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
+          res = this.transformarFechas(res);
           resolve(res);
         }, (err) => {
           reject(err);
         });
     });
+  }
+
+  transformarFechas(valores){
+    valores.forEach((element, index) => {    
+        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion);
+        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion.getUTCFullYear(),
+                                                  valores[index].fechaTransaccion.getUTCMonth(),
+                                                  valores[index].fechaTransaccion.getUTCDate(),
+                                                  valores[index].fechaTransaccion.getUTCHours(),
+                                                  valores[index].fechaTransaccion.getUTCMinutes(),
+                                                  valores[index].fechaTransaccion.getUTCSeconds());
+    });
+    return valores;
   }
 
   

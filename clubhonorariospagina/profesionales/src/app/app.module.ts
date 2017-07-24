@@ -12,6 +12,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
+import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -25,6 +26,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     MyApp,
     HomePage,
     ListaOperacionesPage,
+    VerOperacionPage,
     SideMenu
   ],
   imports: [
@@ -47,6 +49,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     MyApp,
     HomePage,
     ListaOperacionesPage,
+    VerOperacionPage,
     SideMenu
   ],
   providers: [

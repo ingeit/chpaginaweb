@@ -1,0 +1,69 @@
+<!--
+  Generated template for the VerOperacionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>VerOperacion</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+      <ion-card >
+        <ion-item>
+          <ion-avatar item-start>
+            <i class="fa fa-2x" aria-hidden="true"></i>
+            <!-- <img src="img/marty-avatar.png"> -->
+          </ion-avatar>
+          <h2>Operacion Nº: {{ operacion.idOperacion }}</h2>
+          <p>Profesional: {{operacion.apellidoProfesional | uppercase}}, {{operacion.nombreProfesional}} - DNI: {{operacion.dniProfesional}}</p>
+        </ion-item>
+        <ion-card-content>
+          <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
+          Fecha: {{operacion.fechaTransaccion | date:'dd/MM/yy H:mm'}}<br> 
+          {{operacion.tarjeta}} - {{operacion.cuotas}} cuotas &bull; CodAuto: {{operacion.codigoAuto}} &bull; Cupon: {{operacion.cupon}}
+        </ion-card-content>
+
+        <ion-row class="row" no-padding="">
+          <ion-col col-4 col-sm class="col" >
+            <!-- 
+              Para snippet:
+              npm install @angular/animations@4.1.3 --save
+              npm install ionic-tooltips --save 
+              en module.ts
+              import { TooltipsModule } from 'ionic-tooltips';
+
+              imports: [
+                ....
+              TooltipsModule,
+              .....
+              tooltips propiedades::
+             tooltip="hello" positionV="top" arrow (este arrow saca una flecha del tag de donde viene)
+            duration="2500" (en ms)  -->
+            <button tooltip="Importe de venta" positionV="top" duration="1500" arrow  clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
+            <ion-icon name="cart"></ion-icon>
+            &nbsp;${{operacion.importeVenta}}
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+          <ion-col col-4 col-sm class="col" text-center>
+            <button tooltip="Importe de carga" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary" style="transition: none;"><span class="button-inner">
+            <ion-icon name="card"> </ion-icon>
+            &nbsp;${{operacion.importeCarga}}
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+          <ion-col col-4 col-sm class="col"text-right>
+            <button tooltip="Importe a cobrar" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button="" small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"><span class="button-inner">
+            <ion-icon name="cash"></ion-icon>
+            &nbsp;${{operacion.importeCobrar}}
+            </span><div class="button-effect"></div></button>
+          </ion-col>
+
+        </ion-row> 
+      </ion-card>
+
+</ion-content>
