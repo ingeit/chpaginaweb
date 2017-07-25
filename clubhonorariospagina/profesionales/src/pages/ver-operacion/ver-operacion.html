@@ -1,66 +1,112 @@
-<!--
-  Generated template for the VerOperacionPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>VerOperacion</ion-title>
+ <ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+     <ion-title><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
   </ion-navbar>
+</ion-header> 
 
-</ion-header>
 
 
 <ion-content padding>
-      <ion-card >
+      <ion-card class="centrado">
         <ion-item>
           <ion-avatar item-start>
-            <i class="fa fa-2x" aria-hidden="true"></i>
-            <!-- <img src="img/marty-avatar.png"> -->
+            <i class="fa fa-3x" [ngClass]="setClasses(operacion.tarjeta)" aria-hidden="true"></i>
           </ion-avatar>
-          <h2>Operacion Nº: {{ operacion.idOperacion }}</h2>
-          <p>Profesional: {{operacion.apellidoProfesional | uppercase}}, {{operacion.nombreProfesional}} - DNI: {{operacion.dniProfesional}}</p>
+          <h2>Operacion Nº: </h2>
+          <p>{{ operacion.idOperacion }}</p>
         </ion-item>
         <ion-card-content>
           <table class="table">
                     <tbody>
                         <tr>
-                        <th>CUIT Profesional</th>
-                            <td>20341591814</td>
+                          <th style="color:black">PROFESIONAL</th>
+                              <td></td>
+                          </tr>
+                        <tr>
+                        <tr>
+                        <th>Apellido: </th>
+                            <td>{{operacion.apellidoProfesional | uppercase}}</td>
                         </tr>
                         <tr>
-                        <th>Fecha Transaccion</th>
-                            <td>20/12/2017</td>
+                        <th>Nombre: </th>
+                            <td>{{operacion.nombreProfesional}}</td>
                         </tr>
                         <tr>
-                        <th>Fecha de Pago</th>
-                            <td>25/12/2017</td>
+                        <th>DNI: </th>
+                            <td>{{operacion.dniProfesional}}</td>
                         </tr>
                         <tr>
-                          <th>DNI Cliente</th>
-                            <td>35953451</td>
-                        </tr>
-                          <tr>
-                        <th>APELLDIO Cliente</th>
-                            <td>Bruno</td>
+                          <th>Mail: </th>
+                            <td>{{operacion.mailProfesional}}</td>
                         </tr>
                         <tr>
-                        <th>Nombre Cliente</th>
-                            <td>Ricardo</td>
+                          <th style="color:black">CLIENTE</th>
+                              <td></td>
+                          </tr>
+                        <tr>
+                        <tr>
+                        <th>Apellido: </th>
+                            <td>{{operacion.apellidoCliente}}</td>
                         </tr>
                         <tr>
-                        <th>Tarjeta</th>
-                            <td>VISA</td>
+                        <th>Nombre:</th>
+                            <td>{{operacion.nombreCliente}}</td>
                         </tr>
                         <tr>
-                          <th>Honorarios Profesional</th>
-                            <td>$ 1000</td>
+                        <th>DNI: </th>
+                            <td>{{operacion.dniCliente}}</td>
                         </tr>
                         <tr>
-                          <th>Monto Acreditado</th>
-                            <td>$ 950</td>
+                          <th>Mail: </th>
+                            <td>{{operacion.mailCliente}}</td>
+                        </tr>
+                        <tr>
+                          <th>Telefono: </th>
+                            <td>{{operacion.telefonoCiente}}</td>
+                        </tr>
+                        <tr>
+                          <th style="color:black">DATOS OP.</th>
+                              <td></td>
+                          </tr>
+                        <tr>
+                        <tr>
+                          <th>Codigo: </th>
+                            <td>{{operacion.codigoAuto}}</td>
+                        </tr>
+                        <tr>
+                          <th>Cupon: </th>
+                            <td>{{operacion.cupon}}</td>
+                        </tr>
+                        <tr>
+                          <th>Fecha Op.: </th>
+                            <td>{{operacion.fechaOperacion}}</td>
+                        </tr>
+                        <tr>
+                          <th>Fecha Pago: </th>
+                            <td>{{operacion.fechaPago}}</td>
+                        </tr>
+                        <tr>
+                          <th>I. Carga: </th>
+                            <td>{{operacion.importeCarga}}</td>
+                        </tr>
+                        <tr>
+                          <th>I. Cobrar: </th>
+                            <td>{{operacion.importeCobrar}}</td>
+                        </tr>
+                        <tr>
+                          <th>I. Venta: </th>
+                            <td>{{operacion.importeVenta}}</td>
+                        </tr>
+                        <tr>
+                          <th>Cuotas: </th>
+                            <td>{{operacion.cuotas}}</td>
+                        </tr>
+                        <tr>
+                          <th>I. Cuota: </th>
+                            <td>{{operacion.importeCuota}}</td>
                         </tr>
                     </tbody>
                       </table>

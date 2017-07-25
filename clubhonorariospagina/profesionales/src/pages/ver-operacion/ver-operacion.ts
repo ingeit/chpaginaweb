@@ -22,7 +22,23 @@ export class VerOperacionPage {
 
   ionViewDidLoad() {
     console.log("operacion desde ver op", this.operacion);
-    
+  }
+
+  setClasses(terjetaIn){
+    let tar;
+    switch (terjetaIn)
+    {
+      case 'AMEX':
+        tar = 'fa-cc-amex';
+        break;
+      case 'VISA':
+        tar = 'fa-cc-visa';
+        break;
+      case 'MASTER':
+        tar = 'fa-cc-mastercard';
+        break;
+    }
+      return tar;
   }
 
 }

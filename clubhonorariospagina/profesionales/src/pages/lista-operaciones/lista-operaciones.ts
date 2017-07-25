@@ -68,9 +68,7 @@ export class ListaOperacionesPage {
   }
 
   verOperacion(operacion){
-    console.log(operacion);  
     this.navCtrl.push(VerOperacionPage, { operacion: operacion });
-
   }
 
   filtrar(){
