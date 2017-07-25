@@ -224,126 +224,23 @@ var emailCliente = function (oIdOperacion,oMailProfesional,oDniProfesional,oApel
 
 exports.pdf = function(req, res, next){
     var pdf = require('html-pdf');
+    // fs lee archivos
     var fs = require('fs');
-    
-    var html = 
-    `<!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
+    // embedd js para escribiri variables en html
+    var ejs = require('ejs')
+        , path = __dirname + '/../views/index.ejs'
+        , str = fs.readFileSync(path, 'utf8');
 
-        <title>The HTML5 Herald</title>
-        <meta name="description" content="The HTML5 Herald">
-        <meta name="author" content="SitePoint">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
-
-    <body>
- 
-        <div class="container-fluid navbar-default">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-              <img alt="Brand" src="http://clubhonorarios.com/img/logo/logo-max.png">
-            </a>
-          </div>
-        </div>
-   ]
-        <div class="container-fluid contenedorCentro">
-            <div class="row centrado tabla">
-              <div class="panel panel-default">
-                <div class="panel-heading">Datos de Transaccion</div>
-                <div class="panel-body">
-                  <table class="table">
-                    <tbody>
-                        <tr>
-                        <th>CUIT Profesional</th>
-                            <td>20341591814</td>
-                        </tr>
-                        <tr>
-                        <th>Fecha Transaccion</th>
-                            <td>20/12/2017</td>
-                        </tr>
-                        <tr>
-                        <th>Fecha de Pago</th>
-                            <td>25/12/2017</td>
-                        </tr>
-                        <tr>
-                          <th>DNI Cliente</th>
-                            <td>35953451</td>
-                        </tr>
-                          <tr>
-                        <th>APELLDIO Cliente</th>
-                            <td>Bruno</td>
-                        </tr>
-                        <tr>
-                        <th>Nombre Cliente</th>
-                            <td>Ricardo</td>
-                        </tr>
-                        <tr>
-                        <th>Tarjeta</th>
-                            <td>VISA</td>
-                        </tr>
-                        <tr>
-                          <th>Honorarios Profesional</th>
-                            <td>$ 1000</td>
-                        </tr>
-                        <tr>
-                          <th>Monto Acreditado</th>
-                            <td>$ 950</td>
-                        </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <style> 
-          .tabla{
-            max-width: 400px;
-          }
-          	.contenedorCentro {
-              position: absolute;
-              display: table;
-              height: 100%;
-              width: 100%;
-              text-align: center;
-            }
-            .centrado {
-              display: table-cell;
-              vertical-align: middle;
-            }
-
-            html {
-              height: 100%;
-            }
-            body {
-              min-height: 100%;
-            }
-
-            .navbar-default {
-                min-height: 95px;
-                background-color: #002775;
-                border-color: #002775;
-            }
-        </style>
-    </body>
-    </html>`;
+    data = {
+        'titulo': 'hola'
+    }
+    var html = ejs.render(str,data);
     
     config = {
-  "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
-  "orientation": "portrait", // portrait or landscape 
- 
- 
-  "header": {
-    "height": "45mm",
-    "contents": '<div style="text-align: center;">Author: Marc Bachmann</div>'
-  },
-
-  // Zooming option, can be used to scale images if `options.type` is not pdf 
-  "zoomFactor": "1", // default is 1 
- 
+    "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+    "orientation": "portrait", // portrait or landscape 
+    // Zooming option, can be used to scale images if `options.type` is not pdf 
+    "zoomFactor": "1", // default is 1 
 }
 
     pdf.create(html, config).toStream(function(err, stream){
