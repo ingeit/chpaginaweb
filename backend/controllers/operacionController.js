@@ -64,7 +64,28 @@ exports.operacionNueva = function(req, res, next){
     operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
         oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
         oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,function(consulta){
-        res.json(consulta);
+            if(consulta[0].codigo >= 1){
+                var respuesta = consulta[0];
+                var oFechaTransaccion = respuesta.fechaTransaccion;
+                var oFechaPago = respuesta.fechaPago;
+                var oIdOperacion = respuesta.codigo;
+                emailProfesional(oIdOperacion,oMailProfesional,oDniProfesional,req.body.apellidoProfesional,req.body.nombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,req.body.apellidoCliente,req.body.nombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto,function(res){
+                    console.log("enviando mail desde operacion nueva: ", res);
+                     if(req.body.mailCliente != ''){
+                        emailCliente(oIdOperacion,oMailProfesional,oDniProfesional,req.body.apellidoProfesional,req.body.nombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,req.body.apellidoCliente,req.body.nombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto,function(res2){
+                            console.log("enviando mail desde operacion nueva: ", res2);
+                            let response = {
+                                'mysql' : consulta,
+                                'mailProfesional' : res,
+                                'mailCliente' : res2
+                            };
+                            console.log(response);
+                            res.json(response);
+                        }); 
+                    }  
+
+                });
+            }
     });
 }
 
@@ -111,46 +132,89 @@ exports.excel = function(req, res, next){
     });  
 }
 
-exports.email = function (req, res) {
+var emailProfesional = function (oIdOperacion,oMailProfesional,oDniProfesional,oApellidoProfesional,oNombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto,fn) {
+    console.log(oMailProfesional,oDniProfesional,oNombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto);
     var pdf = require('html-pdf');
     var fs = require('fs');
-    
     var html = '<h3>hola</h3><p>chau</p>'
 
   	var transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com', // mail.clubhonorarios.com
+        host: 'xw000111.ferozo.com',
         port: 587,
-        // opportunisticTLS: true,
-        // secure: false, // secure:true for port 465, secure:false for port 587
-        // auth: {
-        //     user: 'op@clubhonorarios.com', // chonorarios@gmail.com -- ramiro123
-        //     pass: 'Astrid2017' // Your password
-        // }
+        secure: false,
         auth: {
-             user: 'chonorarios@gmail.com', // chonorarios@gmail.com -- ramiro123
-            pass: 'ramiro123' // Your password
+            user: 'op@clubhonorarios.com',
+            pass: 'Astrid2017'
         }
+        //  user: 'chonorarios@gmail.com',
+        //  pass: 'ramiro123'
     });
 
     pdf.create(html).toStream(function(err, stream){
       var mailOptions = {
-        from: 'Club Honorarios <ch@clubhonorarios.com>', //grab form data from the request body object
-        to: 'rbrunount@gmail.com',
-        subject: 'PDF',
-        text: 'holaaa node cuerpo!!!',
+        from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
+        to: oMailProfesional,
+        bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+        subject: 'Comprobante de Operacion Numero '+oIdOperacion,
+        text: 'Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
         attachments: [
           {   // stream as an attachment
-              filename: 'ejemplo.pdf',
+             // formato de nombre:
+             // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
+              filename: 'Prof '+oApellidoProfesional.toUpperCase()+' '+oNombreProfesional+' - Cl '+oApellidoCliente.toUpperCase()+' '+oNombreCliente+' - Op '+oIdOperacion+' - '+oFechaTransaccion+'.pdf',
               content: stream
           }],
        };
+        
       transporter.sendMail(mailOptions,function(error, info){
         if(error){
-            console.log(error);
-            res.json({yo: 'error'});
+            fn('error');
         }else{
-            console.log('Message sent: ' + info.response);
-            res.json({yo: info.response});
+            fn(info.response);
+        };
+      });
+    });
+}
+
+var emailCliente = function (oIdOperacion,oMailProfesional,oDniProfesional,oApellidoProfesional,oNombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto,fn) {
+    console.log(oMailProfesional,oDniProfesional,oNombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto);
+    var pdf = require('html-pdf');
+    var fs = require('fs');
+    var html = '<h3>hola</h3><p>chau</p>'
+
+  	var transporter = nodemailer.createTransport({
+        host: 'xw000111.ferozo.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: 'op@clubhonorarios.com',
+            pass: 'Astrid2017'
+        }
+        //  user: 'chonorarios@gmail.com',
+        //  pass: 'ramiro123'
+    });
+
+    pdf.create(html).toStream(function(err, stream){
+      var mailOptions = {
+        from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
+        to: oMailProfesional,
+        bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+        subject: 'Comprobante de Operacion Numero '+oIdOperacion,
+        text: 'Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
+        attachments: [
+          {   // stream as an attachment
+             // formato de nombre:
+             // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
+              filename: 'Prof '+oApellidoProfesional.toUpperCase()+' '+oNombreProfesional+' - Cl '+oApellidoCliente.toUpperCase()+' '+oNombreCliente+' - Op '+oIdOperacion+' - '+oFechaTransaccion+'.pdf',
+              content: stream
+          }],
+       };
+        
+      transporter.sendMail(mailOptions,function(error, info){
+        if(error){
+            fn('error');
+        }else{
+            fn(info.response);
         };
       });
     });

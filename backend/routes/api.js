@@ -13,7 +13,7 @@ router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
-router.get('/email',OperacionController.email);
+// router.get('/email',OperacionController.email);
 
 
 
