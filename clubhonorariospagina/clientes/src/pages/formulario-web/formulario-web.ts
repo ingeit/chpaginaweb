@@ -42,11 +42,11 @@ export class FormularioWebPage {
       this.dameFechasyComisiones();
 
       this.formulario = formBuilder.group({
-        dniProfesional: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
+        dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellidoProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        mailProfesional: [''],
-        dniCliente: ['',Validators.compose([Validators.maxLength(11),Validators.minLength(8),Validators.pattern(/()\d/g),Validators.required])],
+        mailProfesional: ['',Validators.email],
+        dniCliente: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         telefonoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(5),Validators.pattern(/()\d/g),Validators.required])],
