@@ -1,9 +1,10 @@
 import { Component,HostListener,ViewChild } from '@angular/core';
-import { NavController, NavParams, IonicPage,AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage,AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { DatePipe } from '@angular/common';
+import { ModalPage } from '../modal/modal';
 
 @Component({
   selector: 'page-formulario-web-paso2',
@@ -24,7 +25,7 @@ export class FormularioWebPaso2Page {
   tarjeta:any;
   codigoAutoLabel: any;
   submitAttempt: boolean = false;
-  mensaje:any;
+  respuesta:any;
   imagenEditada = false;
   @ViewChild('myCanvas') canvas: any;
   canvasElement: any;
@@ -36,6 +37,7 @@ export class FormularioWebPaso2Page {
               public loadingCtrl: LoadingController,
               public opProv: OperacionesProvider,
               public formBuilder: FormBuilder,
+              public modalCtrl: ModalController,
               public navParams: NavParams) {
                 
 
@@ -132,28 +134,20 @@ export class FormularioWebPaso2Page {
             console.log(details);
       // this.showLoader('Enviando formulario. Espere por favor...');  
       this.opProv.operacionNueva(details).then((data)=>{
-          // this.loading.dismiss();
-          this.mensaje = data;
-          console.log("despuesta de mysql en form 2: ",this.mensaje);
-          let mysql = this.mensaje.mysql[0]; //mysql.codigo, fechaTransaccion, fechaPago, mensaje...
-          let mailProf = this.mensaje.mailProfesional; // si hay error.. aparece 'error', sino '250 OK ......'
-          if(this.mensaje.mailCliente){
-            console.log("existe mail cliente.. asignando variable en mensaje form 2");
-             let mailCliente = this.mensaje.mailCliente; // si hay error.. aparece 'error', sino '250 OK ......'
-          }
-         
-          if(mysql.codigo != 0){
-              let idOperacion = "Codigo de operacion: <br>"+mysql.codigo;
-              let fechaTransaccion = "Fecha de transaccion: <br>"+mysql.fechaTransaccion.toLocaleString();
-              let fechaPago = "Fecha de pago: <br>"+mysql.fechaPago.toLocaleString();
-              let t = mysql.mensaje;
-              let m = idOperacion+"<br>"+fechaTransaccion+"<br>"+fechaPago;
-              this.showAlert(t,m);
-          }else{
-              let t = mysql.mensaje;
-              let m = "Por favor intente nuevamente, sin cargar la operacion en visa";
-              this.showAlert(t,m);
-          }
+      // this.loading.dismiss();
+          this.respuesta = data;
+          this.mostrarModal(this.respuesta);
+          
+          // let mysql = this.respuesta.mysql[0]; //mysql.codigo, fechaTransaccion, fechaPago, mensaje...
+          // let mailProf = this.respuesta.mailProfesional; // si hay error.. aparece 'error', sino '250 OK ......'         
+          // let idOperacion = mysql.codigo;
+          // let mensaje = mysql.respuesta;
+          // let fechaTransaccion = mysql.fechaTransaccion
+          // let fechaPago = mysql.fechaPago
+          // let mailCliente = this.respuesta.mailCliente; // si hay error.. aparece 'error', sino '250 OK ......'
+          
+          
+          
       });
 
   }
@@ -223,6 +217,11 @@ export class FormularioWebPaso2Page {
       content: mensaje
     });
     this.loading.present();
+  }
+
+  mostrarModal(respuesta){
+    let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta });
+    modalRes.present();
   }
 
 }

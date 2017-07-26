@@ -178,7 +178,7 @@ export class FormularioWebPage {
 
   confirmar() {
     // confirmar mediante modal
-    let confirmarModal = this.modalCtrl.create(ModalPage, {fechaTransaccion: this.fechaTransaccionMysql,
+    let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
                                                             fechaPago: this.fechaPagoMysql,
                                                             formulario: this.formulario.controls });
     confirmarModal.present();
