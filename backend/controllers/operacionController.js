@@ -170,9 +170,6 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
     // fs lee archivos
     var fs = require('fs');
     // embedd js para escribiri variables en html
-    var ejs = require('ejs')
-        , path = __dirname + '/../views/index.ejs'
-        , str = fs.readFileSync(path, 'utf8');
 
     data = {
         'fechaImpresion': oFechaTransaccion,
@@ -189,9 +186,13 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         'tarjeta': oTarjeta,
         'honorariosProfesional': oImporteVenta,
         'montoAcreditado': oImporteCobrar,
+        'cuotas': oCuotas,
+        'importeCuota': oImporteCuota,
+        'codigoAuto': oCodigoAuto,
+        'cupon': oCupon,
+        'mailCliente': oMailCliente,
     }
-    var html = ejs.render(str,data);
-    
+
     config = {
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
@@ -199,6 +200,22 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         "base": 'file://' + __dirname + '/../img/'
     }   
 
+    switch(destino) {
+        case 'profesional':
+            var ejs = require('ejs')
+            , path = __dirname + '/../views/tamplateProfesional.ejs'
+            , str = fs.readFileSync(path, 'utf8');
+            var html = ejs.render(str,data);
+            break;
+        case 'cliente':
+            var ejs = require('ejs')
+            , path = __dirname + '/../views/tamplateCliente.ejs'
+            , str = fs.readFileSync(path, 'utf8');
+            var html = ejs.render(str,data);
+            break;
+        default:
+    } 
+    
   	var transporter = nodemailer.createTransport({
         host: 'xw000111.ferozo.com',
         port: 587,
