@@ -49,7 +49,7 @@ export class FormularioWebPage {
         dniCliente: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        telefonoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(5),Validators.pattern(/()\d/g),Validators.required])],
+        telefonoCliente: [''],
         mailCliente: [''],
         tarjeta: ['',Validators.compose([Validators.required])],
         cuotas: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
