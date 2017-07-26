@@ -16,6 +16,7 @@ export class FormularioWebPaso2Page {
   //   if(true) $event.returnValue='Perderas la informacion!';
   // }
 
+  loading: any;
   fechaTransaccionMysql: any;
   fechaPago:any;
   formulario:any;
@@ -129,21 +130,30 @@ export class FormularioWebPaso2Page {
 
         };
             console.log(details);
-
+      // this.showLoader('Enviando formulario. Espere por favor...');  
       this.opProv.operacionNueva(details).then((data)=>{
-        this.mensaje = data;
-        console.log(this.mensaje);
-        if(this.mensaje[0].codigo != 0){
-          let fechaTransaccion = "Fecha de transaccion: <br>"+this.mensaje[0].fechaTransaccion.toLocaleString();
-          let fechaPago = "Fecha de pago: <br>"+this.mensaje[0].fechaPago.toLocaleString();
-          let t = this.mensaje[0].mensaje;
-          let m = fechaTransaccion+"<br>"+fechaPago;
-          this.showAlert(t,m);
-        }else{
-          let t = this.mensaje[0].mensaje;
-          let m = "Por favor intente nuevamente, sin cargar la operacion en visa";
-          this.showAlert(t,m);
-        }
+          // this.loading.dismiss();
+          this.mensaje = data;
+          console.log("despuesta de mysql en form 2: ",this.mensaje);
+          let mysql = this.mensaje.mysql[0]; //mysql.codigo, fechaTransaccion, fechaPago, mensaje...
+          let mailProf = this.mensaje.mailProfesional; // si hay error.. aparece 'error', sino '250 OK ......'
+          if(this.mensaje.mailCliente){
+            console.log("existe mail cliente.. asignando variable en mensaje form 2");
+             let mailCliente = this.mensaje.mailCliente; // si hay error.. aparece 'error', sino '250 OK ......'
+          }
+         
+          if(mysql.codigo != 0){
+              let idOperacion = "Codigo de operacion: <br>"+mysql.codigo;
+              let fechaTransaccion = "Fecha de transaccion: <br>"+mysql.fechaTransaccion.toLocaleString();
+              let fechaPago = "Fecha de pago: <br>"+mysql.fechaPago.toLocaleString();
+              let t = mysql.mensaje;
+              let m = idOperacion+"<br>"+fechaTransaccion+"<br>"+fechaPago;
+              this.showAlert(t,m);
+          }else{
+              let t = mysql.mensaje;
+              let m = "Por favor intente nuevamente, sin cargar la operacion en visa";
+              this.showAlert(t,m);
+          }
       });
 
   }
@@ -207,4 +217,12 @@ export class FormularioWebPaso2Page {
     });
     alert.present();
   }
+
+  showLoader(mensaje){
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
+  }
+
 }

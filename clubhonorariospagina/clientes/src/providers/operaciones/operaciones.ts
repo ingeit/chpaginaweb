@@ -17,6 +17,7 @@ export class OperacionesProvider {
   }
 
   operacionNueva(credentials){
+      console.log("dentro del funcion opnueva provider");
       return new Promise((resolve, reject) => {
 
           let headers = new Headers();
@@ -25,8 +26,10 @@ export class OperacionesProvider {
           this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), {headers: headers})
           .map(res => res.json())
           .subscribe(res => {
+            console.log(res);
             resolve(res);
           }, (err) => {
+            console.log(err);
             reject(err);
           });
       });
