@@ -163,10 +163,39 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
     var oCodigoAuto = operacion.codigoAuto;
     var oCupon = operacion.cupon;
     
-    console.log(oMailProfesional,oDniProfesional,oNombreProfesional,oFechaTransaccion,oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCodigoAuto);
+
     var pdf = require('html-pdf');
+    // fs lee archivos
     var fs = require('fs');
-    var html = '<h3>hola</h3><p>chau</p>'
+    // embedd js para escribiri variables en html
+    var ejs = require('ejs')
+        , path = __dirname + '/../views/index.ejs'
+        , str = fs.readFileSync(path, 'utf8');
+
+    data = {
+        'fechaImpresion': oFechaTransaccion,
+        'dni': oDniProfesional,
+        'apellido': oApellidoProfesional,
+        'nombre': oNombreProfesional,
+        'numOperacion': oIdOperacion,
+        'mail': oMailProfesional,
+        'cuitProfesional': oDniProfesional,
+        'fechaPago': oFechaPago,
+        'dniCliente': oDniCliente,
+        'apellidoCliente': oApellidoCliente,
+        'nombreCliente': oNombreCliente,
+        'tarjeta': oTarjeta,
+        'honorariosProfesional': oImporteVenta,
+        'montoAcreditado': oImporteCobrar,
+    }
+    var html = ejs.render(str,data);
+    
+    config = {
+        "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+        "orientation": "portrait", // portrait or landscape  
+        "zoomFactor": "1",
+        "base": 'file://' + __dirname + '/../img/'
+    }   
 
   	var transporter = nodemailer.createTransport({
         host: 'xw000111.ferozo.com',
@@ -180,7 +209,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         //  pass: 'ramiro123'
     });
 
-    pdf.create(html).toStream(function(err, stream){
+    pdf.create(html, config).toStream(function(err, stream){
     switch(destino) {
         case 'profesional':
             var mailOptions = {
@@ -238,16 +267,30 @@ exports.pdf = function(req, res, next){
         , str = fs.readFileSync(path, 'utf8');
 
     data = {
-        'titulo': 'hola'
+        'fechaImpresion': 'hola',
+        'dni': 'hola',
+        'apellido': 'hola',
+        'nombre': 'hola',
+        'telefono': 'hola',
+        'numOperacion': 'hola',
+        'mail': 'hola',
+        'cuitProfesional': 'hola',
+        'fechaPago': 'hola',
+        'dniCliente': 'hola',
+        'apellidoCliente': 'hola',
+        'nombreCliente': 'hola',
+        'tarjeta': 'hola',
+        'honorariosProfesional': 'hola',
+        'montoAcreditado': 'hola',
     }
     var html = ejs.render(str,data);
     
     config = {
-    "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
-    "orientation": "portrait", // portrait or landscape 
-    // Zooming option, can be used to scale images if `options.type` is not pdf 
-    "zoomFactor": "1", // default is 1 
-}
+        "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
+        "orientation": "portrait", // portrait or landscape  
+        "zoomFactor": "1",
+        "base": 'file://' + __dirname + '/../img/'
+    }   
 
     pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
