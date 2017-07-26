@@ -83,8 +83,8 @@
           <ion-icon *ngIf="mailProf === 'error'" style="color: darkred;" name="close-circle"></ion-icon>
       </h4>
       <h4>Envio de email al cliente 
-        <ion-icon *ngIf="mailCliente" style="color: darkgreen;" name="checkmark-circle"></ion-icon>
-        <ion-icon *ngIf="!mailCliente" style="color: darkred;" name="close-circle"></ion-icon>
+        <ion-icon *ngIf="mailCliente === 'ok'" style="color: darkgreen;" name="checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="mailCliente === 'error'" style="color: darkred;" name="close-circle"></ion-icon>
       </h4>
     </div>
     <div *ngIf="idOperacion === 0">
@@ -93,8 +93,8 @@
        </h4> 
     </div>
       
-    <button class="botones" ion-button color="alert" style="color:white" (click)="irPaso2()">Aceptar</button>
-    <button class="botones" ion-button color="danger" (click)="dismiss()">Cancelar</button>
+    <button *ngIf="idOperacion !== 0" class="botones" style="margin-right: 0px !important;" ion-button color="ok" (click)="cerrarModal()">Cerrar</button>
+    <button *ngIf="idOperacion === 0" class="botones" style="margin-right: 0px !important;" ion-button color="error" (click)="popForm1()">Volver</button>
   </div>
   
 </ion-content>

@@ -77,7 +77,8 @@ export class FormularioWebPaso2Page {
                               this.fechaPago.getUTCMinutes(),
                               this.fechaPago.getUTCSeconds());
     this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
-    this.formulario = this.navParams.get('formulario');  
+    this.formulario = this.navParams.get('formulario'); 
+    console.log("formulario desde 1 a 2", this.formulario); 
     switch (this.formulario.tarjeta.value)
       {
         case '1':
@@ -112,29 +113,29 @@ export class FormularioWebPaso2Page {
     
     console.log("en operacionNueva");
      let details = {
-              dniProfesional: this.formulario.dniProfesional.value,
+              dniProfesional: parseInt(this.formulario.dniProfesional.value),
               apellidoProfesional: this.formulario.apellidoProfesional.value,
               nombreProfesional: this.formulario.nombreProfesional.value,
               mailProfesional: this.formulario.mailProfesional.value,
-              dniCliente: this.formulario.dniCliente.value,
+              dniCliente: parseInt(this.formulario.dniCliente.value),
               apellidoCliente: this.formulario.apellidoCliente.value,
               nombreCliente: this.formulario.nombreCliente.value,
               telefonoCliente: this.formulario.telefonoCliente.value,
               mailCliente: this.formulario.mailCliente.value,
               tarjeta: this.tarjeta,
-              cuotas: this.formulario.cuotas.value,
-              importeVenta: this.formulario.importeVenta.value,
-              importeCobrar: this.formulario.importeCobrar.value,
-              importeCarga: this.formulario.importeCarga.value,
-              importeCuota: this.formulario.importeCuota.value,
-              codigoAuto: this.formulario2.get('codigoAuto').value,
-              cupon: this.formulario2.get('cupon').value
+              cuotas: parseInt(this.formulario.cuotas.value),
+              importeVenta: parseFloat(this.formulario.importeVenta.value),
+              importeCobrar: parseFloat(this.formulario.importeCobrar.value),
+              importeCarga: parseFloat(this.formulario.importeCarga.value),
+              importeCuota: parseFloat(this.formulario.importeCuota.value),
+              codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
+              cupon: parseInt(this.formulario2.get('cupon').value)
 
         };
             console.log(details);
-      // this.showLoader('Enviando formulario. Espere por favor...');  
+      this.showLoader('Enviando formulario. Espere por favor...');  
       this.opProv.operacionNueva(details).then((data)=>{
-      // this.loading.dismiss();
+      this.loading.dismiss();
           this.respuesta = data;
           this.mostrarModal(this.respuesta);
           

@@ -62,6 +62,7 @@ exports.operacionNueva = function(req, res, next){
     operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
         oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
         oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,function(consulta){
+            console.log(consulta);
             if(consulta[0].codigo >= 1){
                 var respuesta = consulta[0];
                 var oFechaTransaccion = respuesta.fechaTransaccion;
@@ -86,7 +87,8 @@ exports.operacionNueva = function(req, res, next){
                         console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
                         let response = {
                             'mysql' : consulta,
-                            'mailProfesional' : res1
+                            'mailProfesional' : res1,
+                            'mailCliente' : 'error'
                         };
                         res.json(response);
                     }

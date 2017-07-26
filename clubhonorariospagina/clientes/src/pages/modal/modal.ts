@@ -3,6 +3,7 @@ import { NavController, NavParams, ViewController  } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
+import { FormularioWebPage } from '../formulario-web/formulario-web';
 
 /**
  * Generated class for the ModalPage page.
@@ -27,7 +28,7 @@ mysql:any;
 mailProf:any;
 idOperacion:any;
 mensaje:any;
-mailCliente = false;
+mailCliente:any;
 
 
   constructor(public navCtrl: NavController, 
@@ -57,10 +58,10 @@ mailCliente = false;
         this.fechaPago = this.mysql.fechaPago
         console.log("op exitosa, fechas: ",this.fechaTransaccion,this.fechaPago);
         this.mailProf = navParams.get('mensaje').mailProfesional; // si hay error.. aparece 'error', sino '250 OK ......'
-        if(respuesta.mailCliente){ 
-          this.mailCliente = navParams.get('mensaje').mailCliente; // si hay error.. aparece 'error', sino '250 OK ......'
+        this.mailCliente = this.comprobarMailCliente(respuesta.mailCliente);
+           // si hay error.. aparece 'error', sino '250 OK ......'
           console.log(this.mailCliente);
-        }   
+           
 
       }
     }
@@ -91,6 +92,24 @@ mailCliente = false;
     const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
     }
     this.viewCtrl.dismiss();
+  }
+
+  comprobarMailCliente(respuesta){
+    console.log(respuesta);
+    if(respuesta === 'error'){
+        return "error";
+    }else{
+      return "ok";
+    }
+  }
+
+  cerrarModal(){
+    this.navCtrl.setRoot(FormularioWebPage);
+  }
+
+  popForm1(){
+    this.viewCtrl.dismiss();
+    this.navCtrl.pop();
   }
 
   
