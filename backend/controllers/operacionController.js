@@ -2,6 +2,7 @@ var operacion = require('./../models/operaciones');
 var fechas = require('./../models/operaciones');
 var comisiones = require('./../models/operaciones');
 var nodemailer = require('nodemailer');
+var dateformat = require('dateformat');
 
 exports.getOperaciones = function(req, res, next){
     operacion.getOperaciones(function(consulta){
@@ -109,30 +110,133 @@ exports.excel = function(req, res, next){
     var fechaInicio = '"'+req.params.fechaInicio+'"';
     var fechaFin = '"'+req.params.fechaFin+'"';
     conf.cols=[{
-            caption:'Sl.',
+            caption:'DNI/CUIT Profesional',
             type:'number',
-            width:3
+            width:101
         },
         {
-            caption:'Job',
+            caption:'Fecha Transaccion',
             type:'string',
-            width:50
+            width:90
         },
         {
-            caption:'Date',
+            caption:'Fecha de Pago',
             type:'string',
-            width:15
-        }
+            width:90
+        },
+        {
+            caption:'DNI Cliente',
+            type:'number',
+            width:60
+        },
+        {
+            caption:'APELLIDO Cliente',
+            type:'string',
+            width:90
+        },
+        {
+            caption:'NOMBRE Cliente',
+            type:'string',
+            width:90
+        },
+        {
+            caption:'Tarjeta',
+            type:'string',
+            width:45
+        },
+        {
+            caption:'Importe de Venta',
+            type:'string',
+            width:85
+        },
+        {
+            caption:'Importe a Cobrar',
+            type:'string',
+            width:85
+        },
+        {
+            caption:'Comision Profesional',
+            type:'string',
+            width:105
+        },
+        {
+            caption:'COD AUTO N°',
+            type:'number',
+            width:70
+        },
+        {
+            caption:'CUPON N°',
+            type:'number',
+            width:60
+        },
+        {
+            caption:'Cuotas',
+            type:'number',
+            width:40
+        },
+        {
+            caption:'Importe a Cargar',
+            type:'number',
+            width:85
+        },
+        {
+            caption:'Importe Cuota',
+            type:'number',
+            width:75
+        },
+        {
+            caption:'Mail Cliente',
+            type:'string',
+            width:110
+        },
+        {
+            caption:'Tel Cliente',
+            type:'string',
+            width:55
+        },
         ];
         
     operacion.getOperacionesPorFecha(fechaInicio,fechaFin,function(consulta){
         let operaciones = consulta;
-
+        console.log(operaciones);
         for(i=0;i <operaciones.length;i++){
-          idOperacion = operaciones[i].idOperacion;
-          apellidoProfesional = operaciones[i].apellidoProfesional;
-          nombreProfesional = operaciones[i].nombreProfesional;
-          a=[idOperacion,apellidoProfesional,nombreProfesional];
+          cuit = operaciones[i].dniProfesional;
+          fechaTransaccion = operaciones[i].fechaTransaccion;
+          fechaPago = operaciones[i].fechaPago;
+          dniCliente = operaciones[i].dniCliente;
+          apellidoCliente = operaciones[i].apellidoCliente;
+          nombreCliente = operaciones[i].nombreCliente;
+          tarjeta = operaciones[i].tarjeta;
+          importeVenta = operaciones[i].importeVenta;
+          importeCobrar = operaciones[i].importeCobrar;
+          comision  = importeVenta - importeCobrar;
+          codigoAuto = operaciones[i].codigoAuto;
+          cupon = operaciones[i].cupon;
+          cuotas = operaciones[i].cuotas;
+          importeCarga = operaciones[i].importeCarga;
+          importeCuota = operaciones[i].importeCuota;
+          mailCliente = operaciones[i].mailCliente;
+          telefonoCliente = operaciones[i].telefonoCliente;
+
+          fechaTransaccion = new Date(fechaTransaccion.getUTCFullYear(),
+                              fechaTransaccion.getUTCMonth(),
+                              fechaTransaccion.getUTCDate(),
+                              fechaTransaccion.getUTCHours(),
+                              fechaTransaccion.getUTCMinutes(),
+                              fechaTransaccion.getUTCSeconds());
+
+         fechaTransaccion = dateformat(fechaTransaccion,'dd/mm/yyyy H:MM');
+
+         fechaPago = new Date(fechaPago.getUTCFullYear(),
+                              fechaPago.getUTCMonth(),
+                              fechaPago.getUTCDate(),
+                              fechaPago.getUTCHours(),
+                              fechaPago.getUTCMinutes(),
+                              fechaPago.getUTCSeconds());
+
+         fechaPago = dateformat(fechaPago,'dd/mm/yyyy');
+
+          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,mailCliente,telefonoCliente,];
           arr.push(a);
         }
 
