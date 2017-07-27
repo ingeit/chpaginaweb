@@ -184,4 +184,9 @@ export class FormularioWebPage {
     confirmarModal.present();
   }
 
+  generarDebug(){
+        this.confirmar();  
+  }
+
+
 }

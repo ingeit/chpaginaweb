@@ -450,7 +450,8 @@ exports.pdf = function(req, res, next){
     var fs = require('fs');
     // embedd js para escribiri variables en html
     var ejs = require('ejs')
-        , path = '/home/backend/views/tamplateProfesional.ejs'
+        , path = __dirname + '/../views/tamplateProfesional.ejs'
+        // , path = '/home/backend/views/tamplateProfesional.ejs'
         , str = fs.readFileSync(path, 'utf8');
 
     console.log(path);
@@ -484,7 +485,7 @@ exports.pdf = function(req, res, next){
     pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        // stream.pipe(res);
+        stream.pipe(res); 
     });
 }
 

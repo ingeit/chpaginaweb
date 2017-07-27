@@ -156,7 +156,9 @@ export class FormularioWebPaso2Page {
   escribrir(){
     // Creo el objeto de la imagen 
     let imageObj = new Image();
-    imageObj.src = "../../assets/cupon.png";
+    imageObj.crossOrigin = "Anonymous";
+    imageObj.src = "assets/cupon.png";
+    
     // Espero que ser cargue para poder obtener sus propiedades
     imageObj.onload = (()=> {
         this.canvasElement.width = imageObj.width;
