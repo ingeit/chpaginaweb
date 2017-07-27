@@ -146,7 +146,7 @@ exports.excel = function(req, res, next){
         },
         {
             caption:'Importe de Venta',
-            type:'string',
+            type:'number',
             width:85
         },
         {
@@ -156,12 +156,12 @@ exports.excel = function(req, res, next){
         },
         {
             caption:'Importe a Cobrar',
-            type:'string',
+            type:'number',
             width:85
         },
         {
             caption:'Comision Profesional',
-            type:'string',
+            type:'number',
             width:105
         },
         {
@@ -271,6 +271,8 @@ exports.excel = function(req, res, next){
           tarjeta = operaciones[i].tarjeta;
           importeVenta = operaciones[i].importeVenta;
           importeCobrar = operaciones[i].importeCobrar;
+          importeVenta = parseFloat(importeVenta);
+          importeCobrar = parseFloat(importeCobrar);
           comision  = importeVenta - importeCobrar;
           codigoAuto = operaciones[i].codigoAuto;
           cupon = operaciones[i].cupon;
@@ -363,19 +365,19 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
         "zoomFactor": "1",
-        "base": 'file://' + __dirname + '/../img/'
+        "base": 'file:///home/backend/img/'
     }   
 
     switch(destino) {
         case 'profesional':
             var ejs = require('ejs')
-            , path = __dirname + '/../views/tamplateProfesional.ejs'
+            , path = '/home/backend/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
         case 'cliente':
             var ejs = require('ejs')
-            , path = __dirname + '/../views/tamplateCliente.ejs'
+            , path = '/home/backend/views/tamplateCliente.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
@@ -448,9 +450,10 @@ exports.pdf = function(req, res, next){
     var fs = require('fs');
     // embedd js para escribiri variables en html
     var ejs = require('ejs')
-        , path = __dirname + '/../views/index.ejs'
+        , path = '/home/backend/views/tamplateProfesional.ejs'
         , str = fs.readFileSync(path, 'utf8');
 
+    console.log(path);
     data = {
         'fechaImpresion': 'hola',
         'dni': 'hola',
@@ -470,17 +473,18 @@ exports.pdf = function(req, res, next){
     }
     var html = ejs.render(str,data);
     
+
     config = {
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
         "zoomFactor": "1",
-        "base": 'file://' + __dirname + '/../img/'
+        "base": 'file:///home/backend/img/'
     }   
 
     pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        stream.pipe(res);
+        // stream.pipe(res);
     });
 }
 

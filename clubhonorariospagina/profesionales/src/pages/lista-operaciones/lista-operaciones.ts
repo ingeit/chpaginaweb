@@ -6,6 +6,7 @@ import { Operaciones } from '../../modelos/operaciones.interface';
 import { Observable } from 'rxjs/Observable';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { VerOperacionPage } from '../ver-operacion/ver-operacion';
+import * as configServer from './../../server'
 
 @IonicPage()
 @Component({
@@ -74,9 +75,13 @@ export class ListaOperacionesPage {
   filtrar(){
     if(this.fechaInicio && this.fechaFin){
       this.showLoader();
+      let inicio = this.fechaInicio.split('T');
+      inicio = inicio[0];
+      let fin = this.fechaFin.split('T');
+      fin = fin[0];
       let details = {
-              fechaInicio: this.fechaInicio,
-              fechaFin: this.fechaFin,
+              fechaInicio: inicio,
+              fechaFin: fin,
         };
       this.data.obtenerOperacionesFiltrado(details).then((data)=>{
         this.loading.dismiss();
@@ -95,7 +100,12 @@ export class ListaOperacionesPage {
   exportar(){
     if(this.fechaInicio && this.fechaFin){
       console.log(this.fechaFin);
-      const browser = this.iab.create('http://localhost:3000/api/excel/'+this.fechaInicio+'/'+this.fechaFin+'');
+      let inicio = this.fechaInicio.split('T');
+      inicio = inicio[0];
+      let fin = this.fechaFin.split('T');
+      fin = fin[0];
+      console.log(fin)
+      const browser = this.iab.create(`${configServer.data.urlServidor}/api/excel/${inicio}/${fin}`);
     }else{
       this.mostrarAlerta('Error','Seleccione un rango de Fechas');
     }

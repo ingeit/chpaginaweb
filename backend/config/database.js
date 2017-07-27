@@ -1,8 +1,8 @@
 module.exports = {
-  host : "rickybruno.sytes.net",
+  host : "localhost",
   port : "3306",
   user : "root",
-  password : "",
+  password : "soporteit",
   database : "ClubHonorarios"
 };
 

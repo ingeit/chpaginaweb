@@ -43,6 +43,7 @@ exports.getFechas = function(fn){
 
 exports.getComisiones = function(fn){
     connection.query('call dame_comisiones()', function(err, rows){  
+                console.log("comisiones", rows[0]);  
                 if (err) fn (err);  
                 fn(rows[0]); 
             });
