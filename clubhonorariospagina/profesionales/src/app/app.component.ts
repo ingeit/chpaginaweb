@@ -41,7 +41,7 @@ export class MyApp {
 
       this.storage.get('token').then((token) => {
          console.log('token is', token);
-         if(token === ''){
+         if(token === '' || token === null){
            this.rootPage = HomePage;
          }else{
            this.storage.get('rol').then((rol) => {
