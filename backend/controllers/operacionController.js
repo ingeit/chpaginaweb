@@ -200,8 +200,8 @@ exports.excel = function(req, res, next){
             width:75
         },
         {
-            caption:'',
-            type:'string',
+            caption:'Cod Interno',
+            type:'number',
             width:75
         },
         {
@@ -261,6 +261,7 @@ exports.excel = function(req, res, next){
         let operaciones = consulta;
         console.log(operaciones);
         for(i=0;i <operaciones.length;i++){
+          codInterno = operaciones[i].idOperacion;
           cuit = operaciones[i].dniProfesional;
           fechaTransaccion = operaciones[i].fechaTransaccion;
           fechaPago = operaciones[i].fechaPago;
@@ -297,7 +298,7 @@ exports.excel = function(req, res, next){
 
          fechaPago = dateformat(fechaPago,'dd/mm/yyyy');
 
-          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,3,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,'','','','','','','','','','','',mailCliente,telefonoCliente,];
+          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,3,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,'','',codInterno,'','','','','','','','',mailCliente,telefonoCliente,];
           arr.push(a);
         }
 
@@ -480,5 +481,12 @@ exports.pdf = function(req, res, next){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
         stream.pipe(res);
+    });
+}
+
+
+exports.crash = function(req, res, next){
+    operacion.crash(function(consulta){
+        res.json(consulta);
     });
 }

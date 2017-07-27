@@ -61,3 +61,11 @@ exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombrePr
                 fn(rows[0]); 
             });
 }
+        
+exports.crash = function(fn){
+    //sha soporteit
+    connection.query('call a(hola)', function(err, rows){ 
+                if (err) fn (err);  
+                fn(rows[0]); 
+            });
+}
