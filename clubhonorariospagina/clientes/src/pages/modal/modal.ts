@@ -86,10 +86,14 @@ mailCliente:any;
     // Amex y Visa(3)
     console.log("dentro de modals, por redireccionar, la tarjeta elejida es ",this.formulario.tarjeta.value);
     if(this.formulario.tarjeta.value === "1" || this.formulario.tarjeta.value === "3"){
-      const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
+      // const browser = this.iab.create('https://vnet.visa.com.ar/cspv/adm/GetLogin.event');
+      let URL = 'https://vnet.visa.com.ar/cspv/adm/GetLogin.event';
+      window.open(URL, '_system');
     }else{
       //Master
-    const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
+    // const browser = this.iab.create('https://www1.posnet.com.ar/webposnet');
+    let URL = 'https://www1.posnet.com.ar/webposnet';
+    window.open(URL, '_system');
     }
     this.viewCtrl.dismiss();
   }
