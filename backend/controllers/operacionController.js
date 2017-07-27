@@ -365,19 +365,19 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
         "zoomFactor": "1",
-        "base": 'file://' + __dirname + '/../img/'
+        "base": 'file:///home/backend/img/'
     }   
 
     switch(destino) {
         case 'profesional':
             var ejs = require('ejs')
-            , path = __dirname + '/../views/tamplateProfesional.ejs'
+            , path = '/home/backend/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
         case 'cliente':
             var ejs = require('ejs')
-            , path = __dirname + '/../views/tamplateCliente.ejs'
+            , path = '/home/backend/views/tamplateCliente.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
@@ -473,6 +473,7 @@ exports.pdf = function(req, res, next){
     }
     var html = ejs.render(str,data);
     
+
     config = {
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
@@ -483,7 +484,7 @@ exports.pdf = function(req, res, next){
     pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        stream.pipe(res);
+        // stream.pipe(res);
     });
 }
 
