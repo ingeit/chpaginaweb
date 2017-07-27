@@ -68,6 +68,13 @@ export class OperacionesProvider {
                                                   valores[index].fechaTransaccion.getUTCHours(),
                                                   valores[index].fechaTransaccion.getUTCMinutes(),
                                                   valores[index].fechaTransaccion.getUTCSeconds());
+    valores[index].fechaPago = new Date(valores[index].fechaPago);
+        valores[index].fechaPago = new Date(valores[index].fechaPago.getUTCFullYear(),
+                                                  valores[index].fechaPago.getUTCMonth(),
+                                                  valores[index].fechaPago.getUTCDate(),
+                                                  valores[index].fechaPago.getUTCHours(),
+                                                  valores[index].fechaPago.getUTCMinutes(),
+                                                  valores[index].fechaPago.getUTCSeconds());
     });
     return valores;
   }

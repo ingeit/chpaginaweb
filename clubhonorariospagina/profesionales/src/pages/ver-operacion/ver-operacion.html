@@ -81,32 +81,32 @@
                             <td>{{operacion.cupon}}</td>
                         </tr>
                         <tr>
-                          <th>Fecha Op.: </th>
-                            <td>{{operacion.fechaOperacion}}</td>
+                          <th>Fecha Transaccion: </th>
+                            <td>{{operacion.fechaTransaccion | date:'dd/MM/yy H:mm'}}</td>
                         </tr>
                         <tr>
                           <th>Fecha Pago: </th>
-                            <td>{{operacion.fechaPago}}</td>
+                            <td>{{operacion.fechaPago | date:'dd/MM/yy'}}</td>
                         </tr>
                         <tr>
-                          <th>I. Carga: </th>
-                            <td>{{operacion.importeCarga}}</td>
+                          <th>Importe Carga: </th>
+                            <td>$ {{operacion.importeCarga}}</td>
                         </tr>
                         <tr>
-                          <th>I. Cobrar: </th>
-                            <td>{{operacion.importeCobrar}}</td>
+                          <th>Importe Cobrar: </th>
+                            <td>$ {{operacion.importeCobrar}}</td>
                         </tr>
                         <tr>
-                          <th>I. Venta: </th>
-                            <td>{{operacion.importeVenta}}</td>
+                          <th>Importe Venta: </th>
+                            <td>$ {{operacion.importeVenta}}</td>
                         </tr>
                         <tr>
                           <th>Cuotas: </th>
                             <td>{{operacion.cuotas}}</td>
                         </tr>
                         <tr>
-                          <th>I. Cuota: </th>
-                            <td>{{operacion.importeCuota}}</td>
+                          <th>Importe Cuota: </th>
+                            <td>$ {{operacion.importeCuota}}</td>
                         </tr>
                     </tbody>
                       </table>
