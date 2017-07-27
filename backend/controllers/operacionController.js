@@ -396,6 +396,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         //  pass: 'ramiro123'
     });
 
+
     pdf.create(html, config).toStream(function(err, stream){
     switch(destino) {
         case 'profesional':
@@ -450,11 +451,12 @@ exports.pdf = function(req, res, next){
     var fs = require('fs');
     // embedd js para escribiri variables en html
     var ejs = require('ejs')
-        , path = __dirname + '/../views/tamplateProfesional.ejs'
-        // , path = '/home/backend/views/tamplateProfesional.ejs'
+        // , path = __dirname + '/../views/tamplateProfesional.ejs'
+        , path = '/home/backend/views/tamplateProfesional.ejs'
         , str = fs.readFileSync(path, 'utf8');
 
     console.log(path);
+
     data = {
         'fechaImpresion': 'hola',
         'dni': 'hola',
@@ -474,7 +476,6 @@ exports.pdf = function(req, res, next){
     }
     var html = ejs.render(str,data);
     
-
     config = {
         "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
         "orientation": "portrait", // portrait or landscape  
@@ -485,7 +486,7 @@ exports.pdf = function(req, res, next){
     pdf.create(html, config).toStream(function(err, stream){
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        stream.pipe(res); 
+        stream.pipe(res);
     });
 }
 
