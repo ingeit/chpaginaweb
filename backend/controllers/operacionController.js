@@ -150,6 +150,11 @@ exports.excel = function(req, res, next){
             width:85
         },
         {
+            caption:'',
+            type:'number',
+            width:85
+        },
+        {
             caption:'Importe a Cobrar',
             type:'string',
             width:85
@@ -184,6 +189,62 @@ exports.excel = function(req, res, next){
             type:'number',
             width:75
         },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        {
+            caption:'',
+            type:'string',
+            width:75
+        },
+        
         {
             caption:'Mail Cliente',
             type:'string',
@@ -236,7 +297,7 @@ exports.excel = function(req, res, next){
 
          fechaPago = dateformat(fechaPago,'dd/mm/yyyy');
 
-          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,mailCliente,telefonoCliente,];
+          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,3,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,'','','','','','','','','','','',mailCliente,telefonoCliente,];
           arr.push(a);
         }
 
