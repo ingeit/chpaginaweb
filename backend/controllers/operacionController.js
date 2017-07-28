@@ -496,3 +496,21 @@ exports.crash = function(req, res, next){
         res.json(consulta);
     });
 }
+
+// UNA MUESTRA CORRECTa de MANEJOS DE ERRORES
+
+// exports.crash = function(req, res, next){
+//     operacion.crash(function(consulta){
+//         console.log(consulta.errno);
+//         // SI HAY UN ERROR, LO MANDAMOS A IONIC CON CODIGO 0
+//         if(consulta.errno){
+//             // res.render('index', { title: 'ERROR!!!!!!' }); OPCIONAL PARA MOSTRAR UNA VISTA EN NODEJS.. SINO HACER LO DE ABAJO
+//             console.log('[{"codigo": 1}]');
+//             // ESTO DEVUELVE A IONIC LA CONSULTA CON CODIGO 0. PARA TRABAJAR COMO SE TRABAJA
+//             res.json([{"codigo": 1}])
+//         }else{
+//             res.json(consulta);
+//         }
+        
+//     });
+// }

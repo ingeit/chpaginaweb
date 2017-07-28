@@ -70,7 +70,7 @@ exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombrePr
         
 exports.crash = function(fn){
     //sha soporteit
-    connection.query('call a()', (err, data) => {
+    connection.query('call a()', (err, rows) => {
         if (err) fn (err);  
         fn(rows[0]); 
     });
