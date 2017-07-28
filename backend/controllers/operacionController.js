@@ -403,8 +403,8 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
-                bcc: 'ricardobruno_89@hotmail.com',
-                // bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                // bcc: 'ricardobruno_89@hotmail.com',
+                bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de Operacion Numero '+oIdOperacion,
                 text: 'Profesional: Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
                 attachments: [
@@ -420,8 +420,8 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailCliente,
-                // bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
-                bcc: 'rbrunount@gmail.com',
+                bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                // bcc: 'rbrunount@gmail.com',
                 subject: 'Comprobante de Operacion Numero '+oIdOperacion,
                 text: 'Titular de la tarjeta: Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
                 attachments: [
