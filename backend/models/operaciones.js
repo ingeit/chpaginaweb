@@ -65,8 +65,14 @@ exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombrePr
         
 exports.crash = function(fn){
     //sha soporteit
-    connection.query('call a(hola)', function(err, rows){ 
-                if (err) fn (err);  
-                fn(rows[0]); 
-            });
+    try {
+    connection.query('call a()', (err, data) => {
+        if (err) fn(500);
+        else{
+            fn(data[0]); 
+        }
+    });
+    } catch(err) {
+        console.log(err);
+    }
 }
