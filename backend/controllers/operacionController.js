@@ -403,8 +403,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
-                // bcc: 'ricardobruno_89@hotmail.com',
-                bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                bcc: 'fl@clubhonorarios.com'+','+'diego.macian@soramus.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de Operacion Numero '+oIdOperacion,
                 text: 'Profesional: Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
                 attachments: [
@@ -420,8 +419,6 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailCliente,
-                bcc: 'masterk63@gmail.com'+','+'ricardobruno_89@hotmail.com',// fl@clubhonorarios.com , diego.macian@soramus.com
-                // bcc: 'rbrunount@gmail.com',
                 subject: 'Comprobante de Operacion Numero '+oIdOperacion,
                 text: 'Titular de la tarjeta: Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
                 attachments: [
@@ -507,7 +504,7 @@ exports.crash = function(req, res, next){
 //             // res.render('index', { title: 'ERROR!!!!!!' }); OPCIONAL PARA MOSTRAR UNA VISTA EN NODEJS.. SINO HACER LO DE ABAJO
 //             console.log('[{"codigo": 1}]');
 //             // ESTO DEVUELVE A IONIC LA CONSULTA CON CODIGO 0. PARA TRABAJAR COMO SE TRABAJA
-//             res.json([{"codigo": 1}])
+//             res.json([{"codigo": 0}])
 //         }else{
 //             res.json(consulta);
 //         }
