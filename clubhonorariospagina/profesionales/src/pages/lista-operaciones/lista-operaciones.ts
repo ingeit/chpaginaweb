@@ -22,18 +22,15 @@ export class ListaOperacionesPage {
   fechaInicio:any;
   fechaFin:any;
   mostrarTarjetas = false;
-
+  respuesta:any;
+  
   constructor(public navCtrl: NavController,
               public data: OperacionesProvider,
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public iab: InAppBrowser,
               public navParams: NavParams) {
-                this.fechaInicio = new Date().toISOString();
-                this.fechaFin = new Date().toISOString();
-
-                
-                
+                this.dameFecha();
   }
 
   setClasses(terjetaIn){
@@ -126,6 +123,33 @@ export class ListaOperacionesPage {
       content: 'Cargando...'
     });
     this.loading.present();
+  }
+
+  showLoader2(mensaje){
+      this.loading = this.loadingCtrl.create({
+        content: mensaje
+      });
+      this.loading.present();
+    }
+
+  dameFecha(){
+    this.showLoader2('Consultando Hora en servidor');
+    this.data.dameFechas().then((result) => {
+          this.respuesta = result[0];
+          if(this.respuesta.codigo === 1){
+            console.log("fecha transaccion desde formulario 1 provider", this.respuesta.fechaTransaccion);
+            this.fechaFin = this.respuesta.fechaTransaccion;
+            this.fechaInicio = this.respuesta.fechaTransaccion;
+            console.log('Fechas del Filtro')   
+            console.log(this.fechaInicio)
+            console.log(this.fechaFin)
+            this.loading.dismiss();
+          }
+        }, (err) => {
+          console.log("error promises en hora del servidor");
+          this.loading.dismiss();
+          this.mostrarAlerta('Error','Hora del servidor inaccesible');
+        });
   }
 
 }

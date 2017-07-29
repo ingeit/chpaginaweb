@@ -260,57 +260,62 @@ exports.excel = function(req, res, next){
     operacion.getOperacionesPorFecha(fechaInicio,fechaFin,function(consulta){
         let operaciones = consulta;
         console.log(operaciones);
-        for(i=0;i <operaciones.length;i++){
-          codInterno = operaciones[i].idOperacion;
-          cuit = operaciones[i].dniProfesional;
-          fechaTransaccion = operaciones[i].fechaTransaccion;
-          fechaPago = operaciones[i].fechaPago;
-          dniCliente = operaciones[i].dniCliente;
-          apellidoCliente = operaciones[i].apellidoCliente;
-          nombreCliente = operaciones[i].nombreCliente;
-          tarjeta = operaciones[i].tarjeta;
-          importeVenta = operaciones[i].importeVenta;
-          importeCobrar = operaciones[i].importeCobrar;
-          importeVenta = parseFloat(importeVenta);
-          importeCobrar = parseFloat(importeCobrar);
-          comision  = importeVenta - importeCobrar;
-          codigoAuto = operaciones[i].codigoAuto;
-          cupon = operaciones[i].cupon;
-          cuotas = operaciones[i].cuotas;
-          importeCarga = operaciones[i].importeCarga;
-          importeCuota = operaciones[i].importeCuota;
-          mailCliente = operaciones[i].mailCliente;
-          telefonoCliente = operaciones[i].telefonoCliente;
+        if(operaciones[0].codigo !== 0){
+            for(i=0;i <operaciones.length;i++){
+            codInterno = operaciones[i].idOperacion;
+            cuit = operaciones[i].dniProfesional;
+            fechaTransaccion = operaciones[i].fechaTransaccion;
+            fechaPago = operaciones[i].fechaPago;
+            dniCliente = operaciones[i].dniCliente;
+            apellidoCliente = operaciones[i].apellidoCliente;
+            nombreCliente = operaciones[i].nombreCliente;
+            tarjeta = operaciones[i].tarjeta;
+            importeVenta = operaciones[i].importeVenta;
+            importeCobrar = operaciones[i].importeCobrar;
+            importeVenta = parseFloat(importeVenta);
+            importeCobrar = parseFloat(importeCobrar);
+            comision  = importeVenta - importeCobrar;
+            codigoAuto = operaciones[i].codigoAuto;
+            cupon = operaciones[i].cupon;
+            cuotas = operaciones[i].cuotas;
+            importeCarga = operaciones[i].importeCarga;
+            importeCuota = operaciones[i].importeCuota;
+            mailCliente = operaciones[i].mailCliente;
+            telefonoCliente = operaciones[i].telefonoCliente;
 
-          fechaTransaccion = new Date(fechaTransaccion.getUTCFullYear(),
-                              fechaTransaccion.getUTCMonth(),
-                              fechaTransaccion.getUTCDate(),
-                              fechaTransaccion.getUTCHours(),
-                              fechaTransaccion.getUTCMinutes(),
-                              fechaTransaccion.getUTCSeconds());
+            fechaTransaccion = new Date(fechaTransaccion.getUTCFullYear(),
+                                fechaTransaccion.getUTCMonth(),
+                                fechaTransaccion.getUTCDate(),
+                                fechaTransaccion.getUTCHours(),
+                                fechaTransaccion.getUTCMinutes(),
+                                fechaTransaccion.getUTCSeconds());
 
-         fechaTransaccion = dateformat(fechaTransaccion,'dd/mm/yyyy H:MM');
+            fechaTransaccion = dateformat(fechaTransaccion,'dd/mm/yyyy H:MM');
 
-         fechaPago = new Date(fechaPago.getUTCFullYear(),
-                              fechaPago.getUTCMonth(),
-                              fechaPago.getUTCDate(),
-                              fechaPago.getUTCHours(),
-                              fechaPago.getUTCMinutes(),
-                              fechaPago.getUTCSeconds());
+            fechaPago = new Date(fechaPago.getUTCFullYear(),
+                                fechaPago.getUTCMonth(),
+                                fechaPago.getUTCDate(),
+                                fechaPago.getUTCHours(),
+                                fechaPago.getUTCMinutes(),
+                                fechaPago.getUTCSeconds());
 
-         fechaPago = dateformat(fechaPago,'dd/mm/yyyy');
+            fechaPago = dateformat(fechaPago,'dd/mm/yyyy');
 
-          a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,3,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,'','',codInterno,'','','','','','','','',mailCliente,telefonoCliente,];
-          arr.push(a);
+            a=[cuit,fechaTransaccion,fechaPago,dniCliente,apellidoCliente,nombreCliente,tarjeta,importeVenta,3,importeCobrar,comision,codigoAuto,cupon,cuotas,importeCarga,importeCuota,'','',codInterno,'','','','','','','','',mailCliente,telefonoCliente,];
+            arr.push(a);
+            }
+
+            conf.rows=arr; // armo el excel con todos los datos.
+
+            var result=nodeExcel.execute(conf);
+            res.setHeader('Content-Type','application/vnd.openxmlformates');
+            res.setHeader("Content-Disposition","attachment;filename="+"Operaciones.xlsx");
+            res.end(result,'binary');
+        }else{
+            res.json([{"codigo": 0,"mensaje":"No hay operaciones en ese rango"}])
         }
-
-        conf.rows=arr; // armo el excel con todos los datos.
-
-        var result=nodeExcel.execute(conf);
-        res.setHeader('Content-Type','application/vnd.openxmlformates');
-        res.setHeader("Content-Disposition","attachment;filename="+"Operaciones.xlsx");
-        res.end(result,'binary');
-    });  
+    }
+    );  
 }
 
 var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPago,fn) {

@@ -79,6 +79,20 @@ export class OperacionesProvider {
     return valores;
   }
 
+  public dameFechas(){
+    return new Promise((resolve, reject) => {
+      let url;
+      url = `${configServer.data.urlServidor}/api/dameFechas`
+        this.http.get(url).map(res => res.json())
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+ 
+    });
+  }
+
   
 
 }
