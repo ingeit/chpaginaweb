@@ -54,7 +54,8 @@
     "cordova": {
         "platforms": [
             "browser",
-            "ios"
+            "ios",
+            "windows"
         ],
         "plugins": {
             "cordova-plugin-console": {},
