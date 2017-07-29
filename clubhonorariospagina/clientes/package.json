@@ -41,6 +41,7 @@
         "node-sass": "^4.5.3",
         "rxjs": "5.1.1",
         "sw-toolbox": "3.6.0",
+        "window": "^4.1.0",
         "zone.js": "0.8.11"
     },
     "devDependencies": {
@@ -54,7 +55,8 @@
     "cordova": {
         "platforms": [
             "browser",
-            "ios"
+            "ios",
+            "windows"
         ],
         "plugins": {
             "cordova-plugin-console": {},
