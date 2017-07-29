@@ -8,7 +8,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { VerOperacionPage } from '../ver-operacion/ver-operacion';
 import * as configServer from './../../server'
 
-@IonicPage()
 @Component({
   selector: 'page-lista-operaciones',
   templateUrl: 'lista-operaciones.html',
