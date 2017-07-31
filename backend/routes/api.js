@@ -3,6 +3,7 @@ var router = express.Router();
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
+var MysqlController = require('./../controllers/mysqlController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
@@ -14,6 +15,7 @@ router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
+router.get('/mysql', MysqlController.dump);
 // router.get('/email',OperacionController.email);
 
 
