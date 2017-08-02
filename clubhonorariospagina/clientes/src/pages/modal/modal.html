@@ -60,13 +60,12 @@
 
 <ion-content padding>
   <div *ngIf="form1"> 
-    <h1>Paso 2:</h1>
+    <h1>Siguiente paso:</h1>
+    <h2>Inicio de Procesamiento de Transacción...</h2>
     <p style="text-align: justify">
-        A continuacion se abrira una nueva pestaña con redireccion a la pagina de la tarjeta seleccionada.
-        Al finalizar la operacion en dicha pagina, debera copiar el codigo de autorizacion y numero de cupon
-        facilitados en la operacion realizada. A continuacion, seleccione en la parte superior del navegador
-        la pestaña del formulario de Club Honorarios, y debera pegar dichos codigos de la operacion en los campos
-        correspondientes de manera inmediata y hacer clic en el boton "Enviar"
+        Recuerde en esta instancia copiar el codigo de autorizacion y numero de cupon.
+        Posteriormente estos datos seran de utilidad para pegarlos en los campos correspondiente en el siguiente formulario
+        que se habilitara en esta seccion al finalizar la transaccion.
     </p>
     <button class="botones" ion-button color="alert" style="color:white" (click)="irPaso2()">Aceptar</button>
     <button class="botones" ion-button color="danger" (click)="dismiss()">Cancelar</button>
@@ -75,9 +74,8 @@
   <!-- Este es el mensaje final de OP exitosa o no.  -->
   <div *ngIf="!form1">
     <div class="cuerpo" *ngIf="idOperacion !== 0">
-      <h4>Operacion Nº: {{idOperacion}}</h4>
       <h4>Fecha de Transaccion: {{fechaTransaccion}}</h4>
-      <h4>Fecha de Pago: {{fechaPago}}</h4>
+      <h4>Fecha de cobro cupón: {{fechaPago}}</h4>
       <h4>Envio de email al profesional 
           <ion-icon *ngIf="mailProf !== 'error'" style="color: darkgreen;" name="checkmark-circle"></ion-icon>
           <ion-icon *ngIf="mailProf === 'error'" style="color: darkred;" name="close-circle"></ion-icon>

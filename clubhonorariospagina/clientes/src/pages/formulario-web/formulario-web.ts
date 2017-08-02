@@ -27,7 +27,7 @@ export class FormularioWebPage {
   cuotas: number;
   comision: number;
   tarjetasComisiones: any;
-  
+  tarjetaNombre: any = false;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -131,6 +131,22 @@ export class FormularioWebPage {
           // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
           this.tarjeta=this.formulario.get('tarjeta').value;
           this.cuotas=this.formulario.get('cuotas').value;
+
+          //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
+              switch (this.tarjeta)
+              {
+                case '1':
+                  this.tarjetaNombre = 'AMERICAN'
+                  break;
+                case '2':
+                  this.tarjetaNombre = 'MASTER'
+                  break;
+                case '3':
+                  this.tarjetaNombre = 'VISA'
+                  break;
+                default:
+                  break;
+              }
           
           x=this.tarjeta;
             //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10

@@ -410,13 +410,25 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
                 to: oMailProfesional,
                 bcc: 'fl@clubhonorarios.com'+','+'diego.macian@soramus.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de Operacion Numero '+oIdOperacion,
-                text: 'Profesional: Se adjunto el comprobante de pago numero: '+oIdOperacion+' en formato PDF',
+                html: '<h3>Estimado Cliente:</h3>'+
+                       '<p>A continuación adjuntamos el comprobante de la operación registrada en el día de hoy</p>'+
+                        '<p>Estamos a su disposición, ante cualquier consulta que le surgiere</p>'+
+                        '<p>Muchas gracias por confiar en nosotros.</p><br><br><br>'+
+                        '<p>Saludos cordiales!</p>'+
+                        '<img style="width: 250px; "src="cid:logo@png"/>'+
+                        '<p>Astrid Arias Borquez</p>'+
+                        '<p>Transaction Operation</p>'+
+                        '<a href="http://www.clubhonorarios.com">www.clubhonorarios.com</a>'+
+                        '<p>9 de Julio 485 1ºD /<a href="mailto:info@clubhonoraios.com">info@clubhonoraios.com</a> / Fijo: 0381-4207229 / Claro: 0381-155952597 / Personal:0381-153447459 / Movistar:0381-156034010</p>',
                 attachments: [
                 {   // stream as an attachment
                     // formato de nombre:
                     // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
                     filename: 'Prof '+oApellidoProfesional.toUpperCase()+' '+oNombreProfesional+' - Cl '+oApellidoCliente.toUpperCase()+' '+oNombreCliente+' - Op '+oIdOperacion+' - '+oFechaTransaccion+'.pdf',
-                    content: stream
+                    content: stream,
+                    filename: 'logo.png',
+                        path: '../backend/img/logo.png',
+                        cid: 'logo@png' //same cid value as in the html img src
                 }],
             };
             break;
