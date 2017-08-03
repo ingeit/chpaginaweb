@@ -529,3 +529,19 @@ exports.crash = function(req, res, next){
         
 //     });
 // }
+
+
+exports.test = function(req, res, next){
+    var idOperacion = req.body.idOperacion;
+    operacion.test(idOperacion,function(consulta){
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            console.log("cod = 0, TODO MAL");
+            res.json(consulta);
+        }else{
+            console.log("cod != de 0, TODO OK");
+            //agrego el codigo = 1 que MYSQL no devuelve, para q IONIC pueda leer siempre si el codigo es 0 o 1 para error o no
+            consulta[0].codigo = 1;
+            res.json(consulta);
+        }
+    });
+}
