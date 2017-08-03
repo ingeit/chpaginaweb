@@ -1,0 +1,9 @@
+DAEMON PARA UBUNTU 16 NODE
+npm install pm2 –g
+pm2 start /path/to/node/www --name="nombre_del_servicio"
+pm2 startup
+pm2 save
+LISTO
+
+STOP: pm2 stop nombre_del_servicio
+Start: pm2 start nombre_del_servicio
