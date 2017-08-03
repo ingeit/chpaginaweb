@@ -63,8 +63,11 @@ exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombrePr
     connection.query('call operacion_nueva('+oDniProfesional+','+oApellidoProfesional+','+oNombreProfesional+','+oMailProfesional+','+
         oDniCliente+','+oApellidoCliente+','+oNombreCliente+','+oTelefonoCliente+','+oMailCliente+','+oTarjeta+','+oImporteVenta+','+
         oImporteCobrar+','+oCuotas+','+oImporteCarga+','+oImporteCuota+','+oCodigoAuto+','+oCupon+')', function(err, rows){  
-                if (err) fn (err);  
-                else fn(rows[0]); 
+                if (err) {
+                    consulta = [{'codigo' : 0, 'mensaje' : 'Error en MySQL'}] 
+                    fn (consulta);  
+                }else fn(rows[0]);
+                
             });
 }
         

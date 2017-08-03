@@ -96,8 +96,7 @@ exports.operacionNueva = function(req, res, next){
                         
                     });
                 }else{
-                    consulta = {'mysql' : consulta };
-                    res.json(consulta);
+                    res.json(consulta[0]);
                 }
         });
 }
