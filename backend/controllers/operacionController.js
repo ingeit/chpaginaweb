@@ -96,7 +96,8 @@ exports.operacionNueva = function(req, res, next){
                         
                     });
                 }else{
-                    res.json(consulta[0]);
+                    console.log("la op no se realizo, no se envian mails y se cancela");
+                    res.json(consulta);
                 }
         });
 }
