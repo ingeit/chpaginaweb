@@ -64,7 +64,8 @@ exports.operacionNueva = function(req, res, next){
         oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
         oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,function(consulta){
             console.log(consulta);
-            if(consulta[0].codigo >= 1){
+            if(!consulta.errno){
+                if(consulta[0].codigo >= 1){
                 var respuesta = consulta[0];
                 var oFechaTransaccion = respuesta.fechaTransaccion;
                 var oFechaPago = respuesta.fechaPago;
@@ -99,7 +100,10 @@ exports.operacionNueva = function(req, res, next){
                 consulta = {'mysql' : consulta };
                 res.json(consulta);
             }
-            
+        }else{
+                consulta = ([{"codigo": 0}]);
+                res.json(consulta);
+            }
         });
 }
 
@@ -409,7 +413,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
                 bcc: 'fl@clubhonorarios.com'+','+'diego.macian@soramus.com',// fl@clubhonorarios.com , diego.macian@soramus.com
-                subject: 'Comprobante de Operacion Numero '+oIdOperacion,
+                subject: 'Comprobante de transacción realizada',
                 html: '<h3>Estimado Cliente:</h3>'+
                        '<p>A continuación adjuntamos el comprobante de la operación registrada en el día de hoy</p>'+
                         '<p>Estamos a su disposición, ante cualquier consulta que le surgiere</p>'+
@@ -426,6 +430,8 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
                     // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
                     filename: 'Prof '+oApellidoProfesional.toUpperCase()+' '+oNombreProfesional+' - Cl '+oApellidoCliente.toUpperCase()+' '+oNombreCliente+' - Op '+oIdOperacion+' - '+oFechaTransaccion+'.pdf',
                     content: stream,
+                },
+                {
                     filename: 'logo.png',
                         path: '../backend/img/logo.png',
                         cid: 'logo@png' //same cid value as in the html img src
