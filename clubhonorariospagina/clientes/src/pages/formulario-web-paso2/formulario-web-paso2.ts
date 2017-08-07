@@ -31,6 +31,8 @@ export class FormularioWebPaso2Page {
   canvasElement: any;
   ctx:any;
   urlImagenCanvas:any;
+  urlImagenCanvasAzul:any;
+  imagenEditadaAzul = false;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -51,7 +53,8 @@ export class FormularioWebPaso2Page {
   ngAfterViewInit(){
       this.canvasElement = this.canvas.nativeElement;
       this.ctx = this.canvasElement.getContext('2d');
-      this.escribrir();
+      this.escribrir('cupon');
+      this.escribrir('cuponAzul');
   }
 
   ionViewDidLoad() {
@@ -153,11 +156,11 @@ export class FormularioWebPaso2Page {
 
   }
 
-  escribrir(){
+  escribrir(cuponUrl){
     // Creo el objeto de la imagen 
     let imageObj = new Image();
     imageObj.crossOrigin = "Anonymous";
-    imageObj.src = "assets/cupon.png";
+    imageObj.src = "assets/"+cuponUrl+".png";
     
     // Espero que ser cargue para poder obtener sus propiedades
     imageObj.onload = (()=> {
@@ -190,8 +193,13 @@ export class FormularioWebPaso2Page {
         this.ctx.fillText(this.fechaPago,850,430);
         this.ctx.fillText(details.importeVenta,850,650);
         this.ctx.fillText(details.importeCobrar,850,780);
-        this.urlImagenCanvas = this.canvasElement.toDataURL();
-        this.imagenEditada = true;
+        if(cuponUrl === 'cupon'){
+          this.urlImagenCanvas = this.canvasElement.toDataURL();
+          this.imagenEditada = true;
+        }else{
+          this.urlImagenCanvasAzul = this.canvasElement.toDataURL();
+          this.imagenEditadaAzul = true;
+        } 
     })
   }
 
