@@ -18,12 +18,12 @@
                 <ion-label stacked>CUPON</ion-label>
                 <ion-input placeholder="N° 4 Digitos" formControlName="cupon" type="number" class="form-control" name="cupon" id="cupon" [class.errorClubHonorarios]="!formulario2.controls.cupon.valid && submitAttempt"></ion-input>
             </ion-item>
-            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.cupon.valid  && submitAttempt">Ingrese el apellido del profesional</p>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.cupon.valid  && submitAttempt">Ingrese el numero del cupon</p>
             <ion-item>
                 <ion-label stacked>{{codigoAutoLabel}}</ion-label>
                 <ion-input type="number" placeholder="N° 6 Digitos" formControlName="codigoAuto" name="codigoAuto" id="codigoAuto" [class.errorClubHonorarios]="!formulario2.controls.codigoAuto.valid &&  submitAttempt"></ion-input>
             </ion-item>
-            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.codigoAuto.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.codigoAuto.valid  && submitAttempt">Ingrese el numero de autorizacion</p>
           </form><!-- /form -->
           <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="botonEnviar()">Enviar</button>
       </div>
