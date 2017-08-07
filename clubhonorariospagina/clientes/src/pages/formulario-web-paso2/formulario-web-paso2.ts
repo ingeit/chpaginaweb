@@ -167,7 +167,7 @@ export class FormularioWebPaso2Page {
         this.canvasElement.width = imageObj.width;
         this.canvasElement.crossOrigin = "Anonymous";
         this.canvasElement.height = imageObj.height; 
-        this.ctx.font = "48pt BeautifulCreatures"; 
+        this.ctx.font = "bold 48pt BeautifulCreatures"; 
         this.ctx.clearRect(0,0,this.canvasElement.width,this.canvasElement.height);
         this.ctx.drawImage(imageObj, 0, 0);
         this.ctx.fillStyle = "blue";
