@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController } from 'ionic-angular';
+import { App , IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
@@ -12,7 +12,6 @@ import { ModalPage } from '../modal/modal';
   templateUrl: 'formulario-web.html',
 })
 export class FormularioWebPage {
-
   formulario: FormGroup;
   submitAttempt: boolean = false;
   loading:any;
@@ -31,6 +30,7 @@ export class FormularioWebPage {
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
+              private _app: App,
               private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder,
@@ -38,7 +38,6 @@ export class FormularioWebPage {
               public iab: InAppBrowser,
               public formularioProvider:FormularioProvider
           ) {
-
       this.dameFechasyComisiones();
 
       this.formulario = formBuilder.group({
@@ -76,6 +75,10 @@ export class FormularioWebPage {
       //   importeCuota: ['900',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
       // });
   }
+
+  ionViewDidEnter() {
+        this._app.setTitle("CH Operaciones");
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FormularioWebPage');

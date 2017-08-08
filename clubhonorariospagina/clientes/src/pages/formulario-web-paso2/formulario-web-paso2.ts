@@ -1,5 +1,5 @@
 import { Component,HostListener,ViewChild } from '@angular/core';
-import { NavController, NavParams, IonicPage,AlertController, LoadingController, ModalController } from 'ionic-angular';
+import { App, NavController, NavParams, IonicPage,AlertController, LoadingController, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
@@ -36,6 +36,7 @@ export class FormularioWebPaso2Page {
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
+               private _app: App,
               public loadingCtrl: LoadingController,
               public opProv: OperacionesProvider,
               public formBuilder: FormBuilder,
@@ -48,6 +49,10 @@ export class FormularioWebPaso2Page {
         cupon: ['',Validators.compose([Validators.minLength(4),Validators.maxLength(4),Validators.pattern(/()\d/g),Validators.required])]
       });
   }
+
+    ionViewDidEnter() {
+        this._app.setTitle("CH Paso 2");
+    }
   
 
   ngAfterViewInit(){

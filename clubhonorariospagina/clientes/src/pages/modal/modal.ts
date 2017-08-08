@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController  } from 'ionic-angular';
+import { App, NavController, NavParams, ViewController  } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
@@ -34,6 +34,7 @@ mailCliente:any;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
+    private _app: App,
     public iab: InAppBrowser,
     public formularioProvider:FormularioProvider){
 
@@ -69,6 +70,10 @@ mailCliente:any;
 
     console.log("fecha transaccion desde modal page",this.fechaTransaccion);
   }
+
+   ionViewDidEnter() {
+        this._app.setTitle("CH Paso 2");
+    }
 
   ionViewDidLoad() {
   }
