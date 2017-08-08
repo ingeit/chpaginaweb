@@ -58,6 +58,23 @@ export class FormularioWebPage {
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
       });
+      // this.formulario = formBuilder.group({
+      //   dniProfesional: ['34159181',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
+      //   apellidoProfesional: ['Gomez Veliz',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+      //   nombreProfesional: ['Kevin Shionen',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+      //   mailProfesional: ['masterk63@gmail.com',Validators.email],
+      //   dniCliente: ['34953451',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
+      //   apellidoCliente: ['Nunez',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+      //   nombreCliente: ['Lurdes',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+      //   telefonoCliente: ['4352199'],
+      //   mailCliente: ['merylur4@gmial.com'],
+      //   tarjeta: ['VISA',Validators.compose([Validators.required])],
+      //   cuotas: ['6',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
+      //   importeVenta: ['1000',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+      //   importeCobrar: ['950',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
+      //   importeCarga: ['900',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+      //   importeCuota: ['900',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+      // });
   }
 
   ionViewDidLoad() {
