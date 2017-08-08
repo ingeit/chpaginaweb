@@ -44,8 +44,8 @@ export class FormularioWebPaso2Page {
                 
 
       this.formulario2 = formBuilder.group({
-        codigoAuto: ['',Validators.compose([Validators.maxLength(6),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
-        cupon: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])]
+        codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
+        cupon: ['',Validators.compose([Validators.minLength(4),Validators.maxLength(4),Validators.pattern(/()\d/g),Validators.required])]
       });
   }
   
