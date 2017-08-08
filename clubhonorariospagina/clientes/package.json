@@ -11,6 +11,10 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
   },
+  // esto sirve para sacar los console.log en moodo prod. Crear el archivo ugligyjs.config.js en la carpeta config y ver el contenido.
+  "config": {
+		"ionic_uglifyjs": "./config/uglifyjs.config.js"
+	},
   "dependencies": {
     "@angular/common": "4.1.2",
     "@angular/compiler": "4.1.2",
