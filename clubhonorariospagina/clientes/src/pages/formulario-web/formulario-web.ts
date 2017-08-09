@@ -217,16 +217,13 @@ export class FormularioWebPage {
     // confirmar mediante modal
     let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
                                                             fechaPago: this.fechaPagoMysql,
-                                                            formulario: this.formulario.controls });
+                                                            formulario: this.formulario.controls,
+                                                            tarjetaNombre: this.tarjetaNombre });
     confirmarModal.present();
   }
 
   generarDebug(){
         this.confirmar();  
-  }
-
-  descargarPDF(){
-    const browser = this.iab.create(`${configServer.data.urlServidor}/api/instructivo/`);
   }
 
 

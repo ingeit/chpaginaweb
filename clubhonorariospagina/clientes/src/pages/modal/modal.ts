@@ -21,6 +21,7 @@ export class ModalPage {
 fechaTransaccion: any;
 fechaPago: any;
 formulario: any;
+tarjetaNombre: any;
 // form1 es para ver de donde viene el mensaje para el ngif en HTML
 form1=false;
 //variables para el modal final
@@ -44,6 +45,7 @@ mailCliente:any;
       this.fechaTransaccion = navParams.get('fechaTransaccion');
       this.fechaPago = navParams.get('fechaPago');
       this.formulario = navParams.get('formulario');
+      this.tarjetaNombre = navParams.get('tarjetaNombre');
     }
     else{
       console.log("entrando al modal, nav params form 2");
@@ -99,7 +101,8 @@ mailCliente:any;
     this.viewCtrl.dismiss();
     this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
                                 fechaPago: this.fechaPago,
-                                formulario: this.formulario
+                                formulario: this.formulario,
+                                tarjetaNombre: this.tarjetaNombre
     });
   }
 

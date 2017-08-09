@@ -23,6 +23,7 @@ export class FormularioWebPaso2Page {
   formulario:any;
   formulario2:any;
   tarjeta:any;
+  tarjetaNombre: any;
   codigoAutoLabel: any;
   submitAttempt: boolean = false;
   respuesta:any;
@@ -43,11 +44,18 @@ export class FormularioWebPaso2Page {
               public modalCtrl: ModalController,
               public navParams: NavParams) {
                 
-
-      this.formulario2 = formBuilder.group({
-        codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
-        cupon: ['',Validators.compose([Validators.minLength(4),Validators.maxLength(4),Validators.pattern(/()\d/g),Validators.required])]
-      });
+      this.tarjetaNombre = this.navParams.get('tarjetaNombre');
+      if(this.tarjetaNombre === 'MASTER'){
+          this.formulario2 = formBuilder.group({
+                  codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
+                });
+      }else{
+          this.formulario2 = formBuilder.group({
+                  codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
+                  cupon: ['',Validators.compose([Validators.pattern(/()\d/g),Validators.required])]
+                });
+      }
+      
   }
 
     ionViewDidEnter() {
@@ -85,7 +93,7 @@ export class FormularioWebPaso2Page {
                               this.fechaPago.getUTCMinutes(),
                               this.fechaPago.getUTCSeconds());
     this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
-    this.formulario = this.navParams.get('formulario'); 
+    this.formulario = this.navParams.get('formulario');  
     console.log("formulario desde 1 a 2", this.formulario); 
     switch (this.formulario.tarjeta.value)
       {
@@ -137,9 +145,12 @@ export class FormularioWebPaso2Page {
               importeCarga: parseFloat(this.formulario.importeCarga.value),
               importeCuota: parseFloat(this.formulario.importeCuota.value),
               codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
-              cupon: parseInt(this.formulario2.get('cupon').value)
-
         };
+        if(this.tarjetaNombre !== 'MASTER'){
+          details['cupon'] = parseInt(this.formulario2.get('cupon').value);
+        }else{
+          details['cupon'] = 0;
+        }
             console.log(details);
       this.showLoader('Enviando formulario. Espere por favor...');  
       this.opProv.operacionNueva(details).then((data)=>{

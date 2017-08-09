@@ -14,7 +14,6 @@ router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
-router.get('/instructivo', OperacionController.instructivo);
 router.get('/mysql', MysqlController.dump);
 router.post('/test',OperacionController.test);
 

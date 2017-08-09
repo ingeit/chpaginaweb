@@ -14,7 +14,7 @@
     </ion-row>
     <ion-row style="margin-top: -33px;">
       <ion-col text-center>
-       <ion-title><h3>IMPORTANTE</h3></ion-title>
+       <ion-title><h3>SIGUIENTE PASO</h3></ion-title>
       </ion-col>
     </ion-row>
   </ion-navbar>
@@ -60,13 +60,17 @@
 
 <ion-content padding>
   <div *ngIf="form1"> 
-    <h1>Siguiente paso:</h1>
-    <h1>Inicio de Procesamiento de Transacción...</h1>
+    <h1>Usted ingresará a la WEB de {{tarjetaNombre}}</h1>
     <p style="text-align: justify">
-        Recuerde en esta instancia copiar el codigo de autorizacion y numero de cupon.
-        Posteriormente estos datos seran de utilidad para pegarlos en los campos correspondiente en el siguiente formulario
-        que se habilitara en esta seccion al finalizar la transaccion.
+        - La información que cargue, en esta web, es la que se procesará.
     </p>
+    <p style="text-align: justify">
+        - Tome nota del:
+    </p>
+      <ul>
+        <li>Código de autorización</li>
+        <li>Número de cupón</li>
+      </ul>
     <button class="botones" ion-button color="alert" style="color:white" (click)="irPaso2()">Aceptar</button>
     <button class="botones" ion-button color="danger" (click)="dismiss()">Cancelar</button>
   </div>
