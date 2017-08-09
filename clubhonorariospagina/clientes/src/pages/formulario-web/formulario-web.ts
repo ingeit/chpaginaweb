@@ -6,6 +6,7 @@ import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
 import { ModalPage } from '../modal/modal';
+import * as configServer from './../../server'
 
 @Component({
   selector: 'page-formulario-web',
@@ -225,7 +226,7 @@ export class FormularioWebPage {
   }
 
   descargarPDF(){
-    alert('y ella??')
+    const browser = this.iab.create(`${configServer.data.urlServidor}/api/pdf/`);
   }
 
 
