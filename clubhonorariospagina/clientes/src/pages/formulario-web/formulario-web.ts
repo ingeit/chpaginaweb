@@ -224,5 +224,9 @@ export class FormularioWebPage {
         this.confirmar();  
   }
 
+  descargarPDF(){
+    alert('y ella??')
+  }
+
 
 }
