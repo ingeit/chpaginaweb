@@ -226,7 +226,7 @@ export class FormularioWebPage {
   }
 
   descargarPDF(){
-    const browser = this.iab.create(`${configServer.data.urlServidor}/api/pdf/`);
+    const browser = this.iab.create(`${configServer.data.urlServidor}/api/instructivo/`);
   }
 
 

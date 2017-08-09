@@ -505,6 +505,19 @@ exports.pdf = function(req, res, next){
     });
 }
 
+exports.instructivo = function(req, res, next){
+    var express = require('express');
+    var file = './assets/Paso-a-paso-web.pdf'
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+}
+
 
 exports.crash = function(req, res, next){
     operacion.crash(function(consulta){
