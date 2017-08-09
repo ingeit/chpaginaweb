@@ -84,10 +84,6 @@ mailCliente:any;
 
   irPaso2(){
     console.log("fecha transaccion desde modal page justo por hacer push a formulario 2",this.fechaTransaccion);
-    this.navCtrl.push(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
-                                fechaPago: this.fechaPago,
-                                formulario: this.formulario
-    });
     // Amex y Visa(3)
     console.log("dentro de modals, por redireccionar, la tarjeta elejida es ",this.formulario.tarjeta.value);
     if(this.formulario.tarjeta.value === "1" || this.formulario.tarjeta.value === "3"){
@@ -101,6 +97,10 @@ mailCliente:any;
     window.open(URL, '_system');
     }
     this.viewCtrl.dismiss();
+    this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
+                                fechaPago: this.fechaPago,
+                                formulario: this.formulario
+    });
   }
 
   comprobarMailCliente(respuesta){

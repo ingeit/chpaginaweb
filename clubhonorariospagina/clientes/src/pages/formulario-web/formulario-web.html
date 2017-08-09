@@ -9,7 +9,12 @@
 
 <ion-content padding>
     <div class="contenedor">
-        <div class="card card-container">
+        <ion-card class="guia">
+            <ion-card-content>
+                Guia Paso a Paso <ion-icon name="clipboard"></ion-icon>
+            </ion-card-content>
+        </ion-card>
+        <div class="card2 card-container">
             <h3>Formulario de Operaciones<div id="preloadfont" >.</div></h3>
             <ion-item>
                   <ion-label floating>Fecha de transaccion</ion-label>
@@ -99,25 +104,25 @@
               <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
               
                <ion-item>
-                  <ion-label floating>Importe a cobrar</ion-label>
-                  <ion-input disabled formControlName="importeCobrar" style="color:red; font-weight: bold;" type="number" step="0.05" class="form-control" name="importeCobrar" id="importeCobrar"></ion-input>
+                  <ion-label class="letraFuerte"  stacked>Importe a cobrar</ion-label>
+                  <ion-input disabled formControlName="importeCobrar" type="number" step="0.05" class="form-control importes" name="importeCobrar" id="importeCobrar"></ion-input>
               </ion-item>
               <ion-item *ngIf="tarjetaNombre === false">
-                  <ion-label floating >Importe total de transaccion</ion-label>
-                  <ion-input disabled formControlName="importeCarga" style="color:red; font-weight: bold;" type="number" step="0.05" class="form-control" name="importeCarga" id="importeCarga"></ion-input>
+                  <ion-label class="letraFuerte"  stacked >Importe total de transaccion</ion-label>
+                  <ion-input disabled formControlName="importeCarga"  type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
               </ion-item>
               <ion-item *ngIf="tarjetaNombre !== false">
-                  <ion-label floating >Importe total de transaccion (valor a cargar en pagina de {{tarjetaNombre}})</ion-label>
-                  <ion-input disabled formControlName="importeCarga" style="color:red; font-weight: bold;" type="number" step="0.05" class="form-control" name="importeCarga" id="importeCarga"></ion-input>
+                  <ion-label class="letraFuerte"  stacked >Importe total de transaccion (valor a cargar en pagina de {{tarjetaNombre}})</ion-label>
+                  <ion-input disabled formControlName="importeCarga" type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
               </ion-item>
               <ion-item>
-                  <ion-label floating>Importe de cuotas</ion-label>
-                  <ion-input disabled formControlName="importeCuota" style="color:red; font-weight: bold;" type="number" step="0.05" class="form-control" name="importeCuota" id="importeCuota"></ion-input>
+                  <ion-label class="letraFuerte" stacked>Importe de cuotas</ion-label>
+                  <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control importes" name="importeCuota" id="importeCuota"></ion-input>
               </ion-item> 
             <p style="position: relative;color: #777777 !important;bottom: -80px;left: -15px;" >Nota: Los campos con * son obligatorios</p>
             </form><!-- /form -->
             <!-- OJO! El boton va a la funcion GENERAR, no CONFIRMAR.. -->
-            <button float-right color="secondary" ion-button type="submit" (click)="generar()">Generar</button>
+            <button float-right color="secondary" ion-button type="submit" (click)="generarDebug()">Generar</button>
         </div>
     </div>
 </ion-content>
