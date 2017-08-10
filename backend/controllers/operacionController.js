@@ -407,7 +407,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
-                bcc: 'fl@clubhonorarios.com'+','+'diego.macian@soramus.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                bcc: 'pagos@clubhonorarios.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de transacción realizada',
                 html: '<h3>Estimado Cliente:</h3>'+
                        '<p>A continuación adjuntamos el comprobante de la operación registrada en el día de hoy</p>'+
