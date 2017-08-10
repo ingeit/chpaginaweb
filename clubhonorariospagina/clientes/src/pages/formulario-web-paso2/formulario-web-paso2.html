@@ -12,6 +12,33 @@
 <ion-content padding>
   <div class="contenedor"> 
       <div class="card2 card-container">
+        <h2>Datos previos</h2>
+        <p>Solo puede modificar cantidad de cuotas</p>
+        <ion-item>
+          <ion-label floating>Cuotas
+          </ion-label>
+              <ion-select [(ngModel)]="cuotas" (ionChange)='autoCompletarImportes()' interface="popover">
+                  <ion-option value="02">2</ion-option>
+                  <ion-option value="03">3</ion-option>
+                  <ion-option value="04">4</ion-option>
+                  <ion-option value="05">5</ion-option>
+                  <ion-option value="06">6</ion-option>
+                  <ion-option value="07">7</ion-option>
+                  <ion-option value="08">8</ion-option>
+                  <ion-option value="09">9</ion-option>
+                  <ion-option value="10">10</ion-option>
+                  <ion-option value="11">11</ion-option>
+                  <ion-option value="12">12</ion-option>
+              </ion-select>
+        </ion-item>
+            <ion-item>
+                  <ion-label class="letraFuerte"  stacked >Importe total de transaccion (valor a cargar en pagina de {{tarjetaNombre}})</ion-label>
+                  <ion-input [(ngModel)]="impTotal" disabled type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label class="letraFuerte" stacked>Importe de cuotas</ion-label>
+                  <ion-input [(ngModel)]="impCuota" disabled type="number" step="0.05" class="form-control importes" name="importeCuota" id="importeCuota"></ion-input>
+              </ion-item> 
         <h2>Copiar Codigos</h2>
         <form [formGroup]="formulario2" method="post" class="form-signin" id="myform" name="formulario2">
             <div *ngIf="tarjetaNombre !== 'MASTER'">

@@ -218,7 +218,8 @@ export class FormularioWebPage {
     let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
                                                             fechaPago: this.fechaPagoMysql,
                                                             formulario: this.formulario.controls,
-                                                            tarjetaNombre: this.tarjetaNombre });
+                                                            tarjetaNombre: this.tarjetaNombre,
+                                                          tarjetasComisiones: this.tarjetasComisiones });
     confirmarModal.present();
   }
 
