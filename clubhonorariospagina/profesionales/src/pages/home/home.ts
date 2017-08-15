@@ -50,7 +50,7 @@ export class HomePage {
         this.loginProviderCtrl.login(details).then((result) => {
           this.loading.dismiss();
           this.respuesta = result;
-          if(this.respuesta.codigo !== 1){
+          if(this.respuesta.codigo !== 0){
             this.menu.enable(true);
             this.navCtrl.setRoot(ListaOperacionesPage);
           }
