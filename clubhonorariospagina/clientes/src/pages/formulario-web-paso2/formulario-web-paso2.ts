@@ -294,7 +294,7 @@ export class FormularioWebPaso2Page {
   }
 
   mostrarModal(respuesta){
-    let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta });
+    let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta }, {enableBackdropDismiss: false});
     modalRes.present();
   }
 
