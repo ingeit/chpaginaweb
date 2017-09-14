@@ -407,7 +407,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
-                bcc: 'fl@clubhonorarios.com'+','+'diego.macian@soramus.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                bcc: 'pagos@clubhonorarios.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de transacción realizada',
                 html: '<h3>Estimado Cliente:</h3>'+
                        '<p>A continuación adjuntamos el comprobante de la operación registrada en el día de hoy</p>'+
@@ -530,17 +530,17 @@ exports.crash = function(req, res, next){
 // }
 
 
-exports.test = function(req, res, next){
-    var idOperacion = req.body.idOperacion;
-    operacion.test(idOperacion,function(consulta){
-        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
-            res.json(consulta);
-        }else{
-            console.log("cod != de 0, TODO OK");
-            //agrego el codigo = 1 que MYSQL no devuelve, para q IONIC pueda leer siempre si el codigo es 0 o 1 para error o no
-            consulta[0].codigo = 1;
-            res.json(consulta);
-        }
-    });
-}
+// exports.test = function(req, res, next){
+//     var idOperacion = req.body.idOperacion;
+//     operacion.test(idOperacion,function(consulta){
+//         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+//             console.log("cod = 0, TODO MAL");
+//             res.json(consulta);
+//         }else{
+//             console.log("cod != de 0, TODO OK");
+//             //agrego el codigo = 1 que MYSQL no devuelve, para q IONIC pueda leer siempre si el codigo es 0 o 1 para error o no
+//             consulta[0].codigo = 1;
+//             res.json(consulta);
+//         }
+//     });
+// }

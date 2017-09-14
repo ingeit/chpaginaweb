@@ -30,7 +30,7 @@ mailProf:any;
 idOperacion:any;
 mensaje:any;
 mailCliente:any;
-
+tarjetasComisiones: any;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -46,6 +46,7 @@ mailCliente:any;
       this.fechaPago = navParams.get('fechaPago');
       this.formulario = navParams.get('formulario');
       this.tarjetaNombre = navParams.get('tarjetaNombre');
+      this.tarjetasComisiones = navParams.get('tarjetasComisiones');
     }
     else{
       console.log("entrando al modal, nav params form 2");
@@ -102,7 +103,8 @@ mailCliente:any;
     this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccion,
                                 fechaPago: this.fechaPago,
                                 formulario: this.formulario,
-                                tarjetaNombre: this.tarjetaNombre
+                                tarjetaNombre: this.tarjetaNombre,
+                                tarjetasComisiones: this.tarjetasComisiones
     });
   }
 
