@@ -152,7 +152,7 @@ export class FormularioWebPaso2Page {
               mailCliente: this.formulario.mailCliente.value,
               tarjeta: this.tarjeta,
               cuotas: this.cuotas,
-              importeVenta: parseFloat(this.formulario.importeVenta.value),
+              importeVenta: parseFloat(this.formulario.importeComision.value),
               importeCobrar: parseFloat(this.formulario.importeCobrar.value),
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
@@ -207,7 +207,7 @@ export class FormularioWebPaso2Page {
               nombreCliente: this.primeraLetraMayuscula(this.formulario.nombreCliente.value),
               telefonoCliente: this.formulario.telefonoCliente.value,
               tarjeta: this.primeraLetraMayuscula(this.tarjeta),
-              importeVenta: this.formulario.importeVenta.value,
+              importeVenta: this.formulario.importeComision.value,
               importeCobrar: this.formulario.importeCobrar.value,
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
@@ -249,7 +249,7 @@ export class FormularioWebPaso2Page {
               nombreCliente: this.primeraLetraMayuscula(this.formulario.nombreCliente.value),
               telefonoCliente: this.formulario.telefonoCliente.value,
               tarjeta: this.primeraLetraMayuscula(this.tarjeta),
-              importeVenta: this.formulario.importeVenta.value,
+              importeVenta: this.formulario.importeComision.value,
               importeCobrar: this.formulario.importeCobrar.value,
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
@@ -322,7 +322,7 @@ export class FormularioWebPaso2Page {
                 console.log(" y la comision es "+this.comision);
               }
           }          
-          this.impTotal = Math.round(this.formulario.importeVenta.value*this.comision*100)/100;
+          this.impTotal = Math.round(this.formulario.importeComision.value*this.comision*100)/100;
           this.impCuota = Math.round((this.impTotal / this.cuotas)*100)/100;
           this.escribirNaranja();
         

@@ -21,6 +21,7 @@ export class FormularioWebPage {
   fechaPagoMysql: any;
   importeVenta: number;
   importeCobrar: number;
+  importeComision: number;
   importeCarga: number;
   importeCuota: number;
   tarjeta: any;
@@ -55,6 +56,7 @@ export class FormularioWebPage {
         cuotas: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
         importeVenta: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
+        importeComision: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
       });
@@ -147,8 +149,10 @@ export class FormularioWebPage {
           // obtener importe venta del input
           this.importeVenta = this.formulario.get('importeVenta').value;
           // seteo importe a cobrar del 95%  del valor de importe venta traido del input.
-          this.importeCobrar = Math.round(this.importeVenta*0.95*100)/100;
+          this.importeCobrar = this.importeVenta;
+          this.importeComision = Math.round(this.importeVenta/0.95*100)/100;
           this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
+          this.formulario.controls['importeComision'].setValue(this.importeComision);
           // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
           this.tarjeta=this.formulario.get('tarjeta').value;
           this.cuotas=this.formulario.get('cuotas').value;
@@ -186,8 +190,8 @@ export class FormularioWebPage {
           // Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
           // Ej: 10.225 = 10.23
           //     10.223 = 10.22 
-          console.log("importe carga original "+ this.importeVenta*this.comision);              
-          this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
+          console.log("importe carga original "+ this.importeVenta*this.comision);    
+          this.importeCarga = Math.round(this.importeComision*this.comision*100)/100;
           console.log("importe carga redondeado "+ this.importeCarga);
           
           this.formulario.controls['importeCarga'].setValue(this.importeCarga);

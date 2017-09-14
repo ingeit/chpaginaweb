@@ -101,7 +101,7 @@
                 </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
               <ion-item>
-                  <ion-label floating>Importe de venta * (Este importe se debera completar en cupon azul)</ion-label>
+                  <ion-label floating>Importe</ion-label>
                   <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control" name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
               </ion-item>
               <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
@@ -110,6 +110,10 @@
                   <ion-label class="letraFuerte"  stacked>Importe a cobrar</ion-label>
                   <ion-input disabled formControlName="importeCobrar" type="number" step="0.05" class="form-control importes" name="importeCobrar" id="importeCobrar"></ion-input>
               </ion-item>
+              <ion-item>
+                <ion-label class="letraFuerte"  stacked>Importe + Comision</ion-label>
+                <ion-input disabled formControlName="importeComision" type="number" step="0.05" class="form-control importes" name="importeCobrar" id="importeCobrar"></ion-input>
+            </ion-item>
               <ion-item *ngIf="tarjetaNombre === false">
                   <ion-label class="letraFuerte"  stacked >Importe total de transaccion</ion-label>
                   <ion-input disabled formControlName="importeCarga"  type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
