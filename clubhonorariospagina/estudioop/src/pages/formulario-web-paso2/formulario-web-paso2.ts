@@ -35,6 +35,13 @@ export class FormularioWebPaso2Page {
   urlImagenCanvasAzul:any;
   imagenEditadaAzul = false;
 
+  //para editar cuotas modificacion
+    tarjetasComisiones: any;
+    impTotal: number;
+    impCuota: number;
+    cuotas: number;
+    comision: number;
+
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
                private _app: App,
@@ -43,15 +50,21 @@ export class FormularioWebPaso2Page {
               public formBuilder: FormBuilder,
               public modalCtrl: ModalController,
               public navParams: NavParams) {
-                
+
+      this.formulario = this.navParams.get('formulario');  
       this.tarjetaNombre = this.navParams.get('tarjetaNombre');
+      this.tarjetasComisiones = navParams.get('tarjetasComisiones');
+      this.cuotas = this.formulario.cuotas.value;
+      this.impTotal = this.formulario.importeCarga.value;
+      this.impCuota = this.formulario.importeCuota.value;
+
       if(this.tarjetaNombre === 'MASTER'){
           this.formulario2 = formBuilder.group({
-                  codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
+                  codigoAuto: ['',Validators.compose([Validators.minLength(2),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
                 });
       }else{
           this.formulario2 = formBuilder.group({
-                  codigoAuto: ['',Validators.compose([Validators.minLength(6),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
+                  codigoAuto: ['',Validators.compose([Validators.minLength(2),Validators.maxLength(6),Validators.pattern(/()\d/g),Validators.required])],
                   cupon: ['',Validators.compose([Validators.pattern(/()\d/g),Validators.required])]
                 });
       }
@@ -93,7 +106,6 @@ export class FormularioWebPaso2Page {
                               this.fechaPago.getUTCMinutes(),
                               this.fechaPago.getUTCSeconds());
     this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
-    this.formulario = this.navParams.get('formulario');  
     console.log("formulario desde 1 a 2", this.formulario); 
     switch (this.formulario.tarjeta.value)
       {
@@ -139,11 +151,11 @@ export class FormularioWebPaso2Page {
               telefonoCliente: this.formulario.telefonoCliente.value,
               mailCliente: this.formulario.mailCliente.value,
               tarjeta: this.tarjeta,
-              cuotas: parseInt(this.formulario.cuotas.value),
+              cuotas: this.cuotas,
               importeVenta: parseFloat(this.formulario.importeVenta.value),
               importeCobrar: parseFloat(this.formulario.importeCobrar.value),
-              importeCarga: parseFloat(this.formulario.importeCarga.value),
-              importeCuota: parseFloat(this.formulario.importeCuota.value),
+              importeCarga: this.impTotal,
+              importeCuota: this.impCuota,
               codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
         };
         if(this.tarjetaNombre !== 'MASTER'){
@@ -197,8 +209,8 @@ export class FormularioWebPaso2Page {
               tarjeta: this.primeraLetraMayuscula(this.tarjeta),
               importeVenta: this.formulario.importeVenta.value,
               importeCobrar: this.formulario.importeCobrar.value,
-              importeCarga: this.formulario.importeCarga.value,
-              importeCuota: this.formulario.importeCuota.value,
+              importeCarga: this.impTotal,
+              importeCuota: this.impCuota,
         };
         this.ctx.fillText(details.apellidoProfesional+' '+details.nombreProfesional,150,120);
         this.ctx.fillText(details.dniProfesional,150,230);
@@ -239,9 +251,9 @@ export class FormularioWebPaso2Page {
               tarjeta: this.primeraLetraMayuscula(this.tarjeta),
               importeVenta: this.formulario.importeVenta.value,
               importeCobrar: this.formulario.importeCobrar.value,
-              importeCarga: this.formulario.importeCarga.value,
-              importeCuota: this.formulario.importeCuota.value,
-              cantidadCuotas: this.formulario.cuotas.value,
+              importeCarga: this.impTotal,
+              importeCuota: this.impCuota,
+              cantidadCuotas: this.cuotas,
         };
         this.ctx.fillText(details.apellidoProfesional+' '+details.nombreProfesional,150,140);
         this.ctx.fillText(details.tarjeta,150,370);
@@ -282,8 +294,38 @@ export class FormularioWebPaso2Page {
   }
 
   mostrarModal(respuesta){
-    let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta });
+    let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta }, {enableBackdropDismiss: false});
     modalRes.present();
   }
+
+  autoCompletarImportes(){
+    console.log(this.cuotas);
+     //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
+        let x;
+        let yy;
+        let xyy;
+
+          this.formulario.importeVenta.value
+
+          let tarjeta = this.formulario.tarjeta.value;
+          
+          x=tarjeta;
+            //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
+          yy=this.cuotas;
+            // Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
+          xyy=x+yy;
+
+          for (let t of this.tarjetasComisiones) {
+              if(t.idTarjeta.toString() === xyy){
+                console.log("coincidencia en "+t.idTarjeta);
+                this.comision = t.tasa;
+                console.log(" y la comision es "+this.comision);
+              }
+          }          
+          this.impTotal = Math.round(this.formulario.importeVenta.value*this.comision*100)/100;
+          this.impCuota = Math.round((this.impTotal / this.cuotas)*100)/100;
+          this.escribirNaranja();
+        
+    }
 
 }
