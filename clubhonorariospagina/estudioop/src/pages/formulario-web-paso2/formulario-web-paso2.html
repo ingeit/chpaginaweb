@@ -1,0 +1,51 @@
+ <ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+     <ion-title><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
+  </ion-navbar>
+</ion-header> 
+
+
+
+<ion-content padding>
+  <div class="contenedor"> 
+      <div class="card2 card-container">
+        <h2>Copiar Codigos</h2>
+        <form [formGroup]="formulario2" method="post" class="form-signin" id="myform" name="formulario2">
+            <div *ngIf="tarjetaNombre !== 'MASTER'">
+              <ion-item>
+                  <ion-label stacked>CUPON</ion-label>
+                  <ion-input placeholder="Ingrese número de cupón" formControlName="cupon" type="number" class="form-control" name="cupon" id="cupon" [class.errorClubHonorarios]="!formulario2.controls.cupon.valid && submitAttempt"></ion-input>
+              </ion-item>
+              <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.cupon.valid  && submitAttempt">Ingrese el numero del cupon</p>
+            </div>
+            <ion-item>
+                <ion-label stacked>{{codigoAutoLabel}}</ion-label>
+                <ion-input type="number" placeholder="N° de 2 a 6 Digitos" formControlName="codigoAuto" name="codigoAuto" id="codigoAuto" [class.errorClubHonorarios]="!formulario2.controls.codigoAuto.valid &&  submitAttempt"></ion-input>
+            </ion-item>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario2.controls.codigoAuto.valid  && submitAttempt">Ingrese el codigo de autorizacion</p>
+          </form><!-- /form -->
+          <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="botonEnviar()">Enviar</button>
+      </div>
+      
+      <div class="bloque card-container" style="max-width: 1000px;">
+        <div class="titulo">
+          <span>Datos Previos</span>
+          <!-- Este div me ayuda a que se carguen los CSS. pequeño truco -->
+          <div id="preloadfont" >.</div>
+        </div>
+
+        <canvas style="display:none" #myCanvas></canvas>
+
+        <img [src]="urlImagenCanvasAzul" *ngIf="imagenEditadaAzul" imageViewer alt="">
+
+        <img [src]="urlImagenCanvas" *ngIf="imagenEditada" imageViewer alt="">
+        
+        <!-- <span class="datos"><strong>Datos Profesional: </strong>{{this.formulario?.apellidoProfesional.value}} {{this.formulario?.nombreProfesional.value}} - DNI: {{this.formulario?.dniProfesional.value}} - {{this.formulario?.mailProfesional.value}}</span> 
+        <span class="datos"><strong>Datos Cliente: </strong>{{this.formulario?.apellidoCliente.value}} {{this.formulario?.nombreCliente.value}} - DNI: {{this.formulario?.dniCliente.value}} - {{this.formulario?.mailCliente.value}} - Telefono: {{this.formulario?.telefonoCliente.value}}</span> 
+        <span class="datos"><strong>Datos Venta: </strong>{{this.tarjeta}} - I.Carga: ${{this.formulario?.importeCarga.value}} - I.Cobrar: ${{this.formulario?.importeCobrar.value}} - Cant. Coutas: {{this.formulario?.cuotas.value}} - I.Couta: ${{this.formulario?.importeCuota.value}} - I.Venta: ${{this.formulario?.importeVenta.value}}</span> -->
+      </div>
+  </div>
+</ion-content>
