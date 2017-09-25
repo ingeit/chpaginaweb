@@ -28,6 +28,7 @@ export class FormularioWebPage {
   comision: number;
   tarjetasComisiones: any;
   tarjetaNombre: any = false;
+  dniProfesionalForm: any;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -225,6 +226,28 @@ export class FormularioWebPage {
 
   generarDebug(){
         this.confirmar();  
+  }
+
+  consultarProfesional(){
+    if(this.dniProfesionalForm){
+      let details = {
+        dniProfesional: parseInt(this.dniProfesionalForm),
+      };
+      console.log('consultando',details)
+      this.showLoader('Consultando Profesional');
+      this.formularioProvider.dameProfesional(details).then((result) => {
+          this.respuesta = result[0];
+          this.loading.dismiss();
+          if(this.respuesta.codigo === 1){
+
+          }
+        }, (err) => {
+          this.loading.dismiss();
+          this.mostrarAlerta('ERROR','Por Favor Ingreso un DNI/CUIT Valido')
+        });
+    }else{
+      this.mostrarAlerta('ERROR','Por Favor Ingreso un DNI/CUIT Valido')
+    }
   }
 
 

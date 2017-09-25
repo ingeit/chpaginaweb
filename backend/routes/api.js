@@ -10,6 +10,7 @@ router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
 router.post('/dameOperacion',OperacionController.dameOperacion);
 router.get('/dameFechas', OperacionController.getFechas);
+router.get('/dameProfesional', OperacionController.dameProfesional);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
