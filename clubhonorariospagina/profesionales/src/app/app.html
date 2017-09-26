@@ -7,35 +7,23 @@
     </ion-header>
 
     <ion-content class="menuStyle">
+      <ion-list *ngFor="let p of pages">
+        <ion-list-header (click)="mostrarElementos(p)" class="item list-header">
+          {{p.tituloPrincipal | uppercase}}
+          <ion-icon name="{{p.iconoPrincipal}}" float-right></ion-icon>
+        </ion-list-header>
+        <div *ngIf="p.mostrarComponentes">
+          <button  *ngFor="let c of p.componenentes" (click)="openPage(c.componente)" menuClose ion-item>
+            {{c.titulo}}
+            <ion-icon name="{{c.icono}}" float-right></ion-icon>
+          </button>
+        </div>
+      </ion-list>
       <ion-list>
-        <ion-list-header (click)="mostrarElementos('operaciones')" class="item list-header">
-          OPERACIONES
-          <ion-icon name="card" float-right></ion-icon>
-        </ion-list-header>
-        <button *ngIf="mostrarOperaciones" (click)="ir(ListaOperacionesPage)" menuClose ion-item>
-          Listar
-          <ion-icon name="list" float-right></ion-icon>
-        </button>
-        <ion-list-header (click)="mostrarElementos('profesionales')" class="item list-header">
-          PROFESIONALES
-          <ion-icon name="people" float-right></ion-icon>
-        </ion-list-header>
-        <button *ngIf="mostrarProfesionales"  menuClose ion-item>
-          Listar
-          <ion-icon name="list" float-right></ion-icon>
-        </button>
-        <button *ngIf="mostrarProfesionales" menuClose ion-item>
-          Nuevo
-          <ion-icon name="person-add" float-right></ion-icon>
-        </button>
         <ion-list-header  (click)="logout()" class="item list-header">
           SALIR
           <ion-icon name="exit" float-right></ion-icon>
         </ion-list-header>
-        <!-- <button menuClose ion-item >
-          Salir
-          
-        </button> -->
       </ion-list>
     </ion-content>
 

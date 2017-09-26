@@ -16,9 +16,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any; 
-  mostrarOperaciones = false;
-  mostrarProfesionales = false;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{tituloPrincipal: string,iconoPrincipal: string,mostrarComponentes: boolean, componenentes: Array<{titulo: string,icono: string, componente: any}>}>;
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar,
@@ -30,7 +28,8 @@ export class MyApp {
                 
                 // used for an example of ngFor and navigation
                 this.pages = [
-                  { title: 'Home', component: HomePage },
+                  { tituloPrincipal: 'Operaciones',iconoPrincipal:'card',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage}] },
+                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage},{titulo:'Nuevo',icono:'person-add',componente:ListaOperacionesPage}] }
                 ];
   }
 
@@ -63,7 +62,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page);
   }
 
   public logout(){
@@ -76,15 +75,7 @@ export class MyApp {
   }
 
   public mostrarElementos(aux){
-    if(aux === 'profesionales'){
-      this.mostrarProfesionales = !this.mostrarProfesionales;
-    }else{
-      this.mostrarOperaciones = !this.mostrarOperaciones;
-    }
-  }
-
-  ir(page){
-    this.nav.setRoot(ListaOperacionesPage);
+    aux.mostrarComponentes = !aux.mostrarComponentes;
   }
 
 }
