@@ -8,17 +8,25 @@
 
     <ion-content class="menuStyle">
       <ion-list>
-        <ion-list-header (click)="mostrarElementos()" class="item list-header">
+        <ion-list-header (click)="mostrarElementos('operaciones')" class="item list-header">
           OPERACIONES
           <ion-icon name="card" float-right></ion-icon>
         </ion-list-header>
-        <button *ngIf="mostrar" menuClose ion-item>
+        <button *ngIf="mostrarOperaciones" (click)="ir(ListaOperacionesPage)" menuClose ion-item>
           Listar
           <ion-icon name="list" float-right></ion-icon>
         </button>
-        <button *ngIf="mostrar" menuClose ion-item>
-          Exportar
-          <ion-icon name="redo" float-right></ion-icon>
+        <ion-list-header (click)="mostrarElementos('profesionales')" class="item list-header">
+          PROFESIONALES
+          <ion-icon name="people" float-right></ion-icon>
+        </ion-list-header>
+        <button *ngIf="mostrarProfesionales"  menuClose ion-item>
+          Listar
+          <ion-icon name="list" float-right></ion-icon>
+        </button>
+        <button *ngIf="mostrarProfesionales" menuClose ion-item>
+          Nuevo
+          <ion-icon name="person-add" float-right></ion-icon>
         </button>
         <ion-list-header  (click)="logout()" class="item list-header">
           SALIR

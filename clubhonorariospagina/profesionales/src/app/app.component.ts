@@ -16,7 +16,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any; 
-  mostrar = false;
+  mostrarOperaciones = false;
+  mostrarProfesionales = false;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, 
@@ -74,8 +75,16 @@ export class MyApp {
     });
   }
 
-  public mostrarElementos(){
-    this.mostrar = !this.mostrar;
+  public mostrarElementos(aux){
+    if(aux === 'profesionales'){
+      this.mostrarProfesionales = !this.mostrarProfesionales;
+    }else{
+      this.mostrarOperaciones = !this.mostrarOperaciones;
+    }
+  }
+
+  ir(page){
+    this.nav.setRoot(ListaOperacionesPage);
   }
 
 }
