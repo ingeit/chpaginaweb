@@ -18,7 +18,14 @@ exports.dameProfesional = function(req, res, next){
 exports.bajaProfesional = function(req, res, next){
     var idProfesional = req.body.idProfesional;
     profesional.bajaProfesional(idProfesional,function(consulta){
-        res.json(consulta);
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            console.log("cod = 0, TODO MAL");
+            res.json(consulta);
+        }else{
+            console.log("cod != de 0, TODO OK");
+            consulta[0].codigo = 1; 
+            res.json(consulta);
+        }
     });
 }
 
