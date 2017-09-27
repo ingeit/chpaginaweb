@@ -20,7 +20,7 @@ router.get('/pdf', OperacionController.pdf);
 router.post('/dameProfesional', ProfesionalesController.dameProfesional);
 router.post('/bajaProfesional', ProfesionalesController.bajaProfesional);
 router.get('/listarProfesionales', ProfesionalesController.listarProfesionales);
-// router.post('/modificarProfesional', ProfesionalesController.modificarProfesional);
+router.post('/modificarProfesional', ProfesionalesController.modificarProfesional);
 router.post('/nuevoProfesional', ProfesionalesController.nuevoProfesional);
 
 
