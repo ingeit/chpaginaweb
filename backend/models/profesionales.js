@@ -12,11 +12,16 @@ var connection = mysql.createConnection({
 
 exports.dameProfesional = function(dni,fn){
     // console.log('desde el modelo',dni)
-    connection.query('call profesionalTemp_dame('+dni+')', function(err, rows){  
-        console.log("profesionales", rows[0]);  
+    connection.query('call profesionalTemp_dame('+dni+')', function(err, rows){   
         if (err) fn (err);  
         else fn(rows[0]); 
     });
 }
 
-
+exports.listarProfesionales = function(fn){
+    connection.query('call profesionalTemp_listar()', function(err, rows){
+        console.log(rows[0]);  
+            if (err) fn (err);  
+            else fn(rows[0]); 
+    });
+}

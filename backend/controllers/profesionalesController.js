@@ -7,3 +7,9 @@ exports.dameProfesional = function(req, res, next){
         res.json(consulta);
     });
 }
+
+exports.listarProfesionales = function(req, res, next){
+        profesional.listarProfesionales(function(consulta){
+            res.json(consulta);
+        });
+    }
