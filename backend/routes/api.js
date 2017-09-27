@@ -3,6 +3,7 @@ var router = express.Router();
 //     ProfesionalesController = require('./../controllers/profesionales'), 
 var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
+var ProfesionalesController = require('./../controllers/profesionalesController');
 var MysqlController = require('./../controllers/mysqlController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
@@ -10,11 +11,15 @@ router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
 router.post('/dameOperacion',OperacionController.dameOperacion);
 router.get('/dameFechas', OperacionController.getFechas);
-router.get('/dameProfesional', OperacionController.dameProfesional);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
+
+//Profesionales
+router.post('/dameProfesional', ProfesionalesController.dameProfesional);
+
+
 //router.get('/mysql', MysqlController.dump);
 //router.post('/test',OperacionController.test);
 

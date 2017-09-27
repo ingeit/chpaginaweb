@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
+import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
+
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';
 
@@ -29,7 +31,7 @@ export class MyApp {
                 // used for an example of ngFor and navigation
                 this.pages = [
                   { tituloPrincipal: 'Operaciones',iconoPrincipal:'card',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage}] },
-                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage},{titulo:'Nuevo',icono:'person-add',componente:ListaOperacionesPage}] }
+                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListarProfesionalesPage},{titulo:'Nuevo',icono:'person-add',componente:ListaOperacionesPage}] }
                 ];
   }
 

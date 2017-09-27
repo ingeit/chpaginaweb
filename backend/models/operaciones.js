@@ -54,15 +54,6 @@ exports.getComisiones = function(fn){
             });
 }
 
-exports.dameProfesional = function(fn){
-    connection.query('call dame_comisiones()', function(err, rows){  
-                console.log("comisiones", rows[0]);  
-                if (err) fn (err);  
-                else fn(rows[0]); 
-            });
-}
-
-
 exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
         oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
         oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,fn){

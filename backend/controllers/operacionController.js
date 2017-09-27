@@ -505,13 +505,6 @@ exports.pdf = function(req, res, next){
     });
 }
 
-exports.dameProfesional = function(req, res, next){
-    console.log("dentro de controller nodjs "+req.body.idOperacion);
-    var idOperacion = req.body.idOperacion;
-    operacion.dameOperacion(idOperacion,function(consulta){
-        res.json(consulta);
-    });
-}
 
 exports.crash = function(req, res, next){
     operacion.crash(function(consulta){

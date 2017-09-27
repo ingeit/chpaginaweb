@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('tarjetas:server');
 var http = require('http');
 
+
 /**
  * Get port from environment and store in Express.
  */
@@ -29,6 +30,14 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+server.on('uncaughtException', function (req, res, route, err) {
+  log.info('******* Begin Error *******\n%s\n*******\n%s\n******* End Error *******', route, err.stack);
+  if (!res.headersSent) {
+    return res.send(500, {ok: false});
+  }
+  res.write('\n');
+  res.end();
+});
 /**
  * Normalize a port into a number, string, or false.
  */

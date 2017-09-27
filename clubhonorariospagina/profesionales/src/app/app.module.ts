@@ -13,6 +13,8 @@ import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
+import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
+
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -27,7 +29,8 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     HomePage,
     ListaOperacionesPage,
     VerOperacionPage,
-    SideMenu
+    SideMenu,
+    ListarProfesionalesPage
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     HomePage,
     ListaOperacionesPage,
     VerOperacionPage,
+    ListarProfesionalesPage,
     SideMenu
   ],
   providers: [
