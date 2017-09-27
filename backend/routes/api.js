@@ -18,10 +18,10 @@ router.get('/pdf', OperacionController.pdf);
 
 //Profesionales
 router.post('/dameProfesional', ProfesionalesController.dameProfesional);
-// router.post('/bajaProfesional', ProfesionalesController.bajaProfesional);
-router.post('/listarProfesionales', ProfesionalesController.listarProfesionales);
+router.post('/bajaProfesional', ProfesionalesController.bajaProfesional);
+router.get('/listarProfesionales', ProfesionalesController.listarProfesionales);
 // router.post('/modificarProfesional', ProfesionalesController.modificarProfesional);
-// router.post('/nuevoProfesional', ProfesionalesController.nuevoProfesional);
+router.post('/nuevoProfesional', ProfesionalesController.nuevoProfesional);
 
 
 //router.get('/mysql', MysqlController.dump);

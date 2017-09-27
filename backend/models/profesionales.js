@@ -18,6 +18,13 @@ exports.dameProfesional = function(dni,fn){
     });
 }
 
+exports.bajaProfesional = function(idProfesional,fn){
+    connection.query('call profesionalTemp_baja('+idProfesional+')', function(err, rows){   
+        if (err) fn (err);  
+        else fn(rows[0]); 
+    });
+}
+
 exports.listarProfesionales = function(fn){
     connection.query('call profesionalTemp_listar()', function(err, rows){
         console.log(rows[0]);  
