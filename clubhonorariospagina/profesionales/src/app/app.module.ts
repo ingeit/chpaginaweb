@@ -15,11 +15,12 @@ import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operacion
 import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 
-
+import { PaginationComponent } from 'ionic2-pagination';
 // Providers
 import { Storage } from '@ionic/storage';
 import { LoginProvider } from '../providers/login/login';
 import { OperacionesProvider } from '../providers/operaciones/operaciones';
+import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
 
 
 
@@ -30,6 +31,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     ListaOperacionesPage,
     VerOperacionPage,
     SideMenu,
+    PaginationComponent,
     ListarProfesionalesPage
   ],
   imports: [
@@ -51,6 +53,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
   entryComponents: [
     MyApp,
     HomePage,
+    PaginationComponent,
     ListaOperacionesPage,
     VerOperacionPage,
     ListarProfesionalesPage,
@@ -63,7 +66,8 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
     Storage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
-    OperacionesProvider
+    OperacionesProvider,
+    ProfesionalesProvider
   ]
 })
 export class AppModule {}

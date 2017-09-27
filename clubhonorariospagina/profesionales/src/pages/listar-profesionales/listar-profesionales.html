@@ -1,29 +1,25 @@
-<!--
-  Generated template for the ListarProfesionalesPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>listarProfesionales</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
 
 <ion-content padding>
-  <div class="contenedor">
+
+    <ionc-pagination
+    color="light"
+    (clickBeginning)="changePage(1)"
+    (clickPrevious)="changePage(paginationInfo.page - 1)"
+    (clickNext)="changePage(paginationInfo.page + 1)"
+    (clickEnd)="changePage(paginationInfo.pageCount)"
+    [pagination]="paginationInfo"></ionc-pagination>
+  <!-- <div class="contenedor">
+      <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" [placeholder]="hola" (ionInput)="setFilteredItems()"></ion-searchbar>
       <ion-list>
-          <ion-item>
+          <ion-item *ngFor="let p of listaProfesionalesBusqueda">
             <ion-avatar item-start>
               <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
             </ion-avatar>
-            <h2>Finn</h2>
-            <h3>Don't Know What To Do!</h3>
+            <h2>{{p.apellido}}</h2>
+            <h3>{{p.dni}}</h3>
             <p>I've had a pretty messed up day. If we just...</p>
           </ion-item>
         </ion-list>
-  </div>
+  </div> -->
+  
 </ion-content>
