@@ -69,8 +69,8 @@ export class ListarProfesionalesPage {
     }
   }
 
-  irDetalles(p){
-    this.navCtrl.push(FormProfesionalPage, { profesional: p });
+  irDetalles(p,editable){
+    this.navCtrl.push(FormProfesionalPage, { profesional: p ,edit:editable});
   }
 
 }

@@ -32,7 +32,7 @@ export class MyApp {
                 // used for an example of ngFor and navigation
                 this.pages = [
                   { tituloPrincipal: 'Operaciones',iconoPrincipal:'card',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage}] },
-                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListarProfesionalesPage},{titulo:'Nuevo',icono:'person-add',componente:ListaOperacionesPage}] }
+                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListarProfesionalesPage},{titulo:'Nuevo',icono:'person-add',componente:FormProfesionalPage}] }
                 ];
   }
 

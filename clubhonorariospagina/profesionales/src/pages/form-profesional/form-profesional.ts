@@ -22,7 +22,9 @@ export class FormProfesionalPage {
   public nProfesioanl:any;
   public loading:any;
   profesional:any;
-  private isInputDisabled:boolean=true;
+  private isInputDisabled:boolean=false;
+  mensajeSubmit:String = 'Crear';
+  editable:any;
 
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController,
@@ -32,8 +34,15 @@ export class FormProfesionalPage {
               public navParams: NavParams) {
 
     this.profesional = this.navParams.get('profesional');
-
+    this.editable = this.navParams.get('edit');
+    console.log(this.profesional)
     if(this.profesional){
+      if(this.editable === 'false'){
+        this.isInputDisabled = true;
+      }else{
+        this.mensajeSubmit = 'Actualizar';
+      }
+      
       this.fomularioProfesional = formBuilder.group({
         dni: [this.profesional.dni],
         apellido: [this.profesional.apellido],
@@ -80,33 +89,64 @@ export class FormProfesionalPage {
       this.mostrarAlerta('ERROR','Debe completar todos los campos correctamente.')
     }else{
       console.log("form valido");
-      let details = {
-        dni: parseInt(this.fomularioProfesional._value.dni),
-        apellido: this.fomularioProfesional._value.apellido,
-        nombre: this.fomularioProfesional._value.nombre,
-        especialidad:this.fomularioProfesional._value.especialidad,
-        domicilio:this.fomularioProfesional._value.domicilio,
-        localidad:this.fomularioProfesional._value.localidad,
-        provincia:this.fomularioProfesional._value.provincia,
-        telefono: this.fomularioProfesional._value.telefono,
-        prefesion:this.fomularioProfesional._value.prefesion,
-        mail: this.fomularioProfesional._value.mail,
-        vendedor:this.fomularioProfesional._value.vendedor,
-        autorizado:this.fomularioProfesional._value.autorizado,
-        dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
-      };
-
+    
       this.showLoader('Enviando formulario. Espere por favor...'); 
-      this.profesionalesPrv.nuevoProfesional(details).then((data)=>{
-        this.loading.dismiss();
-        this.nProfesioanl = data;
-        console.log('Profesinal Crado correctamente',this.nProfesioanl)
-        if(this.nProfesioanl.codigo != 0){
-          this.mostrarAlerta('Operacion Exitosa','Profesional creado correctamente')
-        }else{
-          this.mostrarAlerta('ERROR','Ups!! Algo salio mal')
-        }
-      });
+
+      if(this.editable === 'false'){
+        let details = {
+          dni: parseInt(this.fomularioProfesional._value.dni),
+          apellido: this.fomularioProfesional._value.apellido,
+          nombre: this.fomularioProfesional._value.nombre,
+          especialidad:this.fomularioProfesional._value.especialidad,
+          domicilio:this.fomularioProfesional._value.domicilio,
+          localidad:this.fomularioProfesional._value.localidad,
+          provincia:this.fomularioProfesional._value.provincia,
+          telefono: this.fomularioProfesional._value.telefono,
+          prefesion:this.fomularioProfesional._value.prefesion,
+          mail: this.fomularioProfesional._value.mail,
+          vendedor:this.fomularioProfesional._value.vendedor,
+          autorizado:this.fomularioProfesional._value.autorizado,
+          dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
+        };
+
+        this.profesionalesPrv.nuevoProfesional(details).then((data)=>{
+          this.loading.dismiss();
+          this.nProfesioanl = data[0];
+          console.log('Profesinal Crado correctamente',this.nProfesioanl)
+          if(this.nProfesioanl.codigo !== 0){
+            this.mostrarAlerta('Operacion Exitosa','Profesional creado correctamente')
+          }else{
+            this.mostrarAlerta('ERROR','Ups!! Algo salio mal')
+          }
+        });
+      }else{
+
+        let details = {
+          idProfesional: parseInt(this.profesional.idProfesional),
+          apellido: this.fomularioProfesional._value.apellido,
+          nombre: this.fomularioProfesional._value.nombre,
+          especialidad:this.fomularioProfesional._value.especialidad,
+          domicilio:this.fomularioProfesional._value.domicilio,
+          localidad:this.fomularioProfesional._value.localidad,
+          provincia:this.fomularioProfesional._value.provincia,
+          telefono: this.fomularioProfesional._value.telefono,
+          profesion:this.fomularioProfesional._value.prefesion,
+          mail: this.fomularioProfesional._value.mail,
+          vendedor:this.fomularioProfesional._value.vendedor,
+          autorizado:this.fomularioProfesional._value.autorizado,
+          dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
+        };
+
+        this.profesionalesPrv.actualizarProfesional(details).then((data)=>{
+          this.loading.dismiss();
+          this.nProfesioanl = data[0];
+          if(this.nProfesioanl.codigo !== 0){
+            this.mostrarAlerta('Operacion Exitosa','Profesional modificado correctamente')
+          }else{
+            this.mostrarAlerta('ERROR','Ups!! Algo salio mal')
+          }
+        });
+      }
     }
   }
 

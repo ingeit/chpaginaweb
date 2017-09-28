@@ -18,8 +18,6 @@ import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 
-
-import { PaginationComponent } from 'ionic2-pagination';
 // Providers
 import { Storage } from '@ionic/storage';
 import { LoginProvider } from '../providers/login/login';
@@ -35,7 +33,6 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     ListaOperacionesPage,
     VerOperacionPage,
     SideMenu,
-    PaginationComponent,
     ListarProfesionalesPage,
     FormProfesionalPage
   ],
@@ -59,7 +56,6 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
   entryComponents: [
     MyApp,
     HomePage,
-    PaginationComponent,
     ListaOperacionesPage,
     VerOperacionPage,
     ListarProfesionalesPage,

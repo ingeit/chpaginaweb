@@ -12,13 +12,16 @@
   <div class="contenedor">
       <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" [placeholder]="hola" (ionInput)="setFilteredItems()"></ion-searchbar>
       <ion-list>
-          <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }" (click)="irDetalles(p)">
+          <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }">
             <ion-avatar item-start>
               <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
             </ion-avatar>
             <h2>{{p.apellido}}</h2>
             <h3>{{p.dni}}</h3>
             <p>I've had a pretty messed up day. If we just...</p>
+            <button ion-button clear item-end (click)="irDetalles(p,'false')"><ion-icon name="eye"></ion-icon>Ver</button>
+            <button ion-button clear item-end (click)="irDetalles(p,'true')"><ion-icon name="create"></ion-icon>Editar</button>
+            <button ion-button clear item-end><ion-icon name="close-circle"></ion-icon>Eliminar</button>
           </ion-item>
         </ion-list>
         <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
