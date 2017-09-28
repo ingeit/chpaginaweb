@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule} from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 //Pages
 import { MyApp } from './app.component';
@@ -14,6 +16,8 @@ import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
+import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
+
 
 import { PaginationComponent } from 'ionic2-pagination';
 // Providers
@@ -32,11 +36,13 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     VerOperacionPage,
     SideMenu,
     PaginationComponent,
-    ListarProfesionalesPage
+    ListarProfesionalesPage,
+    FormProfesionalPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    NgxPaginationModule,
     TooltipsModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
@@ -57,6 +63,7 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     ListaOperacionesPage,
     VerOperacionPage,
     ListarProfesionalesPage,
+    FormProfesionalPage,
     SideMenu
   ],
   providers: [

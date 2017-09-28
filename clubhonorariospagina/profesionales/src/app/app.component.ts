@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
+import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';

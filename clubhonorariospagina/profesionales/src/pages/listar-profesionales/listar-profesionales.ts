@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
-
+import { FormProfesionalPage } from '../form-profesional/form-profesional';
 
 /**
  * Generated class for the ListarProfesionalesPage page.
@@ -67,6 +67,10 @@ export class ListarProfesionalesPage {
         return item.apellido.toLowerCase().indexOf('') > -1;
       });
     }
+  }
+
+  irDetalles(p){
+    this.navCtrl.push(FormProfesionalPage, { profesional: p });
   }
 
 }
