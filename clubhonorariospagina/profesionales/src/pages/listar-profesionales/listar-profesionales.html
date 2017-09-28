@@ -14,9 +14,9 @@
       <ion-list>
           <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }">
             <ion-avatar item-start>
-              <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
+              <img src="https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-128.png">
             </ion-avatar>
-            <h2>{{p.apellido}}</h2>
+            <h2>{{p.apellidoNombre}}</h2>
             <h3>{{p.dni}}</h3>
             <p>I've had a pretty messed up day. If we just...</p>
             <button ion-button clear item-end (click)="irDetalles(p,'false')"><ion-icon name="eye"></ion-icon>Ver</button>

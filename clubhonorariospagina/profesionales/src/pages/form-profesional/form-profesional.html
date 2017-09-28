@@ -12,7 +12,7 @@
         <form [formGroup]="fomularioProfesional">
             <ion-item [class.lecturaProfesional]="isInputDisabled">
                 <ion-label floating>DNI</ion-label>
-                <ion-input disabled="{{isInputDisabled}}"  type="number" formControlName="dni" ></ion-input>
+                <ion-input disabled="{{dniHabilitado}}"  type="number" formControlName="dni" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.dni.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
