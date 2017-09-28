@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
 import { AlertController,LoadingController } from 'ionic-angular';
-
+import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
 /**
  * Generated class for the FormProfesionalPage page.
  *
@@ -25,6 +25,7 @@ export class FormProfesionalPage {
   private isInputDisabled:boolean=false;
   mensajeSubmit:String = 'Crear';
   editable:any;
+  public dniHabilitado:boolean;
 
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController,
@@ -35,7 +36,6 @@ export class FormProfesionalPage {
 
     this.profesional = this.navParams.get('profesional');
     this.editable = this.navParams.get('edit');
-    console.log(this.profesional)
     if(this.profesional){
       if(this.editable === 'false'){
         this.isInputDisabled = true;
@@ -75,7 +75,7 @@ export class FormProfesionalPage {
         dniAutorizado: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])]
       });
     }
-    
+    this.habilitarDNI();
   }
 
   ionViewDidLoad() {
@@ -150,11 +150,29 @@ export class FormProfesionalPage {
     }
   }
 
+  public habilitarDNI(){
+    if(this.isInputDisabled){
+      this.dniHabilitado = true;
+    }else{
+      if(this.editable === 'true'){
+        this.dniHabilitado = true;
+      }else{
+        this.dniHabilitado = false;
+      }
+    }
+  }
+
   mostrarAlerta(titulo,mensaje) {
     let alert = this.alertCtrl.create({
     title: titulo,
     subTitle: mensaje,
-    buttons: ['ACEPTAR']
+    buttons: [{
+      text: 'Aceptar',
+      handler: () => {
+        this.navCtrl.pop();
+        this.navCtrl.setRoot(ListarProfesionalesPage);
+      }
+    }]
     });
     alert.present();
   }
