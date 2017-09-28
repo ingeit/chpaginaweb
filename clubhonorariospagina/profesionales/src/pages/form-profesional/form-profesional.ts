@@ -10,7 +10,6 @@ import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesio
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-form-profesional',
   templateUrl: 'form-profesional.html',
