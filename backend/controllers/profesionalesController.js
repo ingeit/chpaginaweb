@@ -1,7 +1,7 @@
 var profesional = require('./../models/profesionales');
 
 exports.dameProfesional = function(req, res, next){
-//    console.log("dentro de controller nodjs "+req.body.dni);
+   console.log("dni llega post nodejs:  ",req.body.dni);
     var dni = req.body.dni;
     profesional.dameProfesional(dni,function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){

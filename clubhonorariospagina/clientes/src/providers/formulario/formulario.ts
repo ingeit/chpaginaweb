@@ -49,10 +49,10 @@ export class FormularioProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         
-        this.http.post(`${configServer.data.urlServidor}/api/dameProfesional/`, JSON.stringify(credentials), {headers: headers})
+        this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
-          console.log(res);
+          console.log("respuesta del subscribe: ",res);
           resolve(res);
         }, (err) => {
           console.log(err);

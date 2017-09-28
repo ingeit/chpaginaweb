@@ -133,7 +133,16 @@
                   <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control importes" name="importeCuota" id="importeCuota"></ion-input>
               </ion-item> 
             <p style="position: relative;color: #777777 !important;bottom: -80px;left: -15px;" >Nota: Los campos con * son obligatorios</p>
-            </form><!-- /form -->
+            <ion-item>
+                <ion-label floating>¿Usted cuenta con LaPos?</ion-label>
+                    <ion-select  interface="popover" formControlName="lapos">
+                        <ion-option value="si">SI</ion-option>
+                        <ion-option value="no">NO</ion-option>
+                    </ion-select>
+                </ion-item>
+              <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.lapos.valid  && submitAttempt">Por favor, seleccione SI o NO</p>
+              
+        </form><!-- /form -->
             <!-- OJO! El boton va a la funcion GENERAR, no CONFIRMAR.. -->
             <button float-right color="secondary" ion-button type="submit" (click)="generar()">Generar</button>
         </div>

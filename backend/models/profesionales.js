@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 });
 
 exports.dameProfesional = function(dni,fn){
-    // console.log('desde el modelo',dni)
+    console.log('desde el modelo',dni)
     connection.query('call profesionalTemp_dame('+dni+')', function(err, rows){   
         if (err) {
             consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 

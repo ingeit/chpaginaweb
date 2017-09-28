@@ -58,6 +58,7 @@ export class FormularioWebPage {
         importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+        lapos: ['',Validators.compose([Validators.required])],
       });
       // this.formulario = formBuilder.group({
       //   dniProfesional: ['34159181',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
@@ -216,12 +217,26 @@ export class FormularioWebPage {
 
   confirmar() {
     // confirmar mediante modal
-    let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
-                                                            fechaPago: this.fechaPagoMysql,
-                                                            formulario: this.formulario.controls,
-                                                            tarjetaNombre: this.tarjetaNombre,
-                                                          tarjetasComisiones: this.tarjetasComisiones });
-    confirmarModal.present();
+    // Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
+    
+    if(this.formulario.get('lapos').value === 'si'){
+      console.log("tiene lapos")
+      this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
+        fechaPago: this.fechaPagoMysql,
+        formulario: this.formulario.controls,
+        tarjetaNombre: this.tarjetaNombre,
+        tarjetasComisiones: this.tarjetasComisiones
+      });
+    }else{
+      console.log("no tiene lapos, yendo a modal y visa");
+      let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
+                                                              fechaPago: this.fechaPagoMysql,
+                                                              formulario: this.formulario.controls,
+                                                              tarjetaNombre: this.tarjetaNombre,
+                                                            tarjetasComisiones: this.tarjetasComisiones });
+      confirmarModal.present();
+    }
+    
   }
 
   generarDebug(){
@@ -231,22 +246,31 @@ export class FormularioWebPage {
   consultarProfesional(){
     if(this.dniProfesionalForm){
       let details = {
-        dniProfesional: parseInt(this.dniProfesionalForm),
+        dni: parseInt(this.dniProfesionalForm),
       };
-      console.log('consultando',details)
+      console.log('dni en form: ',details);
       this.showLoader('Consultando Profesional');
       this.formularioProvider.dameProfesional(details).then((result) => {
+        console.log('entrando al provider');
           this.respuesta = result[0];
           this.loading.dismiss();
           if(this.respuesta.codigo === 1){
-
+            let apellidoProfesional = this.respuesta.apellido;
+            let nombreProfesional = this.respuesta.nombre;
+            let mailProfesional = this.respuesta.mail;
+            this.formulario.controls['dniProfesional'].setValue(this.dniProfesionalForm);
+            this.formulario.controls['apellidoProfesional'].setValue(apellidoProfesional);
+            this.formulario.controls['nombreProfesional'].setValue(nombreProfesional);
+            this.formulario.controls['mailProfesional'].setValue(mailProfesional);
+          }else{
+            this.mostrarAlerta('ERROR',this.respuesta.mensaje+". Por favor comunicarse via telefonica a nuestras oficinas");
           }
         }, (err) => {
           this.loading.dismiss();
-          this.mostrarAlerta('ERROR','Por Favor Ingreso un DNI/CUIT Valido')
+          this.mostrarAlerta('ERROR',this.respuesta.mensaje);
         });
     }else{
-      this.mostrarAlerta('ERROR','Por Favor Ingreso un DNI/CUIT Valido')
+      this.mostrarAlerta('ERROR',this.respuesta.mensaje);
     }
   }
 
