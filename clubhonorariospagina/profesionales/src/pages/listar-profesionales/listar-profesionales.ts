@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
 import { FormProfesionalPage } from '../form-profesional/form-profesional';
 
@@ -15,7 +15,8 @@ import { FormProfesionalPage } from '../form-profesional/form-profesional';
   templateUrl: 'listar-profesionales.html',
 })
 export class ListarProfesionalesPage {
-
+  public respuesta: any;
+  public loading:any;
   public listaProfesionales:any;
   public listaProfesionalesBusqueda:any;
   public searchTerm: any = '';
@@ -23,7 +24,9 @@ export class ListarProfesionalesPage {
 
   constructor(public navCtrl: NavController, 
               public profesionalesProvider:ProfesionalesProvider,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public loadingCtrl: LoadingController,
+              private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -67,5 +70,69 @@ export class ListarProfesionalesPage {
   irDetalles(p,editable){
     this.navCtrl.push(FormProfesionalPage, { profesional: p ,edit:editable});
   }
+
+  botonEliminar(idProfesional){
+    let titulo = "Eliminar Profesional";
+    let mensaje = "¿Esta seguro que desea eliminar el profesional?";
+    let funcion = "baja";
+    // respuesta = this.confirmarAlerta(titulo,mensaje);
+    this.confirmarEliminar(titulo,mensaje,idProfesional);
+  }
+
+  confirmarEliminar(titulo,mensaje,idProfesional) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      message: mensaje,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.eliminar(idProfesional);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  eliminar(idProfesional){
+    this.showLoader('Eliminando Profesional. Por favor espere...');
+    let details = {
+      idProfesional: parseInt(idProfesional),
+    };
+    this.profesionalesProvider.eliminarProfesional(details).then((data)=>{
+      this.loading.dismiss();
+      this.respuesta = data[0];
+      if(this.respuesta.codigo !== 0){
+        this.mostrarAlerta('Operacion Exitosa',this.respuesta.mensaje);
+      }else{
+        this.mostrarAlerta('ERROR',this.respuesta.mensaje);
+      }
+    });
+
+  }
+
+  showLoader(mensaje){
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
+}
+
+mostrarAlerta(titulo,mensaje) {
+  let alert = this.alertCtrl.create({
+  title: titulo,
+  subTitle: mensaje,
+  buttons: ['ACEPTAR']
+  });
+  alert.present();
+}
 
 }
