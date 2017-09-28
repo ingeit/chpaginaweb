@@ -1,10 +1,18 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
+    </ion-navbar>
+</ion-header> 
 
 <ion-content padding>
     <div class="contenedor">
         <form [formGroup]="fomularioProfesional">
             <ion-item>
                 <ion-label floating>DNI</ion-label>
-                <ion-input type="number" formControlName="dni" ></ion-input>
+                <ion-input disabled="{{isInputDisabled}}" type="number" formControlName="dni" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.dni.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
             <ion-item>

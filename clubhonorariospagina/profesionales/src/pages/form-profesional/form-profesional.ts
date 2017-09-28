@@ -21,6 +21,8 @@ export class FormProfesionalPage {
   submitAttempt:boolean = false;
   public nProfesioanl:any;
   public loading:any;
+  profesional:any;
+  private isInputDisabled:boolean=true;
 
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController,
@@ -29,7 +31,26 @@ export class FormProfesionalPage {
               public profesionalesPrv:ProfesionalesProvider,
               public navParams: NavParams) {
 
-    this.fomularioProfesional = formBuilder.group({
+    this.profesional = this.navParams.get('profesional');
+
+    if(this.profesional){
+      this.fomularioProfesional = formBuilder.group({
+        dni: [this.profesional.dni],
+        apellido: [this.profesional.apellido],
+        nombre: [this.profesional.nombre],
+        especialidad:[this.profesional.especialidad],
+        domicilio:[this.profesional.domicilio],
+        localidad:[this.profesional.localidad],
+        provincia:[this.profesional.provincia],
+        telefono: [this.profesional.telefono],
+        prefesion:[this.profesional.profesion],
+        mail: [this.profesional.mail],
+        vendedor:[this.profesional.vendedor],
+        autorizado:[this.profesional.autorizado],
+        dniAutorizado: [this.profesional.dniAutorizado]
+      });
+    }else{
+      this.fomularioProfesional = formBuilder.group({
         dni: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellido: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombre: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
@@ -43,7 +64,9 @@ export class FormProfesionalPage {
         vendedor:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         autorizado:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         dniAutorizado: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])]
-    });
+      });
+    }
+    
   }
 
   ionViewDidLoad() {

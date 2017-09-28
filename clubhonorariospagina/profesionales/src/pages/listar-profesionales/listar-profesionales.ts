@@ -70,7 +70,7 @@ export class ListarProfesionalesPage {
   }
 
   irDetalles(p){
-    this.navCtrl.push(FormProfesionalPage)
+    this.navCtrl.push(FormProfesionalPage, { profesional: p });
   }
 
 }

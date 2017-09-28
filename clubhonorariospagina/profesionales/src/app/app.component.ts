@@ -50,7 +50,7 @@ export class MyApp {
            this.storage.get('rol').then((rol) => {
              console.log('el usario tiene el rol de',rol);
               this.menu.enable(true);
-              this.rootPage = FormProfesionalPage;
+              this.rootPage = ListarProfesionalesPage;
            });
          }
        }).catch((err)=>{ 
