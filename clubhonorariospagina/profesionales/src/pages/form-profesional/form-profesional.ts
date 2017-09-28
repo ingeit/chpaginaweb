@@ -19,12 +19,12 @@ export class FormProfesionalPage {
 
   fomularioProfesional:any;
   submitAttempt:boolean = false;
-  public nProfesioanl:any;
+  public respuesta:any;
   public loading:any;
   profesional:any;
   private isInputDisabled:boolean=false;
   mensajeSubmit:String = 'Crear';
-  editable:any;
+  editable: String;
   public dniHabilitado:boolean;
 
   constructor(public navCtrl: NavController, 
@@ -33,9 +33,13 @@ export class FormProfesionalPage {
               public formBuilder:FormBuilder,
               public profesionalesPrv:ProfesionalesProvider,
               public navParams: NavParams) {
-
+    
     this.profesional = this.navParams.get('profesional');
     this.editable = this.navParams.get('edit');
+    if(this.editable === undefined){
+      this.editable="false";
+    }
+
     if(this.profesional){
       if(this.editable === 'false'){
         this.isInputDisabled = true;
@@ -89,10 +93,10 @@ export class FormProfesionalPage {
       this.mostrarAlerta('ERROR','Debe completar todos los campos correctamente.')
     }else{
       console.log("form valido");
-    
-      this.showLoader('Enviando formulario. Espere por favor...'); 
 
       if(this.editable === 'false'){
+        console.log("editable: ",this.editable);
+        this.showLoader('Enviando formulario. Espere por favor...'); 
         let details = {
           dni: parseInt(this.fomularioProfesional._value.dni),
           apellido: this.fomularioProfesional._value.apellido,
@@ -111,16 +115,16 @@ export class FormProfesionalPage {
 
         this.profesionalesPrv.nuevoProfesional(details).then((data)=>{
           this.loading.dismiss();
-          this.nProfesioanl = data[0];
-          console.log('Profesinal Crado correctamente',this.nProfesioanl)
-          if(this.nProfesioanl.codigo !== 0){
-            this.mostrarAlerta('Operacion Exitosa','Profesional creado correctamente')
+          this.respuesta = data[0];
+          console.log('Profesinal Crado correctamente',this.respuesta)
+          if(this.respuesta.codigo !== 0){
+            this.mostrarAlerta('Operacion Exitosa',this.respuesta.mensaje)
           }else{
-            this.mostrarAlerta('ERROR','Ups!! Algo salio mal')
+            this.mostrarAlerta('ERROR',this.respuesta.mensaje)
           }
         });
       }else{
-
+        console.log("editable: ",this.editable);
         let details = {
           idProfesional: parseInt(this.profesional.idProfesional),
           apellido: this.fomularioProfesional._value.apellido,
@@ -137,15 +141,9 @@ export class FormProfesionalPage {
           dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
         };
 
-        this.profesionalesPrv.actualizarProfesional(details).then((data)=>{
-          this.loading.dismiss();
-          this.nProfesioanl = data[0];
-          if(this.nProfesioanl.codigo !== 0){
-            this.mostrarAlerta('Operacion Exitosa','Profesional modificado correctamente')
-          }else{
-            this.mostrarAlerta('ERROR','Ups!! Algo salio mal')
-          }
-        });
+        let titulo = "Modificar Profesional";
+        let mensaje = "¿Esta seguro que desea modificar el profesional?";
+        this.confirmarModificar(titulo,mensaje,details);
       }
     }
   }
@@ -169,7 +167,9 @@ export class FormProfesionalPage {
     buttons: [{
       text: 'Aceptar',
       handler: () => {
-        this.navCtrl.pop();
+        if(this.editable === "true"){
+          this.navCtrl.pop();
+        }
         this.navCtrl.setRoot(ListarProfesionalesPage);
       }
     }]
@@ -183,5 +183,46 @@ export class FormProfesionalPage {
       });
       this.loading.present();
   }
+
+
+
+  confirmarModificar(titulo,mensaje,details) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      message: mensaje,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.modificar(details);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  modificar(details){
+    this.showLoader('Modificando Profesional. Por favor espere...');
+
+    this.profesionalesPrv.actualizarProfesional(details).then((data)=>{
+          this.loading.dismiss();
+          this.respuesta = data[0];
+          if(this.respuesta.codigo !== 0){
+            this.mostrarAlerta('Operacion Exitosa',this.respuesta.mensaje)
+          }else{
+            this.mostrarAlerta('ERROR',this.respuesta.mensaje)
+          }
+        });
+
+  }
+  
 
 }

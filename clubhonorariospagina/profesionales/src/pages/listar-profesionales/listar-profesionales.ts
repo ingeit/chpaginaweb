@@ -74,8 +74,6 @@ export class ListarProfesionalesPage {
   botonEliminar(idProfesional){
     let titulo = "Eliminar Profesional";
     let mensaje = "¿Esta seguro que desea eliminar el profesional?";
-    let funcion = "baja";
-    // respuesta = this.confirmarAlerta(titulo,mensaje);
     this.confirmarEliminar(titulo,mensaje,idProfesional);
   }
 
@@ -130,7 +128,12 @@ mostrarAlerta(titulo,mensaje) {
   let alert = this.alertCtrl.create({
   title: titulo,
   subTitle: mensaje,
-  buttons: ['ACEPTAR']
+  buttons: [{
+    text: 'Aceptar',
+    handler: () => {;
+      this.navCtrl.setRoot(ListarProfesionalesPage);
+    }
+  }]
   });
   alert.present();
 }
