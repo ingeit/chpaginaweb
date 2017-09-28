@@ -21,7 +21,7 @@
             <p>I've had a pretty messed up day. If we just...</p>
             <button ion-button clear item-end (click)="irDetalles(p,'false')"><ion-icon name="eye"></ion-icon>Ver</button>
             <button ion-button clear item-end (click)="irDetalles(p,'true')"><ion-icon name="create"></ion-icon>Editar</button>
-            <button ion-button clear item-end><ion-icon name="close-circle"></ion-icon>Eliminar</button>
+            <button ion-button clear item-end (click)="botonEliminar(p.idProfesional)"><ion-icon name="close-circle"></ion-icon>Eliminar</button>
           </ion-item>
         </ion-list>
         <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
