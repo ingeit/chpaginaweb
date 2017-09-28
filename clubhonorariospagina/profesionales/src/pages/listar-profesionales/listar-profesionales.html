@@ -10,7 +10,7 @@
 <ion-content padding>
 
   <div class="contenedor">
-      <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" [placeholder]="hola" (ionInput)="setFilteredItems()"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" placeholder="APELLIDO + NOMBRE ó DNI/CUIT" (ionInput)="setFilteredItems()"></ion-searchbar>
       <ion-list>
           <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }">
             <ion-avatar item-start>
