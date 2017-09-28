@@ -1,17 +1,10 @@
 
 <ion-content padding>
 
-    <ionc-pagination
-    color="light"
-    (clickBeginning)="changePage(1)"
-    (clickPrevious)="changePage(paginationInfo.page - 1)"
-    (clickNext)="changePage(paginationInfo.page + 1)"
-    (clickEnd)="changePage(paginationInfo.pageCount)"
-    [pagination]="paginationInfo"></ionc-pagination>
-  <!-- <div class="contenedor">
+  <div class="contenedor">
       <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" [placeholder]="hola" (ionInput)="setFilteredItems()"></ion-searchbar>
       <ion-list>
-          <ion-item *ngFor="let p of listaProfesionalesBusqueda">
+          <ion-item *ngFor="let p of listaProfesionalesBusqueda | paginate: { itemsPerPage: 10, currentPage: p }" (click)="irDetalles(p)">
             <ion-avatar item-start>
               <img src="http://ionicframework.com/dist/preview-app/www/assets/img/avatar-han.png">
             </ion-avatar>
@@ -20,6 +13,7 @@
             <p>I've had a pretty messed up day. If we just...</p>
           </ion-item>
         </ion-list>
-  </div> -->
+        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+  </div>
   
 </ion-content>

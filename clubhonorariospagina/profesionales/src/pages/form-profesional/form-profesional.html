@@ -1,0 +1,71 @@
+
+<ion-content padding>
+  	<form [formGroup]="fomularioProfesional">
+      <ion-item>
+          <ion-label floating>DNI</ion-label>
+          <ion-input type="number" formControlName="dniProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.dniProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Apellido</ion-label>
+          <ion-input type="text" formControlName="apellidoProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.apellidoProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Nombre</ion-label>
+          <ion-input type="text" formControlName="nombreProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.nombreProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Especialidad</ion-label>
+          <ion-input type="text" formControlName="especialidadProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.especialidadProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Domicilio</ion-label>
+          <ion-input type="text" formControlName="domicilioProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.domicilioProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Localidad</ion-label>
+          <ion-input type="text" formControlName="localidadProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.localidadProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Provincia</ion-label>
+          <ion-input type="text" formControlName="provinciaProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.provinciaProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Telefono</ion-label>
+          <ion-input type="number" formControlName="telefonoProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.telefonoProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Profesion</ion-label>
+          <ion-input type="text" formControlName="prefesionProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.prefesionProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Mail</ion-label>
+          <ion-input type="email" formControlName="mailProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.mailProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Vendedor</ion-label>
+          <ion-input type="text" formControlName="vendedorProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.vendedorProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>Autorizado</ion-label>
+          <ion-input type="text" formControlName="autorizadoProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.autorizadoProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+      <ion-item>
+          <ion-label floating>DNI Autorizado</ion-label>
+          <ion-input type="number" formControlName="dniAutorizadoProfesional" ></ion-input>
+      </ion-item>
+      <p class="labelError"    *ngIf="!fomularioProfesional.controls.dniAutorizadoProfesional.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
+    </form>
+    <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="generar()">Generar</button>
+</ion-content>
