@@ -34,7 +34,8 @@ export class FormProfesionalPage {
               public profesionalesPrv:ProfesionalesProvider,
               public navParams: NavParams) {
     
-    this.profesional = this.navParams.get('profesional');
+    this.profesional = this.navParams.get('profesional'); 
+    console.log(this.profesional);
     this.editable = this.navParams.get('edit');
     if(this.editable === undefined){
       this.editable="false";
@@ -65,17 +66,17 @@ export class FormProfesionalPage {
     }else{
       this.fomularioProfesional = formBuilder.group({
         dni: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-        apellido: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        nombre: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        apellido: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        nombre: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         especialidad:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        domicilio:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        localidad:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        provincia:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        telefono: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-        prefesion:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        domicilio:['',Validators.compose([Validators.maxLength(200),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        localidad:['',Validators.compose([Validators.maxLength(100),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        provincia:['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        telefono: ['',Validators.compose([Validators.maxLength(100),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        prefesion:['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         mail: ['',Validators.email],
-        vendedor:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        autorizado:['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        vendedor:['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        autorizado:['',Validators.compose([Validators.maxLength(100),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         dniAutorizado: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])]
       });
     }

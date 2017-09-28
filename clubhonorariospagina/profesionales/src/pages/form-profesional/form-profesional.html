@@ -47,7 +47,7 @@
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.provincia.valid  && submitAttempt">Ingrese una Provincia</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
                 <ion-label floating>Telefono</ion-label>
-                <ion-input disabled="{{isInputDisabled}}" type="number" formControlName="telefono" ></ion-input>
+                <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="telefono" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.telefono.valid  && submitAttempt">Ingrese Telefono</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
