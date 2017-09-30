@@ -29,6 +29,7 @@ export class FormularioWebPage {
   tarjetasComisiones: any;
   tarjetaNombre: any = false;
   dniProfesionalForm: any;
+  lapos: any;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -58,7 +59,6 @@ export class FormularioWebPage {
         importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
-        lapos: ['',Validators.compose([Validators.required])],
       });
       // this.formulario = formBuilder.group({
       //   dniProfesional: ['34159181',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
@@ -128,7 +128,7 @@ export class FormularioWebPage {
 
   generar(){
     console.log("dentro de genererar");
-    if(!this.formulario.valid){
+    if(!this.formulario.valid || this.lapos === undefined){
       console.log("formulario invalido");
         this.submitAttempt = true;
     }else{
@@ -216,10 +216,10 @@ export class FormularioWebPage {
   }
 
   confirmar() {
-    // confirmar mediante modal
-    // Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
+    //confirmar mediante modal
+    //Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
     
-    if(this.formulario.get('lapos').value === 'si'){
+    if(this.lapos === 'si'){
       console.log("tiene lapos")
       this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
         fechaPago: this.fechaPagoMysql,
@@ -273,6 +273,5 @@ export class FormularioWebPage {
       this.mostrarAlerta('ERROR',this.respuesta.mensaje);
     }
   }
-
 
 }
