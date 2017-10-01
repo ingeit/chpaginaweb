@@ -10,6 +10,9 @@
 <ion-content padding>
     <div class="contenedor">
         <form [formGroup]="fomularioProfesional">
+            <ion-item *ngIf="this.profesional">
+                <p>Fecha de Alta: {{this.profesional.fechaAlta  | date:'dd/MM/yyyy' }}</p>
+            </ion-item>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
                 <ion-label floating>DNI</ion-label>
                 <ion-input disabled="{{dniHabilitado}}"  type="number" formControlName="dni" ></ion-input>
