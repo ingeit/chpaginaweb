@@ -55,6 +55,9 @@
         "typescript": "2.3.3"
     },
     "description": "An Ionic project",
+    "config": {
+		"ionic_uglifyjs": "./config/uglifyjs.config.js"
+	},
     "cordova": {
         "platforms": [
             "android",
