@@ -394,7 +394,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         secure: false,
         auth: {
             user: 'op@clubhonorarios.com',
-            pass: 'Astrid2017'
+            pass: 'ch2017Astrid'
         }
         //  user: 'chonorarios@gmail.com',
         //  pass: 'ramiro123'

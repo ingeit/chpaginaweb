@@ -46,20 +46,17 @@
               </form>
               <ion-item>
                   <ion-label stacked>Apellido</ion-label>
-                  <ion-input disabled formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional" [class.errorClubHonorarios]="!formulario.controls.apellidoProfesional.valid && submitAttempt"></ion-input>
+                  <ion-input disabled formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional"></ion-input>
               </ion-item>
-              <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoProfesional.valid  && submitAttempt">Por favor, ingrese el apellido</p>
-              <ion-item>
+                <ion-item>
                   <ion-label stacked>Nombre </ion-label>
-                  <ion-input  disabled formControlName="nombreProfesional" type="text" class="form-control" name="nombreProfesional" id="nombreProfesional" [class.errorClubHonorarios]="!formulario.controls.nombreProfesional.valid && submitAttempt"></ion-input>
+                  <ion-input  disabled formControlName="nombreProfesional" type="text" class="form-control" name="nombreProfesional" id="nombreProfesional"></ion-input>
               </ion-item>
-              <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreProfesional.valid  &&  submitAttempt">Por favor, ingrese el nombre</p>
-              <ion-item>
+             <ion-item>
                   <ion-label stacked>Mail </ion-label>
-                  <ion-input disabled formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional" [class.errorClubHonorarios]="!formulario.controls.mailProfesional.valid && submitAttempt"></ion-input>
+                  <ion-input disabled formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional"></ion-input>
               </ion-item>
-              <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.mailProfesional.valid  && submitAttempt">Por favor, ingrese el mail</p>
-            <h2 style="margin-top: 0.3rem;" >Datos del titular de la tarjeta</h2>
+             <h2 style="margin-top: 0.3rem;" >Datos del titular de la tarjeta</h2>
               <ion-item>
                   <ion-label floating>DNI </ion-label>
                   <ion-input formControlName="dniCliente" type="number" class="form-control" name="dniCliente" id="dniCliente" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>

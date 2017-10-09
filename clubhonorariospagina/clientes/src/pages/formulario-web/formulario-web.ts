@@ -45,9 +45,9 @@ export class FormularioWebPage {
 
       this.formulario = formBuilder.group({
         dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-        apellidoProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        nombreProfesional: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        mailProfesional: ['',Validators.email],
+        apellidoProfesional: [''],
+        nombreProfesional: [''],
+        mailProfesional: [''],
         dniCliente: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
