@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
 import { FormProfesionalPage } from '../form-profesional/form-profesional';
+import { DashboardPage  } from '../dashboard/dashboard';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import * as configServer from './../../server'
 
 /**
  * Generated class for the ListarProfesionalesPage page.
@@ -27,18 +30,22 @@ export class ListarProfesionalesPage {
   constructor(public navCtrl: NavController, 
               public profesionalesProvider:ProfesionalesProvider,
               public navParams: NavParams,
+              public iab: InAppBrowser,
               public loadingCtrl: LoadingController,
               private alertCtrl: AlertController) {
+                this.fechaInicio = new Date().toISOString();
+                this.fechaFin = new Date().toISOString();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListarProfesionalesPage');
+    this.showLoader('Cargando Profesionales');
     this.profesionalesProvider.obtenerProfesionales().then((data)=>{
       this.listaProfesionales = data;
       for(let p of this.listaProfesionales){
         p.apellidoNombre = p.apellido+' '+p.nombre;
       }
       this.listaProfesionalesBusqueda = this.listaProfesionales;
+      this.loading.dismiss();
     }); 
   }
 
@@ -126,18 +133,37 @@ export class ListarProfesionalesPage {
     this.loading.present();
 }
 
-mostrarAlerta(titulo,mensaje) {
-  let alert = this.alertCtrl.create({
-  title: titulo,
-  subTitle: mensaje,
-  buttons: [{
-    text: 'Aceptar',
-    handler: () => {;
-      this.navCtrl.setRoot(ListarProfesionalesPage);
+  mostrarAlerta(titulo,mensaje) {
+    let alert = this.alertCtrl.create({
+    title: titulo,
+    subTitle: mensaje,
+    buttons: [{
+      text: 'Aceptar',
+      handler: () => {;
+        this.navCtrl.setRoot(ListarProfesionalesPage);
+      }
+    }]
+    });
+    alert.present();
+  }
+  
+  ir(){
+    this.navCtrl.setRoot(DashboardPage);
+  }
+
+  exportar(){
+    if(this.fechaInicio && this.fechaFin){
+      console.log(this.fechaFin);
+      let inicio = this.fechaInicio.split('T');
+      inicio = inicio[0];
+      let fin = this.fechaFin.split('T');
+      fin = fin[0];
+      console.log(fin)
+      const browser = this.iab.create(`${configServer.data.urlServidor}/api/excelProfesionales/${inicio}/${fin}`);
+    }else{
+      this.mostrarAlerta('Error','Seleccione un rango de Fechas');
     }
-  }]
-  });
-  alert.present();
-}
+    
+  }
 
 }

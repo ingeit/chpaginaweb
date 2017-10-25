@@ -62,3 +62,10 @@ exports.modificarProfesional = function(idProfesional,apellido,nombre,especialid
         }else fn(rows[0]); 
     });
 }
+
+exports.getProfesionalesPorFecha = function(fechaInicio,fechaFin,fn){
+    connection.query('call profesional_listar_rango('+fechaInicio+','+fechaFin+')', function(err, rows){  
+        if (err) fn (err);  
+        else fn(rows[0]); 
+    });
+}
