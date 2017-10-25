@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { VerOperacionPage } from '../ver-operacion/ver-operacion';
 import * as configServer from './../../server'
+import { DashboardPage  } from '../dashboard/dashboard';
+
 
 @Component({
   selector: 'page-lista-operaciones',
@@ -149,6 +151,10 @@ export class ListaOperacionesPage {
           this.loading.dismiss();
           this.mostrarAlerta('Error','Hora del servidor inaccesible');
         });
+  }
+
+  ir(){
+    this.navCtrl.setRoot(DashboardPage);
   }
 
 }

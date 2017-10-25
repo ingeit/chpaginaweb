@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
 import { FormProfesionalPage } from '../form-profesional/form-profesional';
+import { DashboardPage  } from '../dashboard/dashboard';
 
 /**
  * Generated class for the ListarProfesionalesPage page.
@@ -32,13 +33,14 @@ export class ListarProfesionalesPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListarProfesionalesPage');
+    this.showLoader('Cargando Profesionales');
     this.profesionalesProvider.obtenerProfesionales().then((data)=>{
       this.listaProfesionales = data;
       for(let p of this.listaProfesionales){
         p.apellidoNombre = p.apellido+' '+p.nombre;
       }
       this.listaProfesionalesBusqueda = this.listaProfesionales;
+      this.loading.dismiss();
     }); 
   }
 
@@ -126,18 +128,22 @@ export class ListarProfesionalesPage {
     this.loading.present();
 }
 
-mostrarAlerta(titulo,mensaje) {
-  let alert = this.alertCtrl.create({
-  title: titulo,
-  subTitle: mensaje,
-  buttons: [{
-    text: 'Aceptar',
-    handler: () => {;
-      this.navCtrl.setRoot(ListarProfesionalesPage);
-    }
-  }]
-  });
-  alert.present();
-}
+  mostrarAlerta(titulo,mensaje) {
+    let alert = this.alertCtrl.create({
+    title: titulo,
+    subTitle: mensaje,
+    buttons: [{
+      text: 'Aceptar',
+      handler: () => {;
+        this.navCtrl.setRoot(ListarProfesionalesPage);
+      }
+    }]
+    });
+    alert.present();
+  }
+  
+  ir(){
+    this.navCtrl.setRoot(DashboardPage);
+  }
 
 }
