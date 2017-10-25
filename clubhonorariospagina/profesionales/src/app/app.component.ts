@@ -8,6 +8,7 @@ import { SideMenu } from '../pages/sideMenu/sideMenu';
 import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operaciones';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';
@@ -50,7 +51,7 @@ export class MyApp {
            this.storage.get('rol').then((rol) => {
              console.log('el usario tiene el rol de',rol);
               this.menu.enable(true);
-              this.rootPage = ListarProfesionalesPage;
+              this.rootPage = DashboardPage;
            });
          }
        }).catch((err)=>{ 

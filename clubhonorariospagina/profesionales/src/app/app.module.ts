@@ -17,6 +17,7 @@ import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operacion
 import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -33,6 +34,7 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     ListaOperacionesPage,
     VerOperacionPage,
     SideMenu,
+    DashboardPage,
     ListarProfesionalesPage,
     FormProfesionalPage
   ],
@@ -58,6 +60,7 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     HomePage,
     ListaOperacionesPage,
     VerOperacionPage,
+    DashboardPage,
     ListarProfesionalesPage,
     FormProfesionalPage,
     SideMenu
