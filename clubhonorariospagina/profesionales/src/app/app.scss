@@ -65,6 +65,14 @@
     text-transform: uppercase;
 }
 
+h3 {
+    font-size: 32px;
+    line-height: 52px;
+    color: #5c5f69;
+    font-weight: 300;
+    margin-left: 8px;
+}
+
 @media (min-width: 768px) { 
     ion-menu {
         max-width: 250px!important;
@@ -86,5 +94,8 @@
     .contenedor{
         padding: 15px 20px;
     }
-    
+
+    h3 {
+        font-size: 25px;
+    }
 }

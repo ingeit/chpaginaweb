@@ -20,6 +20,8 @@ export class ListarProfesionalesPage {
   public listaProfesionales:any;
   public listaProfesionalesBusqueda:any;
   public searchTerm: any = '';
+  public fechaInicio:any;
+  public fechaFin:any;
 
 
   constructor(public navCtrl: NavController, 
