@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
+import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
 
 /**
  * Generated class for the DashboardPage page.
@@ -19,6 +21,14 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
+  }
+
+  public ir(direccion){
+    if(direccion === 'operaciones'){
+      this.navCtrl.setRoot(ListaOperacionesPage);    
+    }else{
+      this.navCtrl.setRoot(ListarProfesionalesPage);   
+    }
   }
 
 }
