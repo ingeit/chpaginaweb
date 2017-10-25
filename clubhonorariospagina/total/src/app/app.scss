@@ -1,0 +1,85 @@
+.scroll-content{
+    background: #F1F1F1 !important;
+}
+
+h2, h3 {
+    font-size: 32px;
+    line-height: 52px;
+    color: #5c5f69;
+    font-weight: 300;
+    margin-left: 8px;
+}
+
+.contenedor{
+    display: block;
+    margin: 0 auto;
+    max-width: 1006px;
+}
+
+    
+.titleMenu{
+    margin: 5px auto;
+    display: block;
+    width: 136px;
+}
+
+
+.card-container {
+    max-width: 625px;
+}
+
+.card2 {
+    background-color: #f8f8f8;
+    /* just in case there no content*/
+    padding: 20px 25px 80px;
+    margin: 0 auto;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+ 
+.bloque {
+    position: relative;
+    border: 1px solid #e2e2e2;
+    background-color: #fff;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 560px;
+    padding: 0;
+    height: auto;
+    min-height: 150px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 20px auto;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.bloque > .titulo {
+    display: block;
+    padding: 18px 28px;
+    font-weight: 600;
+    color: #515e70;
+    background-color: #f8f8f8;
+    text-transform: uppercase;
+}
+
+ @media (min-width: 768px) { 
+    .contenedor{
+        padding: 0px 20px;
+    }
+}
+
+@font-face {
+    font-family: 'BeautifulCreatures';
+    src: url(../assets/fonts/Beautiful-Creatures.ttf);
+}
+
+.alert-wrapper {
+    max-width: 345px !important;
+}
+    
+
