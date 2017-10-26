@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { App , IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { App , IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController, Content } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
@@ -30,6 +30,8 @@ export class FormularioWebPage {
   tarjetaNombre: any = false;
   dniProfesionalForm: any;
   lapos: any;
+  tipoTarjeta: string=null;
+  @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -54,29 +56,13 @@ export class FormularioWebPage {
         telefonoCliente: [''],
         mailCliente: [''],
         tarjeta: ['',Validators.compose([Validators.required])],
-        cuotas: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
+        cuotas: [''],
         importeVenta: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
-        importeCuota: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
+        importeCuota: [''],
       });
-      // this.formulario = formBuilder.group({
-      //   dniProfesional: ['34159181',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-      //   apellidoProfesional: ['Gomez Veliz',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-      //   nombreProfesional: ['Kevin Shionen',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-      //   mailProfesional: ['masterk63@gmail.com',Validators.email],
-      //   dniCliente: ['34953451',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-      //   apellidoCliente: ['Nunez',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-      //   nombreCliente: ['Lurdes',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-      //   telefonoCliente: ['4352199'],
-      //   mailCliente: ['merylur4@gmial.com'],
-      //   tarjeta: ['VISA',Validators.compose([Validators.required])],
-      //   cuotas: ['6',Validators.compose([Validators.maxLength(2),Validators.minLength(1), Validators.required])],
-      //   importeVenta: ['1000',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
-      //   importeCobrar: ['950',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
-      //   importeCarga: ['900',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
-      //   importeCuota: ['900',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
-      // });
+      
   }
 
   ionViewDidEnter() {
@@ -153,7 +139,11 @@ export class FormularioWebPage {
           this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
           // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
           this.tarjeta=this.formulario.get('tarjeta').value;
-          this.cuotas=this.formulario.get('cuotas').value;
+          if(this.tipoTarjeta === 'credito'){
+            this.cuotas=this.formulario.get('cuotas').value;
+          }else{
+            this.cuotas=1;
+          }
 
           //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
               switch (this.tarjeta)
@@ -189,12 +179,21 @@ export class FormularioWebPage {
           // Ej: 10.225 = 10.23
           //     10.223 = 10.22 
           console.log("importe carga original "+ this.importeVenta*this.comision);              
-          this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
+          if(this.tipoTarjeta === 'credito'){
+            this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
+          }else{
+            this.importeCarga=this.importeVenta;
+          }
+
           console.log("importe carga redondeado "+ this.importeCarga);
           
           this.formulario.controls['importeCarga'].setValue(this.importeCarga);
 
-          this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
+          if(this.tipoTarjeta === 'credito'){
+            this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
+          }else{
+            this.importeCuota=0;
+          }
           this.formulario.controls['importeCuota'].setValue(this.importeCuota);
         }
       }
@@ -225,7 +224,8 @@ export class FormularioWebPage {
         fechaPago: this.fechaPagoMysql,
         formulario: this.formulario.controls,
         tarjetaNombre: this.tarjetaNombre,
-        tarjetasComisiones: this.tarjetasComisiones
+        tarjetasComisiones: this.tarjetasComisiones,
+        tipoTarjeta : this.tipoTarjeta
       });
     }else{
       console.log("no tiene lapos, yendo a modal y visa");
@@ -233,7 +233,8 @@ export class FormularioWebPage {
                                                               fechaPago: this.fechaPagoMysql,
                                                               formulario: this.formulario.controls,
                                                               tarjetaNombre: this.tarjetaNombre,
-                                                            tarjetasComisiones: this.tarjetasComisiones });
+                                                              tarjetasComisiones: this.tarjetasComisiones,
+                                                              tipoTarjeta : this.tipoTarjeta });
       confirmarModal.present();
     }
     
@@ -274,4 +275,18 @@ export class FormularioWebPage {
     }
   }
 
+  radioTipoTarjeta(){
+        console.log(this.tipoTarjeta);
+        if(this.tipoTarjeta === 'debito'){
+          this.cuotas=0;
+          this.importeCuota=0;
+          this.importeCarga=this.importeVenta;
+        }
+        this.autoCompletarImportes();
+      }
+
+      public move(bicho){
+        let yOffset = document.getElementById(bicho).offsetTop;
+        this.content.scrollTo(0, yOffset, 1000);
+    }
 }
