@@ -31,6 +31,7 @@ idOperacion:any;
 mensaje:any;
 mailCliente:any;
 tarjetasComisiones: any;
+tipoTarjeta: any;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -47,6 +48,7 @@ tarjetasComisiones: any;
       this.formulario = navParams.get('formulario');
       this.tarjetaNombre = navParams.get('tarjetaNombre');
       this.tarjetasComisiones = navParams.get('tarjetasComisiones');
+      this.tipoTarjeta = navParams.get('tipoTarjeta');
     }
     else{
       console.log("entrando al modal, nav params form 2");
@@ -104,7 +106,8 @@ tarjetasComisiones: any;
                                 fechaPago: this.fechaPago,
                                 formulario: this.formulario,
                                 tarjetaNombre: this.tarjetaNombre,
-                                tarjetasComisiones: this.tarjetasComisiones
+                                tarjetasComisiones: this.tarjetasComisiones,
+                                tipoTarjeta: this.tipoTarjeta
     });
   }
 

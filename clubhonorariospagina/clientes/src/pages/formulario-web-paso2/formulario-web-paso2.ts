@@ -41,6 +41,7 @@ export class FormularioWebPaso2Page {
     impCuota: number;
     cuotas: number;
     comision: number;
+    tipoTarjeta: any;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -54,6 +55,13 @@ export class FormularioWebPaso2Page {
       this.formulario = this.navParams.get('formulario');  
       this.tarjetaNombre = this.navParams.get('tarjetaNombre');
       this.tarjetasComisiones = navParams.get('tarjetasComisiones');
+      this.tipoTarjeta = navParams.get('tipoTarjeta');
+        if(this.tipoTarjeta === 'credito'){
+          this.tipoTarjeta = 'C'
+        }else{
+          this.tipoTarjeta = 'D'
+        }
+      console.log("tipo tarjeta ya en paso 2: ",this.tipoTarjeta);
       this.cuotas = this.formulario.cuotas.value;
       this.impTotal = this.formulario.importeCarga.value;
       this.impCuota = this.formulario.importeCuota.value;
@@ -157,6 +165,7 @@ export class FormularioWebPaso2Page {
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
               codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
+              tipoTarjeta: this.tipoTarjeta,
         };
         if(this.tarjetaNombre !== 'MASTER'){
           details['cupon'] = parseInt(this.formulario2.get('cupon').value);
