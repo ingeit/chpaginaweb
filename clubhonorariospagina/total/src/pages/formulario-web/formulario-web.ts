@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { App , IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController } from 'ionic-angular';
+import { App , IonicPage,NavController,LoadingController,AlertController, NavParams, ModalController, Content } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MenuController } from 'ionic-angular';
@@ -14,10 +14,6 @@ export class FormularioWebPage {
   formulario: FormGroup;
   loading:any;
   respuesta:any;
-  fechaTransaccionMysql: any;
-  fechaPagoMysql: any;
-  fechaTransaccion: any;
-  fechaPago: any;
   importeVenta: number=0;
   importeCobrar: number=0;
   importeCarga: number=0;
@@ -27,6 +23,7 @@ export class FormularioWebPage {
   comision: number;
   tarjetasComisiones: any;
   tarjetaNombre: string = "";
+  @ViewChild(Content) content: Content;
   @ViewChild('myCanvas') canvas: any;
   imagenEditada = false;
   canvasElement: any;
@@ -44,9 +41,39 @@ export class FormularioWebPage {
               public formBuilder: FormBuilder,
               public formularioProvider:FormularioProvider
           ) {
-      this.dameFechasyComisiones();
-      this.fechaTransaccion="-";
-      this.fechaPago="-";
+      this.tarjetasComisiones = [{"idTarjeta":102,"nombre":"AMEX","cuotas":2,"tasa":1.19175257254135},
+                                  {"idTarjeta":103,"nombre":"AMEX","cuotas":3,"tasa":1.21751984398118},
+                                  {"idTarjeta":104,"nombre":"AMEX","cuotas":4,"tasa":1.24379394175117},
+                                  {"idTarjeta":105,"nombre":"AMEX","cuotas":5,"tasa":1.27058456187318},
+                                  {"idTarjeta":106,"nombre":"AMEX","cuotas":6,"tasa":1.29790162833062},
+                                  {"idTarjeta":107,"nombre":"AMEX","cuotas":7,"tasa":1.35071373052656},
+                                  {"idTarjeta":108,"nombre":"AMEX","cuotas":8,"tasa":1.3829510352282},
+                                  {"idTarjeta":109,"nombre":"AMEX","cuotas":9,"tasa":1.4158948382851},
+                                  {"idTarjeta":110,"nombre":"AMEX","cuotas":10,"tasa":1.44956066927639},
+                                  {"idTarjeta":111,"nombre":"AMEX","cuotas":11,"tasa":1.48396449387489},
+                                  {"idTarjeta":112,"nombre":"AMEX","cuotas":12,"tasa":1.51912273159945},
+                                  {"idTarjeta":202,"nombre":"MASTER","cuotas":2,"tasa":1.19516878661232},
+                                  {"idTarjeta":203,"nombre":"MASTER","cuotas":3,"tasa":1.22043435802868},
+                                  {"idTarjeta":204,"nombre":"MASTER","cuotas":4,"tasa":1.24618622965634},
+                                  {"idTarjeta":205,"nombre":"MASTER","cuotas":5,"tasa":1.27243351829195},
+                                  {"idTarjeta":206,"nombre":"MASTER","cuotas":6,"tasa":1.29918555090403},
+                                  {"idTarjeta":207,"nombre":"MASTER","cuotas":7,"tasa":1.34181504452872},
+                                  {"idTarjeta":208,"nombre":"MASTER","cuotas":8,"tasa":1.3719021577579},
+                                  {"idTarjeta":209,"nombre":"MASTER","cuotas":9,"tasa":1.40260879250556},
+                                  {"idTarjeta":210,"nombre":"MASTER","cuotas":10,"tasa":1.43394772584297},
+                                  {"idTarjeta":211,"nombre":"MASTER","cuotas":11,"tasa":1.46593207047838},
+                                  {"idTarjeta":212,"nombre":"MASTER","cuotas":12,"tasa":1.49936782871},
+                                  {"idTarjeta":302,"nombre":"VISA","cuotas":2,"tasa":1.19516878661232},
+                                  {"idTarjeta":303,"nombre":"VISA","cuotas":3,"tasa":1.22043435802868},
+                                  {"idTarjeta":304,"nombre":"VISA","cuotas":4,"tasa":1.24618622965634},
+                                  {"idTarjeta":305,"nombre":"VISA","cuotas":5,"tasa":1.27243351829195},
+                                  {"idTarjeta":306,"nombre":"VISA","cuotas":6,"tasa":1.29918555090403},
+                                  {"idTarjeta":307,"nombre":"VISA","cuotas":7,"tasa":1.34696679453166},
+                                  {"idTarjeta":308,"nombre":"VISA","cuotas":8,"tasa":1.37782938064888},
+                                  {"idTarjeta":309,"nombre":"VISA","cuotas":9,"tasa":1.40934159330108},
+                                  {"idTarjeta":310,"nombre":"VISA","cuotas":10,"tasa":1.44151714525045},
+                                  {"idTarjeta":311,"nombre":"VISA","cuotas":11,"tasa":1.47437011846107},
+                                  {"idTarjeta":312,"nombre":"VISA","cuotas":12,"tasa":1.5079149784994}]
 
       this.formulario = formBuilder.group({
         tarjeta: ['',Validators.compose([Validators.required])],
@@ -72,47 +99,7 @@ export class FormularioWebPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FormularioWebPage');
   }
-
-  dameFechasyComisiones(){
-    // 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
-this.showLoader('Consultando Hora en servidor');
-this.formularioProvider.dameFechas().then((result) => {
-    this.respuesta = result[0];
-    if(this.respuesta.codigo === 1){
-      console.log("fecha transaccion desde formulario 1 provider", this.respuesta.fechaTransaccion);
-      this.fechaTransaccionMysql = this.respuesta.fechaTransaccion;
-      this.fechaPagoMysql = this.respuesta.fechaPago;
-      this.transformarFechas();
-        // CONSULTA ANIDADA para comisiones
-        this.formularioProvider.dameComisiones().then((result) => {
-            console.log("consulta comisiones");
-            this.respuesta = result;
-            if(this.respuesta[0].codigo === 1){
-              this.tarjetasComisiones = this.respuesta;
-              console.log(this.tarjetasComisiones);
-            }else{
-              console.log("error en traer comisiones");
-              this.tarjetasComisiones = 0;
-              this.mostrarAlerta('Error','Problemas con el servidor... Comunicarse via telefono');
-            }
-          }, (err) => {
-            console.log("error promises en comisiones");
-            this.tarjetasComisiones = 0;
-              // this.loading.dismiss();
-              // this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
-          });
-          //CONSUILTA ANIDADA FIN
-      this.loading.dismiss();
-    }
-  }, (err) => {
-    console.log("error promises en hora del servidor");
-    this.loading.dismiss();
-    this.mostrarAlerta('Error','Hora del servidor inaccesible');
-      // this.loading.dismiss();
-      // this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
-  });
-}
-
+  
   nuevoCalculo(){
     this.navCtrl.setRoot(FormularioWebPage);
   }
@@ -219,8 +206,6 @@ this.formularioProvider.dameFechas().then((result) => {
             this.ctx.fillText(details.tarjeta,67,148);
             this.ctx.fillText(details.importeVenta,0.45*850,0.45*650);
             this.ctx.fillText(details.importeCobrar,0.45*850,0.45*780);
-            this.ctx.fillText(this.fechaTransaccion,0.45*850,0.45*320);
-            this.ctx.fillText(this.fechaPago,0.45*850,0.45*430);
             this.urlImagenCanvasAzul = this.canvasElement.toDataURL();
             this.imagenEditadaAzul = true;
         })
@@ -252,7 +237,6 @@ this.formularioProvider.dameFechas().then((result) => {
             this.ctx.fillText(details.tarjeta,0.45*150,0.45*370);
             this.ctx.fillText(details.cantidadCuotas,0.45*850,0.45*590);
             this.ctx.fillText(details.importeCuota,0.45*850,0.45*730);
-            this.ctx.fillText(this.fechaTransaccion,0.45*850,0.45*320);
             this.urlImagenCanvas = this.canvasElement.toDataURL();
             this.imagenEditada = true;
         })
@@ -277,29 +261,6 @@ this.formularioProvider.dameFechas().then((result) => {
         }
       }
 
-      transformarFechas(){
-         // creamos una instancia del objeto DatePipe para usar en las fechas luego.
-    let datePipe = new DatePipe('es-AR');
-    // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
-    this.fechaTransaccion = new Date(this.fechaTransaccionMysql);
-    this.fechaTransaccion= new Date(this.fechaTransaccion.getUTCFullYear(),
-                                          this.fechaTransaccion.getUTCMonth(),
-                                          this.fechaTransaccion.getUTCDate(),
-                                          this.fechaTransaccion.getUTCHours(),
-                                          this.fechaTransaccion.getUTCMinutes(),
-                                          this.fechaTransaccion.getUTCSeconds());
-    this.fechaTransaccion = datePipe.transform(this.fechaTransaccion, 'dd/MM/yyyy H:m');
-    //Hacemos lo mismo para fecha de pago..
-    this.fechaPago = new Date(this.fechaPagoMysql);
-    this.fechaPago = new Date(this.fechaPago.getUTCFullYear(),
-                              this.fechaPago.getUTCMonth(),
-                              this.fechaPago.getUTCDate(),
-                              this.fechaPago.getUTCHours(),
-                              this.fechaPago.getUTCMinutes(),
-                              this.fechaPago.getUTCSeconds());
-    this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
-      }
-
     showLoader(mensaje){
       this.loading = this.loadingCtrl.create({
         content: mensaje
@@ -315,5 +276,10 @@ this.formularioProvider.dameFechas().then((result) => {
       });
       alert.present();
   }
+
+  public move(bicho){
+        let yOffset = document.getElementById(bicho).offsetTop;
+        this.content.scrollTo(0, yOffset, 1000);
+    }
 
 }

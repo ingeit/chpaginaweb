@@ -10,27 +10,20 @@
 <ion-content padding>
     <div class="contenedor">        
         <div class="card2 card-container">
-            <h3>Calculadora<div id="preloadfont" >.</div></h3>
-            <ion-item>
-                <ion-label floating>Fecha de transaccion</ion-label>
-                <ion-datetime displayFormat="DD de MMMM, YYYY H:mm" disabled [(ngModel)]="fechaTransaccionMysql" type="text" class="form-control" name="fechaTransaccion" id="fechaTransaccion"></ion-datetime>
-          </ion-item>
-               <ion-item>
-                <ion-label floating>Fecha de pago</ion-label>
-                <ion-datetime displayFormat="DD de MMMM, YYYY" disabled [(ngModel)]="fechaPagoMysql"  type="text" class="form-control" name="fechaPago" id="fechaPago" ></ion-datetime>
-          </ion-item>
+            <h3>Calculadora<div id="preloadfont" ></div></h3>
             <ion-list (ionChange)='radioTipoTarjeta()' radio-group [(ngModel)]="tipoTarjeta">
-                   <h3>Seleccione el tipo de tarjeta</h3>
+                   <h4>Seleccione el tipo de tarjeta</h4>
                 <ion-item>
                     <ion-label>Tarjeta de Credito</ion-label>
-                    <ion-radio required value="credito" ></ion-radio>
+                    <ion-radio (click)="move('formularioPrimerItem')" required value="credito" ></ion-radio>
                 </ion-item>
                 <ion-item >
                     <ion-label>Tarjeta de Debito</ion-label>
-                    <ion-radio required value="debito" ></ion-radio>
+                    <ion-radio (click)="move('formularioPrimerItem')" required value="debito" ></ion-radio>
                 </ion-item>
                 <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="lapos === undefined && submitAttempt">Por favor, seleccione SI o NO</p>
               </ion-list>
+        <ion-col  id="formularioPrimerItem">   
           <form *ngIf="tipoTarjeta!==null" [formGroup]="formulario" method="post" class="form-signin" id="myform" name="formulario">
               <ion-item>
                 <ion-label floating>Elija marca de la tarjeta</ion-label>
@@ -81,6 +74,7 @@
                   <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control importes" name="importeCuota" id="importeCuota"></ion-input>
               </ion-item>
         </form>
+        </ion-col>
             <button  *ngIf="tipoTarjeta!==null" float-right color="secondary" style="margin-top:15px;"ion-button type="submit" (click)="nuevoCalculo()">Nuevo Calculo</button>
         </div>
 
