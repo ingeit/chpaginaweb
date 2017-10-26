@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
-import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 
@@ -41,7 +40,6 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
     SplashScreen,
     InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FormularioProvider
   ]
 })
 export class AppModule {}

@@ -3,7 +3,6 @@ import { App , IonicPage,NavController,LoadingController,AlertController, NavPar
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MenuController } from 'ionic-angular';
-import { FormularioProvider } from '../../providers/formulario/formulario';
 import * as configServer from './../../server'
 
 @Component({
@@ -39,7 +38,6 @@ export class FormularioWebPage {
               private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder,
-              public formularioProvider:FormularioProvider
           ) {
       this.tarjetasComisiones = [{"idTarjeta":102,"nombre":"AMEX","cuotas":2,"tasa":1.19175257254135},
                                   {"idTarjeta":103,"nombre":"AMEX","cuotas":3,"tasa":1.21751984398118},
