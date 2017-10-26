@@ -77,4 +77,32 @@ export class ProfesionalesProvider {
     });
   }
 
+  dameProvincias(){
+    return new Promise((resolve, reject) => {
+        this.http.get(`${configServer.data.urlServidor}/api/dameProvincias/`)
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  dameCiudades(credentials){
+    return new Promise((resolve, reject) => {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        
+        this.http.post(`${configServer.data.urlServidor}/api/dameciudades/`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 }

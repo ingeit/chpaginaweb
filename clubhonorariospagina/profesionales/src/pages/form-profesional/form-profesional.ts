@@ -25,6 +25,11 @@ export class FormProfesionalPage {
   mensajeSubmit:String = 'Crear';
   editable: String;
   public dniHabilitado:boolean;
+  public selectOptionsProvincia:any;
+  public selectOptionsCiudad:any;
+  public provincias:any;
+  public mostrarCiudades:boolean = false;
+  public ciudades:any;
 
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController,
@@ -32,7 +37,17 @@ export class FormProfesionalPage {
               public formBuilder:FormBuilder,
               public profesionalesPrv:ProfesionalesProvider,
               public navParams: NavParams) {
-    
+    this.selectOptionsProvincia = {
+      title: 'Provincias',
+      subTitle: 'Seleccione una Provincia',
+      mode: 'md'
+    };
+    this.selectOptionsCiudad = {
+      title: 'Ciudades',
+      subTitle: 'Seleccione una Ciudad',
+      mode: 'md'
+    };
+    this.dameProvincias();
     this.profesional = this.navParams.get('profesional'); 
     console.log(this.profesional);
     this.editable = this.navParams.get('edit');
@@ -224,6 +239,37 @@ export class FormProfesionalPage {
 
   }
   
-  
+  dameProvincias(){
+    this.profesionalesPrv.dameProvincias().then((data)=>{
+      this.respuesta = data[0];
+      if(this.respuesta.codigo !== 0){
+        this.provincias = data;
+        console.log(this.provincias)
+      }else{
+        this.mostrarAlerta('ERROR',this.respuesta.mensaje)
+      }
+    });
+  }
+
+  provinciaElegida(idProvinciaSeleccionada: any) {
+    this.dameCiudades(idProvinciaSeleccionada);
+  }
+
+  dameCiudades(idProv){
+    let details = {
+      idProvincia: idProv,
+    }
+
+    this.profesionalesPrv.dameCiudades(details).then((data)=>{
+      this.respuesta = data[0];
+      if(this.respuesta.codigo !== 0){
+        this.ciudades = data;
+        console.log(this.ciudades)
+        this.mostrarCiudades = true;
+      }else{
+        this.mostrarAlerta('ERROR',this.respuesta.mensaje)
+      }
+    });
+  }
 
 }
