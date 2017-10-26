@@ -132,10 +132,10 @@ export class FormularioWebPage {
               switch (this.tarjeta)
               {
                 case '1':
-                  this.tarjetaNombre = 'AMERICAN'
+                  this.tarjetaNombre = 'AMEX'
                   break;
                 case '2':
-                  this.tarjetaNombre = 'MASTER'
+                  this.tarjetaNombre = 'MASTERCARD / MAESTRO'
                   break;
                 case '3':
                   this.tarjetaNombre = 'VISA'
@@ -259,6 +259,7 @@ export class FormularioWebPage {
           this.importeCuota=0;
           this.importeCarga=this.importeVenta;
         }
+        this.autoCompletarImportes();
       }
 
     showLoader(mensaje){
