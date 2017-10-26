@@ -22,6 +22,8 @@ router.post('/bajaProfesional', ProfesionalesController.bajaProfesional);
 router.get('/listarProfesionales', ProfesionalesController.listarProfesionales);
 router.post('/modificarProfesional', ProfesionalesController.modificarProfesional);
 router.post('/nuevoProfesional', ProfesionalesController.nuevoProfesional);
+router.get('/dameProvincias', ProfesionalesController.dameProvincias);
+router.post('/dameCiudades', ProfesionalesController.dameCiudades);
 router.get('/excelProfesionales/:fechaInicio/:fechaFin', ProfesionalesController.excel);
 
 

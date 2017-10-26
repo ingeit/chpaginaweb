@@ -153,12 +153,10 @@ export class ListarProfesionalesPage {
 
   exportar(){
     if(this.fechaInicio && this.fechaFin){
-      console.log(this.fechaFin);
       let inicio = this.fechaInicio.split('T');
       inicio = inicio[0];
       let fin = this.fechaFin.split('T');
       fin = fin[0];
-      console.log(fin)
       const browser = this.iab.create(`${configServer.data.urlServidor}/api/excelProfesionales/${inicio}/${fin}`);
     }else{
       this.mostrarAlerta('Error','Seleccione un rango de Fechas');

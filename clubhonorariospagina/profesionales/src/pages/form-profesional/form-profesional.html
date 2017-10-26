@@ -39,15 +39,15 @@
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.domicilio.valid  && submitAttempt">Ingrese el Domicilio</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Localidad</ion-label>
-                <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="localidad" ></ion-input>
-            </ion-item>
-            <p class="labelError"    *ngIf="!fomularioProfesional.controls.localidad.valid  && submitAttempt">Ingrese Localidad</p>
-            <ion-item [class.lecturaProfesional]="isInputDisabled" >
                 <ion-label floating>Provincia</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="provincia" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.provincia.valid  && submitAttempt">Ingrese una Provincia</p>
+            <ion-item [class.lecturaProfesional]="isInputDisabled" >
+                <ion-label floating>Localidad</ion-label>
+                <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="localidad" ></ion-input>
+            </ion-item>
+            <p class="labelError"    *ngIf="!fomularioProfesional.controls.localidad.valid  && submitAttempt">Ingrese Localidad</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
                 <ion-label floating>Telefono</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="telefono" ></ion-input>

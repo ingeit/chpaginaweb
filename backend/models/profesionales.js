@@ -69,3 +69,18 @@ exports.getProfesionalesPorFecha = function(fechaInicio,fechaFin,fn){
         else fn(rows[0]); 
     });
 }
+
+exports.dameProvincias = function(fn){
+    connection.query('call dame_provincias()', function(err, rows){  
+        if (err) fn (err);  
+        else fn(rows[0]); 
+    });
+}
+
+exports.dameCiudades = function(idProvincia,fn){
+    connection.query('call dame_ciudades('+idProvincia+')', function(err, rows){  
+        if (err) fn (err);  
+        else fn(rows[0]); 
+    });
+}
+

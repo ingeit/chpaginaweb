@@ -207,8 +207,36 @@ exports.excel = function(req, res, next){
                 res.setHeader("Content-Disposition","attachment;filename="+"Profesionales.xlsx");
                 res.end(result,'binary');
             }else{
-                res.json([{"codigo": 0,"mensaje":"No hay operaciones en ese rango"}])
+                res.json([{"codigo": 0,"mensaje":"No se crearon profesionales en ese rango"}])
             }
         }
-    );  
+    );      
+}
+
+exports.dameProvincias = function(req, res, next){
+    profesional.dameProvincias(function(consulta){
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            console.log("cod = 0, TODO MAL");
+            res.json(consulta);
+        }else{
+            console.log("cod != de 0, TODO OK");
+            consulta[0].codigo = 1; 
+            res.json(consulta);
+        }
+    });
+}
+
+
+exports.dameCiudades = function(req, res, next){
+    var idProvincia = req.body.idProvincia;
+    profesional.dameCiudades(idProvincia,function(consulta){
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            console.log("cod = 0, TODO MAL");
+            res.json(consulta);
+        }else{
+            console.log("cod != de 0, TODO OK");
+            consulta[0].codigo = 1; 
+            res.json(consulta);
+        }
+    });
 }
