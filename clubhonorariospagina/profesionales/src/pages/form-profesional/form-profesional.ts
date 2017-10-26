@@ -30,6 +30,7 @@ export class FormProfesionalPage {
   public provincias:any;
   public mostrarCiudades:boolean = false;
   public ciudades:any;
+  public vendedores:any;
 
   constructor(public navCtrl: NavController, 
               public alertCtrl: AlertController,
@@ -37,6 +38,7 @@ export class FormProfesionalPage {
               public formBuilder:FormBuilder,
               public profesionalesPrv:ProfesionalesProvider,
               public navParams: NavParams) {
+
     this.selectOptionsProvincia = {
       title: 'Provincias',
       subTitle: 'Seleccione una Provincia',
@@ -47,21 +49,26 @@ export class FormProfesionalPage {
       subTitle: 'Seleccione una Ciudad',
       mode: 'md'
     };
+
     this.dameProvincias();
+
     this.profesional = this.navParams.get('profesional'); 
     console.log(this.profesional);
     this.editable = this.navParams.get('edit');
+
     if(this.editable === undefined){
       this.editable="false";
     }
 
     if(this.profesional){
+
       if(this.editable === 'false'){
         this.isInputDisabled = true;
       }else{
         this.mensajeSubmit = 'Actualizar';
       }
       
+      this.dameCiudades(this.profesional.provincia);
       this.fomularioProfesional = formBuilder.group({
         dni: [this.profesional.dni],
         apellido: [this.profesional.apellido],
@@ -185,7 +192,9 @@ export class FormProfesionalPage {
         if(this.editable === "true"){
           this.navCtrl.pop();
         }
-        //this.navCtrl.setRoot(ListarProfesionalesPage);
+        if(this.fomularioProfesional.valid){
+          this.navCtrl.setRoot(ListarProfesionalesPage);
+        }
       }
     }]
     });

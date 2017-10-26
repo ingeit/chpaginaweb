@@ -48,7 +48,7 @@
                   <h3>DNI: {{p.dni}}, Fecha de Alta: {{p.fechaAlta  | date:'dd/MM/yyyy' }}</h3>
                   <p>{{p.telefono}}</p>
                   <p>{{p.mail}}</p>
-                  <p>{{p.domicilio}}, {{p.localidad}}, {{p.provincia}}</p>
+                  <p>{{p.domicilio}}, {{p.nombreCiudad}}, {{p.nombreProvincia}}</p>
                   
                   <button ion-button clear item-end (click)="irDetalles(p,'false')"><ion-icon name="eye"></ion-icon>Ver</button>
                   <button ion-button clear item-end (click)="irDetalles(p,'true')"><ion-icon name="create"></ion-icon>Editar</button>
