@@ -185,7 +185,7 @@ export class FormProfesionalPage {
         if(this.editable === "true"){
           this.navCtrl.pop();
         }
-        this.navCtrl.setRoot(ListarProfesionalesPage);
+        //this.navCtrl.setRoot(ListarProfesionalesPage);
       }
     }]
     });

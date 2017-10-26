@@ -14,84 +14,86 @@
                 <p>Fecha de Alta: {{this.profesional.fechaAlta  | date:'dd/MM/yyyy' }}</p>
             </ion-item>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
-                <ion-label floating>DNI</ion-label>
+                <ion-label stacked>DNI</ion-label>
                 <ion-input disabled="{{dniHabilitado}}"  type="number" formControlName="dni" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.dni.valid  && submitAttempt">Ingrese DNI o CUIT del profesional</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
-                <ion-label floating>Apellido</ion-label>
+                <ion-label stacked>Apellido</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="apellido" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.apellido.valid  && submitAttempt">Ingrese Apellido</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Nombre</ion-label>
+                <ion-label stacked>Nombre</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="nombre" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.nombre.valid  && submitAttempt">Ingrese Nombre</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Especialidad</ion-label>
+                <ion-label stacked>Especialidad</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="especialidad" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.especialidad.valid  && submitAttempt">Ingrese una Especialidad</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Domicilio</ion-label>
+                <ion-label stacked>Domicilio</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="domicilio" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.domicilio.valid  && submitAttempt">Ingrese el Domicilio</p>
             <!-- <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Provincia</ion-label>
+                <ion-label stacked>Provincia</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="provincia" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.provincia.valid  && submitAttempt">Ingrese una Provincia</p> -->
             
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label>Provincia</ion-label>
-                <ion-select (ionChange)="provinciaElegida($event)" [selectOptions]="selectOptionsProvincia" okText="Aceptar" cancelText="Cancelar">
+                <ion-label stacked>Provincia</ion-label>
+                <ion-select disabled="{{isInputDisabled}}" (ionChange)="provinciaElegida($event)" formControlName="provincia" [selectOptions]="selectOptionsProvincia" okText="Aceptar" cancelText="Cancelar">
                     <ion-option *ngFor="let p of provincias" value="{{p.idProvincia}}">{{p.nombre}}</ion-option>
                 </ion-select>
             </ion-item>
+            <p class="labelError" *ngIf="!fomularioProfesional.controls.provincia.valid  && submitAttempt">Ingrese una Provincia</p>
 
             <ion-item *ngIf="mostrarCiudades" [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label>Ciudad</ion-label>
-                <ion-select [selectOptions]="selectOptionsCiudad" okText="Aceptar" cancelText="Cancelar">
+                <ion-label stacked>Localidad</ion-label>
+                <ion-select disabled="{{isInputDisabled}}" formControlName="localidad" [selectOptions]="selectOptionsCiudad" okText="Aceptar" cancelText="Cancelar">
                     <ion-option *ngFor="let c of ciudades" value="{{c.idCiudad}}">{{c.nombre}}</ion-option>
                 </ion-select>
             </ion-item>
+            <p class="labelError" *ngIf="!fomularioProfesional.controls.localidad.valid  && submitAttempt && mostrarCiudades">Ingrese Localidad</p>
 <!-- 
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Localidad</ion-label>
+                <ion-label stacked>Localidad</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="localidad" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.localidad.valid  && submitAttempt">Ingrese Localidad</p> -->
 
 
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Telefono</ion-label>
+                <ion-label stacked>Telefono</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="telefono" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.telefono.valid  && submitAttempt">Ingrese Telefono</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Profesion</ion-label>
+                <ion-label stacked>Profesion</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="prefesion" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.prefesion.valid  && submitAttempt">Ingrese Profesion</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Mail</ion-label>
+                <ion-label stacked>Mail</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="email" formControlName="mail" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.mail.valid  && submitAttempt">Ingrese un Mail Valido</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Vendedor</ion-label>
+                <ion-label stacked>Vendedor</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="vendedor" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.vendedor.valid  && submitAttempt">Ingrese Vendedor</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>Autorizado</ion-label>
+                <ion-label stacked>Autorizado</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="autorizado" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.autorizado.valid  && submitAttempt">Ingrese autorizado a Cobrar</p>
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label floating>DNI Autorizado</ion-label>
+                <ion-label stacked>DNI Autorizado</ion-label>
                 <ion-input disabled="{{isInputDisabled}}" type="number" formControlName="dniAutorizado" ></ion-input>
             </ion-item>
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.dniAutorizado.valid  && submitAttempt">Ingrese DNI o CUIT del autorizado a cobrar</p>
