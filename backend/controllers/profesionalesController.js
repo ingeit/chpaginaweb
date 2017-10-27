@@ -97,6 +97,10 @@ exports.excel = function(req, res, next){
     var fechaInicio = '"'+req.params.fechaInicio+'"';
     var fechaFin = '"'+req.params.fechaFin+'"';
     conf.cols=[{
+        caption:'FECHA IMPRESION',
+        type:'sting',
+        width:90
+    },{
         caption:'DNI',
         type:'number',
         width:101
@@ -173,18 +177,19 @@ exports.excel = function(req, res, next){
             console.log(operaciones);
             if(operaciones[0].codigo !== 0){
                 for(i=0;i <operaciones.length;i++){
+                    fechaImpresion = operaciones[i].fechaImpresion;
                     dni = operaciones[i].dni;
                     apellido = operaciones[i].apellido;
                     nombre = operaciones[i].nombre;
                     especialidad = operaciones[i].especialidad;
                     domicilio = operaciones[i].domicilio;
-                    localidad = operaciones[i].localidad;
-                    provincia = operaciones[i].provincia;
+                    localidad = operaciones[i].nombreCiudad;
+                    provincia = operaciones[i].nombreProvincia;
                     telefono = operaciones[i].telefono;
                     fechaAlta = operaciones[i].fechaAlta;
                     profesion = operaciones[i].profesion;
                     mail = operaciones[i].mail
-                    vendedor = operaciones[i].vendedor;
+                    vendedor = operaciones[i].nombreVendedor;
                     autorizado = operaciones[i].autorizado;
                     dniAutorizado = operaciones[i].dniAutorizado;
 
@@ -195,9 +200,18 @@ exports.excel = function(req, res, next){
                                     fechaAlta.getUTCMinutes(),
                                     fechaAlta.getUTCSeconds());
 
-                    fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy H:MM');
+                    fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy');
 
-                    a=[dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
+                    fechaImpresion = new Date(fechaImpresion.getUTCFullYear(),
+                                    fechaImpresion.getUTCMonth(),
+                                    fechaImpresion.getUTCDate(),
+                                    fechaImpresion.getUTCHours(),
+                                    fechaImpresion.getUTCMinutes(),
+                                    fechaImpresion.getUTCSeconds());
+
+                    fechaImpresion = dateformat(fechaImpresion,'dd/mm/yyyy');
+
+                    a=[fechaImpresion,dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
                     arr.push(a);
                 }
 
