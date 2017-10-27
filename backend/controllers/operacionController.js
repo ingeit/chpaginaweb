@@ -75,32 +75,32 @@ exports.operacionNueva = function(req, res, next){
                     var oFechaTransaccion = respuesta.fechaTransaccion;
                     var oFechaPago = respuesta.fechaPago;
                     var oIdOperacion = respuesta.codigo;
-                    // email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
-                    //     console.log("enviando mail desde operacion nueva: ", res1);
-                    //     console.log("mail cliente = ",req.body.mailCliente);
-                    //     if(req.body.mailCliente != ''){
-                    //         console.log("mail cliente no es vacio, mandando mail");
-                    //         email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
-                    //             console.log("enviando mail desde operacion nueva: ", res2);
-                    //             let response = {
-                    //                 'mysql' : consulta,
-                    //                 'mailProfesional' : res1,
-                    //                 'mailCliente' : res2
-                    //             };
-                    //             console.log(response);
-                    //             res.json(response);
-                    //         }); 
-                    //     }else{
-                    //         console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
-                    //         let response = {
-                    //             'mysql' : consulta,
-                    //             'mailProfesional' : res1,
-                    //             'mailCliente' : 'error'
-                    //         };
-                    //         res.json(response);
-                    //     }
+                    email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
+                        console.log("enviando mail desde operacion nueva: ", res1);
+                        console.log("mail cliente = ",req.body.mailCliente);
+                        if(req.body.mailCliente != ''){
+                            console.log("mail cliente no es vacio, mandando mail");
+                            email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
+                                console.log("enviando mail desde operacion nueva: ", res2);
+                                let response = {
+                                    'mysql' : consulta,
+                                    'mailProfesional' : res1,
+                                    'mailCliente' : res2
+                                };
+                                console.log(response);
+                                res.json(response);
+                            }); 
+                        }else{
+                            console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
+                            let response = {
+                                'mysql' : consulta,
+                                'mailProfesional' : res1,
+                                'mailCliente' : 'error'
+                            };
+                            res.json(response);
+                        }
                         
-                    // });
+                    });
                 }else{
                     console.log("la op no se realizo, no se envian mails y se cancela");
                     res.json(consulta);
