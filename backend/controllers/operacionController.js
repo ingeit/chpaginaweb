@@ -39,6 +39,12 @@ exports.dameOperacion = function(req, res, next){
 }
 
 exports.operacionNueva = function(req, res, next){
+
+    if(req.body.tipoTarjeta === 'C'){
+        var oCuotas = req.body.cuotas;
+    }else{
+        var oCuotas = 1;
+    }
     
     var oDniProfesional = req.body.dniProfesional;
     var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
@@ -58,11 +64,7 @@ exports.operacionNueva = function(req, res, next){
     var oCupon = req.body.cupon;
     var oTipoTarjeta = '"'+req.body.tipoTarjeta+'"';
     // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
-    if(oTipoTarjeta === 'C'){
-        var oCuotas = req.body.cuotas;
-    }else{
-        var oCuotas = 1;
-    }
+    
 
     console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
 

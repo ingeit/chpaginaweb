@@ -215,11 +215,6 @@ export class FormularioWebPage {
   confirmar() {
     //confirmar mediante modal
     //Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
-    if(this.tipoTarjeta === 'credito'){
-            this.cuotas=this.formulario.get('cuotas').value;
-          }else{
-            this.cuotas=1;
-          }
     console.log("desde confirmar se trae el formulario: ",this.formulario.controls);
     if(this.lapos === 'si'){
       console.log("tiene lapos")
