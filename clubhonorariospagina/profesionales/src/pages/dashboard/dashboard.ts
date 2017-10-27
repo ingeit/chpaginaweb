@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
 import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
 
@@ -9,7 +9,7 @@ import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',
