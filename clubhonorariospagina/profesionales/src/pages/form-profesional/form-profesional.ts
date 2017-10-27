@@ -51,9 +51,10 @@ export class FormProfesionalPage {
     };
 
     this.dameProvincias();
+    this.listarVendedores();
 
     this.profesional = this.navParams.get('profesional'); 
-    console.log(this.profesional);
+    console.log('Profesional',this.profesional);
     this.editable = this.navParams.get('edit');
 
     if(this.editable === undefined){
@@ -69,7 +70,9 @@ export class FormProfesionalPage {
       }
       
       this.dameCiudades(this.profesional.provincia);
+      console.log(this.profesional.fechaImpresion);
       this.fomularioProfesional = formBuilder.group({
+        fechaImpresion: [this.profesional.fechaImpresion],
         dni: [this.profesional.dni],
         apellido: [this.profesional.apellido],
         nombre: [this.profesional.nombre],
@@ -86,6 +89,7 @@ export class FormProfesionalPage {
       });
     }else{
       this.fomularioProfesional = formBuilder.group({
+        fechaImpresion:[''],
         dni: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellido: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombre: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
@@ -120,6 +124,7 @@ export class FormProfesionalPage {
         console.log("editable: ",this.editable);
         this.showLoader('Enviando formulario. Espere por favor...'); 
         let details = {
+          fechaImpresion: this.fomularioProfesional._value.fechaImpresion,
           dni: parseInt(this.fomularioProfesional._value.dni),
           apellido: this.fomularioProfesional._value.apellido,
           nombre: this.fomularioProfesional._value.nombre,
@@ -275,6 +280,18 @@ export class FormProfesionalPage {
         this.ciudades = data;
         console.log(this.ciudades)
         this.mostrarCiudades = true;
+      }else{
+        this.mostrarAlerta('ERROR',this.respuesta.mensaje)
+      }
+    });
+  }
+
+  listarVendedores(){
+    this.profesionalesPrv.listarVendedores().then((data)=>{
+      this.respuesta = data[0];
+      if(this.respuesta.codigo !== 0){
+        this.vendedores = data;
+        console.log(this.vendedores)
       }else{
         this.mostrarAlerta('ERROR',this.respuesta.mensaje)
       }

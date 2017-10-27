@@ -39,9 +39,9 @@ exports.listarProfesionales = function(fn){
     });
 }
 
-exports.nuevoProfesional = function(dni,apellido,nombre,especialidad,domicilio,localidad,provincia,
+exports.nuevoProfesional = function(fechaImpresion,dni,apellido,nombre,especialidad,domicilio,localidad,provincia,
                                     telefono,profesion,mail,vendedor,autorizado,dniAutorizado,fn){
-    connection.query('call profesionalTemp_nuevo('+dni+','+apellido+','+nombre+','+especialidad+','+
+    connection.query('call profesionalTemp_nuevo('+fechaImpresion+','+dni+','+apellido+','+nombre+','+especialidad+','+
                         domicilio+','+localidad+','+provincia+','+telefono+','+profesion+','+mail+','+vendedor+','+
                         autorizado+','+dniAutorizado+')', function(err, rows){
         if (err) {
@@ -83,4 +83,5 @@ exports.dameCiudades = function(idProvincia,fn){
         else fn(rows[0]); 
     });
 }
+
 

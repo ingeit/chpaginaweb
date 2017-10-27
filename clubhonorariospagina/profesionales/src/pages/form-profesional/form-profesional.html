@@ -14,6 +14,10 @@
                 <p>Fecha de Alta: {{this.profesional.fechaAlta  | date:'dd/MM/yyyy' }}</p>
             </ion-item>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
+                <ion-label stacked>Fecha Impresion</ion-label>
+                <ion-input disabled="{{dniHabilitado}}"  type="date" formControlName="fechaImpresion" ></ion-input>
+            </ion-item>
+            <ion-item [class.lecturaProfesional]="isInputDisabled">
                 <ion-label stacked>DNI</ion-label>
                 <ion-input disabled="{{dniHabilitado}}"  type="number" formControlName="dni" ></ion-input>
             </ion-item>
@@ -78,13 +82,9 @@
             <ion-item [class.lecturaProfesional]="isInputDisabled" >
                 <ion-label stacked>Vendedor</ion-label>
                 <ion-select disabled="{{isInputDisabled}}" formControlName="vendedor" okText="Aceptar" cancelText="Cancelar">
-                    <ion-option *ngFor="let p of provincias" value="{{p.idProvincia}}">{{p.nombre}}</ion-option>
+                    <ion-option *ngFor="let v of vendedores" value="{{v.idVendedor}}">{{v.nombre}}</ion-option>
                 </ion-select>
             </ion-item>
-            <!-- <ion-item [class.lecturaProfesional]="isInputDisabled" >
-                <ion-label stacked>Vendedor</ion-label>
-                <ion-input disabled="{{isInputDisabled}}" type="text" formControlName="vendedor" ></ion-input>
-            </ion-item> -->
             <p class="labelError"    *ngIf="!fomularioProfesional.controls.vendedor.valid  && submitAttempt">Ingrese Vendedor</p>
 
 

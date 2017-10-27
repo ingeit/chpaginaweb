@@ -1,6 +1,6 @@
 var profesional = require('./../models/profesionales');
 var dateformat = require('dateformat');
-
+var vendedores = require('./../models/vendedores');
 
 exports.dameProfesional = function(req, res, next){
    console.log("dni llega post nodejs:  ",req.body.dni);
@@ -47,6 +47,7 @@ exports.listarProfesionales = function(req, res, next){
     
 exports.nuevoProfesional = function(req, res, next){
     
+    var fechaImpresion = '"'+req.body.fechaImpresion+'"';
     var dni = req.body.dni;
     var apellido = '"'+req.body.apellido+'"';
     var nombre = '"'+req.body.nombre+'"';
@@ -61,7 +62,7 @@ exports.nuevoProfesional = function(req, res, next){
     var autorizado = '"'+req.body.autorizado+'"';
     var dniAutorizado = req.body.dniAutorizado;
 
-    profesional.nuevoProfesional(dni,apellido,nombre,especialidad,domicilio,localidad,provincia,
+    profesional.nuevoProfesional(fechaImpresion,dni,apellido,nombre,especialidad,domicilio,localidad,provincia,
                                 telefono,profesion,mail,vendedor,autorizado,dniAutorizado,function(consulta){
         res.json(consulta);  
     });
@@ -230,6 +231,19 @@ exports.dameProvincias = function(req, res, next){
 exports.dameCiudades = function(req, res, next){
     var idProvincia = req.body.idProvincia;
     profesional.dameCiudades(idProvincia,function(consulta){
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            console.log("cod = 0, TODO MAL");
+            res.json(consulta);
+        }else{
+            console.log("cod != de 0, TODO OK");
+            consulta[0].codigo = 1; 
+            res.json(consulta);
+        }
+    });
+}
+
+exports.dameVendedores = function(req, res, next){
+    vendedores.listarVendedores(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
             console.log("cod = 0, TODO MAL");
             res.json(consulta);

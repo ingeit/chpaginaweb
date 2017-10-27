@@ -25,7 +25,7 @@ router.post('/nuevoProfesional', ProfesionalesController.nuevoProfesional);
 router.get('/dameProvincias', ProfesionalesController.dameProvincias);
 router.post('/dameCiudades', ProfesionalesController.dameCiudades);
 router.get('/excelProfesionales/:fechaInicio/:fechaFin', ProfesionalesController.excel);
-
+router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 
 //router.get('/mysql', MysqlController.dump);
 //router.post('/test',OperacionController.test);
