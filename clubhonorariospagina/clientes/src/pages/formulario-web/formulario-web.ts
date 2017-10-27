@@ -51,8 +51,8 @@ export class FormularioWebPage {
         nombreProfesional: [''],
         mailProfesional: [''],
         dniCliente: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
-        apellidoCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
-        nombreCliente: ['',Validators.compose([Validators.maxLength(15),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        apellidoCliente: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
+        nombreCliente: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         telefonoCliente: [''],
         mailCliente: [''],
         tarjeta: ['',Validators.compose([Validators.required])],
@@ -61,6 +61,7 @@ export class FormularioWebPage {
         importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: [''],
+        tipoTarjeta: [''],
       });
       
   }
@@ -125,6 +126,7 @@ export class FormularioWebPage {
   }
 
       autoCompletarImportes(){
+        this.tipoTarjeta = this.cuotas=this.formulario.get('tipoTarjeta').value;
         //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
         let x;
         let yy;
@@ -274,7 +276,6 @@ export class FormularioWebPage {
   }
 
   radioTipoTarjeta(){
-        console.log(this.tipoTarjeta);
         if(this.tipoTarjeta === 'debito'){
           this.cuotas=0;
           this.importeCuota=0;

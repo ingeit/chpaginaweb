@@ -27,20 +27,8 @@
                   <ion-label floating>Fecha de pago</ion-label>
                   <ion-datetime displayFormat="DD de MMMM, YYYY" disabled [(ngModel)]="fechaPagoMysql"  type="text" class="form-control" name="fechaPago" id="fechaPago" ></ion-datetime>
             </ion-item>
-            <ion-list (ionChange)='radioTipoTarjeta()' radio-group [(ngModel)]="tipoTarjeta">
-                <h4 style="margin-top:10px;" >Seleccione el tipo de tarjeta</h4>
-                <ion-item>
-                    <ion-label>Tarjeta de Credito</ion-label>
-                    <ion-radio (click)="move('formularioDesplegar')" required value="credito" ></ion-radio>
-                </ion-item>
-                <ion-item >
-                    <ion-label>Tarjeta de Debito</ion-label>
-                    <ion-radio (click)="move('formularioDesplegar')" required value="debito" ></ion-radio>
-                </ion-item>
-                <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="lapos === undefined && submitAttempt">Por favor, seleccione SI o NO</p>
-            </ion-list>
-        <ion-col  id="formularioDesplegar">
-          <form *ngIf="tipoTarjeta!==null" [formGroup]="formulario" method="post" class="form-signin" id="myform" name="formulario">
+            
+          <form [formGroup]="formulario" method="post" class="form-signin" id="myform" name="formulario">
               <h2>Datos del profesional/prestador de servicio</h2>
               <form (ngSubmit)="consultarProfesional()">
                     <ion-row>
@@ -69,8 +57,22 @@
                   <ion-label stacked>Mail </ion-label>
                   <ion-input disabled formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional"></ion-input>
               </ion-item>
+                <ion-list (ionChange)='radioTipoTarjeta()' radio-group formControlName="tipoTarjeta">
+                <h4 style="margin-top:10px;" >Seleccione el tipo de tarjeta</h4>
+                <ion-item>
+                    <ion-label>Tarjeta de Credito</ion-label>
+                    <ion-radio (click)="move('formularioDesplegar')" required value="credito" ></ion-radio>
+                </ion-item>
+                <ion-item >
+                    <ion-label>Tarjeta de Debito</ion-label>
+                    <ion-radio (click)="move('formularioDesplegar')" required value="debito" ></ion-radio>
+                </ion-item>
+            </ion-list>
+            <!-- este div es solo para el autoscroll -->
+            <div id="formularioDesplegar"></div>
+        <ion-col  *ngIf="tipoTarjeta!==null" >
              <h2 style="margin-top: 0.3rem;" >Datos del titular de la tarjeta</h2>
-              <ion-item>
+              <ion-item >
                   <ion-label floating>DNI </ion-label>
                   <ion-input formControlName="dniCliente" type="number" class="form-control" name="dniCliente" id="dniCliente" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
               </ion-item>
@@ -98,7 +100,7 @@
                 <ion-label floating>Elija marca de la tarjeta *</ion-label>
                     <ion-select (ionChange)='autoCompletarImportes()' interface="popover" formControlName="tarjeta">
                         <ion-option value="3">VISA</ion-option>
-                        <ion-option value="2">MASTERCARD</ion-option>
+                        <ion-option value="2">MASTERCARD/MAESTRO</ion-option>
                         <ion-option value="1">AMERICAN EX.</ion-option>
                     </ion-select>
                 </ion-item>
@@ -151,7 +153,7 @@
                     </ion-select>
                 </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.lapos.valid  && submitAttempt">Por favor, seleccione SI o NO</p> -->
-              
+        </ion-col>      
         </form><!-- /form -->
             <ion-list *ngIf="tipoTarjeta!==null" radio-group [(ngModel)]="lapos">
                 <ion-list-header>
@@ -169,7 +171,6 @@
               </ion-list>
             <!-- OJO! El boton va a la funcion GENERAR, no CONFIRMAR.. -->
             <button *ngIf="tipoTarjeta!==null" float-right color="secondary" ion-button type="submit" (click)="generar()">Generar</button>
-        </ion-col>
         </div>
     </div>
 </ion-content>
