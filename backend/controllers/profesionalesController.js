@@ -173,25 +173,25 @@ exports.excel = function(req, res, next){
     ];
         
     profesional.getProfesionalesPorFecha(fechaInicio,fechaFin,function(consulta){
-            let operaciones = consulta;
-            console.log(operaciones);
-            if(operaciones[0].codigo !== 0){
-                for(i=0;i <operaciones.length;i++){
-                    fechaImpresion = operaciones[i].fechaImpresion;
-                    dni = operaciones[i].dni;
-                    apellido = operaciones[i].apellido;
-                    nombre = operaciones[i].nombre;
-                    especialidad = operaciones[i].especialidad;
-                    domicilio = operaciones[i].domicilio;
-                    localidad = operaciones[i].nombreCiudad;
-                    provincia = operaciones[i].nombreProvincia;
-                    telefono = operaciones[i].telefono;
-                    fechaAlta = operaciones[i].fechaAlta;
-                    profesion = operaciones[i].profesion;
-                    mail = operaciones[i].mail
-                    vendedor = operaciones[i].nombreVendedor;
-                    autorizado = operaciones[i].autorizado;
-                    dniAutorizado = operaciones[i].dniAutorizado;
+            let profesional = consulta;
+            console.log(profesional);
+            if(profesional[0].codigo !== 0){
+                for(i=0;i <profesional.length;i++){
+                    fechaImpresion = profesional[i].fechaImpresion;
+                    dni = profesional[i].dni;
+                    apellido = profesional[i].apellido;
+                    nombre = profesional[i].nombre;
+                    especialidad = profesional[i].especialidad;
+                    domicilio = profesional[i].domicilio;
+                    localidad = profesional[i].nombreCiudad;
+                    provincia = profesional[i].nombreProvincia;
+                    telefono = profesional[i].telefono;
+                    fechaAlta = profesional[i].fechaAlta;
+                    profesion = profesional[i].profesion;
+                    mail = profesional[i].mail
+                    vendedor = profesional[i].nombreVendedor;
+                    autorizado = profesional[i].autorizado;
+                    dniAutorizado = profesional[i].dniAutorizado;
 
                     fechaAlta = new Date(fechaAlta.getUTCFullYear(),
                                     fechaAlta.getUTCMonth(),

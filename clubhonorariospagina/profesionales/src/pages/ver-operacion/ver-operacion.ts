@@ -17,6 +17,11 @@ export class VerOperacionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.operacion = this.navParams.get('operacion');
+    if(this.operacion.tipoTarjeta === 'C'){
+      this.operacion.tipoTarjeta = 'Credito'
+    }else{
+      this.operacion.tipoTarjeta = 'Debito'
+    }
   }
 
   ionViewDidLoad() {
