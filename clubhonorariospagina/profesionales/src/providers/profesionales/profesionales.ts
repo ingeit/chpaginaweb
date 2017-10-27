@@ -105,4 +105,16 @@ export class ProfesionalesProvider {
     });
   }
 
+  listarVendedores(){
+    return new Promise((resolve, reject) => {
+        this.http.get(`${configServer.data.urlServidor}/api/listarVendedores/`)
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
 }
