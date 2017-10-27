@@ -97,6 +97,10 @@ exports.excel = function(req, res, next){
     var fechaInicio = '"'+req.params.fechaInicio+'"';
     var fechaFin = '"'+req.params.fechaFin+'"';
     conf.cols=[{
+        caption:'FECHA IMPRESION',
+        type:'sting',
+        width:90
+    },{
         caption:'DNI',
         type:'number',
         width:101
@@ -169,24 +173,25 @@ exports.excel = function(req, res, next){
     ];
         
     profesional.getProfesionalesPorFecha(fechaInicio,fechaFin,function(consulta){
-            let operaciones = consulta;
-            console.log(operaciones);
-            if(operaciones[0].codigo !== 0){
-                for(i=0;i <operaciones.length;i++){
-                    dni = operaciones[i].dni;
-                    apellido = operaciones[i].apellido;
-                    nombre = operaciones[i].nombre;
-                    especialidad = operaciones[i].especialidad;
-                    domicilio = operaciones[i].domicilio;
-                    localidad = operaciones[i].localidad;
-                    provincia = operaciones[i].provincia;
-                    telefono = operaciones[i].telefono;
-                    fechaAlta = operaciones[i].fechaAlta;
-                    profesion = operaciones[i].profesion;
-                    mail = operaciones[i].mail
-                    vendedor = operaciones[i].vendedor;
-                    autorizado = operaciones[i].autorizado;
-                    dniAutorizado = operaciones[i].dniAutorizado;
+            let profesional = consulta;
+            console.log(profesional);
+            if(profesional[0].codigo !== 0){
+                for(i=0;i <profesional.length;i++){
+                    fechaImpresion = profesional[i].fechaImpresion;
+                    dni = profesional[i].dni;
+                    apellido = profesional[i].apellido;
+                    nombre = profesional[i].nombre;
+                    especialidad = profesional[i].especialidad;
+                    domicilio = profesional[i].domicilio;
+                    localidad = profesional[i].nombreCiudad;
+                    provincia = profesional[i].nombreProvincia;
+                    telefono = profesional[i].telefono;
+                    fechaAlta = profesional[i].fechaAlta;
+                    profesion = profesional[i].profesion;
+                    mail = profesional[i].mail
+                    vendedor = profesional[i].nombreVendedor;
+                    autorizado = profesional[i].autorizado;
+                    dniAutorizado = profesional[i].dniAutorizado;
 
                     fechaAlta = new Date(fechaAlta.getUTCFullYear(),
                                     fechaAlta.getUTCMonth(),
@@ -195,9 +200,18 @@ exports.excel = function(req, res, next){
                                     fechaAlta.getUTCMinutes(),
                                     fechaAlta.getUTCSeconds());
 
-                    fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy H:MM');
+                    fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy');
 
-                    a=[dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
+                    fechaImpresion = new Date(fechaImpresion.getUTCFullYear(),
+                                    fechaImpresion.getUTCMonth(),
+                                    fechaImpresion.getUTCDate(),
+                                    fechaImpresion.getUTCHours(),
+                                    fechaImpresion.getUTCMinutes(),
+                                    fechaImpresion.getUTCSeconds());
+
+                    fechaImpresion = dateformat(fechaImpresion,'dd/mm/yyyy');
+
+                    a=[fechaImpresion,dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
                     arr.push(a);
                 }
 

@@ -70,7 +70,7 @@ export class FormProfesionalPage {
       }
       
       this.dameCiudades(this.profesional.provincia);
-      console.log(this.profesional.fechaImpresion);
+
       this.fomularioProfesional = formBuilder.group({
         fechaImpresion: [this.profesional.fechaImpresion],
         dni: [this.profesional.dni],
@@ -89,7 +89,7 @@ export class FormProfesionalPage {
       });
     }else{
       this.fomularioProfesional = formBuilder.group({
-        fechaImpresion:[''],
+        fechaImpresion:[(new Date().toISOString())],
         dni: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
         apellido: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
         nombre: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
@@ -139,7 +139,10 @@ export class FormProfesionalPage {
           autorizado:this.fomularioProfesional._value.autorizado,
           dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
         };
-
+        let fImpresion = details.fechaImpresion.split('T');
+        fImpresion = fImpresion[0];
+        details.fechaImpresion = fImpresion;
+        console.log(details);
         this.profesionalesPrv.nuevoProfesional(details).then((data)=>{
           this.loading.dismiss();
           this.respuesta = data[0];

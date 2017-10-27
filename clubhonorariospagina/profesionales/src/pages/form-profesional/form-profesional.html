@@ -15,7 +15,7 @@
             </ion-item>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
                 <ion-label stacked>Fecha Impresion</ion-label>
-                <ion-input disabled="{{dniHabilitado}}"  type="date" formControlName="fechaImpresion" ></ion-input>
+                <ion-datetime disabled="{{dniHabilitado}}"  displayFormat="DD/MM/YYYY" min="2016" formControlName="fechaImpresion" ></ion-datetime>
             </ion-item>
             <ion-item [class.lecturaProfesional]="isInputDisabled">
                 <ion-label stacked>DNI</ion-label>
