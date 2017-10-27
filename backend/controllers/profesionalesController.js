@@ -97,10 +97,6 @@ exports.excel = function(req, res, next){
     var fechaInicio = '"'+req.params.fechaInicio+'"';
     var fechaFin = '"'+req.params.fechaFin+'"';
     conf.cols=[{
-        caption:'FECHA IMPRESION',
-        type:'sting',
-        width:90
-    },{
         caption:'DNI',
         type:'number',
         width:101
@@ -177,7 +173,6 @@ exports.excel = function(req, res, next){
             console.log(profesional);
             if(profesional[0].codigo !== 0){
                 for(i=0;i <profesional.length;i++){
-                    fechaImpresion = profesional[i].fechaImpresion;
                     dni = profesional[i].dni;
                     apellido = profesional[i].apellido;
                     nombre = profesional[i].nombre;
@@ -202,16 +197,7 @@ exports.excel = function(req, res, next){
 
                     fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy');
 
-                    fechaImpresion = new Date(fechaImpresion.getUTCFullYear(),
-                                    fechaImpresion.getUTCMonth(),
-                                    fechaImpresion.getUTCDate(),
-                                    fechaImpresion.getUTCHours(),
-                                    fechaImpresion.getUTCMinutes(),
-                                    fechaImpresion.getUTCSeconds());
-
-                    fechaImpresion = dateformat(fechaImpresion,'dd/mm/yyyy');
-
-                    a=[fechaImpresion,dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
+                    a=[dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
                     arr.push(a);
                 }
 
