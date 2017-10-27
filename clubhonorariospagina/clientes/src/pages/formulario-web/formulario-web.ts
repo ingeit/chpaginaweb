@@ -141,8 +141,6 @@ export class FormularioWebPage {
           this.tarjeta=this.formulario.get('tarjeta').value;
           if(this.tipoTarjeta === 'credito'){
             this.cuotas=this.formulario.get('cuotas').value;
-          }else{
-            this.cuotas=1;
           }
 
           //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
@@ -217,7 +215,12 @@ export class FormularioWebPage {
   confirmar() {
     //confirmar mediante modal
     //Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
-    
+    if(this.tipoTarjeta === 'credito'){
+            this.cuotas=this.formulario.get('cuotas').value;
+          }else{
+            this.cuotas=1;
+          }
+    console.log("desde confirmar se trae el formulario: ",this.formulario.controls);
     if(this.lapos === 'si'){
       console.log("tiene lapos")
       this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,

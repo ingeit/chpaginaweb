@@ -58,13 +58,13 @@ exports.getComisiones = function(fn){
 
 exports.operacionNueva = function(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
         oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
-        oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,fn){
+        oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,fn){
         //     console.log(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
         // oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
         // oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon);
     connection.query('call operacion_nueva('+oDniProfesional+','+oApellidoProfesional+','+oNombreProfesional+','+oMailProfesional+','+
         oDniCliente+','+oApellidoCliente+','+oNombreCliente+','+oTelefonoCliente+','+oMailCliente+','+oTarjeta+','+oImporteVenta+','+
-        oImporteCobrar+','+oCuotas+','+oImporteCarga+','+oImporteCuota+','+oCodigoAuto+','+oCupon+')', function(err, rows){  
+        oImporteCobrar+','+oCuotas+','+oImporteCarga+','+oImporteCuota+','+oCodigoAuto+','+oCupon+','+oTipoTarjeta+')', function(err, rows){  
                 if (err) {
                     consulta = [{'codigo' : 0, 'mensaje' : 'Error en MySQL'}] 
                     fn (consulta);  
