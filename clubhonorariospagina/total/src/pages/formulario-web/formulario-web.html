@@ -8,7 +8,10 @@
 </ion-header> 
 
 <ion-content padding>
-    <div class="contenedor">        
+    <div class="contenedor">   
+        
+    <a style="margin: 0px auto;display: block;width: fit-content;" href="#" (click)="url()"><img src="assets/banner.png" alt=""></a>
+
         <div class="card2 card-container">
             <h3>Calculadora<div id="preloadfont" ></div></h3>
             <ion-list (ionChange)='radioTipoTarjeta()' radio-group [(ngModel)]="tipoTarjeta">

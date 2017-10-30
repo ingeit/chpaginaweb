@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MenuController } from 'ionic-angular';
 import * as configServer from './../../server'
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   selector: 'page-formulario-web',
@@ -35,6 +36,7 @@ export class FormularioWebPage {
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               private _app: App,
+              public iab: InAppBrowser,
               private menu: MenuController,
               public loadingCtrl: LoadingController,
               public formBuilder: FormBuilder,
@@ -279,6 +281,10 @@ export class FormularioWebPage {
   public move(bicho){
         let yOffset = document.getElementById(bicho).offsetTop;
         this.content.scrollTo(0, yOffset, 1000);
+    }
+
+    url(){
+      const browser = this.iab.create('https://play.google.com/store/apps/details?id=com.clubhonorarios.total');
     }
 
 }
