@@ -8,10 +8,17 @@
 </ion-header> 
 
 <ion-content padding>
-    <div class="contenedor">   
+       
         
-    <a style="margin: 0px auto;display: block;width: fit-content;" href="#" (click)="url()"><img src="assets/banner.png" alt=""></a>
-
+    <!-- <a style="margin: 0px auto;display: block;width: fit-content;" href="#" (click)="url()"><img src="assets/banner.png" alt=""></a>
+     -->
+     <div class="soporte-mesa-header">
+        <div class="overlay">
+          <h1>¡DESCARGA LA APP!</h1>
+          <a class="botonGoogle" href='https://play.google.com/store/apps/details?id=com.clubhonorarios.total&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Disponible en Google Play' src='../assets/google-play-badge.png'/></a>
+        </div>  
+      </div> 
+      <div class="contenedor">
         <div class="card2 card-container">
             <h3>Calculadora<div id="preloadfont" ></div></h3>
             <ion-list (ionChange)='radioTipoTarjeta()' radio-group [(ngModel)]="tipoTarjeta">

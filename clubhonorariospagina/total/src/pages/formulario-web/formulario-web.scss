@@ -53,6 +53,72 @@ page-formulario-web {
         font-size: 30px;
     }
 
+    .soporte-mesa-header {
+        background-color: #424551;
+        background-image: url(../assets/mano_celular.png);
+        text-align: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .soporte-mesa-header .container-content {
+        // padding: 75px 75px 90px;
+        padding: 5% 0% 8%;
+    }
+    .overlay{
+        background-color: rgba(0, 0, 0, 0.5); 
+        height: 100%;
+      }
+
+    .soporte-mesa-header h4 {
+        color: #FFF;
+        margin-bottom: 18px;
+        font-weight: 400;
+        font-size: 24px;
+        
+    }
+
+    .soporte-mesa-header, .soporte-mesa-header * {
+        transition: all .3s ease-in-out;
+    }
+
+    .input-icon-container {
+        position: relative;
+        width: 75%;
+        margin: 0 auto;
+    }
+
+    .soporte-mesa-header .campoFiltro {
+        border: 1px solid #B0BFC6;
+        color: #B0BFC6;
+        border-radius: 3px;
+        background-color: rgba(0,0,0,0.15);
+        padding: 5px 10px;
+        font-size: 20px;
+        height: inherit;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    h1{
+        font-size: 40px;
+        padding-top: 50px;
+        color: whitesmoke;
+        text-align: left;
+        margin-left: 2%;
+    }
+
+    a img{
+        width: 15em;
+        margin-left: -70%;
+        margin-bottom: 5%;
+    }
+
+    // .botonGoogle{
+    //     float: left;
+    //     margin-left: -13%;
+    // }
    
     
 }
