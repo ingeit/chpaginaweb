@@ -71,13 +71,9 @@
                   <ion-label class="letraFuerte"  stacked>Importe a cobrar</ion-label>
                   <ion-input disabled formControlName="importeCobrar" type="number" step="0.05" class="form-control importes" name="importeCobrar" id="importeCobrar"></ion-input>
               </ion-item>
-              <ion-item *ngIf="tarjetaNombre === ''">
-                  <ion-label class="letraFuerte"  stacked >Importe total de transaccion (Este importe se carga en LAPOS)</ion-label>
+              <ion-item>
+                  <ion-label class="letraFuerte"  stacked >Importe total de transaccion (Este importe se carga en LAPOS/WEB)</ion-label>
                   <ion-input disabled formControlName="importeCarga"  type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
-              </ion-item>
-              <ion-item *ngIf="tarjetaNombre !== ''">
-                  <ion-label class="letraFuerte" stacked >Importe total de transaccion (valor a cargar en pagina de {{tarjetaNombre}})</ion-label>
-                  <ion-input disabled formControlName="importeCarga" type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
               </ion-item>
               <ion-item *ngIf="tipoTarjeta==='credito'">
                   <ion-label class="letraFuerte" stacked>Importe de cuotas</ion-label>
