@@ -12,13 +12,17 @@ page-formulario-web {
         color: #f44336 !important;
     }
 
-    .importes input{
-        background: #025405;
-        color: white;
+     
+    .importes input {
+        background: #105273;
+        color: #fff;
         position: relative;
-        max-width:22%;
-        font-weight: bold;
-        text-align: center;
+        font-weight: 700;
+        text-align: center
+    }
+
+    #importeCarga input{
+        background: #E65100 ;
     }
 
     .text-input[disabled] {

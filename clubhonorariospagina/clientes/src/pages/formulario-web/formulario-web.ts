@@ -62,6 +62,9 @@ export class FormularioWebPage {
         importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
         importeCuota: [''],
         tipoTarjeta: [''],
+        profesionProfesional: [''],
+        especialidadProfesional: [''],
+        telefonoProfesional: [''],
       });
       
   }
@@ -259,10 +262,16 @@ export class FormularioWebPage {
             let apellidoProfesional = this.respuesta.apellido;
             let nombreProfesional = this.respuesta.nombre;
             let mailProfesional = this.respuesta.mail;
+            let profesionProfesional = this.respuesta.profesion;
+            let especialidadProfesional = this.respuesta.especialidad;
+            let telefonoProfesional = this.respuesta.telefono;
             this.formulario.controls['dniProfesional'].setValue(this.dniProfesionalForm);
             this.formulario.controls['apellidoProfesional'].setValue(apellidoProfesional);
             this.formulario.controls['nombreProfesional'].setValue(nombreProfesional);
             this.formulario.controls['mailProfesional'].setValue(mailProfesional);
+            this.formulario.controls['profesionProfesional'].setValue(profesionProfesional);
+            this.formulario.controls['especialidadProfesional'].setValue(especialidadProfesional);
+            this.formulario.controls['telefonoProfesional'].setValue(telefonoProfesional);
           }else{
             this.mostrarAlerta('ERROR',this.respuesta.mensaje+". Por favor comunicarse via telefonica a nuestras oficinas");
           }
