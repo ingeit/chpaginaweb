@@ -14,12 +14,15 @@ page-formulario-web {
     }
     
     .importes input {
-        background: #025405;
+        background: #105273;
         color: #fff;
         position: relative;
-        max-width: 22%;
         font-weight: 700;
         text-align: center
+    }
+
+    #importeCarga input{
+        background: #E65100 ;
     }
     
     .text-input[disabled] {
