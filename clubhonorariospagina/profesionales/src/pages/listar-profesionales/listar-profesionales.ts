@@ -6,13 +6,6 @@ import { DashboardPage  } from '../dashboard/dashboard';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import * as configServer from './../../server'
 
-/**
- * Generated class for the ListarProfesionalesPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-listar-profesionales',
   templateUrl: 'listar-profesionales.html',
