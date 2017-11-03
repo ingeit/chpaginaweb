@@ -137,7 +137,7 @@ exports.excel = function(req, res, next){
         width:85
     },
     {
-        caption:'Fecha Alta',
+        caption:'Fecha Impresion',
         type:'string',
         width:85
     },
@@ -181,23 +181,23 @@ exports.excel = function(req, res, next){
                     localidad = profesional[i].nombreCiudad;
                     provincia = profesional[i].nombreProvincia;
                     telefono = profesional[i].telefono;
-                    fechaAlta = profesional[i].fechaAlta;
+                    fechaImpresion = profesional[i].fechaImpresion;
                     profesion = profesional[i].profesion;
                     mail = profesional[i].mail
                     vendedor = profesional[i].nombreVendedor;
                     autorizado = profesional[i].autorizado;
                     dniAutorizado = profesional[i].dniAutorizado;
 
-                    fechaAlta = new Date(fechaAlta.getUTCFullYear(),
-                                    fechaAlta.getUTCMonth(),
-                                    fechaAlta.getUTCDate(),
-                                    fechaAlta.getUTCHours(),
-                                    fechaAlta.getUTCMinutes(),
-                                    fechaAlta.getUTCSeconds());
+                    fechaImpresion = new Date(fechaImpresion.getUTCFullYear(),
+                                    fechaImpresion.getUTCMonth(),
+                                    fechaImpresion.getUTCDate(),
+                                    fechaImpresion.getUTCHours(),
+                                    fechaImpresion.getUTCMinutes(),
+                                    fechaImpresion.getUTCSeconds());
 
-                    fechaAlta = dateformat(fechaAlta,'dd/mm/yyyy');
+                    fechaImpresion = dateformat(fechaImpresion,'dd/mm/yyyy');
 
-                    a=[dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaAlta,profesion,mail,vendedor,autorizado,dniAutorizado,];
+                    a=[dni,apellido,nombre,especialidad,domicilio,localidad,provincia,telefono,fechaImpresion,profesion,mail,vendedor,autorizado,dniAutorizado,];
                     arr.push(a);
                 }
 
