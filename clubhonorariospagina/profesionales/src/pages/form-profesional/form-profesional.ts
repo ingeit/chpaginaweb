@@ -124,20 +124,20 @@ export class FormProfesionalPage {
         console.log("editable: ",this.editable);
         this.showLoader('Enviando formulario. Espere por favor...'); 
         let details = {
-          fechaImpresion: this.fomularioProfesional._value.fechaImpresion,
-          dni: parseInt(this.fomularioProfesional._value.dni),
-          apellido: this.fomularioProfesional._value.apellido,
-          nombre: this.fomularioProfesional._value.nombre,
-          especialidad:this.fomularioProfesional._value.especialidad,
-          domicilio:this.fomularioProfesional._value.domicilio,
-          localidad:this.fomularioProfesional._value.localidad,
-          provincia:this.fomularioProfesional._value.provincia,
-          telefono: this.fomularioProfesional._value.telefono,
-          prefesion:this.fomularioProfesional._value.prefesion,
-          mail: this.fomularioProfesional._value.mail,
-          vendedor:this.fomularioProfesional._value.vendedor,
-          autorizado:this.fomularioProfesional._value.autorizado,
-          dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
+          fechaImpresion: this.fomularioProfesional.value.fechaImpresion,
+          dni: parseInt(this.fomularioProfesional.value.dni),
+          apellido: this.fomularioProfesional.value.apellido,
+          nombre: this.fomularioProfesional.value.nombre,
+          especialidad:this.fomularioProfesional.value.especialidad,
+          domicilio:this.fomularioProfesional.value.domicilio,
+          localidad:this.fomularioProfesional.value.localidad,
+          provincia:this.fomularioProfesional.value.provincia,
+          telefono: this.fomularioProfesional.value.telefono,
+          prefesion:this.fomularioProfesional.value.prefesion,
+          mail: this.fomularioProfesional.value.mail,
+          vendedor:this.fomularioProfesional.value.vendedor,
+          autorizado:this.fomularioProfesional.value.autorizado,
+          dniAutorizado: parseInt(this.fomularioProfesional.value.dniAutorizado)
         };
         let fImpresion = details.fechaImpresion.split('T');
         fImpresion = fImpresion[0];
@@ -157,18 +157,18 @@ export class FormProfesionalPage {
         console.log("editable: ",this.editable);
         let details = {
           idProfesional: parseInt(this.profesional.idProfesional),
-          apellido: this.fomularioProfesional._value.apellido,
-          nombre: this.fomularioProfesional._value.nombre,
-          especialidad:this.fomularioProfesional._value.especialidad,
-          domicilio:this.fomularioProfesional._value.domicilio,
-          localidad:this.fomularioProfesional._value.localidad,
-          provincia:this.fomularioProfesional._value.provincia,
-          telefono: this.fomularioProfesional._value.telefono,
-          profesion:this.fomularioProfesional._value.prefesion,
-          mail: this.fomularioProfesional._value.mail,
-          vendedor:this.fomularioProfesional._value.vendedor,
-          autorizado:this.fomularioProfesional._value.autorizado,
-          dniAutorizado: parseInt(this.fomularioProfesional._value.dniAutorizado)
+          apellido: this.fomularioProfesional.value.apellido,
+          nombre: this.fomularioProfesional.value.nombre,
+          especialidad:this.fomularioProfesional.value.especialidad,
+          domicilio:this.fomularioProfesional.value.domicilio,
+          localidad:this.fomularioProfesional.value.localidad,
+          provincia:this.fomularioProfesional.value.provincia,
+          telefono: this.fomularioProfesional.value.telefono,
+          profesion:this.fomularioProfesional.value.prefesion,
+          mail: this.fomularioProfesional.value.mail,
+          vendedor:this.fomularioProfesional.value.vendedor,
+          autorizado:this.fomularioProfesional.value.autorizado,
+          dniAutorizado: parseInt(this.fomularioProfesional.value.dniAutorizado)
         };
 
         let titulo = "Modificar Profesional";
