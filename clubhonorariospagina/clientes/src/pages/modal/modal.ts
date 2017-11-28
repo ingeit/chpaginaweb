@@ -67,8 +67,6 @@ tipoTarjeta: any;
         this.mailCliente = this.comprobarMailCliente(respuesta.mailCliente);
            // si hay error.. aparece 'error', sino '250 OK ......'
           console.log(this.mailCliente);
-           
-
       }
     }
     

@@ -104,8 +104,13 @@ exports.operacionNueva = function(req, res, next){
                         
                     });
                 }else{
-                    console.log("la op no se realizo, no se envian mails y se cancela");
-                    res.json(consulta);
+                    console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+                    let response = {
+                        'mysql' : consulta,
+                        'mailProfesional' : 'error',
+                        'mailCliente' : 'error'
+                    };
+                    res.json(response);
                 }
         });
 }

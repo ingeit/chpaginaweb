@@ -96,7 +96,7 @@
     </div>
       
     <button *ngIf="idOperacion !== 0" class="botones" style="margin-right: 0px !important;" ion-button color="ok" (click)="cerrarModal()">Cerrar</button>
-    <button *ngIf="idOperacion === 0" class="botones" style="margin-right: 0px !important;" ion-button color="error" (click)="popForm1()">Volver</button>
+    <button *ngIf="idOperacion === 0" class="botones" style="margin-right: 0px !important;" ion-button color="error" (click)="cerrarModal()">Volver</button>
   </div>
   
 </ion-content>

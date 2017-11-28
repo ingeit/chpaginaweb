@@ -13,6 +13,10 @@ import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OperacionesProvider } from '../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
