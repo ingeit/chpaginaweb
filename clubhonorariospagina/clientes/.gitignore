@@ -23,6 +23,7 @@ tmp/
 temp/
 hooks/
 platforms/
+.sourcemaps/
 plugins/
 plugins/android.json
 plugins/ios.json
