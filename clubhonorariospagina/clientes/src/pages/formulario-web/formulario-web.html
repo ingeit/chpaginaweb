@@ -35,7 +35,7 @@
                         <ion-col>
                             <ion-item>
                                 <ion-label stacked>DNI/CUIT *</ion-label>
-                                <ion-input type="number" [(ngModel)]="dniProfesionalForm" [ngModelOptions]="{standalone: true}"></ion-input>
+                                <ion-input value="11111111" type="number" [(ngModel)]="dniProfesionalForm" [ngModelOptions]="{standalone: true}"></ion-input>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -86,17 +86,17 @@
              <h2 style="margin-top: 0.3rem;" >Datos del titular de la tarjeta</h2>
               <ion-item >
                   <ion-label stacked>DNI </ion-label>
-                  <ion-input formControlName="dniCliente" type="number" class="form-control" name="dniCliente" id="dniCliente" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
+                  <ion-input value="11111111" formControlName="dniCliente" type="number" class="form-control" name="dniCliente" id="dniCliente" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
               </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
               <ion-item>
                   <ion-label stacked>Apellido *</ion-label>
-                  <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente" [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
+                  <ion-input value="11111111" formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente" [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
               </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
               <ion-item>
                   <ion-label stacked>Nombre *</ion-label>
-                  <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
+                  <ion-input value="11111111" formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
               </ion-item>
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
               <ion-item>
@@ -136,7 +136,7 @@
               <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
               <ion-item>
                   <ion-label stacked>Importe de venta * (Este importe se debera completar en cupon azul)</ion-label>
-                  <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control" name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
+                  <ion-input value="579.835" formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control" name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
               </ion-item>
               <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
               
