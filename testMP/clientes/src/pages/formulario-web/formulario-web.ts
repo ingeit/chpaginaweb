@@ -200,7 +200,7 @@ autoCompletarImportes(){
     console.log("importe carga redondeado "+ this.importeCarga);
     
     this.formulario.controls['importeCarga'].setValue(this.importeCarga);
-    this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
+    this.importeCuota = Math.round((this.importeCarga / parseInt(this.cuotas))*100)/100;
     this.formulario.controls['importeCuota'].setValue(this.importeCuota);
   }
 }
