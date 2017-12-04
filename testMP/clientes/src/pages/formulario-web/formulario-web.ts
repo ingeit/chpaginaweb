@@ -27,10 +27,10 @@ export class FormularioWebPage {
   importeCarga: number;
   importeCuota: number;
   tarjeta: any;
-  cuotas: number;
+  cuotas: string;
   comision: number;
   tarjetasComisiones: any;
-  tarjetaNombre: any = false;
+  tarjetaNombre: string;
   dniProfesionalForm: any;
   lapos: any;
   tipoTarjeta: string=null;
@@ -38,10 +38,12 @@ export class FormularioWebPage {
   listaCuotas:any = null;
   bin:any = null;
   cantCoutas:any = null;
-  payment_method_id:any = null;
   issuer_id:any = null;
-  
+  cardholderName:any;null;
+
   @ViewChild(Content) content: Content;
+  @ViewChild('paymentMethodId') paymentMeth: any;
+  paymentMethodId: any;
 
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -56,7 +58,7 @@ export class FormularioWebPage {
           ) {
            
             Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
-            Mercadopago.getIdentificationTypes(); 
+            // Mercadopago.getIdentificationTypes(); 
             
             
             this.dameFechasyComisiones();
@@ -143,7 +145,6 @@ generar(){
 }
 
 autoCompletarImportes(){
-  this.tipoTarjeta = this.cuotas=this.formulario.get('tipoTarjeta').value;
   //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
   let x;
   let yy;
@@ -157,27 +158,25 @@ autoCompletarImportes(){
     this.importeCobrar = Math.round(this.importeVenta*0.95*100)/100;
     this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
     // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
-    this.tarjeta=this.formulario.get('tarjeta').value;
-    if(this.tipoTarjeta === 'credito'){
-      this.cuotas=this.formulario.get('cuotas').value;
-    }
+
+    this.cuotas= ('0' + this.cantCoutas).slice(-2);
 
     //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
-        switch (this.tarjeta)
+        switch (this.tarjetaNombre)
         {
-          case '1':
-            this.tarjetaNombre = 'AMERICAN'
+          case "amex":
+            this.tarjeta = 1
             break;
-          case '2':
-            this.tarjetaNombre = 'MASTER'
+          case "master":
+            this.tarjeta = 2
             break;
-          case '3':
-            this.tarjetaNombre = 'VISA'
+          case "visa":
+            this.tarjeta = 3
             break;
           default:
             break;
         }
-    
+
     x=this.tarjeta;
       //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
       
@@ -196,21 +195,12 @@ autoCompletarImportes(){
     // Ej: 10.225 = 10.23
     //     10.223 = 10.22 
     console.log("importe carga original "+ this.importeVenta*this.comision);              
-    if(this.tipoTarjeta === 'credito'){
-      this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
-    }else{
-      this.importeCarga=this.importeVenta;
-    }
+    this.importeCarga = Math.round(this.importeVenta*this.comision*100)/100;
 
     console.log("importe carga redondeado "+ this.importeCarga);
     
     this.formulario.controls['importeCarga'].setValue(this.importeCarga);
-
-    if(this.tipoTarjeta === 'credito'){
-      this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
-    }else{
-      this.importeCuota=0;
-    }
+    this.importeCuota = Math.round((this.importeCarga / this.cuotas)*100)/100;
     this.formulario.controls['importeCuota'].setValue(this.importeCuota);
   }
 }
@@ -231,31 +221,6 @@ mostrarAlerta(titulo,mensaje) {
   alert.present();
 }
 
-confirmar() {
-  //confirmar mediante modal
-  //Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
-  console.log("desde confirmar se trae el formulario: ",this.formulario.controls);
-  if(this.lapos === 'si'){
-    console.log("tiene lapos")
-    this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
-      fechaPago: this.fechaPagoMysql,
-      formulario: this.formulario.controls,
-      tarjetaNombre: this.tarjetaNombre,
-      tarjetasComisiones: this.tarjetasComisiones,
-      tipoTarjeta : this.tipoTarjeta
-    });
-  }else{
-    console.log("no tiene lapos, yendo a modal y visa");
-    let confirmarModal = this.modalCtrl.create(ModalPage, {desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
-                                                            fechaPago: this.fechaPagoMysql,
-                                                            formulario: this.formulario.controls,
-                                                            tarjetaNombre: this.tarjetaNombre,
-                                                            tarjetasComisiones: this.tarjetasComisiones,
-                                                            tipoTarjeta : this.tipoTarjeta });
-    confirmarModal.present();
-  }
-  
-}
 
 generarDebug(){
       this.confirmar();  
@@ -298,19 +263,19 @@ consultarProfesional(){
   }
 }
 
-radioTipoTarjeta(){
-      if(this.tipoTarjeta === 'debito'){
-        this.cuotas=0;
-        this.importeCuota=0;
-        this.importeCarga=this.importeVenta;
-      }
-      this.autoCompletarImportes();
-    }
+// radioTipoTarjeta(){
+//       if(this.tipoTarjeta === 'debito'){
+//         this.cuotas=0;
+//         this.importeCuota=0;
+//         this.importeCarga=this.importeVenta;
+//       }
+//       this.autoCompletarImportes();
+//     }
 
-    public move(bicho){
-      let yOffset = document.getElementById(bicho).offsetTop;
-      this.content.scrollTo(0, yOffset, 1000);
-}
+//     public move(bicho){
+//       let yOffset = document.getElementById(bicho).offsetTop;
+//       this.content.scrollTo(0, yOffset, 1000);
+// }
    
 devolverNombreDeTarjeta(numTarjeta){
   this.bin = numTarjeta.value.replace(/[ .-]/g, '').slice(0, 6);
@@ -327,12 +292,13 @@ devolverNombreDeTarjeta(numTarjeta){
             paymentMethod.setAttribute('name', "paymentMethodId");
             paymentMethod.setAttribute('type', "hidden");
             paymentMethod.setAttribute('value', response[0].id);
-      
             form.appendChild(paymentMethod);
-            this.payment_method_id = response[0].id;
-            console.log('valor del campo escondido',this.payment_method_id)
+            this.tarjetaNombre = response[0].id;
+            console.log('valor del campo escondido',this.tarjetaNombre)
         } else {
-            document.querySelector("input[name=paymentMethodId]").value = response[0].id;
+          this.tarjetaNombre = response[0].id;
+          console.log('se actualizo el valor del campo escondido',this.tarjetaNombre);
+          (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
         }
         this.obtenerBancos(response[0].id);
       }
@@ -361,17 +327,33 @@ obtenerCuotasMP(banco){
   });
 }
 
-generarPago(){
+confirmar() {
   console.log('pagando');
   var $form = document.querySelector('#pay');
+  console.log('formualario de muestra',$form)
   Mercadopago.createToken($form, (status,sdkResponseHandler)=>{
     sdkResponseHandler.importeCarga = this.formulario.get('importeCarga').value;
     sdkResponseHandler.installments = this.cantCoutas;
-    sdkResponseHandler.payment_method_id = this.payment_method_id;
+    sdkResponseHandler.payment_method_id = this.tarjetaNombre;
     sdkResponseHandler.issuer_id = this.issuer_id;
     console.log('respuesta del sdk',sdkResponseHandler)
     this.operacionesProv.operacionNueva(sdkResponseHandler)
-  }); // The function "sdkResponseHandler" is defined below
+  }); 
+  this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
+    fechaPago: this.fechaPagoMysql,
+    formulario: this.formulario.controls,
+    tarjetaNombre: this.tarjetaNombre,
+    tarjetasComisiones: this.tarjetasComisiones,
+    tipoTarjeta : this.tipoTarjeta
+  });
+}
+
+generarPago(){
+  
+}
+
+completarNombre(){
+  this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;
 }
 
 }
