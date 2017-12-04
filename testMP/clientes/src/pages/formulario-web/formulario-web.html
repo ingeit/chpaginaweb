@@ -126,9 +126,10 @@
                 <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.tarjeta.valid  &&  submitAttempt">Por favor, elija una tarjeta</p> -->
             <ion-item>
                 <ion-label for="cardNumber" stacked>Numero de Tarjeta de Credito:</ion-label>
-                <ion-input type="text" id="cardNumber" data-checkout="cardNumber" value="4509 9535 6623 3704" (ionChange)="devolverNombreDeTarjeta($event)"> </ion-input>
+                <ion-input formControlName="numeroTarjeta" type="text" id="cardNumber" data-checkout="cardNumber" value="4509 9535 6623 3704" (ionChange)="devolverNombreDeTarjeta($event)"> </ion-input>
             </ion-item> 
-            
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
+
             <ion-item>
                 <ion-label stacked>Importe de venta * (Este importe se debera completar en cupon azul)</ion-label>
                 <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control" name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
@@ -137,10 +138,11 @@
 
             <ion-item>
                 <ion-label for="issuer" stacked>Elija el banco *</ion-label>
-                <ion-select id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                <ion-select formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
                     <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                 </ion-select>
             </ion-item>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.bancos.valid  && submitAttempt">Por favor, elija un bancos</p>
 
             <ion-item>
                 <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
@@ -153,8 +155,9 @@
 
             <ion-item>
                 <ion-label for="securityCode" stacked>Codigo de Seguridad</ion-label>
-                <ion-input type="text" id="securityCode" data-checkout="securityCode" value="123"> </ion-input>
+                <ion-input formControlName="codSeguridad" type="text" id="securityCode" data-checkout="securityCode" value="123"> </ion-input>
             </ion-item>
+            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.codSeguridad.valid  && submitAttempt">Por favor, ingrese codigo de Seguridad</p>
 
             <ion-item>
                 <ion-label for="cardExpirationMonth" stacked>Mes de Expiracion</ion-label>

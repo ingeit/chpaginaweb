@@ -64,6 +64,9 @@ export class FormularioWebPage {
             this.dameFechasyComisiones();
 
             this.formulario = formBuilder.group({
+              numeroTarjeta: ['',Validators.compose([Validators.maxLength(16),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
+              codSeguridad: ['',Validators.compose([Validators.maxLength(3),Validators.minLength(3),Validators.pattern(/()\d/g),Validators.required])],
+              bancos:['',Validators.compose([Validators.required])],
               dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
               apellidoProfesional: [''],
               nombreProfesional: [''],
@@ -136,7 +139,8 @@ generar(){
   console.log("dentro de genererar");
   if(!this.formulario.valid || this.lapos === undefined){
     console.log("formulario invalido");
-      this.submitAttempt = true;
+    this.submitAttempt = true;
+    this.mostrarAlerta('Error','Por favor Complete todos los campos')
   }else{
     console.log("form valido");
       this.confirmar();
@@ -337,19 +341,16 @@ confirmar() {
     sdkResponseHandler.payment_method_id = this.tarjetaNombre;
     sdkResponseHandler.issuer_id = this.issuer_id;
     console.log('respuesta del sdk',sdkResponseHandler)
-    this.operacionesProv.operacionNueva(sdkResponseHandler)
+    this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
+      fechaPago: this.fechaPagoMysql,
+      formulario: this.formulario.controls,
+      tarjetaNombre: this.tarjetaNombre,
+      tarjetasComisiones: this.tarjetasComisiones,
+      tipoTarjeta : this.tipoTarjeta,
+      sdkResponse:sdkResponseHandler
+    });
+    // this.operacionesProv.operacionNueva(sdkResponseHandler)
   }); 
-  this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
-    fechaPago: this.fechaPagoMysql,
-    formulario: this.formulario.controls,
-    tarjetaNombre: this.tarjetaNombre,
-    tarjetasComisiones: this.tarjetasComisiones,
-    tipoTarjeta : this.tipoTarjeta
-  });
-}
-
-generarPago(){
-  
 }
 
 completarNombre(){
