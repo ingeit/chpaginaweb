@@ -33,7 +33,6 @@ export class FormularioWebPage {
   tarjetaNombre: string;
   dniProfesionalForm: any;
   lapos: any;
-  tipoTarjeta: string=null;
   listadoBancos:any = null;
   listaCuotas:any = null;
   bin:any = null;
@@ -65,6 +64,8 @@ export class FormularioWebPage {
 
             this.formulario = formBuilder.group({
               numeroTarjeta: ['',Validators.compose([Validators.maxLength(16),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
+              cardExpirationMonth: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1),Validators.pattern(/()\d/g),Validators.required])],
+              cardExpirationYear: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])],
               codSeguridad: ['',Validators.compose([Validators.maxLength(3),Validators.minLength(3),Validators.pattern(/()\d/g),Validators.required])],
               bancos:['',Validators.compose([Validators.required])],
               dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
@@ -76,13 +77,12 @@ export class FormularioWebPage {
               nombreCliente: ['',Validators.compose([Validators.maxLength(45),Validators.minLength(1),Validators.pattern(/()\w/g),Validators.required])],
               telefonoCliente: [''],
               mailCliente: [''],
-              tarjeta: ['',Validators.compose([Validators.required])],
+              tarjeta: [''],
               cuotas: [''],
               importeVenta: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
               importeCobrar: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1),Validators.required])],
               importeCarga: ['',Validators.compose([Validators.maxLength(30),Validators.minLength(1), Validators.required])],
               importeCuota: [''],
-              tipoTarjeta: [''],
               profesionProfesional: [''],
               especialidadProfesional: [''],
               telefonoProfesional: [''],
@@ -135,9 +135,9 @@ dameFechasyComisiones(){
       });
 }
 
-generar(){
-  console.log("dentro de genererar");
-  if(!this.formulario.valid || this.lapos === undefined){
+pagar(){
+  console.log("Pagando...");
+  if(!this.formulario.valid){
     console.log("formulario invalido");
     this.submitAttempt = true;
     this.mostrarAlerta('Error','Por favor Complete todos los campos')
@@ -267,19 +267,6 @@ consultarProfesional(){
   }
 }
 
-// radioTipoTarjeta(){
-//       if(this.tipoTarjeta === 'debito'){
-//         this.cuotas=0;
-//         this.importeCuota=0;
-//         this.importeCarga=this.importeVenta;
-//       }
-//       this.autoCompletarImportes();
-//     }
-
-//     public move(bicho){
-//       let yOffset = document.getElementById(bicho).offsetTop;
-//       this.content.scrollTo(0, yOffset, 1000);
-// }
    
 devolverNombreDeTarjeta(numTarjeta){
   this.bin = numTarjeta.value.replace(/[ .-]/g, '').slice(0, 6);
@@ -331,30 +318,50 @@ obtenerCuotasMP(banco){
   });
 }
 
+completarNombre(){
+  this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;
+}
+
 confirmar() {
-  console.log('pagando');
   var $form = document.querySelector('#pay');
-  console.log('formualario de muestra',$form)
+  this.showLoader('Pagando... Espere por Favor');
   Mercadopago.createToken($form, (status,sdkResponseHandler)=>{
     sdkResponseHandler.importeCarga = this.formulario.get('importeCarga').value;
     sdkResponseHandler.installments = this.cantCoutas;
     sdkResponseHandler.payment_method_id = this.tarjetaNombre;
     sdkResponseHandler.issuer_id = this.issuer_id;
-    console.log('respuesta del sdk',sdkResponseHandler)
+    console.log('respuesta del sdk',sdkResponseHandler);
+    let details = {
+      dniProfesional: parseInt(this.formulario.dniProfesional.value),
+      apellidoProfesional: this.formulario.apellidoProfesional.value,
+      nombreProfesional: this.formulario.nombreProfesional.value,
+      mailProfesional: this.formulario.mailProfesional.value,
+      dniCliente: parseInt(this.formulario.dniCliente.value),
+      apellidoCliente: this.formulario.apellidoCliente.value,
+      nombreCliente: this.formulario.nombreCliente.value,
+      telefonoCliente: this.formulario.telefonoCliente.value,
+      mailCliente: this.formulario.mailCliente.value,
+      tarjeta: this.tarjeta,
+      cuotas: this.cuotas,
+      importeVenta: parseFloat(this.formulario.importeVenta.value),
+      importeCobrar: parseFloat(this.formulario.importeCobrar.value),
+      importeCarga: this.impTotal,
+      importeCuota: this.impCuota,
+      codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
+      tipoTarjeta: this.tipoTarjeta,
+    };
     this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
       fechaPago: this.fechaPagoMysql,
       formulario: this.formulario.controls,
       tarjetaNombre: this.tarjetaNombre,
       tarjetasComisiones: this.tarjetasComisiones,
-      tipoTarjeta : this.tipoTarjeta,
       sdkResponse:sdkResponseHandler
     });
-    // this.operacionesProv.operacionNueva(sdkResponseHandler)
+    this.operacionesProv.operacionNueva(sdkResponseHandler).then((data)=>{
+      this.loading.dismiss();
+      this.respuesta = data;          
+    });
   }); 
-}
-
-completarNombre(){
-  this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;
 }
 
 }
