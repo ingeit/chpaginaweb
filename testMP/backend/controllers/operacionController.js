@@ -42,18 +42,17 @@ exports.dameOperacion = function(req, res, next){
 exports.operacionNueva = function(req, res, next){
     var MP = require ("mercadopago");
 
-
     var mp = new MP (configMP.access_token);
     
     var doPayment = mp.post ("/v1/payments",
     {
         "transaction_amount": req.body.importeCarga,
-        "token": req.body.id,
-        "description": "Title of what you are paying for",
+        "token": req.body.sdkResponse.id,
+        "description": "Pago de Honorarios a "+req.body.apellidoProfesional+', '+req.body.nombreProfesional,
         "payer": {
-            "email": "asdasdasdasd@asdfghjkl.com"
+            "email": req.body.mailCliente,
         },
-        "installments": parseInt(req.body.installments),
+        "installments": parseInt(req.body.cuotas),
 		"payment_method_id": req.body.payment_method_id,
 		"issuer_id": parseInt(req.body.issuer_id)
     });
@@ -61,86 +60,79 @@ exports.operacionNueva = function(req, res, next){
     doPayment.then (
         (payment) => {
             console.log (payment);
+            var oDniProfesional = req.body.dniProfesional;
+            var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+            var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+            var oMailProfesional = '"'+req.body.mailProfesional+'"';
+            var oDniCliente = req.body.dniCliente;
+            var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+            var oNombreCliente = '"'+req.body.nombreCliente+'"';
+            var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+            var oMailCliente = '"'+req.body.mailCliente+'"';
+            var oTarjeta = '"'+(req.body.issuer_id).toUpperCase()+'"';
+            var oImporteVenta = req.body.importeVenta;
+            var oImporteCobrar = req.body.importeCobrar;
+            var oImporteCarga = req.body.importeCarga;
+            var oImporteCuota = req.body.importeCuota;
+            var oCodigoAuto = 0;
+            var oCupon = 0;
+            var oTipoTarjeta = '"C"';
+            var oIdMercadoPago = req.body.sdkResponse.id;
+            // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
+            
+
+            // console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
+
+            // operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+            //     oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+            //     oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+            //         console.log(consulta);
+            //             if(consulta[0].codigo >= 1){
+            //                 var respuesta = consulta[0];
+            //                 var oFechaTransaccion = respuesta.fechaTransaccion;
+            //                 var oFechaPago = respuesta.fechaPago;
+            //                 var oIdOperacion = respuesta.codigo;
+            //                 email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
+            //                     console.log("enviando mail desde operacion nueva: ", res1);
+            //                     console.log("mail cliente = ",req.body.mailCliente);
+            //                     if(req.body.mailCliente != ''){
+            //                         console.log("mail cliente no es vacio, mandando mail");
+            //                         email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
+            //                             console.log("enviando mail desde operacion nueva: ", res2);
+            //                             let response = {
+            //                                 'mysql' : consulta,
+            //                                 'mailProfesional' : res1,
+            //                                 'mailCliente' : res2
+            //                             };
+            //                             console.log(response);
+            //                             res.json(response);
+            //                         }); 
+            //                     }else{
+            //                         console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
+            //                         let response = {
+            //                             'mysql' : consulta,
+            //                             'mailProfesional' : res1,
+            //                             'mailCliente' : 'error'
+            //                         };
+            //                         res.json(response);
+            //                     }
+                                
+            //                 });
+            //             }else{
+            //                 console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+            //                 let response = {
+            //                     'mysql' : consulta,
+            //                     'mailProfesional' : 'error',
+            //                     'mailCliente' : 'error'
+            //                 };
+            //                 res.json(response);
+            //             }
+            //     });
             res.send(payment);
         },
         (error)=> {
             console.log (error);
     });
-
-
-    // if(req.body.tipoTarjeta === 'C'){
-    //     var oCuotas = req.body.cuotas;
-    // }else{
-    //     var oCuotas = 1;
-    // }
-    
-    // var oDniProfesional = req.body.dniProfesional;
-    // var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
-    // var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
-    // var oMailProfesional = '"'+req.body.mailProfesional+'"';
-    // var oDniCliente = req.body.dniCliente;
-    // var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
-    // var oNombreCliente = '"'+req.body.nombreCliente+'"';
-    // var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
-    // var oMailCliente = '"'+req.body.mailCliente+'"';
-    // var oTarjeta = '"'+req.body.tarjeta+'"';
-    // var oImporteVenta = req.body.importeVenta;
-    // var oImporteCobrar = req.body.importeCobrar;
-    // var oImporteCarga = req.body.importeCarga;
-    // var oImporteCuota = req.body.importeCuota;
-    // var oCodigoAuto = req.body.codigoAuto;
-    // var oCupon = req.body.cupon;
-    // var oTipoTarjeta = '"'+req.body.tipoTarjeta+'"';
-    // // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
-    
-
-    // console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
-
-    // operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
-    //     oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
-    //     oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
-    //         console.log(consulta);
-    //             if(consulta[0].codigo >= 1){
-    //                 var respuesta = consulta[0];
-    //                 var oFechaTransaccion = respuesta.fechaTransaccion;
-    //                 var oFechaPago = respuesta.fechaPago;
-    //                 var oIdOperacion = respuesta.codigo;
-    //                 email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
-    //                     console.log("enviando mail desde operacion nueva: ", res1);
-    //                     console.log("mail cliente = ",req.body.mailCliente);
-    //                     if(req.body.mailCliente != ''){
-    //                         console.log("mail cliente no es vacio, mandando mail");
-    //                         email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
-    //                             console.log("enviando mail desde operacion nueva: ", res2);
-    //                             let response = {
-    //                                 'mysql' : consulta,
-    //                                 'mailProfesional' : res1,
-    //                                 'mailCliente' : res2
-    //                             };
-    //                             console.log(response);
-    //                             res.json(response);
-    //                         }); 
-    //                     }else{
-    //                         console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
-    //                         let response = {
-    //                             'mysql' : consulta,
-    //                             'mailProfesional' : res1,
-    //                             'mailCliente' : 'error'
-    //                         };
-    //                         res.json(response);
-    //                     }
-                        
-    //                 });
-    //             }else{
-    //                 console.log("la op no se realizo, no se envian mails y se cancela",consulta);
-    //                 let response = {
-    //                     'mysql' : consulta,
-    //                     'mailProfesional' : 'error',
-    //                     'mailCliente' : 'error'
-    //                 };
-    //                 res.json(response);
-    //             }
-    //     });
 }
 
 exports.excel = function(req, res, next){

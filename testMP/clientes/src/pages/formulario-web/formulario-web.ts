@@ -292,6 +292,9 @@ devolverNombreDeTarjeta(numTarjeta){
           (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
         }
         this.obtenerBancos(response[0].id);
+      }else{
+        console.log('error al consultar customer',status,response)
+        this.mostrarAlerta('Error Nº'+status,'Tarjeta no Valida');
       }
     });
   }
@@ -299,22 +302,32 @@ devolverNombreDeTarjeta(numTarjeta){
 
 obtenerBancos(id){
   Mercadopago.getIssuers(id, (status,response)=>{
-    this.listadoBancos = response;
-    console.log('listas de bancos',this.listadoBancos)
+    if (status != 200 && status != 201) {
+      this.mostrarAlerta('Error Nº '+response.cause[0].code,'No se puede comunicar con MercadoPago');
+    }else{
+      this.listadoBancos = response;
+      console.log('listas de bancos',this.listadoBancos)
+    }
   });
 }
 
 obtenerCuotasMP(banco){
   this.issuer_id = banco;
   console.log('se esta mostrado el banco',this.issuer_id);
+  this.showLoader('Consultando Coutas..');
   Mercadopago.getInstallments({
       "bin": this.bin,
       "amount": this.formulario.get('importeCarga').value,
       "issuer_id": banco
   }, (status,response)=>{
-    this.listaCuotas = response[0];
-    this.listaCuotas = this.listaCuotas.payer_costs;
-    console.log('cuotas',this.listaCuotas)
+    this.loading.dismiss();
+    if (status != 200 && status != 201) {
+      this.mostrarAlerta('Error Nº '+response.cause[0].code,'No se puede comunicar con MercadoPago');
+    }else{
+      this.listaCuotas = response[0];
+      this.listaCuotas = this.listaCuotas.payer_costs;
+      console.log('cuotas',this.listaCuotas)
+    }
   });
 }
 
@@ -326,41 +339,44 @@ confirmar() {
   var $form = document.querySelector('#pay');
   this.showLoader('Pagando... Espere por Favor');
   Mercadopago.createToken($form, (status,sdkResponseHandler)=>{
-    sdkResponseHandler.importeCarga = this.formulario.get('importeCarga').value;
-    sdkResponseHandler.installments = this.cantCoutas;
-    sdkResponseHandler.payment_method_id = this.tarjetaNombre;
-    sdkResponseHandler.issuer_id = this.issuer_id;
-    console.log('respuesta del sdk',sdkResponseHandler);
-    let details = {
-      dniProfesional: parseInt(this.formulario.dniProfesional.value),
-      apellidoProfesional: this.formulario.apellidoProfesional.value,
-      nombreProfesional: this.formulario.nombreProfesional.value,
-      mailProfesional: this.formulario.mailProfesional.value,
-      dniCliente: parseInt(this.formulario.dniCliente.value),
-      apellidoCliente: this.formulario.apellidoCliente.value,
-      nombreCliente: this.formulario.nombreCliente.value,
-      telefonoCliente: this.formulario.telefonoCliente.value,
-      mailCliente: this.formulario.mailCliente.value,
-      tarjeta: this.tarjeta,
-      cuotas: this.cuotas,
-      importeVenta: parseFloat(this.formulario.importeVenta.value),
-      importeCobrar: parseFloat(this.formulario.importeCobrar.value),
-      importeCarga: this.impTotal,
-      importeCuota: this.impCuota,
-      codigoAuto: parseInt(this.formulario2.get('codigoAuto').value),
-      tipoTarjeta: this.tipoTarjeta,
-    };
-    this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
-      fechaPago: this.fechaPagoMysql,
-      formulario: this.formulario.controls,
-      tarjetaNombre: this.tarjetaNombre,
-      tarjetasComisiones: this.tarjetasComisiones,
-      sdkResponse:sdkResponseHandler
-    });
-    this.operacionesProv.operacionNueva(sdkResponseHandler).then((data)=>{
+    if (status != 200 && status != 201) {
       this.loading.dismiss();
-      this.respuesta = data;          
-    });
+      this.mostrarAlerta('Error Nº'+sdkResponseHandler.cause[0].code,'No se puede comunicar con MercadoPago');
+    }else{
+      let details = {
+        dniProfesional: parseInt(this.formulario.get('dniProfesional').value),
+        apellidoProfesional: this.formulario.get('apellidoProfesional').value,
+        nombreProfesional: this.formulario.get('nombreProfesional').value,
+        mailProfesional: this.formulario.get('mailProfesional').value,
+        dniCliente: parseInt(this.formulario.get('dniCliente').value),
+        apellidoCliente: this.formulario.get('apellidoCliente').value,
+        nombreCliente: this.formulario.get('nombreCliente').value,
+        telefonoCliente: this.formulario.get('telefonoCliente').value,
+        mailCliente: this.formulario.get('mailCliente').value,
+        tarjetaID: this.tarjeta,
+        payment_method_id: this.tarjetaNombre,
+        issuer_id: this.issuer_id,
+        cuotas: this.cuotas,
+        importeVenta: parseFloat(this.formulario.get('importeVenta').value),
+        importeCobrar: parseFloat(this.formulario.get('importeCobrar').value),
+        importeCarga: this.formulario.get('importeCarga').value,
+        importeCuota: this.importeCuota,
+        sdkResponse:sdkResponseHandler
+      };
+      console.log('respuesta del sdk',details);
+      this.operacionesProv.operacionNueva(details).then((data)=>{
+          this.loading.dismiss();
+          this.respuesta = data;          
+      });
+    }
+    // this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
+    //   fechaPago: this.fechaPagoMysql,
+    //   formulario: this.formulario.controls,
+    //   tarjetaNombre: this.tarjetaNombre,
+    //   tarjetasComisiones: this.tarjetasComisiones,
+    //   sdkResponse:sdkResponseHandler
+    // });
+    // 
   }); 
 }
 
