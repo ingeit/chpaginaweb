@@ -120,7 +120,9 @@ exports.operacionNueva = function(req, res, next){
                         let response = {
                             'mysql' : consulta,
                             'mailProfesional' : 'error',
-                            'mailCliente' : 'error'
+                            'mailCliente' : 'error',
+                            'MPCodigo':200,
+                            'MP':'El Pago se Realizo Correctamente'
                         };
                         res.json(response);
                     }
