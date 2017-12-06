@@ -76,7 +76,7 @@ exports.operacionNueva = function(req, res, next){
             var oImporteCarga = req.body.importeCarga;
             var oImporteCuota = req.body.importeCuota;
             var oCodigoAuto = 0;
-            var oCupon = 2;
+            var oCupon = payment.response.id;
             var oTipoTarjeta = '"C"';
         
         
