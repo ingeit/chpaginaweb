@@ -132,6 +132,7 @@ exports.operacionNueva = function(req, res, next){
         },
         (error)=> {
             console.log (error);
+            res.send(error);
     });
 }
 

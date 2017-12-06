@@ -60,6 +60,16 @@ page-formulario-web {
     .item-select .label-md{
         color: #4c4b4b !important;
     }
+
+    @media (max-width: 500px) { 
+        .scroll-content{
+            padding: 0 !important;
+        }
+        
+        .card2 {
+            padding: 10px 7px 20px;
+        }
+    }
    
     
 }
