@@ -28,7 +28,8 @@ export class FormularioWebPaso2Page {
   urlImagenCanvas:any;
   urlImagenCanvasAzul:any;
   imagenEditadaAzul = false;
-
+  mostrarCartelMPError:boolean = false;
+  mostrarCartelMysqlError:boolean = false;
   //para editar cuotas modificacion
   sdkResponseHandler: any;
   impTotal: number;
@@ -51,6 +52,14 @@ export class FormularioWebPaso2Page {
     this.cuotas = this.formulario.cuotas.value;
     this.impTotal = this.formulario.importeCarga.value;
     this.impCuota = this.formulario.importeCuota.value;
+
+    if(this.sdkResponseHandler.MPCodigo === 'error'){
+      this.mostrarCartelMPError = true;
+    }else{
+      if(this.sdkResponseHandler.mysql[0].codigo === 0){
+        this.mostrarCartelMysqlError = true;
+      }
+    }    
   }
 
   ionViewDidEnter() {

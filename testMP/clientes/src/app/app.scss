@@ -41,7 +41,50 @@ h2, h3 {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     min-height: 100%;
 }
- 
+
+
+.cardGreen {
+    background-color: #63C574;
+    /* just in case there no content*/
+    padding: 10px 20px 20px;
+    margin: 0 auto;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    color:white;
+    text-align: center;
+}
+
+.cardRed div, .cardGreen div{
+    margin: 0 auto;
+}
+
+.cardRed h4, .cardGreen h4{
+    font-weight: 300;
+    font-size: 2em;
+}
+
+
+.cardRed {
+    background-color: #FF6960;
+    /* just in case there no content*/
+    padding: 10px 20px 20px;
+    margin: 0 auto;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    color:white;
+    text-align: center;
+}
+
 .bloque {
     position: relative;
     border: 1px solid #e2e2e2;
@@ -91,3 +134,19 @@ ion-label{
     min-height: 100%;
 }
 
+
+.round{
+    background: white;
+    text-align: center;
+    border-radius: 53px;
+    width: 100px;
+    height: 100px;
+    display: block;
+    position: relative;
+}
+
+.round img{
+    top: 13px;
+    position: absolute;
+    left: 18px;
+}

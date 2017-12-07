@@ -51,6 +51,7 @@ exports.operacionNueva = function(req, res, next){
         "description": "Pago de Honorarios a "+req.body.apellidoProfesional+', '+req.body.nombreProfesional,
         "payer": {
             "email": req.body.mailCliente,
+            // "email": '',
         },
         "installments": parseInt(req.body.cuotas),
 		"payment_method_id": req.body.payment_method_id,
@@ -70,6 +71,7 @@ exports.operacionNueva = function(req, res, next){
             var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
             var oMailCliente = '"'+req.body.mailCliente+'"';
             var oTarjeta = '"MP"';
+            // var oTarjeta = '"MPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"';
             var oImporteVenta = req.body.importeVenta;
             var oImporteCobrar = req.body.importeCobrar;
             var oCuotas = req.body.cuotas;
@@ -99,7 +101,10 @@ exports.operacionNueva = function(req, res, next){
                                     let response = {
                                         'mysql' : consulta,
                                         'mailProfesional' : res1,
-                                        'mailCliente' : res2
+                                        'mailCliente' : res2,
+                                        'MPComprobante':payment.response.id,
+                                        'MPCodigo':'ok',
+                                        'MP':'Pago Realizado Exitosamente'
                                     };
                                     console.log(response);
                                     res.json(response);
@@ -109,7 +114,10 @@ exports.operacionNueva = function(req, res, next){
                                 let response = {
                                     'mysql' : consulta,
                                     'mailProfesional' : res1,
-                                    'mailCliente' : 'error'
+                                    'mailCliente' : 'error',
+                                    'MPComprobante':payment.response.id,
+                                    'MPCodigo':'ok',
+                                    'MP':'Pago Realizado Exitosamente'
                                 };
                                 res.json(response);
                             }
@@ -121,20 +129,20 @@ exports.operacionNueva = function(req, res, next){
                             'mysql' : consulta,
                             'mailProfesional' : 'error',
                             'mailCliente' : 'error',
-                            'MPCodigo':200,
-                            'MP':'El Pago se Realizo Correctamente'
+                            'MPComprobante':payment.response.id,
+                            'MPCodigo':'ok',
+                            'MP':'Pago Realizado Exitosamente'
                         };
                         res.json(response);
                     }
                 });
         },
         (error)=> {
-            console.log (error);
             let response = {
-                'mysql' : error.message,
-                'mailProfesional' : 'error',
-                'mailCliente' : 'error'
+                'MPCodigo':'error',
+                'MP':'El pago no se realizo. '+error
             };
+            console.log(error);
             res.json(response);
     });
 }

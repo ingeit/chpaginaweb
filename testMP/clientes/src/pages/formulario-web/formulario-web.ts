@@ -367,14 +367,14 @@ confirmar() {
       this.operacionesProv.operacionNueva(details).then((data)=>{
           this.loading.dismiss();
           this.respuesta = data;
-
-            // this.navCtrl.setRoot(FormularioWebPaso2Page,{fechaTransaccion: this.fechaTransaccionMysql,
-            //   fechaPago: this.fechaPagoMysql,
-            //   formulario: this.formulario.controls,
-            //   tarjetaNombre: this.tarjetaNombre,
-            //   tarjetasComisiones: this.tarjetasComisiones,
-            //   sdkResponse:sdkResponseHandler
-            // });
+          this.navCtrl.setRoot(FormularioWebPaso2Page,{
+            fechaTransaccion: this.fechaTransaccionMysql,
+            fechaPago: this.fechaPagoMysql,
+            formulario: this.formulario.controls,
+            tarjetaNombre: this.tarjetaNombre,
+            tarjetasComisiones: this.tarjetasComisiones,
+            sdkResponse:this.respuesta
+          });
       });
     }
   }); 
