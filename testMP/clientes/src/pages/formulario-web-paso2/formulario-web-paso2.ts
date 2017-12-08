@@ -6,6 +6,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { DatePipe } from '@angular/common';
 import { ModalPage } from '../modal/modal';
 import { FormularioWebPage } from '../formulario-web/formulario-web';
+declare var Mercadopago;
 
 @Component({
   selector: 'page-formulario-web-paso2',
@@ -221,6 +222,7 @@ export class FormularioWebPaso2Page {
   }
 
   volver(){
+    Mercadopago.clearSession();
     this.navCtrl.setRoot(FormularioWebPage);
   }
 }
