@@ -206,6 +206,7 @@ autoCompletarImportes(){
     this.formulario.controls['importeCarga'].setValue(this.importeCarga);
     this.importeCuota = Math.round((this.importeCarga / parseInt(this.cuotas))*100)/100;
     this.formulario.controls['importeCuota'].setValue(this.importeCuota);
+    this.formulario.controls['cuotas'].setValue(this.cantCoutas);
   }
 }
 
@@ -334,6 +335,7 @@ obtenerCuotasMP(banco){
 completarNombre(){
   this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;
 }
+
 
 confirmar() {
   var $form = document.querySelector('#pay');

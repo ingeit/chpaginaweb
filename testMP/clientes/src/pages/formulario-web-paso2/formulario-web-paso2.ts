@@ -52,7 +52,7 @@ export class FormularioWebPaso2Page {
     this.cuotas = this.formulario.cuotas.value;
     this.impTotal = this.formulario.importeCarga.value;
     this.impCuota = this.formulario.importeCuota.value;
-
+    console.log(this.formulario);
     if(this.sdkResponseHandler.MPCodigo === 'error'){
       this.mostrarCartelMPError = true;
     }else{
@@ -126,11 +126,13 @@ export class FormularioWebPaso2Page {
               importeCobrar: this.formulario.importeCobrar.value,
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
+              numtarjeta: this.formulario.numeroTarjeta.value,
         };
         this.ctx.fillText(details.apellidoProfesional+' '+details.nombreProfesional,150,120);
         this.ctx.fillText(details.dniProfesional,150,230);
         this.ctx.fillText(details.tarjeta,150,330);
         this.ctx.fillText(details.apellidoCliente+' '+details.nombreCliente,150,430);
+        this.ctx.fillText(details.numtarjeta,150,530);
         this.ctx.fillText(details.telefonoCliente,150,640);
         this.ctx.fillText(this.fechaTransaccionMysql,850,320);
         this.ctx.fillText(this.fechaPago,850,430);
@@ -169,10 +171,14 @@ export class FormularioWebPaso2Page {
               importeCarga: this.impTotal,
               importeCuota: this.impCuota,
               cantidadCuotas: this.cuotas,
+              numtarjeta: this.formulario.numeroTarjeta.value,
+              telefonoProfesional: this.formulario.telefonoProfesional.value,
         };
         this.ctx.fillText(details.apellidoProfesional+' '+details.nombreProfesional,150,140);
+        this.ctx.fillText(details.telefonoProfesional,150,250);
         this.ctx.fillText(details.tarjeta,150,370);
         this.ctx.fillText(details.apellidoCliente+' '+details.nombreCliente,150,480);
+        this.ctx.fillText(details.numtarjeta,150,600);
         this.ctx.fillText(this.fechaTransaccionMysql,850,320);
         this.ctx.fillText(details.cantidadCuotas,850,590);
         this.ctx.fillText(details.importeCuota,850,730);
