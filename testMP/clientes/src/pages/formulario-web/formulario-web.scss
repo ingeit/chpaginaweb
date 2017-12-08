@@ -70,6 +70,15 @@ page-formulario-web {
             padding: 10px 7px 20px;
         }
     }
-   
+    
+    #imagenTajeta{
+        position: relative;
+    }
+
+    #imagenTajeta img{
+        position: absolute;
+        bottom: 12px;
+        right: 4%;
+    }
     
 }

@@ -37,4 +37,24 @@ page-formulario-web-paso2 {
     .select-icon-inner {
         left: 29px !important;
     }
+
+    #botonCentrado{
+        width: 100%;
+        display: block;
+        position: relative;
+    }
+
+    #botonCentrado button{
+        display: block;
+        margin: 10px auto;
+        font-size: 1.5em;
+        font-weight: 300;
+        padding: 30px 20px;
+    }
+
+    #botonCentrado ion-icon{
+        margin-right: 20px;
+        font-size: 2em;
+    }
+
 }

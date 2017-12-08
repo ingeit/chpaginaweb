@@ -10,7 +10,13 @@
 
 
 <ion-content padding>
-  <div class="contenedor"> 
+  <div class="contenedor">
+      <div id="botonCentrado">
+        <button (click)="volver()" color="secondary" ion-button>
+            <ion-icon name="ios-card"></ion-icon> Nueva Operacion
+        </button>
+      </div>
+   
       <div *ngIf="!mostrarCartelMPError" class="cardGreen card-container">
           <div class="round">
               <img src="./../../assets/clipgreen.png" alt="">

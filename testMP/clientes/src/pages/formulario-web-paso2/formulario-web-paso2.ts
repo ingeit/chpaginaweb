@@ -5,6 +5,7 @@ import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { DatePipe } from '@angular/common';
 import { ModalPage } from '../modal/modal';
+import { FormularioWebPage } from '../formulario-web/formulario-web';
 
 @Component({
   selector: 'page-formulario-web-paso2',
@@ -217,5 +218,9 @@ export class FormularioWebPaso2Page {
   mostrarModal(respuesta){
     let modalRes = this.modalCtrl.create(ModalPage, {desde: 'form2', mensaje: respuesta }, {enableBackdropDismiss: false});
     modalRes.present();
+  }
+
+  volver(){
+    this.navCtrl.setRoot(FormularioWebPage);
   }
 }

@@ -38,8 +38,8 @@ export class FormularioWebPage {
   bin:any = null;
   cantCoutas:any = null;
   issuer_id:any = null;
-  cardholderName:any;null;
-
+  cardholderName:any;
+  urlBannerTarjeta:any;
   @ViewChild(Content) content: Content;
   @ViewChild('paymentMethodId') paymentMeth: any;
   paymentMethodId: any;
@@ -276,7 +276,6 @@ devolverNombreDeTarjeta(numTarjeta){
         "bin": this.bin
     }, (status,response)=>{
       if (status == 200) {
-        console.log('status',status)
         console.log('respuesta',response[0])
         var form = document.querySelector('#pay');
         if (document.querySelector("input[name=paymentMethodId]") == null) {
@@ -286,9 +285,11 @@ devolverNombreDeTarjeta(numTarjeta){
             paymentMethod.setAttribute('value', response[0].id);
             form.appendChild(paymentMethod);
             this.tarjetaNombre = response[0].id;
+            this.urlBannerTarjeta = response[0].thumbnail;
             console.log('valor del campo escondido',this.tarjetaNombre)
         } else {
           this.tarjetaNombre = response[0].id;
+          this.urlBannerTarjeta = response[0].thumbnail;
           console.log('se actualizo el valor del campo escondido',this.tarjetaNombre);
           (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
         }

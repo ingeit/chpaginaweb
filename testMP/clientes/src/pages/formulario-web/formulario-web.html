@@ -124,8 +124,8 @@
                 </ion-row>
             </ion-col>
             <ion-col col-12 col-lg-4 col-sm-12>
-                <ion-row>
-                    <ion-col col-lg-12>
+                <ion-row class="alturaMinima">
+                    <ion-col col-lg-12 class="alturaMinima">
                         <div class="card2 card-container">
                             <h2>Informacion de operacion</h2>
                             <ion-item>
@@ -134,11 +134,15 @@
                             </ion-item>
                             <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
                             
-                            <ion-item>
-                                <ion-label for="cardNumber" stacked>Numero de Tarjeta de Credito:</ion-label>
-                                <ion-input formControlName="numeroTarjeta" type="text" id="cardNumber" data-checkout="cardNumber" value="4509953566233704" (ionChange)="devolverNombreDeTarjeta($event)"> </ion-input>
-                            </ion-item> 
-                            <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
+                            <div id="imagenTajeta">
+                                <ion-item>
+                                    <ion-label for="cardNumber" stacked>Numero de Tarjeta de Credito:</ion-label>
+                                    <ion-input formControlName="numeroTarjeta" type="text" id="cardNumber" data-checkout="cardNumber" value="4509953566233704" (ionChange)="devolverNombreDeTarjeta($event)"> </ion-input>
+                                </ion-item> 
+                                <img [src]="urlBannerTarjeta"  alt=""> 
+                                <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
+                            </div>
+                           
             
                             <ion-item>
                                 <ion-label for="issuer" stacked>Elija el banco *</ion-label>
