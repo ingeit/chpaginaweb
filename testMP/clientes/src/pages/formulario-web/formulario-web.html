@@ -8,6 +8,8 @@
 </ion-header> 
 
 <ion-content padding>   
+    <button (click)="scanearTarjeta()">Scan</button>
+    <p>{{respuestaDeTarjeta}}</p>
     <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
     <ion-grid>
         <ion-row>

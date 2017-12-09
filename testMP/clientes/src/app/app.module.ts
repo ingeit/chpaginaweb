@@ -15,6 +15,8 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { CardIO } from '@ionic-native/card-io';
+
 
 registerLocaleData(localeEs);
 
@@ -52,6 +54,7 @@ registerLocaleData(localeEs);
   ],
   providers: [
     StatusBar,
+    CardIO,
     SplashScreen,
     InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

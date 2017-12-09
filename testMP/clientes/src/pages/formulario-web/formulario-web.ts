@@ -8,6 +8,7 @@ import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-p
 import { ModalPage } from '../modal/modal';
 import * as configServer from './../../server'
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
+import { CardIO } from '@ionic-native/card-io';
 
 declare var Mercadopago;
 
@@ -43,7 +44,8 @@ export class FormularioWebPage {
   @ViewChild(Content) content: Content;
   @ViewChild('paymentMethodId') paymentMeth: any;
   paymentMethodId: any;
-
+  respuestaDeTarjeta:any;
+  
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               private _app: App,
@@ -52,6 +54,7 @@ export class FormularioWebPage {
               public formBuilder: FormBuilder,
               public modalCtrl: ModalController,
               public iab: InAppBrowser,
+              private cardIO: CardIO,
               public formularioProvider:FormularioProvider,
               public operacionesProv:OperacionesProvider
           ) {
@@ -381,6 +384,25 @@ confirmar() {
       });
     }
   }); 
+}
+
+scanearTarjeta(){
+  this.cardIO.canScan()
+  .then(
+    (res: boolean) => {
+      if(res){
+        let options = {
+          requireExpiry: true,
+          requireCVV: false,
+          requirePostalCode: false,
+          hideCardIOLogo:true,
+        };
+        this.cardIO.scan(options).then((respuesta)=>{
+          this.respuestaDeTarjeta = JSON.stringify(respuesta);
+        });
+      }
+    }
+  );
 }
 
 }
