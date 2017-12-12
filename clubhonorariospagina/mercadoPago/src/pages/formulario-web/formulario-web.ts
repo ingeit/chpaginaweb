@@ -344,11 +344,12 @@ obtenerCuotasMP(banco){
     }else{
       this.listaCuotas = response[0];
       this.listaCuotas = this.listaCuotas.payer_costs;
-      // Eliminamos la cuota igual a 1, buscandola en que parte del array esta con el indexOf(1), donde 1 es el valor de installments
-      let index = this.listaCuotas.map( (c) => {return c.installments; }).indexOf(1);
-      if(index !== -1){
-        this.listaCuotas.splice(index,1);
-      };
+      let auxCuotas = [];
+      for(let lc of this.listaCuotas ){
+        if(lc.installments !== 1 && lc.installments <= 12 ){
+          auxCuotas.push(lc);
+        }
+      }
     }
   });
 }
