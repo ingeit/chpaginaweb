@@ -3,6 +3,7 @@ var fechas = require('./../models/operaciones');
 var comisiones = require('./../models/operaciones');
 var nodemailer = require('nodemailer');
 var dateformat = require('dateformat');
+var configMP = require('./../config/mercadoPago.js');
 
 exports.getOperaciones = function(req, res, next){
     operacion.getOperaciones(function(consulta){
@@ -39,80 +40,220 @@ exports.dameOperacion = function(req, res, next){
 }
 
 exports.operacionNueva = function(req, res, next){
-
-    if(req.body.tipoTarjeta === 'C'){
-        var oCuotas = req.body.cuotas;
-    }else{
-        var oCuotas = 1;
-    }
     
-    var oDniProfesional = req.body.dniProfesional;
-    var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
-    var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
-    var oMailProfesional = '"'+req.body.mailProfesional+'"';
-    var oDniCliente = req.body.dniCliente;
-    var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
-    var oNombreCliente = '"'+req.body.nombreCliente+'"';
-    var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
-    var oMailCliente = '"'+req.body.mailCliente+'"';
-    var oTarjeta = '"'+req.body.tarjeta+'"';
-    var oImporteVenta = req.body.importeVenta;
-    var oImporteCobrar = req.body.importeCobrar;
-    var oImporteCarga = req.body.importeCarga;
-    var oImporteCuota = req.body.importeCuota;
-    var oCodigoAuto = req.body.codigoAuto;
-    var oCupon = req.body.cupon;
-    var oTipoTarjeta = '"'+req.body.tipoTarjeta+'"';
-    // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
+        if(req.body.tipoTarjeta === 'C'){
+            var oCuotas = req.body.cuotas;
+        }else{
+            var oCuotas = 1;
+        }
+        
+        var oDniProfesional = req.body.dniProfesional;
+        var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+        var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+        var oMailProfesional = '"'+req.body.mailProfesional+'"';
+        var oDniCliente = req.body.dniCliente;
+        var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+        var oNombreCliente = '"'+req.body.nombreCliente+'"';
+        var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+        var oMailCliente = '"'+req.body.mailCliente+'"';
+        var oTarjeta = '"'+req.body.tarjeta+'"';
+        var oImporteVenta = req.body.importeVenta;
+        var oImporteCobrar = req.body.importeCobrar;
+        var oImporteCarga = req.body.importeCarga;
+        var oImporteCuota = req.body.importeCuota;
+        var oCodigoAuto = req.body.codigoAuto;
+        var oCupon = req.body.cupon;
+        var oTipoTarjeta = '"'+req.body.tipoTarjeta+'"';
+        // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
+        
     
-
-    console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
-
-    operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
-        oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
-        oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
-            console.log(consulta);
-                if(consulta[0].codigo >= 1){
-                    var respuesta = consulta[0];
-                    var oFechaTransaccion = respuesta.fechaTransaccion;
-                    var oFechaPago = respuesta.fechaPago;
-                    var oIdOperacion = respuesta.codigo;
-                    email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
-                        console.log("enviando mail desde operacion nueva: ", res1);
-                        console.log("mail cliente = ",req.body.mailCliente);
-                        if(req.body.mailCliente != ''){
-                            console.log("mail cliente no es vacio, mandando mail");
-                            email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
-                                console.log("enviando mail desde operacion nueva: ", res2);
+        console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
+    
+        operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+            oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+            oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+                console.log(consulta);
+                    if(consulta[0].codigo >= 1){
+                        var respuesta = consulta[0];
+                        var oFechaTransaccion = respuesta.fechaTransaccion;
+                        var oFechaPago = respuesta.fechaPago;
+                        var oIdOperacion = respuesta.codigo;
+                        email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
+                            console.log("enviando mail desde operacion nueva: ", res1);
+                            console.log("mail cliente = ",req.body.mailCliente);
+                            if(req.body.mailCliente != ''){
+                                console.log("mail cliente no es vacio, mandando mail");
+                                email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
+                                    console.log("enviando mail desde operacion nueva: ", res2);
+                                    let response = {
+                                        'mysql' : consulta,
+                                        'mailProfesional' : res1,
+                                        'mailCliente' : res2
+                                    };
+                                    console.log(response);
+                                    res.json(response);
+                                }); 
+                            }else{
+                                console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
                                 let response = {
                                     'mysql' : consulta,
                                     'mailProfesional' : res1,
-                                    'mailCliente' : res2
+                                    'mailCliente' : 'error'
                                 };
-                                console.log(response);
                                 res.json(response);
-                            }); 
+                            }
+                            
+                        });
+                    }else{
+                        console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+                        let response = {
+                            'mysql' : consulta,
+                            'mailProfesional' : 'error',
+                            'mailCliente' : 'error'
+                        };
+                        res.json(response);
+                    }
+            });
+    }
+
+exports.operacionNuevaMP = function(req, res, next){
+    var MP = require ("mercadopago");
+
+    var mp = new MP (configMP.access_token);
+    
+    var doPayment = mp.post ("/v1/payments",
+    {
+        "transaction_amount": req.body.importeCarga,
+        "token": req.body.sdkResponse.id,
+        "description": "Pago de Honorarios a "+req.body.apellidoProfesional+', '+req.body.nombreProfesional,
+        "payer": {
+            "email": req.body.mailCliente,
+            // "email": '',
+        },
+        "installments": parseInt(req.body.cuotas),
+		"payment_method_id": req.body.payment_method_id,
+		"issuer_id": parseInt(req.body.issuer_id)
+    });
+    
+    doPayment.then (
+        (payment) => {
+            switch(payment.response.status_detail) {
+                case 'pending_contingency':
+                    payment.response.status_detail='Pago Pendiente'
+                    break;
+                case 'cc_rejected_bad_filled_security_code':
+                    payment.response.status_detail='Rechazo por codigo de seguridad'
+                    break;
+                case 'cc_rejected_insufficient_amount':
+                    payment.response.status_detail='Rechazo por monto insuficiente'
+                    break;
+                case 'cc_rejected_call_for_authorize':
+                    payment.response.status_detail='Rechazo, llamar para autorizar'
+                    break;
+                case 'cc_rejected_other_reason':
+                    payment.response.status_detail='Rechazo general'
+                    break;
+                case 'cc_rejected_bad_filled_other':
+                    payment.response.status_detail='Rechazo por error en el formulario'
+                    break;
+                case 'cc_rejected_bad_filled_date':
+                    payment.response.status_detail='Rechazo por fecha de expiracion'
+                    break;          
+            }
+            console.log (payment);
+            if(payment.response.status === 'approved'){
+                var oDniProfesional = req.body.dniProfesional;
+                var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+                var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+                var oMailProfesional = '"'+req.body.mailProfesional+'"';
+                var oDniCliente = req.body.dniCliente;
+                var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+                var oNombreCliente = '"'+req.body.nombreCliente+'"';
+                var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+                var oMailCliente = '"'+req.body.mailCliente+'"';
+                var oTarjeta = '"MP"';
+                // var oTarjeta = '"MPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"';
+                var oImporteVenta = req.body.importeVenta;
+                var oImporteCobrar = req.body.importeCobrar;
+                var oCuotas = req.body.cuotas;
+                var oImporteCarga = req.body.importeCarga;
+                var oImporteCuota = req.body.importeCuota;
+                var oCodigoAuto = 0;
+                var oCupon = payment.response.id;
+                var oTipoTarjeta = '"C"';
+            
+            
+                operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+                    oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+                    oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+                        console.log(consulta);
+                        if(consulta[0].codigo >= 1){
+                            var respuesta = consulta[0];
+                            var oFechaTransaccion = respuesta.fechaTransaccion;
+                            var oFechaPago = respuesta.fechaPago;
+                            var oIdOperacion = respuesta.codigo;
+                            email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
+                                console.log("enviando mail desde operacion nueva: ", res1);
+                                console.log("mail cliente = ",req.body.mailCliente);
+                                if(req.body.mailCliente != ''){
+                                    console.log("mail cliente no es vacio, mandando mail");
+                                    email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
+                                        console.log("enviando mail desde operacion nueva: ", res2);
+                                        let response = {
+                                            'mysql' : consulta,
+                                            'mailProfesional' : res1,
+                                            'mailCliente' : res2,
+                                            'MPComprobante':payment.response.id,
+                                            'MPCodigo':'ok',
+                                            'MP':'Pago Realizado Exitosamente'
+                                        };
+                                        console.log(response);
+                                        res.json(response);
+                                    }); 
+                                }else{
+                                    console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
+                                    let response = {
+                                        'mysql' : consulta,
+                                        'mailProfesional' : res1,
+                                        'mailCliente' : 'error',
+                                        'MPComprobante':payment.response.id,
+                                        'MPCodigo':'ok',
+                                        'MP':'Pago Realizado Exitosamente'
+                                    };
+                                    res.json(response);
+                                }
+                                
+                            });
                         }else{
-                            console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
+                            console.log("la op no se realizo, no se envian mails y se cancela",consulta);
                             let response = {
                                 'mysql' : consulta,
-                                'mailProfesional' : res1,
-                                'mailCliente' : 'error'
+                                'mailProfesional' : 'error',
+                                'mailCliente' : 'error',
+                                'MPComprobante':payment.response.id,
+                                'MPCodigo':'ok',
+                                'MP':'Pago Realizado Exitosamente'
                             };
                             res.json(response);
                         }
-                        
                     });
-                }else{
-                    console.log("la op no se realizo, no se envian mails y se cancela",consulta);
-                    let response = {
-                        'mysql' : consulta,
-                        'mailProfesional' : 'error',
-                        'mailCliente' : 'error'
-                    };
-                    res.json(response);
-                }
-        });
+            }else{
+                let response = {
+                    'MPCodigo':'error',
+                    'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
+                };
+                console.log(payment.response.status_detail);
+                res.json(response);
+            }
+        },
+        (error)=> {
+            let response = {
+                'MPCodigo':'error',
+                'MP':'El pago no se realizo. '+error
+            };
+            console.log(error);
+            res.json(response);
+    });
 }
 
 exports.excel = function(req, res, next){
@@ -389,12 +530,16 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         case 'profesional':
             var ejs = require('ejs')
             , path = '/home/backend/views/tamplateProfesional.ejs'
+            // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
+            // , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
         case 'cliente':
             var ejs = require('ejs')
             , path = '/home/backend/views/tamplateCliente.ejs'
+            // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
+            // , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
