@@ -350,7 +350,9 @@ obtenerCuotasMP(banco){
           auxCuotas.push(lc);
         }
       }
+      this.listaCuotas = auxCuotas;
     }
+    
   });
 }
 
