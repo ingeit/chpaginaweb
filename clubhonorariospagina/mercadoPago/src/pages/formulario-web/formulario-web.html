@@ -148,7 +148,7 @@
             
                             <ion-item>
                                 <ion-label for="issuer" stacked>Elija el banco *</ion-label>
-                                <ion-select interface="popover" [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                                <ion-select [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
                                     <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -156,7 +156,7 @@
             
                             <ion-item>
                                 <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
-                                <ion-select  interface="popover" [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
+                                <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
                                 id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
                                     <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
                                 </ion-select>
