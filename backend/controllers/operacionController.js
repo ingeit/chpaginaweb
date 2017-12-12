@@ -121,6 +121,10 @@ exports.operacionNuevaMP = function(req, res, next){
 
     var mp = new MP (configMP.access_token);
     
+    if(req.body.mailCliente === null || req.body.mailCliente === '' || req.body.mailCliente === undefined){
+        req.body.mailCliente = 'pagos@clubhonorarios.com'
+    }
+
     var doPayment = mp.post ("/v1/payments",
     {
         "transaction_amount": req.body.importeCarga,
