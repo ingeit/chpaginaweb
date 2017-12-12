@@ -45,6 +45,16 @@ export class FormularioWebPage {
   @ViewChild('paymentMethodId') paymentMeth: any;
   paymentMethodId: any;
   respuestaDeTarjeta:any;
+  listaSimulaciones = [
+    {name: 'APRO'},
+    {name: 'CONT'},
+    {name: 'CALL'},
+    {name: 'FUND'},
+    {name: 'SECU'},
+    {name: 'EXPI'},
+    {name: 'FORM'},
+    {name: 'OTHE'},
+  ]
   
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
@@ -183,21 +193,28 @@ autoCompletarImportes(){
           default:
             break;
         }
-
-    x=this.tarjeta;
+    
+    //IMPORTANTE!!!!!
+    //X siempre es igual a 3, ya que mercado pago tiene los mismos intereses que VISA
+    x=3;
       //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
       
     yy=this.cuotas;
       // Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
     xyy=x+yy;
-
-    for (let t of this.tarjetasComisiones) {
+    
+    if(xyy === '301'){
+      this.comision = 1;
+    }else{
+      for (let t of this.tarjetasComisiones) {
         if(t.idTarjeta.toString() === xyy){
           console.log("coincidencia en "+t.idTarjeta);
           this.comision = t.tasa;
           console.log(" y la comision es "+this.comision);
         }
+      }
     }
+    
     // Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
     // Ej: 10.225 = 10.23
     //     10.223 = 10.22 
@@ -403,6 +420,10 @@ scanearTarjeta(){
       }
     }
   );
+}
+
+simular(opcion){
+  this.cardholderName = opcion;
 }
 
 }

@@ -8,6 +8,12 @@
 </ion-header> 
 
 <ion-content padding>   
+    <ion-item>
+        <ion-label for="simul" stacked>Test de Simulacion</ion-label>
+        <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
+            <ion-option *ngFor="let b of listaSimulaciones" value="{{b.name}}">{{b.name}}</ion-option>
+        </ion-select>
+    </ion-item>
     <!-- <button (click)="scanearTarjeta()">Scan</button>
     <p>{{respuestaDeTarjeta}}</p> -->
     <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
