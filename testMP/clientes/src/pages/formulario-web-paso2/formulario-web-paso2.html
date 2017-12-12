@@ -41,7 +41,7 @@
       
       <div class="bloque card-container" style="max-width: 1000px;">
         <div class="titulo">
-          <span>Datos Previos</span>
+          <span *ngIf="!mostrarCartelMPError" >Datos Previos</span>
           <!-- Este div me ayuda a que se carguen los CSS. pequeño truco -->
           <div id="preloadfont" >.</div>
         </div>

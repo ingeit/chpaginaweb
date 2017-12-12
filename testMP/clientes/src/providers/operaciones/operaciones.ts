@@ -23,7 +23,7 @@ export class OperacionesProvider {
           let headers = new Headers();
           headers.append('Content-Type', 'application/json');
           
-          this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), {headers: headers})
+          this.http.post(`${configServer.data.urlServidor}/api/operacionNuevaMP/`, JSON.stringify(credentials), {headers: headers})
           .map(res => res.json())
           .subscribe(res => {
             console.log(res);

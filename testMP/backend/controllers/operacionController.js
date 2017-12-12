@@ -40,6 +40,83 @@ exports.dameOperacion = function(req, res, next){
 }
 
 exports.operacionNueva = function(req, res, next){
+    
+        if(req.body.tipoTarjeta === 'C'){
+            var oCuotas = req.body.cuotas;
+        }else{
+            var oCuotas = 1;
+        }
+        
+        var oDniProfesional = req.body.dniProfesional;
+        var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+        var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+        var oMailProfesional = '"'+req.body.mailProfesional+'"';
+        var oDniCliente = req.body.dniCliente;
+        var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+        var oNombreCliente = '"'+req.body.nombreCliente+'"';
+        var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+        var oMailCliente = '"'+req.body.mailCliente+'"';
+        var oTarjeta = '"'+req.body.tarjeta+'"';
+        var oImporteVenta = req.body.importeVenta;
+        var oImporteCobrar = req.body.importeCobrar;
+        var oImporteCarga = req.body.importeCarga;
+        var oImporteCuota = req.body.importeCuota;
+        var oCodigoAuto = req.body.codigoAuto;
+        var oCupon = req.body.cupon;
+        var oTipoTarjeta = '"'+req.body.tipoTarjeta+'"';
+        // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
+        
+    
+        console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
+    
+        operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+            oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+            oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+                console.log(consulta);
+                    if(consulta[0].codigo >= 1){
+                        var respuesta = consulta[0];
+                        var oFechaTransaccion = respuesta.fechaTransaccion;
+                        var oFechaPago = respuesta.fechaPago;
+                        var oIdOperacion = respuesta.codigo;
+                        email('profesional',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res1){
+                            console.log("enviando mail desde operacion nueva: ", res1);
+                            console.log("mail cliente = ",req.body.mailCliente);
+                            if(req.body.mailCliente != ''){
+                                console.log("mail cliente no es vacio, mandando mail");
+                                email('cliente',req.body,oIdOperacion,oFechaTransaccion,oFechaPago,function(res2){
+                                    console.log("enviando mail desde operacion nueva: ", res2);
+                                    let response = {
+                                        'mysql' : consulta,
+                                        'mailProfesional' : res1,
+                                        'mailCliente' : res2
+                                    };
+                                    console.log(response);
+                                    res.json(response);
+                                }); 
+                            }else{
+                                console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
+                                let response = {
+                                    'mysql' : consulta,
+                                    'mailProfesional' : res1,
+                                    'mailCliente' : 'error'
+                                };
+                                res.json(response);
+                            }
+                            
+                        });
+                    }else{
+                        console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+                        let response = {
+                            'mysql' : consulta,
+                            'mailProfesional' : 'error',
+                            'mailCliente' : 'error'
+                        };
+                        res.json(response);
+                    }
+            });
+    }
+
+exports.operacionNuevaMP = function(req, res, next){
     var MP = require ("mercadopago");
 
     var mp = new MP (configMP.access_token);
@@ -452,17 +529,17 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
     switch(destino) {
         case 'profesional':
             var ejs = require('ejs')
-            // , path = '/home/backend/views/tamplateProfesional.ejs'
+            , path = '/home/backend/views/tamplateProfesional.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
-            , path = 'C:/views/tamplateProfesional.ejs'
+            // , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
         case 'cliente':
             var ejs = require('ejs')
-            // , path = '/home/backend/views/tamplateCliente.ejs'
+            , path = '/home/backend/views/tamplateCliente.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
-            , path = 'C:/views/tamplateProfesional.ejs'
+            // , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
@@ -488,7 +565,7 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
             var mailOptions = {
                 from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
                 to: oMailProfesional,
-                // bcc: 'pagos@clubhonorarios.com',// fl@clubhonorarios.com , diego.macian@soramus.com
+                bcc: 'pagos@clubhonorarios.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                 subject: 'Comprobante de transacción realizada',
                 html: '<h3>Estimado Cliente:</h3>'+
                        '<p>A continuación adjuntamos el comprobante de la operación registrada en el día de hoy</p>'+
