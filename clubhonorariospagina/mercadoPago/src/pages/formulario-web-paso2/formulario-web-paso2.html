@@ -19,7 +19,7 @@
    
       <div *ngIf="!mostrarCartelMPError" class="cardGreen card-container">
           <div class="round">
-              <img src="./../../assets/clipgreen.png" alt="">
+              <img src="assets/clipgreen.png" alt="">
           </div>
           <h4>{{sdkResponseHandler.MP}}</h4>
           <h4>Comprobante Nº: {{sdkResponseHandler.MPComprobante}}</h4>
@@ -27,13 +27,13 @@
       </div>  
       <div *ngIf="mostrarCartelMPError" class="cardRed card-container">
           <div class="round">
-              <img src="./../../assets/clipred.png" alt="">
+              <img src="assets/clipred.png" alt="">
           </div>
           <h4>{{sdkResponseHandler.MP}}</h4>
       </div>
       <div style="margin-top:20px" *ngIf="mostrarCartelMysqlError" class="cardRed card-container">
           <div class="round">
-              <img src="./../../assets/clipred.png" alt="">
+              <img src="assets/clipred.png" alt="">
           </div>
           <h4>Debe validar esta operacion con Club Honorarios. Por Favor ponganse en contacto con algun representante, reportando el siguiente error.</h4>
           <h4 style="font-style:italic">{{sdkResponseHandler.mysql[0].mensaje}}</h4>
