@@ -60,6 +60,29 @@ exports.operacionNueva = function(req, res, next){
     
     doPayment.then (
         (payment) => {
+            switch(payment.response.status_detail) {
+                case 'pending_contingency':
+                    payment.response.status_detail='Pago Pendiente'
+                    break;
+                case 'cc_rejected_bad_filled_security_code':
+                    payment.response.status_detail='Rechazo por codigo de seguridad'
+                    break;
+                case 'cc_rejected_insufficient_amount':
+                    payment.response.status_detail='Rechazo por monto insuficiente'
+                    break;
+                case 'cc_rejected_call_for_authorize':
+                    payment.response.status_detail='Rechazo, llamar para autorizar'
+                    break;
+                case 'cc_rejected_other_reason':
+                    payment.response.status_detail='Rechazo general'
+                    break;
+                case 'cc_rejected_bad_filled_other':
+                    payment.response.status_detail='Rechazo por error en el formulario'
+                    break;
+                case 'cc_rejected_bad_filled_date':
+                    payment.response.status_detail='Rechazo por fecha de expiracion'
+                    break;          
+            }
             console.log (payment);
             if(payment.response.status === 'approved'){
                 var oDniProfesional = req.body.dniProfesional;
@@ -142,7 +165,7 @@ exports.operacionNueva = function(req, res, next){
                     'MPCodigo':'error',
                     'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
                 };
-                console.log(payment.response.status_datail);
+                console.log(payment.response.status_detail);
                 res.json(response);
             }
         },
@@ -430,14 +453,16 @@ var email = function (destino,operacion,oIdOperacion,oFechaTransaccion,oFechaPag
         case 'profesional':
             var ejs = require('ejs')
             // , path = '/home/backend/views/tamplateProfesional.ejs'
-            , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
+            // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
+            , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;
         case 'cliente':
             var ejs = require('ejs')
             // , path = '/home/backend/views/tamplateCliente.ejs'
-            , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
+            // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
+            , path = 'C:/views/tamplateProfesional.ejs'
             , str = fs.readFileSync(path, 'utf8');
             var html = ejs.render(str,data);
             break;

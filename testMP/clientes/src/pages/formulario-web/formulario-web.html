@@ -8,12 +8,6 @@
 </ion-header> 
 
 <ion-content padding>   
-    <ion-item>
-        <ion-label for="simul" stacked>Test de Simulacion</ion-label>
-        <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
-            <ion-option *ngFor="let b of listaSimulaciones" value="{{b.name}}">{{b.name}}</ion-option>
-        </ion-select>
-    </ion-item>
     <!-- <button (click)="scanearTarjeta()">Scan</button>
     <p>{{respuestaDeTarjeta}}</p> -->
     <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
@@ -154,7 +148,7 @@
             
                             <ion-item>
                                 <ion-label for="issuer" stacked>Elija el banco *</ion-label>
-                                <ion-select [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                                <ion-select interface="popover" [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
                                     <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -162,7 +156,7 @@
             
                             <ion-item>
                                 <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
-                                <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
+                                <ion-select  interface="popover" [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
                                 id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
                                     <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
                                 </ion-select>
@@ -212,7 +206,12 @@
                                 <ion-label class="letraFuerte"  stacked >Importe total de transaccion</ion-label>
                                 <ion-input disabled formControlName="importeCarga"  type="number" step="0.05" class="form-control importes" name="importeCarga" id="importeCarga"></ion-input>
                             </ion-item>
-
+                            <ion-item>
+                                <ion-label for="simul" stacked>Test de Simulacion</ion-label>
+                                <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
+                                    <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
+                                </ion-select>
+                            </ion-item>
                             <button float-right color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
                         </div>
                     </ion-col> 

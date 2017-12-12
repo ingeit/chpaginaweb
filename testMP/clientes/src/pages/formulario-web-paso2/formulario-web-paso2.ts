@@ -72,8 +72,12 @@ export class FormularioWebPaso2Page {
   ngAfterViewInit(){
       this.canvasElement = this.canvas.nativeElement;
       this.ctx = this.canvasElement.getContext('2d');
-      this.escribrirAzul();
-      this.escribirNaranja();
+      if(this.mostrarCartelMPError === false){
+        console.log("mp sin error, mostrando cupones");
+        this.escribrirAzul();
+        this.escribirNaranja();
+      }
+      
   }
 
   ionViewDidLoad() {

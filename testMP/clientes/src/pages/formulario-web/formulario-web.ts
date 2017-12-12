@@ -46,14 +46,14 @@ export class FormularioWebPage {
   paymentMethodId: any;
   respuestaDeTarjeta:any;
   listaSimulaciones = [
-    {name: 'APRO'},
-    {name: 'CONT'},
-    {name: 'CALL'},
-    {name: 'FUND'},
-    {name: 'SECU'},
-    {name: 'EXPI'},
-    {name: 'FORM'},
-    {name: 'OTHE'},
+    {cod: 'APRO', desc:' Aprobado'},
+    {cod: 'CONT', desc:' Pago Pendiente'},
+    {cod: 'CALL', desc:' Llamar para autorizar'},
+    {cod: 'FUND', desc:' Monto insuficiente'},
+    {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
+    {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
+    {cod: 'FORM', desc:' Rechazado por error en el formulario'},
+    {cod: 'OTHE', desc:' Rechazo general'},
   ]
   
   constructor(public navCtrl: NavController,
@@ -203,15 +203,11 @@ autoCompletarImportes(){
       // Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
     xyy=x+yy;
     
-    if(xyy === '301'){
-      this.comision = 1;
-    }else{
-      for (let t of this.tarjetasComisiones) {
-        if(t.idTarjeta.toString() === xyy){
-          console.log("coincidencia en "+t.idTarjeta);
-          this.comision = t.tasa;
-          console.log(" y la comision es "+this.comision);
-        }
+    for (let t of this.tarjetasComisiones) {
+      if(t.idTarjeta.toString() === xyy){
+        console.log("coincidencia en "+t.idTarjeta);
+        this.comision = t.tasa;
+        console.log(" y la comision es "+this.comision);
       }
     }
     
@@ -336,7 +332,7 @@ obtenerBancos(id){
 obtenerCuotasMP(banco){
   this.issuer_id = banco;
   console.log('se esta mostrado el banco',this.issuer_id);
-  this.showLoader('Consultando Coutas..');
+  this.showLoader('Consultando Cuotas..');
   Mercadopago.getInstallments({
       "bin": this.bin,
       "amount": this.formulario.get('importeCarga').value,
@@ -348,7 +344,11 @@ obtenerCuotasMP(banco){
     }else{
       this.listaCuotas = response[0];
       this.listaCuotas = this.listaCuotas.payer_costs;
-      console.log('cuotas',this.listaCuotas)
+      // Eliminamos la cuota igual a 1, buscandola en que parte del array esta con el indexOf(1), donde 1 es el valor de installments
+      let index = this.listaCuotas.map( (c) => {return c.installments; }).indexOf(1);
+      if(index !== -1){
+        this.listaCuotas.splice(index,1);
+      };
     }
   });
 }
