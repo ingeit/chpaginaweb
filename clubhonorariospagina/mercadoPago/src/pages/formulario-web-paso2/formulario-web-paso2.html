@@ -1,0 +1,56 @@
+ <ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+     <ion-title><img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" /></ion-title>
+  </ion-navbar>
+</ion-header> 
+
+
+
+<ion-content padding>
+  <div class="contenedor">
+      <div id="botonCentrado">
+        <button (click)="volver()" color="secondary" ion-button>
+            <ion-icon name="ios-card"></ion-icon> Nueva Operacion
+        </button>
+      </div>
+   
+      <div *ngIf="!mostrarCartelMPError" class="cardGreen card-container">
+          <div class="round">
+              <img src="./../../assets/clipgreen.png" alt="">
+          </div>
+          <h4>{{sdkResponseHandler.MP}}</h4>
+          <h4>Comprobante Nº: {{sdkResponseHandler.MPComprobante}}</h4>
+          <h4 *ngIf="!mostrarCartelMysqlError">Operacion Nº: {{sdkResponseHandler.mysql[0].codigo}}</h4>
+      </div>  
+      <div *ngIf="mostrarCartelMPError" class="cardRed card-container">
+          <div class="round">
+              <img src="./../../assets/clipred.png" alt="">
+          </div>
+          <h4>{{sdkResponseHandler.MP}}</h4>
+      </div>
+      <div style="margin-top:20px" *ngIf="mostrarCartelMysqlError" class="cardRed card-container">
+          <div class="round">
+              <img src="./../../assets/clipred.png" alt="">
+          </div>
+          <h4>Debe validar esta operacion con Club Honorarios. Por Favor ponganse en contacto con algun representante, reportando el siguiente error.</h4>
+          <h4 style="font-style:italic">{{sdkResponseHandler.mysql[0].mensaje}}</h4>
+      </div>  
+      
+      <div class="bloque card-container" style="max-width: 1000px;">
+        <div class="titulo">
+          <span *ngIf="!mostrarCartelMPError" >Datos Previos</span>
+          <!-- Este div me ayuda a que se carguen los CSS. pequeño truco -->
+          <div id="preloadfont" >.</div>
+        </div>
+
+        <canvas style="display:none" #myCanvas></canvas>
+
+        <img [src]="urlImagenCanvasAzul" *ngIf="imagenEditadaAzul" imageViewer alt="">
+
+        <img [src]="urlImagenCanvas" *ngIf="imagenEditada" imageViewer alt="">
+      </div>
+  </div>
+</ion-content>

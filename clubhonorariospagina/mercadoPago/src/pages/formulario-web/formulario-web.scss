@@ -1,0 +1,84 @@
+page-formulario-web {
+    #preloadfont {
+        font-family: BeautifulCreatures;
+        // opacity:0;
+        height:0;
+        width:0;
+        display:inline-block;
+    }
+    
+    p{
+        margin: 3px 0 20px 15px;
+        color: #f44336 !important;
+    }
+
+     
+    .importes input {
+        background: #105273;
+        color: #fff;
+        position: relative;
+        font-weight: 700;
+        text-align: center
+    }
+
+    #importeCarga input{
+        background: #E65100 ;
+    }
+
+    .text-input[disabled] {
+        opacity: 1 !important;
+    }
+
+    .letraFuerte{
+        color: black !important;
+        font-weight: bold;
+    }
+
+    .guia{
+        background: #8BC34A;
+        color: white;
+        max-width: 500px;
+        margin: 10px auto;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .guia:hover{
+        background: #4CAF50;
+    }
+
+    .guia ion-card-content{
+        font-size: 20px;
+    }
+
+    .guia ion-icon{
+        margin-left: 20px;
+        font-size: 30px;
+    }
+
+    .item-select .label-md{
+        color: #4c4b4b !important;
+    }
+
+    @media (max-width: 500px) { 
+        .scroll-content{
+            padding: 0 !important;
+        }
+        
+        .card2 {
+            padding: 10px 7px 20px;
+        }
+    }
+    
+    #imagenTajeta{
+        position: relative;
+    }
+
+    #imagenTajeta img{
+        position: absolute;
+        bottom: 12px;
+        right: 4%;
+    }
+    
+}
