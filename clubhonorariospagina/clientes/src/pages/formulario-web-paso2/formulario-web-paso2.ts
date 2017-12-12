@@ -103,7 +103,7 @@ export class FormularioWebPaso2Page {
                                           this.fechaTransaccionMysql.getUTCHours(),
                                           this.fechaTransaccionMysql.getUTCMinutes(),
                                           this.fechaTransaccionMysql.getUTCSeconds());
-    this.fechaTransaccionMysql = datePipe.transform(this.fechaTransaccionMysql, 'dd/MM/yyyy H:m');
+    this.fechaTransaccionMysql = datePipe.transform(this.fechaTransaccionMysql, 'dd/MM/yyyy H:mm');
     console.log("fecha transaccion desde form 2 en view load despues de PIPE ", this.fechaTransaccionMysql);
     //Hacemos lo mismo para fecha de pago..
     this.fechaPago = new Date(this.navParams.get('fechaPago'));
