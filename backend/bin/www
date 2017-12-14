@@ -21,8 +21,8 @@ app.set('port', port);
  * Create HTTPSs server.
  */
 
-var privateKey = fs.readFileSync( './certificados/key.pem' );
-var certificate = fs.readFileSync( './certificados/cert.pem' );
+var privateKey = fs.readFileSync( './certificados/key.key' );
+var certificate = fs.readFileSync( './certificados/cert.crt' );
 
 var server2 = https.createServer({
     key: privateKey,
@@ -35,7 +35,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server2.listen('3001')
+server2.listen('443')
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
