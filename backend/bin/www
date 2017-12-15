@@ -21,12 +21,16 @@ app.set('port', port);
  * Create HTTPSs server.
  */
 
-var privateKey = fs.readFileSync( './certificados/key.key' );
-var certificate = fs.readFileSync( './certificados/cert.crt' );
+var privateKey = fs.readFileSync( './certificados/key.key', 'utf8').toString();
+var certificate = fs.readFileSync( './certificados/cert.crt', 'utf8').toString();
+var ca1 = fs.readFileSync( './certificados/ca1.pem', 'utf8').toString();
+var ca2 = fs.readFileSync( './certificados/ca2.pem', 'utf8').toString();
+var certintermediate = fs.readFileSync( './certificados/caBundle.crt', 'utf8').toString();
 
 var server2 = https.createServer({
     key: privateKey,
-    cert: certificate
+    cert: certificate,
+    ca:certintermediate
 }, app);
 
 var server = http.createServer(app);
