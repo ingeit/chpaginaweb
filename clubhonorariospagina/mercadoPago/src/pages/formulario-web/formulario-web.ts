@@ -69,7 +69,7 @@ export class FormularioWebPage {
               public operacionesProv:OperacionesProvider
           ) {
            
-            Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
+            Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
             // Mercadopago.getIdentificationTypes(); 
             
             

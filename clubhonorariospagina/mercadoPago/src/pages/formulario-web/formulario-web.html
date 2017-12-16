@@ -223,12 +223,6 @@
                            <ion-input disabled formControlName="importeCarga" type="number" step="0.05" class="form-control importes" name="importeCarga"
                               id="importeCarga"></ion-input>
                         </ion-item>
-                        <ion-item>
-                           <ion-label for="simul" stacked>Test de Simulacion</ion-label>
-                           <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
-                              <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
-                           </ion-select>
-                        </ion-item>
                         <button float-right color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
                      </div>
                   </ion-col>
