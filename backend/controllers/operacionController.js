@@ -116,6 +116,28 @@ exports.operacionNueva = function(req, res, next){
             });
     }
 
+    exports.pagosMP = function(req, res, next){
+        var MP = require ("mercadopago");
+        var mp = new MP (configMP.access_token);   
+        var filters = {
+            "id": null,
+            "site_id": null,
+            "external_reference": null
+        };
+      
+        mp.searchPayment (filters)
+        .then (
+            function success (data) {
+                console.log (JSON.stringify (data, null, 4));
+                res.json(data.response.results);
+            },
+            function error (err) {
+                res.json(err);
+                console.log (err);
+            }
+        );
+    };
+
 exports.operacionNuevaMP = function(req, res, next){
     var MP = require ("mercadopago");
 

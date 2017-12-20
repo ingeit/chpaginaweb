@@ -16,6 +16,7 @@ router.post('/operacionNueva', OperacionController.operacionNueva);
 router.post('/operacionNuevaMP', OperacionController.operacionNuevaMP);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
+router.get('/pagosMP', OperacionController.pagosMP);
 
 //Profesionales
 router.post('/dameProfesional', ProfesionalesController.dameProfesional);
