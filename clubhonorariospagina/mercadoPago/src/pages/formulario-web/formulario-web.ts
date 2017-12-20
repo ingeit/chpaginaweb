@@ -176,7 +176,8 @@ autoCompletarImportes(){
     this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
     // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
 
-    this.cuotas= ('0' + this.cantCoutas).slice(-2);
+    // this.cuotas= ('0' + this.cantCoutas).slice(-2);
+    this.cuotas= this.cantCoutas;
 
     //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
         switch (this.tarjetaNombre)
@@ -309,6 +310,7 @@ devolverNombreDeTarjeta(numTarjeta){
           console.log('se actualizo el valor del campo escondido',this.tarjetaNombre);
           (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
         }
+        console.log("la tarjeta es : ",response[0].id );
         this.obtenerBancos(response[0].id);
       }else{
         console.log('error al consultar customer',status,response)
@@ -329,32 +331,32 @@ obtenerBancos(id){
   });
 }
 
-obtenerCuotasMP(banco){
-  this.issuer_id = banco;
-  console.log('se esta mostrado el banco',this.issuer_id);
-  this.showLoader('Consultando Cuotas..');
-  Mercadopago.getInstallments({
-      "bin": this.bin,
-      "amount": this.formulario.get('importeCarga').value,
-      "issuer_id": banco
-  }, (status,response)=>{
-    this.loading.dismiss();
-    if (status != 200 && status != 201) {
-      this.mostrarAlerta('Error Nº '+response.cause[0].code,'No se puede comunicar con MercadoPago');
-    }else{
-      this.listaCuotas = response[0];
-      this.listaCuotas = this.listaCuotas.payer_costs;
-      let auxCuotas = [];
-      for(let lc of this.listaCuotas ){
-        if(lc.installments !== 1 && lc.installments <= 12 ){
-          auxCuotas.push(lc);
-        }
-      }
-      this.listaCuotas = auxCuotas;
-    }
+// obtenerCuotasMP(banco){
+//   this.issuer_id = banco;
+//   console.log('se esta mostrado el banco',this.issuer_id);
+//   this.showLoader('Consultando Cuotas..');
+//   Mercadopago.getInstallments({
+//       "bin": this.bin,
+//       "amount": this.formulario.get('importeCarga').value,
+//       "issuer_id": banco
+//   }, (status,response)=>{
+//     this.loading.dismiss();
+//     if (status != 200 && status != 201) {
+//       this.mostrarAlerta('Error Nº '+response.cause[0].code,'No se puede comunicar con MercadoPago');
+//     }else{
+//       this.listaCuotas = response[0];
+//       this.listaCuotas = this.listaCuotas.payer_costs;
+//       let auxCuotas = [];
+//       for(let lc of this.listaCuotas ){
+//         if(lc.installments !== 1 && lc.installments <= 12 ){
+//           auxCuotas.push(lc);
+//         }
+//       }
+//       this.listaCuotas = auxCuotas;
+//     }
     
-  });
-}
+//   });
+// }
 
 completarNombre(){
   this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;

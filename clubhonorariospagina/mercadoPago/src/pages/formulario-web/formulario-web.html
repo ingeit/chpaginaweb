@@ -147,6 +147,19 @@
                         </ion-item>
                         <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
 
+                        <ion-item>
+                              <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
+                              <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
+                                 id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
+                                 <ion-option value="03">3</ion-option>
+                                 <ion-option value="06">6</ion-option>
+                                 <ion-option value="09">9</ion-option>
+                                 <ion-option value="12">12</ion-option>
+                              </ion-select>
+                           </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
+   
+
                         <div id="imagenTajeta">
                            <ion-item>
                               <ion-label for="cardNumber" stacked>Numero de Tarjeta de Credito:</ion-label>
@@ -160,20 +173,11 @@
 
                         <ion-item>
                            <ion-label for="issuer" stacked>Elija el banco *</ion-label>
-                           <ion-select [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                           <ion-select [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer">
                               <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                            </ion-select>
                         </ion-item>
                         <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.bancos.valid  && submitAttempt">Por favor, elija un Banco</p>
-
-                        <ion-item>
-                           <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
-                           <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
-                              id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
-                              <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
-                           </ion-select>
-                        </ion-item>
-                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
 
                         <ion-row>
                            <ion-col col-12 col-lg-4 col-md-12>
