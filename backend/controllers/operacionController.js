@@ -4,6 +4,8 @@ var comisiones = require('./../models/operaciones');
 var nodemailer = require('nodemailer');
 var dateformat = require('dateformat');
 var configMP = require('./../config/mercadoPago.js');
+var now = new Date();
+var fecha = now.toString();
 
 exports.getOperaciones = function(req, res, next){
     operacion.getOperaciones(function(consulta){
@@ -117,6 +119,8 @@ exports.operacionNueva = function(req, res, next){
     }
 
 exports.operacionNuevaMP = function(req, res, next){
+    console.log("======================================================================================");
+    console.log("======================================================================================");
     var MP = require ("mercadopago");
 
     var mp = new MP (configMP.access_token);
@@ -164,12 +168,16 @@ exports.operacionNuevaMP = function(req, res, next){
                     payment.response.status_detail='Rechazo por fecha de expiracion'
                     break;          
             }
-
+            console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            console.log("fecha: ",fecha);
             console.log ("mercado pago respondio, estamos adentro de doPayment THEN");
             console.log ("mostramos la variable payment: ",payment);
+            console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");            
             
             if(payment.response.status === 'approved'){
-                console.log("paymente.response.status es approved, entramos al if para guardar en mysql")
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                console.log("paymente.response.status es approved, entramos al if para guardar en mysql");
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
                 var oDniProfesional = req.body.dniProfesional;
                 var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
                 var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
@@ -246,14 +254,19 @@ exports.operacionNuevaMP = function(req, res, next){
                         }
                     });
             }else{
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
                 console.log("el pago no esta aproved, pasamos por el else");
                 console.log("vamos a leer el motivo del pago no realizado mediante payment.response.status_Detail, EXISTE ESO?");
                 console.log("veamos si existe: este es el payment completo: ", payment);
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
                 let response = {
                     'MPCodigo':'error',
                     'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
                 };
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
+                console.log("mostrando payment.response.status_detail: "); 
                 console.log(payment.response.status_detail);
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
                 res.json(response);
             }
         },
