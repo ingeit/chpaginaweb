@@ -116,28 +116,6 @@ exports.operacionNueva = function(req, res, next){
             });
     }
 
-    exports.pagosMP = function(req, res, next){
-        var MP = require ("mercadopago");
-        var mp = new MP (configMP.access_token);   
-        var filters = {
-            "id": null,
-            "site_id": null,
-            "external_reference": null
-        };
-      
-        mp.searchPayment (filters)
-        .then (
-            function success (data) {
-                console.log (JSON.stringify (data, null, 4));
-                res.json(data.response.results);
-            },
-            function error (err) {
-                res.json(err);
-                console.log (err);
-            }
-        );
-    };
-
 exports.operacionNuevaMP = function(req, res, next){
     var MP = require ("mercadopago");
 
@@ -186,8 +164,12 @@ exports.operacionNuevaMP = function(req, res, next){
                     payment.response.status_detail='Rechazo por fecha de expiracion'
                     break;          
             }
-            console.log (payment);
+
+            console.log ("mercado pago respondio, estamos adentro de doPayment THEN");
+            console.log ("mostramos la variable payment: ",payment);
+            
             if(payment.response.status === 'approved'){
+                console.log("paymente.response.status es approved, entramos al if para guardar en mysql")
                 var oDniProfesional = req.body.dniProfesional;
                 var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
                 var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
@@ -264,6 +246,9 @@ exports.operacionNuevaMP = function(req, res, next){
                         }
                     });
             }else{
+                console.log("el pago no esta aproved, pasamos por el else");
+                console.log("vamos a leer el motivo del pago no realizado mediante payment.response.status_Detail, EXISTE ESO?");
+                console.log("veamos si existe: este es el payment completo: ", payment);
                 let response = {
                     'MPCodigo':'error',
                     'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
