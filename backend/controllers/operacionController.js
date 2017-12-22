@@ -41,6 +41,14 @@ exports.dameOperacion = function(req, res, next){
     });
 }
 
+exports.operacionBaja = function(req, res, next){
+    console.log("dentro de controller nodjs "+req.body.idOperacion);
+    var idOperacion = req.body.idOperacion;
+    operacion.operacionBaja(idOperacion,function(consulta){
+        res.json(consulta);
+    });
+}
+
 exports.operacionNueva = function(req, res, next){
     
         if(req.body.tipoTarjeta === 'C'){

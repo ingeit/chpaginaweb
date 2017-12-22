@@ -37,6 +37,13 @@ exports.dameOperacion = function(idOperacion,fn){
             });
 }
 
+exports.operacionBaja = function(idOperacion,fn){
+    connection.query('call operacion_baja('+idOperacion+')', function(err, rows){  
+                if (err) fn (err);  
+                else fn(rows[0]); 
+            });
+}
+
 
 exports.getFechas = function(fn){
     connection.query('call dame_fechas()', function(err, rows){

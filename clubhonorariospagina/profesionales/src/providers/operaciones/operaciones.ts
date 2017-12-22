@@ -59,6 +59,22 @@ export class OperacionesProvider {
     });
   }
 
+  operacionBaja(credentials){
+    return new Promise((resolve, reject) => { 
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this.http.post(`${configServer.data.urlServidor}/api/operacionBaja`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   transformarFechas(valores){
     valores.forEach((element, index) => {    
         valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion);

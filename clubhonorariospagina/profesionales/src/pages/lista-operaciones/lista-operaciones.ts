@@ -134,7 +134,7 @@ export class ListaOperacionesPage {
     }
 
   dameFecha(){
-    this.showLoader2('Consultando Hora en servidor');
+    this.showLoader2('Consultando operaciones en servidor');
     this.data.dameFechas().then((result) => {
           this.respuesta = result[0];
           if(this.respuesta.codigo === 1){
@@ -149,7 +149,7 @@ export class ListaOperacionesPage {
         }, (err) => {
           console.log("error promises en hora del servidor");
           this.loading.dismiss();
-          this.mostrarAlerta('Error','Hora del servidor inaccesible');
+          this.mostrarAlerta('Error','Servidor inaccesible');
         });
   }
 

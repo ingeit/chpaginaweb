@@ -115,6 +115,7 @@
                         </tr>
                     </tbody>
                       </table>
+            <button ion-button color="danger" (click)="botonEliminar(operacion.idOperacion)"><ion-icon name="trash"></ion-icon>Eliminar</button>
            <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  
           Fecha: {{operacion.fechaTransaccion | date:'dd/MM/yy H:mm'}}<br> 
           {{operacion.tarjeta}} - {{operacion.cuotas}} cuotas &bull; CodAuto: {{operacion.codigoAuto}} &bull; Cupon: {{operacion.cupon}} -->
