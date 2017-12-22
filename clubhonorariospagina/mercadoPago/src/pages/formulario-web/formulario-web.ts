@@ -46,16 +46,16 @@ export class FormularioWebPage {
   @ViewChild('paymentMethodId') paymentMeth: any;
   paymentMethodId: any;
   respuestaDeTarjeta:any;
-  listaSimulaciones = [
-    {cod: 'APRO', desc:' Aprobado'},
-    {cod: 'CONT', desc:' Pago Pendiente'},
-    {cod: 'CALL', desc:' Llamar para autorizar'},
-    {cod: 'FUND', desc:' Monto insuficiente'},
-    {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
-    {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
-    {cod: 'FORM', desc:' Rechazado por error en el formulario'},
-    {cod: 'OTHE', desc:' Rechazo general'},
-  ]
+  // listaSimulaciones = [
+  //   {cod: 'APRO', desc:' Aprobado'},
+  //   {cod: 'CONT', desc:' Pago Pendiente'},
+  //   {cod: 'CALL', desc:' Llamar para autorizar'},
+  //   {cod: 'FUND', desc:' Monto insuficiente'},
+  //   {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
+  //   {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
+  //   {cod: 'FORM', desc:' Rechazado por error en el formulario'},
+  //   {cod: 'OTHE', desc:' Rechazo general'},
+  // ]
   
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
