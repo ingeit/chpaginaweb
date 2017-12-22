@@ -147,26 +147,53 @@ exports.operacionNuevaMP = function(req, res, next){
         (payment) => {
             switch(payment.response.status_detail) {
                 case 'pending_contingency':
-                    payment.response.status_detail='Pago Pendiente'
+                    payment.response.status_detail='Pago en proceso. Puede demorar hasta una hora el procesamiento del pago'
                     break;
-                case 'cc_rejected_bad_filled_security_code':
-                    payment.response.status_detail='Rechazo por codigo de seguridad'
+                case 'pending_review_manual':
+                    payment.response.status_detail='Pago en proceso. Puede demorar hasta 2 diás hábiles el procesamiento del pago'
                     break;
-                case 'cc_rejected_insufficient_amount':
-                    payment.response.status_detail='Rechazo por monto insuficiente'
-                    break;
-                case 'cc_rejected_call_for_authorize':
-                    payment.response.status_detail='Rechazo, llamar para autorizar'
-                    break;
-                case 'cc_rejected_other_reason':
-                    payment.response.status_detail='Rechazo general'
-                    break;
-                case 'cc_rejected_bad_filled_other':
-                    payment.response.status_detail='Rechazo por error en el formulario'
+                case 'cc_rejected_bad_filled_card_number':
+                    payment.response.status_detail='Operacion Rechazada. Revisa el número de la tarjeta'
                     break;
                 case 'cc_rejected_bad_filled_date':
-                    payment.response.status_detail='Rechazo por fecha de expiracion'
-                    break;          
+                    payment.response.status_detail='Operacion Rechazazada. Revisa la fecha de expiracion'
+                    break;  
+                case 'cc_rejected_bad_filled_other':
+                    payment.response.status_detail='Operacion Rechazada. Revisa los datos ingresados'
+                    break;        
+                case 'cc_rejected_bad_filled_security_code':
+                    payment.response.status_detail='Operacion Rechazada. Revisa el codigo de seguridad'
+                    break;
+                case 'cc_rejected_blacklist':
+                    payment.response.status_detail='Operacion Rechazada. No pudimos procesar tu pago'
+                    break;
+                case 'cc_rejected_call_for_authorize':
+                    payment.response.status_detail='Operacion Rechazada'
+                    break;
+                case 'cc_rejected_card_disabled':
+                    payment.response.status_detail='Operacion Rechazada'
+                    break;
+                case 'cc_rejected_card_error':
+                    payment.response.status_detail='Operacion Rechazada. No pudimos procesar tu pago'
+                    break;
+                case 'cc_rejected_duplicated_payment':
+                    payment.response.status_detail='Operacion Rechazada. Ya hiciste un pago por ese valor'
+                    break;
+                case 'cc_rejected_high_risk':
+                    payment.response.status_detail='Operacion Rechazada'
+                    break;
+                case 'cc_rejected_insufficient_amount':
+                    payment.response.status_detail='Operacion Rechazada. Tu tarjeta no tiene fondos suficientes'
+                    break;                
+                case 'cc_rejected_invalid_installments':
+                    payment.response.status_detail='Operacion Rechazada. Tu tarjeta no procesa pagos en esa cantidad de cuotas'
+                    break;                
+                case 'cc_rejected_max_attempts':
+                    payment.response.status_detail='Operacion Rechazada. Llegaste al limite de intentos permitidos'
+                    break;                
+                case 'cc_rejected_other_reason':
+                    payment.response.status_detail='Operacion Rechazada'
+                    break;       
             }
             console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             console.log("fecha: ",fecha);
@@ -174,7 +201,7 @@ exports.operacionNuevaMP = function(req, res, next){
             console.log ("mostramos la variable payment: ",payment);
             console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");            
             
-            if(payment.response.status === 'approved'){
+            if(payment.response.status === 'approved' ){
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
                 console.log("paymente.response.status es approved, entramos al if para guardar en mysql");
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
@@ -253,31 +280,86 @@ exports.operacionNuevaMP = function(req, res, next){
                             res.json(response);
                         }
                     });
-            }else{
+            }else if(payment.response.status === 'in_process'){
                 console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
-                console.log("el pago no esta aproved, pasamos por el else");
-                console.log("vamos a leer el motivo del pago no realizado mediante payment.response.status_Detail, EXISTE ESO?");
-                console.log("veamos si existe: este es el payment completo: ", payment);
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                console.log("paymente.response.status es in process, entramos al if para guardar en mysql");
+                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
+                var oDniProfesional = req.body.dniProfesional;
+                var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+                var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+                var oMailProfesional = '"'+req.body.mailProfesional+'"';
+                var oDniCliente = req.body.dniCliente;
+                var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+                var oNombreCliente = '"'+req.body.nombreCliente+'"';
+                var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+                var oMailCliente = '"'+req.body.mailCliente+'"';
+                var oTarjeta = '"MP"';
+                // var oTarjeta = '"MPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"';
+                var oImporteVenta = req.body.importeVenta;
+                var oImporteCobrar = req.body.importeCobrar;
+                var oCuotas = req.body.cuotas;
+                var oImporteCarga = req.body.importeCarga;
+                var oImporteCuota = req.body.importeCuota;
+                var oCodigoAuto = 0;
+                var oCupon = payment.response.id;
+                var oTipoTarjeta = '"C"';
+            
+            
+                operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+                    oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+                    oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+                        console.log(consulta);
+                        if(consulta[0].codigo >= 1){
+                            var respuesta = consulta[0];
+                            var oFechaTransaccion = respuesta.fechaTransaccion;
+                            var oFechaPago = respuesta.fechaPago;
+                            var oIdOperacion = respuesta.codigo;
+                            let response = {
+                                'mysql' : consulta,
+                                'MPComprobante':payment.response.id,
+                                'MPCodigo':'enProceso',
+                                'MP': payment.response.status_detail
+                            };
+                            console.log(response);
+                            res.json(response);
+                        }else{
+                            console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+                            let response = {
+                                'mysql' : consulta,
+                                'mailProfesional' : 'error',
+                                'mailCliente' : 'error',
+                                'MPComprobante':payment.response.id,
+                                'MPCodigo':'enProceso',
+                                'MP': payment.response.status_detail
+                            };
+                            res.json(response);
+                        }
+                    });
+                }else{
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                    console.log("el pago no esta aproved o en proceso, pasamos por el else");
+                    console.log("vamos a leer el motivo del pago no realizado mediante payment.response.status_Detail, EXISTE ESO?");
+                    console.log("veamos si existe: este es el payment completo: ", payment);
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                    let response = {
+                        'MPCodigo':'error',
+                        'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
+                    };
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
+                    console.log("mostrando payment.response.status_detail: "); 
+                    console.log(payment.response.status_detail);
+                    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                    res.json(response);
+                }
+            },
+            (error)=> {
                 let response = {
                     'MPCodigo':'error',
-                    'MP':'El pago no se realizo. Motivo: '+payment.response.status_detail
+                    'MP':'El pago no se realizo. '+error
                 };
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
-                console.log("mostrando payment.response.status_detail: "); 
-                console.log(payment.response.status_detail);
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                console.log(error);
                 res.json(response);
-            }
-        },
-        (error)=> {
-            let response = {
-                'MPCodigo':'error',
-                'MP':'El pago no se realizo. '+error
-            };
-            console.log(error);
-            res.json(response);
-    });
+        });
 }
 
 exports.excel = function(req, res, next){

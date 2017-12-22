@@ -31,6 +31,7 @@ export class FormularioWebPaso2Page {
   urlImagenCanvasAzul:any;
   imagenEditadaAzul = false;
   mostrarCartelMPError:boolean = false;
+  mostrarCartelMPPendiente:boolean = false;
   mostrarCartelMysqlError:boolean = false;
   //para editar cuotas modificacion
   sdkResponseHandler: any;
@@ -58,6 +59,9 @@ export class FormularioWebPaso2Page {
     if(this.sdkResponseHandler.MPCodigo === 'error'){
       this.mostrarCartelMPError = true;
     }else{
+      if(this.sdkResponseHandler.MPCodigo === 'enProceso'){
+        this.mostrarCartelMPPendiente = true;
+      }
       if(this.sdkResponseHandler.mysql[0].codigo === 0){
         this.mostrarCartelMysqlError = true;
       }
@@ -72,7 +76,7 @@ export class FormularioWebPaso2Page {
   ngAfterViewInit(){
       this.canvasElement = this.canvas.nativeElement;
       this.ctx = this.canvasElement.getContext('2d');
-      if(this.mostrarCartelMPError === false){
+      if(this.mostrarCartelMPError === false && this.mostrarCartelMPPendiente === false ){
         console.log("mp sin error, mostrando cupones");
         this.escribrirAzul();
         this.escribirNaranja();
