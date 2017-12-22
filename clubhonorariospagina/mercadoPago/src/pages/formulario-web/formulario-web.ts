@@ -70,8 +70,8 @@ export class FormularioWebPage {
               public operacionesProv:OperacionesProvider
           ) {
            
-            // Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
-            Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
+            Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+            // Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
             // Mercadopago.getIdentificationTypes(); 
             
             
