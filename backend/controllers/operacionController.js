@@ -34,7 +34,6 @@ exports.getComisiones = function(req, res, next){
 }
 
 exports.dameOperacion = function(req, res, next){
-    console.log("dentro de controller nodjs "+req.body.idOperacion);
     var idOperacion = req.body.idOperacion;
     operacion.dameOperacion(idOperacion,function(consulta){
         res.json(consulta);
@@ -42,7 +41,6 @@ exports.dameOperacion = function(req, res, next){
 }
 
 exports.operacionBaja = function(req, res, next){
-    console.log("dentro de controller nodjs "+req.body.idOperacion);
     var idOperacion = req.body.idOperacion;
     operacion.operacionBaja(idOperacion,function(consulta){
         res.json(consulta);
@@ -77,12 +75,12 @@ exports.operacionNueva = function(req, res, next){
         // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
         
     
-        console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
+        // console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
     
         operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
             oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
             oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
-                console.log(consulta);
+                // console.log(consulta);
                     if(consulta[0].codigo >= 1){
                         var respuesta = consulta[0];
                         var oFechaTransaccion = respuesta.fechaTransaccion;
@@ -526,7 +524,7 @@ exports.excel = function(req, res, next){
         
     operacion.getOperacionesPorFecha(fechaInicio,fechaFin,function(consulta){
         let operaciones = consulta;
-        console.log(operaciones);
+        // console.log(operaciones);
         if(operaciones[0].codigo !== 0){
             for(i=0;i <operaciones.length;i++){
             codInterno = operaciones[i].idOperacion;
@@ -742,7 +740,7 @@ exports.pdf = function(req, res, next){
         , path = '/home/backend/views/tamplateProfesional.ejs'
         , str = fs.readFileSync(path, 'utf8');
 
-    console.log(path);
+    // console.log(path);
 
     data = {
         'fechaImpresion': 'hola',

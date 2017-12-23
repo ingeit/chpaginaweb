@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
 
 exports.getOperaciones = function(fn){
     connection.query('call operacion_listar_dia()', function(err, rows){  
-            console.log(rows[0]);
+            // console.log(rows[0]);
                 if (err) fn (err);  
                 else fn(rows[0]); 
             });
@@ -90,7 +90,7 @@ exports.crash = function(fn){
 
 exports.test = function(idOperacion,fn){
     connection.query('call operacion_dame('+idOperacion+')', function(err, rows){  
-                console.log("desde model errr ",err,"desde model rows ", rows);
+                // console.log("desde model errr ",err,"desde model rows ", rows);
                 if (err) {
                     consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 
                     fn (consulta);  

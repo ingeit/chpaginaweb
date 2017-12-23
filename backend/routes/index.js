@@ -20,11 +20,11 @@ router.get('/pagosMP', function(req, res, next) {
   mp.searchPayment (filters)
   .then (
       function success (data) {
-          console.log (JSON.stringify (data, null, 4));
+        //   console.log (JSON.stringify (data, null, 4));
           res.send(JSON.stringify (data, null, 4))
       },
       function error (err) {
-          console.log (err);
+        //   console.log (err);
       }
   );
   

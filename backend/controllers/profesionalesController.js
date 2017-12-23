@@ -3,14 +3,11 @@ var dateformat = require('dateformat');
 var vendedores = require('./../models/vendedores');
 
 exports.dameProfesional = function(req, res, next){
-   console.log("dni llega post nodejs:  ",req.body.dni);
     var dni = req.body.dni;
     profesional.dameProfesional(dni,function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
@@ -21,10 +18,8 @@ exports.bajaProfesional = function(req, res, next){
     var idProfesional = req.body.idProfesional;
     profesional.bajaProfesional(idProfesional,function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
@@ -32,13 +27,10 @@ exports.bajaProfesional = function(req, res, next){
 }
 
 exports.listarProfesionales = function(req, res, next){
-    console.log("entrado al controller listarProf");
     profesional.listarProfesionales(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
@@ -170,7 +162,6 @@ exports.excel = function(req, res, next){
         
     profesional.getProfesionalesPorFecha(fechaInicio,fechaFin,function(consulta){
             let profesional = consulta;
-            console.log(profesional);
             if(profesional[0].codigo !== 0){
                 for(i=0;i <profesional.length;i++){
                     dni = profesional[i].dni;
@@ -217,10 +208,8 @@ exports.excel = function(req, res, next){
 exports.dameProvincias = function(req, res, next){
     profesional.dameProvincias(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
@@ -232,10 +221,8 @@ exports.dameCiudades = function(req, res, next){
     var idProvincia = req.body.idProvincia;
     profesional.dameCiudades(idProvincia,function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
@@ -245,10 +232,8 @@ exports.dameCiudades = function(req, res, next){
 exports.dameVendedores = function(req, res, next){
     vendedores.listarVendedores(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            console.log("cod = 0, TODO MAL");
             res.json(consulta);
         }else{
-            console.log("cod != de 0, TODO OK");
             consulta[0].codigo = 1; 
             res.json(consulta);
         }
