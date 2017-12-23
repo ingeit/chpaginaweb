@@ -359,11 +359,18 @@ exports.operacionNuevaMP = function(req, res, next){
                 }
             },
             (error)=> {
+                console.log("estamos en la parte de error del payment, mostrando error: ", error);
+                try {
+                    if( error.message === 'payer.email must be a valid email'){
+                        error.message = 'Email incorrecto. Por favor ingrese un email válido';
+                    }
+                } catch (tryError) {
+                    console.log('no se pudo cambiar el nombre del error a español, error del catch: ',tryError);
+                }
                 let response = {
                     'MPCodigo':'error',
                     'MP':'El pago no se realizo. '+error
                 };
-                console.log(error);
                 res.json(response);
         });
 }
