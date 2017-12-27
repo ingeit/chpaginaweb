@@ -108,19 +108,16 @@
                         <ion-item>
                            <ion-label stacked>Apellido *</ion-label>
                            <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
-                              (ionChange)='completarNombre()' [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
+                             [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
                         </ion-item>
                         <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
 
                         <ion-item>
                            <ion-label stacked>Nombre *</ion-label>
                            <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente"
-                              (ionChange)='completarNombre()' [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
+                              [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
                         </ion-item>
                         <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
-
-                        <input type="hidden" id="cardholderName" [(ngModel)]="cardholderName" [ngModelOptions]="{standalone: true}" data-checkout="cardholderName"
-                        />
 
                         <ion-item>
                            <ion-label stacked>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
@@ -178,6 +175,10 @@
                            <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
                         </div>
 
+                        <ion-item>
+                              <ion-label for="cardholderName" stacked>Nombre y apellido impreso en la tarjeta</ion-label>
+                              <ion-input type="text" formControlName="cardholderName" id="cardholderName"  data-checkout="cardholderName"></ion-input>
+                         </ion-item>
 
                         <ion-item>
                            <ion-label for="issuer" stacked>Elija el banco *</ion-label>

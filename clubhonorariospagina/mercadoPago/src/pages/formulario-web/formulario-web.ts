@@ -40,7 +40,6 @@ export class FormularioWebPage {
   cantCoutas:any = null;
   mostrarCuotaBanco: boolean = false;
   issuer_id:any = null;
-  cardholderName:any;
   urlBannerTarjeta:any;
   @ViewChild(Content) content: Content;
   @ViewChild('paymentMethodId') paymentMeth: any;
@@ -70,8 +69,8 @@ export class FormularioWebPage {
               public operacionesProv:OperacionesProvider
           ) {
            
-            Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
-            // Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
+            // Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+            Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
             // Mercadopago.getIdentificationTypes(); 
             
             
@@ -81,6 +80,7 @@ export class FormularioWebPage {
               numeroTarjeta: ['',Validators.compose([Validators.maxLength(16),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
               cardExpirationMonth: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1),Validators.pattern(/()\d/g),Validators.required])],
               cardExpirationYear: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])],
+              cardholderName: ['',Validators.compose([Validators.required])],
               codSeguridad: ['',Validators.compose([Validators.maxLength(3),Validators.minLength(3),Validators.pattern(/()\d/g),Validators.required])],
               bancos:['',Validators.compose([Validators.required])],
               dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
@@ -372,18 +372,18 @@ obtenerCuotasMP(banco){
   });
 }
 
-completarNombre(){
-  this.cardholderName = this.formulario.get('apellidoCliente').value+' '+this.formulario.get('nombreCliente').value;
-}
-
-
 confirmar() {
   var $form = document.querySelector('#pay');
-  this.showLoader('Pagando... Espere por Favor');
+  this.showLoader('Realizando operación. Espere por favor...');
   Mercadopago.createToken($form, (status,sdkResponseHandler)=>{
     if (status != 200 && status != 201) {
       this.loading.dismiss();
-      this.mostrarAlerta('Error Nº'+sdkResponseHandler.cause[0].code,'No se puede comunicar con MercadoPago');
+      try {
+        this.mostrarAlerta('Error Nº'+sdkResponseHandler.cause[0].code,'No se puede comunicar con MercadoPago');
+      } catch (error) {
+        this.mostrarAlerta('Error','No se puede comunicar con MercadoPago');
+      }
+      
     }else{
       let details = {
         dniProfesional: parseInt(this.formulario.get('dniProfesional').value),
@@ -442,7 +442,7 @@ scanearTarjeta(){
 }
 
 simular(opcion){
-  this.cardholderName = opcion;
+  this.formulario.controls['cardholderName'].setValue(opcion);
 }
 
 }
