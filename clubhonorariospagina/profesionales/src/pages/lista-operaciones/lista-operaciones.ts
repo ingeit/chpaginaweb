@@ -24,6 +24,7 @@ export class ListaOperacionesPage {
   fechaFin:any;
   mostrarTarjetas = false;
   respuesta:any;
+  montoTotal = 0;
   
   constructor(public navCtrl: NavController,
               public data: OperacionesProvider,
@@ -61,8 +62,14 @@ export class ListaOperacionesPage {
       this.Operaciones = data;
       if(this.Operaciones[0].codigo != 0){
           this.mostrarTarjetas = true;
-          console.log(this.Operaciones);
+          console.log("operaciones: ",this.Operaciones);
+          this.montoTotal=0;
+          for(let o of this.Operaciones){
+            this.montoTotal = this.montoTotal + o.importeVenta;
+          } 
+          console.log("importe total de ventas: ",this.montoTotal)
       }
+      
     }); 
   }
 
@@ -86,6 +93,11 @@ export class ListaOperacionesPage {
         this.Operaciones = data;
         if(this.Operaciones[0].codigo != 0){
           this.mostrarTarjetas = true;
+          this.montoTotal=0;
+          for(let o of this.Operaciones){
+            this.montoTotal = this.montoTotal + o.importeVenta;
+          } 
+          console.log("importe total de ventas: ",this.montoTotal)
         }else{
           this.mostrarTarjetas = false;
         }

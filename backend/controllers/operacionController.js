@@ -132,7 +132,7 @@ exports.operacionNuevaMP = function(req, res, next){
     var mp = new MP (configMP.access_token);
     
     if(req.body.mailCliente === null || req.body.mailCliente === '' || req.body.mailCliente === undefined){
-        req.body.mailCliente = 'pagos@clubhonorarios.com'
+        req.body.mailCliente = req.body.mailProfesional; 
     }
 
     var doPayment = mp.post ("/v1/payments",
@@ -287,60 +287,80 @@ exports.operacionNuevaMP = function(req, res, next){
                         }
                     });
             }else if(payment.response.status === 'in_process'){
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
-                console.log("paymente.response.status es in process, entramos al if para guardar en mysql");
-                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
-                var oDniProfesional = req.body.dniProfesional;
-                var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
-                var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
-                var oMailProfesional = '"'+req.body.mailProfesional+'"';
-                var oDniCliente = req.body.dniCliente;
-                var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
-                var oNombreCliente = '"'+req.body.nombreCliente+'"';
-                var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
-                var oMailCliente = '"'+req.body.mailCliente+'"';
-                var oTarjeta = '"MP"';
-                // var oTarjeta = '"MPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"';
-                var oImporteVenta = req.body.importeVenta;
-                var oImporteCobrar = req.body.importeCobrar;
-                var oCuotas = req.body.cuotas;
-                var oImporteCarga = req.body.importeCarga;
-                var oImporteCuota = req.body.importeCuota;
-                var oCodigoAuto = 0;
-                var oCupon = payment.response.id;
-                var oTipoTarjeta = '"C"';
-            
-            
-                operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
-                    oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
-                    oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
-                        console.log(consulta);
-                        if(consulta[0].codigo >= 1){
-                            var respuesta = consulta[0];
-                            var oFechaTransaccion = respuesta.fechaTransaccion;
-                            var oFechaPago = respuesta.fechaPago;
-                            var oIdOperacion = respuesta.codigo;
-                            let response = {
-                                'mysql' : consulta,
-                                'MPComprobante':payment.response.id,
-                                'MPCodigo':'enProceso',
-                                'MP': payment.response.status_detail
-                            };
-                            console.log(response);
-                            res.json(response);
-                        }else{
-                            console.log("la op no se realizo, no se envian mails y se cancela",consulta);
-                            let response = {
-                                'mysql' : consulta,
-                                'mailProfesional' : 'error',
-                                'mailCliente' : 'error',
-                                'MPComprobante':payment.response.id,
-                                'MPCodigo':'enProceso',
-                                'MP': payment.response.status_detail
-                            };
-                            res.json(response);
-                        }
-                    });
+                console.log("pago en proceso.. lo cancelamos, el ID es: ",payment.response.id);
+                let id = payment.response.id;
+
+                mp.cancelPayment (id, function (err, data){
+                    if (err) {
+                        console.log ("error al cancelar el pago pendiente ");
+                        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
+                        console.log("mostramos el error: ",err); 
+                        console.log("lo guardamos en mysql y mostramos mensaje de pago pendiente para que CH decida que hacer"); 
+                        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"); 
+                        var oDniProfesional = req.body.dniProfesional;
+                        var oApellidoProfesional = '"'+req.body.apellidoProfesional+'"';
+                        var oNombreProfesional = '"'+req.body.nombreProfesional+'"';
+                        var oMailProfesional = '"'+req.body.mailProfesional+'"';
+                        var oDniCliente = req.body.dniCliente;
+                        var oApellidoCliente = '"'+req.body.apellidoCliente+'"';
+                        var oNombreCliente = '"'+req.body.nombreCliente+'"';
+                        var oTelefonoCliente = '"'+req.body.telefonoCliente+'"';
+                        var oMailCliente = '"'+req.body.mailCliente+'"';
+                        var oTarjeta = '"MP"';
+                        // var oTarjeta = '"MPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"';
+                        var oImporteVenta = req.body.importeVenta;
+                        var oImporteCobrar = req.body.importeCobrar;
+                        var oCuotas = req.body.cuotas;
+                        var oImporteCarga = req.body.importeCarga;
+                        var oImporteCuota = req.body.importeCuota;
+                        var oCodigoAuto = 0;
+                        var oCupon = payment.response.id;
+                        var oTipoTarjeta = '"C"';
+                    
+                    
+                        operacion.operacionNueva(oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,
+                            oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,
+                            oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,oCodigoAuto,oCupon,oTipoTarjeta,function(consulta){
+                                console.log(consulta);
+                                if(consulta[0].codigo >= 1){
+                                    var respuesta = consulta[0];
+                                    var oFechaTransaccion = respuesta.fechaTransaccion;
+                                    var oFechaPago = respuesta.fechaPago;
+                                    var oIdOperacion = respuesta.codigo;
+                                    let response = {
+                                        'mysql' : consulta,
+                                        'MPComprobante':id,
+                                        'MPCodigo':'enProceso',
+                                        'MP': "Pago pendiente. No se pudo cancelar por el siguiente motivo: "+err.message+"."
+                                    };
+                                    console.log(response);
+                                    res.json(response);
+                                }else{
+                                    console.log("la op no se realizo, no se envian mails y se cancela",consulta);
+                                    let response = {
+                                        'mysql' : consulta,
+                                        'mailProfesional' : 'error',
+                                        'mailCliente' : 'error',
+                                        'MPComprobante':id,
+                                        'MPCodigo':'enProceso',
+                                        'MP': "Pago pendiente. No se pudo cancelar por el siguiente motivo: "+err.message+"."
+                                    };
+                                    res.json(response);
+                                }
+                            });
+                    }else{
+                        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                        console.log("el esta en proceso, y se pudo cancelar");
+                        console.log("se cancelo el pago pendiente de id: ",id);
+                        console.log("informacion de la cancelacion:  ",data);
+                        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
+                        let response = {
+                            'MPCodigo':'error',
+                            'MP':'El pago no se realizo. Motivo: La operación quedó en estado pendiente y se la canceló con éxito'
+                        };
+                        res.json(response);
+                    }
+                  });
                 }else{
                     console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");  
                     console.log("el pago no esta aproved o en proceso, pasamos por el else");

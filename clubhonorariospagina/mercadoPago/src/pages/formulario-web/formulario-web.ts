@@ -34,7 +34,7 @@ export class FormularioWebPage {
   tarjetaNombre: string;
   dniProfesionalForm: any;
   lapos: any;
-  listadoBancos:any = null;
+  listadoBancos = [];
   listaCuotas:any = null;
   bin:any = null;
   cantCoutas:any = null;
@@ -69,20 +69,20 @@ export class FormularioWebPage {
               public operacionesProv:OperacionesProvider
           ) {
            
-            // Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
-            Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
+            Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+            // Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
             // Mercadopago.getIdentificationTypes(); 
             
             
             this.dameFechasyComisiones();
 
             this.formulario = formBuilder.group({
-              numeroTarjeta: ['',Validators.compose([Validators.maxLength(16),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
+              numeroTarjeta: ['',Validators.compose([Validators.maxLength(17),Validators.minLength(6),Validators.pattern(/()\d/g),Validators.required])],
               cardExpirationMonth: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1),Validators.pattern(/()\d/g),Validators.required])],
               cardExpirationYear: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])],
               cardholderName: ['',Validators.compose([Validators.required])],
               codSeguridad: ['',Validators.compose([Validators.maxLength(3),Validators.minLength(3),Validators.pattern(/()\d/g),Validators.required])],
-              bancos:['',Validators.compose([Validators.required])],
+              bancos:[''],
               dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
               apellidoProfesional: [''],
               nombreProfesional: [''],
@@ -294,7 +294,7 @@ devolverNombreDeTarjeta(numTarjeta){
         "bin": this.bin
     }, (status,response)=>{
       if (status == 200) {
-        console.log('respuesta',response[0])
+        console.log('respuesta bancos',response[0])
         var form = document.querySelector('#pay');
         if (document.querySelector("input[name=paymentMethodId]") == null) {
             var paymentMethod = document.createElement('input');
@@ -303,11 +303,11 @@ devolverNombreDeTarjeta(numTarjeta){
             paymentMethod.setAttribute('value', response[0].id);
             form.appendChild(paymentMethod);
             this.tarjetaNombre = response[0].id;
-            this.urlBannerTarjeta = response[0].thumbnail;
+            this.urlBannerTarjeta = response[0].secure_thumbnail;
             console.log('valor del campo escondido',this.tarjetaNombre)
         } else {
           this.tarjetaNombre = response[0].id;
-          this.urlBannerTarjeta = response[0].thumbnail;
+          this.urlBannerTarjeta = response[0].secure_thumbnail;
           console.log('se actualizo el valor del campo escondido',this.tarjetaNombre);
           (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
         }

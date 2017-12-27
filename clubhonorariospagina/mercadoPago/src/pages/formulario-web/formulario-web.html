@@ -72,7 +72,7 @@
                <ion-row class="alturaMinima">
                   <ion-col col-12 col-lg-12 col-sm-12>
                      <div class="card2 card-container">
-                        <h3>Fechas
+                        <h3>Fecha de Operación
                            <div id="preloadfont">.</div>
                         </h3>
                         <ion-row>
@@ -97,14 +97,6 @@
                      <div class="card2 card-container">
                         <h2 style="margin-top: 0.3rem;">Datos del titular de la tarjeta</h2>
                         <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
-
-                        <ion-item>
-                           <ion-label for="docNumber" stacked>DNI </ion-label>
-                           <ion-input formControlName="dniCliente" type="number" class="form-control" id="docNumber" data-checkout="docNumber"
-                              [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
-                        </ion-item>
-                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
-
                         <ion-item>
                            <ion-label stacked>Apellido *</ion-label>
                            <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
@@ -167,7 +159,7 @@
 
                         <div id="imagenTajeta">
                            <ion-item>
-                              <ion-label for="cardNumber" stacked>Numero de Tarjeta de Credito:</ion-label>
+                              <ion-label for="cardNumber" stacked>Número de Tarjeta de Credito:</ion-label>
                               <ion-input formControlName="numeroTarjeta" type="number" id="cardNumber" data-checkout="cardNumber"
                                  (ionChange)="devolverNombreDeTarjeta($event)"> </ion-input>
                            </ion-item>
@@ -179,10 +171,16 @@
                               <ion-label for="cardholderName" stacked>Nombre y apellido impreso en la tarjeta</ion-label>
                               <ion-input type="text" formControlName="cardholderName" id="cardholderName"  data-checkout="cardholderName"></ion-input>
                          </ion-item>
-
-                        <ion-item>
+                         <ion-item>
+                              <ion-label for="docNumber" stacked>Documento del titular de esta tarjeta </ion-label>
+                              <ion-input formControlName="dniCliente" type="number" class="form-control" id="docNumber" data-checkout="docNumber"
+                                 [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
+                           </ion-item>
+                           <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
+   
+                        <ion-item *ngIf="formulario.controls.numeroTarjeta.valid && listadoBancos.length !== 0">
                            <ion-label for="issuer" stacked>Elija el banco *</ion-label>
-                           <ion-select [disabled]="!formulario.controls.numeroTarjeta.valid" formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                           <ion-select  formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
                               <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                            </ion-select>
                         </ion-item>
