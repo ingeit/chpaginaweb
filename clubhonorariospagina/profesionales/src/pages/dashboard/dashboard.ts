@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
 import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
+import { CalendarioPage } from '../calendario/calendario';
 
 /**
  * Generated class for the DashboardPage page.
@@ -24,11 +25,21 @@ export class DashboardPage {
   }
 
   public ir(direccion){
-    if(direccion === 'operaciones'){
-      this.navCtrl.setRoot(ListaOperacionesPage);    
-    }else{
-      this.navCtrl.setRoot(ListarProfesionalesPage);   
-    }
+    switch (direccion)
+        {
+          case "operaciones":
+          this.navCtrl.setRoot(ListaOperacionesPage); 
+            
+            break;
+          case "profesionales":
+          this.navCtrl.setRoot(ListarProfesionalesPage); 
+            break;
+          case "calendario":
+          this.navCtrl.setRoot(CalendarioPage);
+            break;
+          default:
+            break;
+        }
   }
 
 }

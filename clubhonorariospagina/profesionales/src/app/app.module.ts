@@ -18,6 +18,8 @@ import { VerOperacionPage } from '../pages/ver-operacion/ver-operacion';
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { CalendarioPage } from '../pages/calendario/calendario';
+import { CalendarModule } from 'ionic3-calendar-en';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -36,13 +38,15 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     SideMenu,
     DashboardPage,
     ListarProfesionalesPage,
-    FormProfesionalPage
+    FormProfesionalPage,
+    CalendarioPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
     TooltipsModule,
+    CalendarModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
       mode: "md",
@@ -63,7 +67,8 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     DashboardPage,
     ListarProfesionalesPage,
     FormProfesionalPage,
-    SideMenu
+    SideMenu,
+    CalendarioPage
   ],
   providers: [
     StatusBar,
