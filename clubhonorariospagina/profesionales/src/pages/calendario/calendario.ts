@@ -18,6 +18,7 @@ export class CalendarioPage {
 
   respuesta: any;
   calendarioAnual:any = [];
+  añoCalendario = 2018;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -33,25 +34,20 @@ export class CalendarioPage {
 
   obtenerFechasHabiles(){
     this.fechaProvider.obtenerFechas().then((data)=>{
-      this.respuesta = data;   
-      console.log("antes ",this.respuesta); 
-      this.respuesta = new Date();
-      console.log("despues ",this.respuesta);
-      // this.armarCalendario();
-      // this.fechas = this.respuesta.subCategorias;
+      this.respuesta = data;  
+      console.log("respuesta ",this.respuesta); 
+      this.armarCalendario(2018);
     });
   }
 
-  armarCalendario(){
-
+  armarCalendario(año){
+    this.calendarioAnual = [];
     for(let i=0; i < this.respuesta.length; i++){ // n is array.length
-      console.log(this.respuesta[i].Fechas.getFullYear());
-      if(this.respuesta[i].Fechas.getFullYear() === 2017){
+      if(this.respuesta[i].Fechas.getUTCFullYear() === 2018){
         this.calendarioAnual.push(this.respuesta[i].Fechas);
       }
-   }
-   console.log(this.calendarioAnual);
-    
+    }
+   console.log("calendario anual: ",this.calendarioAnual);
   }
 
 }
