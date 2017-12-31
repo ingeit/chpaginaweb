@@ -29,6 +29,17 @@ exports.bajaProfesional = function(idProfesional,fn){
     });
 }
 
+
+exports.listarFechasHabiles = function(fn){
+    // console.log("entrado al modelo listarProf");
+    connection.query('call listar_fechas_habiles()', function(err, rows){
+        if (err) {
+            consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 
+            fn (consulta);  
+        }else fn(rows[0]); 
+    });
+}
+
 exports.listarProfesionales = function(fn){
     // console.log("entrado al modelo listarProf");
     connection.query('call profesionalTemp_listar()', function(err, rows){

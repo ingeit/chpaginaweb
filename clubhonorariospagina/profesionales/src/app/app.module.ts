@@ -26,6 +26,7 @@ import { Storage } from '@ionic/storage';
 import { LoginProvider } from '../providers/login/login';
 import { OperacionesProvider } from '../providers/operaciones/operaciones';
 import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
+import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habiles';
 
 
 
@@ -55,7 +56,11 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
       modalLeave: 'modal-slide-out',
       tabsPlacement: 'bottom',
       pageTransition: 'md-transition',
+      monthNames: ['Enero', 'Febrero', 'Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' ],
       monthShortNames: ['Ene', 'Feb', 'Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+      dayNames: ['Domingo', 'Lunes', 'Martes','Miercoles','Jueves','Viernes','Sabado' ],
+      dayShortNames: ['Dom', 'Lun', 'Mar','Mie','Jue','Vie','Sab'],
+      
     }),
   ],
   bootstrap: [IonicApp],
@@ -78,7 +83,8 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
     OperacionesProvider,
-    ProfesionalesProvider
+    ProfesionalesProvider,
+    FechasHabilesProvider
   ]
 })
 export class AppModule {}

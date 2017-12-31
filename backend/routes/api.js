@@ -33,6 +33,9 @@ router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 //router.get('/mysql', MysqlController.dump);
 //router.post('/test',OperacionController.test);
 
+
+router.get('/listarFechasHabiles', ProfesionalesController.listarFechasHabiles);
+
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
 // router.get('/email',OperacionController.email);
 
