@@ -19,8 +19,16 @@
       <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="myDate"></ion-datetime>
     </ion-item>
     
-    <p *ngFor="let ca of calendarioAnual">
+    <!-- <p *ngFor="let ca of calendarioAnual">
       {{ca  | date: 'dd/MM/yyyy' }}
-    </p>
+    </p> -->
+
+    <ion-calendar [(ngModel)]="dateMulti"
+              [options]="optionsMulti"
+              [type]="type"
+              [format]="'YYYY-MM-DD'"
+              (onChange)="cambio($event)">
+              
+    </ion-calendar>
 
 </ion-content>

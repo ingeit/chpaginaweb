@@ -19,7 +19,8 @@ import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-pr
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { CalendarioPage } from '../pages/calendario/calendario';
-import { CalendarModule } from 'ionic3-calendar-en';
+
+import { CalendarModule } from "ion2-calendar";
 
 // Providers
 import { Storage } from '@ionic/storage';
