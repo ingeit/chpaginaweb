@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FechasHabilesProvider } from '../../providers/fechas-habiles/fechas-habiles';
 import { CalendarComponentOptions } from 'ion2-calendar'
-
+import * as moment from 'moment';
+import 'moment/locale/es';
 /**
  * Generated class for the CalendarioPage page.
  *
@@ -21,6 +22,8 @@ export class CalendarioPage {
   calendarioAnual:any = [];
   añoCalendario = 2018;
   
+
+  //ion2-calendar
   dateMulti: string[];
   type: 'string'; // 'string' | 'js-date' | 'moment' | 'time' | 'object'
   optionsMulti: CalendarComponentOptions = {
@@ -35,6 +38,9 @@ export class CalendarioPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider, ) {
+
+                
+                
   }
 
   
@@ -47,7 +53,7 @@ export class CalendarioPage {
   obtenerFechasHabiles(){
     this.fechaProvider.obtenerFechas().then((data)=>{
       this.respuesta = data;  
-      console.log("respuesta ",this.respuesta); 
+      // console.log("respuesta ",this.respuesta); 
       this.armarCalendario(2018);
     });
   }
@@ -59,11 +65,14 @@ export class CalendarioPage {
         this.calendarioAnual.push(this.respuesta[i].Fechas);
       }
     }
-   console.log("calendario anual: ",this.calendarioAnual);
+  //  console.log("calendario anual: ",this.calendarioAnual);
   }
 
   cambio(evento){
+    
     console.log(evento)
+    // console.log("datemulti 0 ", this.dateMulti[0]['_d']);
+    
   }
 
 
