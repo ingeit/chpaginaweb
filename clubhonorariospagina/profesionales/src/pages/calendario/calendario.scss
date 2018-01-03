@@ -19,9 +19,15 @@ page-calendario {
       .currentDate, .otherDate {
         padding: 5px;
       }
-      .currentDate {
+      .feriadoSi {
         font-weight: bold;
         background-color: red;
+        color: white;
+        border-radius: 30px;
+      }
+      .feriadoNo {
+        font-weight: bold;
+        background-color: green;
         color: white;
         border-radius: 30px;
       }

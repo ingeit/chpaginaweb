@@ -47,34 +47,27 @@ export class CalendarioPage {
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider, ) {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-                this.getDaysOfMonth();
-                
+                this.obtenerFechasHabiles();
   }
 
   
  
   ionViewDidLoad() {
-    this.obtenerFechasHabiles();
+    
     console.log('ionViewDidLoad CalendarioPage');
   }
 
   obtenerFechasHabiles(){
     this.fechaProvider.obtenerFechas().then((data)=>{
-      this.respuesta = data;  
-      // console.log("respuesta ",this.respuesta); 
-      this.armarCalendario(2018);
+      this.respuesta = data;
+      this.getDaysOfMonth();
+      // for(let i=0; i < this.respuesta.length; i++){ // n is array.length
+      //   this.respuesta[i].Fechas = this.respuesta[i].Fechas.getFullYear()+"-"+this.respuesta[i].Fechas.getMonth()+1+"-"+this.respuesta[i].Fechas.getDate();
+      // }
+      console.log("respuesta ",this.respuesta); 
     });
   }
 
-  armarCalendario(año){
-    this.calendarioAnual = [];
-    for(let i=0; i < this.respuesta.length; i++){ // n is array.length
-      if(this.respuesta[i].Fechas.getUTCFullYear() === 2018){
-        this.calendarioAnual.push(this.respuesta[i].Fechas);
-      }
-    }
-  //  console.log("calendario anual: ",this.calendarioAnual);
-  }
 
   cambio(evento){
     
@@ -85,7 +78,7 @@ export class CalendarioPage {
 
 //a mano
   getDaysOfMonth() {
-    this.daysInThisMonth = new Array();
+    this.daysInThisMonth = new Array(0);
     this.daysInLastMonth = new Array();
     this.daysInNextMonth = new Array();
     console.log(this.date.getMonth());
@@ -103,11 +96,31 @@ export class CalendarioPage {
     for(var i = prevNumOfDays-(firstDayThisMonth-1); i <= prevNumOfDays; i++) {
       this.daysInLastMonth.push(i);
     }
-  
+
     var thisNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDate();
-    for (var i = 0; i < thisNumOfDays; i++) {
-      this.daysInThisMonth.push(i+1);
+    let año = this.date.getFullYear();
+    let mes = this.date.getMonth();
+    
+    let contador = 0;
+    for (let j=0; j < this.respuesta.length; j++) {
+      if(this.respuesta[j].Fechas.getFullYear() === año && this.respuesta[j].Fechas.getMonth() === mes){
+        console.log("coincidencia en año y mes de mysql ");
+        this.daysInThisMonth[contador] = {fecha: this.respuesta[j].Fechas.getDate(), feriado:"no"};   
+        contador++;   
+      }else{
+        console.log("no coincidencia en año y mes de mysql ");
+      }
+      
     }
+    console.log("array dias del mes sucio: ",this.daysInThisMonth);
+    console.log("cantidad de dias",thisNumOfDays)
+    console.log("tamaño del array: ",this.daysInThisMonth.length)
+    for (let j = 0; j< thisNumOfDays; j++){
+      if(this.daysInThisMonth[j].fecha !== j+1 ){
+        this.daysInThisMonth.splice(j, 0, {fecha: j+1, feriado: "si"});
+      }
+    }
+    
   
     var lastDayThisMonth = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDay();
     var nextNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+2, 0).getDate();
@@ -135,10 +148,18 @@ export class CalendarioPage {
   }
 
   click(evento){
+    console.log("mostrando el objeto evento " , evento);
     let dia = evento.toElement.innerText;
     let mes = this.date.getMonth()+1;
     let año = this.currentYear;
     console.log(dia,"/",mes,"/",año);
+    if(this.daysInThisMonth[dia - 1].feriado === 'si'){
+      this.daysInThisMonth[dia - 1].feriado = 'no';
+    }else{
+      this.daysInThisMonth[dia - 1].feriado = 'si';
+    }
+    
+
   }
 
   
