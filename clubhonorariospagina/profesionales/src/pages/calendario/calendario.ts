@@ -255,18 +255,105 @@ export class CalendarioPage {
     
   }
 
-  click(evento){
-    console.log("mostrando el objeto evento " , evento);
-    let dia = evento.toElement.innerText;
-    let mes = this.date.getMonth()+1;
+  click(mes,dia){
+    dia++;
+    console.log("mostrando el objeto mes " , mes);
+    console.log("mostrando el objeto dia " , dia);
     let año = this.currentYear;
-    console.log(dia,"/",mes,"/",año);
-    for(let i = 0; )
-    if(this.daysInThisMonth[dia - 1].feriado === 'si'){
-      this.daysInThisMonth[dia - 1].feriado = 'no';
-    }else{
-      this.daysInThisMonth[dia - 1].feriado = 'si';
+    console.log(dia,' de ',this.monthNames[mes]," del ",año);
+    switch (mes) {
+      case 0:
+        if(this.ene1[dia-1].feriado === 'si'){
+          this.ene1[dia-1].feriado = 'no';
+        }else{
+          this.ene1[dia-1].feriado = 'si';
+        }
+        break;
+        case 1:
+        if(this.feb1[dia-1].feriado === 'si'){
+          this.feb1[dia-1].feriado = 'no';
+        }else{
+          this.feb1[dia-1].feriado = 'si';
+        }
+        break;
+        case 2:
+        if(this.mar1[dia-1].feriado === 'si'){
+          this.mar1[dia-1].feriado = 'no';
+        }else{
+          this.mar1[dia-1].feriado = 'si';
+        }
+        break;
+        case 3:
+        if(this.abr1[dia-1].feriado === 'si'){
+          this.abr1[dia-1].feriado = 'no';
+        }else{
+          this.abr1[dia-1].feriado = 'si';
+        }
+        break;
+        case 4:
+        if(this.may1[dia-1].feriado === 'si'){
+          this.may1[dia-1].feriado = 'no';
+        }else{
+          this.may1[dia-1].feriado = 'si';
+        }
+        break;
+        case 5:
+        if(this.jun1[dia-1].feriado === 'si'){
+          this.jun1[dia-1].feriado = 'no';
+        }else{
+          this.jun1[dia-1].feriado = 'si';
+        }
+        break;
+        case 6:
+        if(this.jul1[dia-1].feriado === 'si'){
+          this.jul1[dia-1].feriado = 'no';
+        }else{
+          this.jul1[dia-1].feriado = 'si';
+        }
+        break;
+        case 7:
+        if(this.ago1[dia-1].feriado === 'si'){
+          this.ago1[dia-1].feriado = 'no';
+        }else{
+          this.ago1[dia-1].feriado = 'si';
+        }
+        break;
+        case 8:
+        if(this.sep1[dia-1].feriado === 'si'){
+          this.sep1[dia-1].feriado = 'no';
+        }else{
+          this.sep1[dia-1].feriado = 'si';
+        }
+        break;
+        case 9:
+        if(this.oct1[dia-1].feriado === 'si'){
+          this.oct1[dia-1].feriado = 'no';
+        }else{
+          this.oct1[dia-1].feriado = 'si';
+        }
+        break;
+        case 10:
+        if(this.nov1[dia-1].feriado === 'si'){
+          this.nov1[dia-1].feriado = 'no';
+        }else{
+          this.nov1[dia-1].feriado = 'si';
+        }
+        break;
+        case 11:
+        if(this.dic1[dia-1].feriado === 'si'){
+          this.dic1[dia-1].feriado = 'no';
+        }else{
+          this.dic1[dia-1].feriado = 'si';
+        }
+        break;
+
     }
+    // for(let i = 0; )
+    // if(this.daysInThisMonth[dia - 1].feriado === 'si'){
+    //   this.daysInThisMonth[dia - 1].feriado = 'no';
+    // }else{
+    //   this.daysInThisMonth[dia - 1].feriado = 'si';
+    // }
     
 
   }
