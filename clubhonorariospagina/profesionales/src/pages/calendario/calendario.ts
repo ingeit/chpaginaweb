@@ -42,7 +42,6 @@ export class CalendarioPage {
   currentMonth: any;
   currentYear: any;
   currentDate: any;
-
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider,
@@ -96,7 +95,8 @@ export class CalendarioPage {
     var firstDayThisMonth = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
     var prevNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
     for(var i = prevNumOfDays-(firstDayThisMonth-1); i <= prevNumOfDays; i++) {
-      this.daysInLastMonth.push(i);
+      // this.daysInLastMonth.push(i);
+      this.daysInLastMonth.push(null);
     }
 
     var thisNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDate();
@@ -106,30 +106,25 @@ export class CalendarioPage {
     let contador = 0;
     for (let j=0; j < this.respuesta.length; j++) {
       if(this.respuesta[j].Fechas.getFullYear() === año && this.respuesta[j].Fechas.getMonth() === mes){
-        console.log("coincidencia en año y mes de mysql ");
           this.daysInThisMonth.push({fecha: this.respuesta[j].Fechas.getDate(), feriado:"no"});   
           contador++; 
-      }else{
-        console.log("no coincidencia en año y mes de mysql ");
-        console.log("mostrando array de dias: 0",this.daysInThisMonth);
       }
     }
-    // relleno el array hasta 31 elementos
+
+    console.log("mostrando array de dias sin relleno ",this.daysInThisMonth);
+    // relleno el array hasta 31 elementos 
     for (let j=0; j < thisNumOfDays; j++) {
       if(this.daysInThisMonth[j] === undefined ){
         this.daysInThisMonth.push({fecha: 0, feriado: "no"});
       }
+      console.log(this.daysInThisMonth[j])
     }
+    console.log("mostrando array de dias con relleno ",this.daysInThisMonth);
 
-
-    //************************************************************************ */
-    // AQUI ESTA EL ERROR
-    console.log("array dias del mes sucio: ",this.daysInThisMonth);
-    console.log("cantidad de dias",thisNumOfDays)
-    console.log("tamaño del array: ",this.daysInThisMonth.length)
-    for (let k = 0; k< thisNumOfDays;k++){
+    for (let k = 0; k < thisNumOfDays;k++){
       if(this.daysInThisMonth[k].fecha !== k+1 ){
           this.daysInThisMonth.splice(k, 0, {fecha: k+1, feriado: "si"});
+          this.daysInThisMonth.pop();
       }
     }
     
@@ -137,12 +132,14 @@ export class CalendarioPage {
     var lastDayThisMonth = new Date(this.date.getFullYear(), this.date.getMonth()+1, 0).getDay();
     var nextNumOfDays = new Date(this.date.getFullYear(), this.date.getMonth()+2, 0).getDate();
     for (var i = 0; i < (6-lastDayThisMonth); i++) {
-      this.daysInNextMonth.push(i+1);
+      // this.daysInNextMonth.push(i+1);
+      this.daysInNextMonth.push(null);
     }
     var totalDays = this.daysInLastMonth.length+this.daysInThisMonth.length+this.daysInNextMonth.length;
     if(totalDays<36) {
       for(var i = (7-lastDayThisMonth); i < ((7-lastDayThisMonth)+7); i++) {
-        this.daysInNextMonth.push(i);
+        // this.daysInNextMonth.push(i);
+        this.daysInNextMonth.push(null);
       }
     }
    
