@@ -19,21 +19,11 @@ page-calendario {
       .currentDate, .otherDate {
         padding: 5px;
       }
-      .feriadoSi {
-        font-weight: bold;
-        background-color: red;
-        color: white;
-        border-radius: 30px;
-      }
-      .feriadoNo {
-        font-weight: bold;
-        background-color: green;
-        color: white;
-        border-radius: 30px;
-      }
+      
       .calendar-header {
-        background-color: #1a732d;
-        color: #FFFFFF;
+        background-color: #E7E7E7;
+        color: #1DA3D6;
+        max-width: 397px;
       }
       .event-bullet {
         margin: 2px auto;
@@ -51,6 +41,8 @@ page-calendario {
         border: none;
       }
       .calendar-body {
+        max-width: 400px;
+
         .grid {
           padding: 0;
         }
@@ -63,13 +55,30 @@ page-calendario {
         }
         .calendar-weekday {
           font-weight: bold;
-          border-bottom: solid 1px #1a732d;
-          background-color: #26ab56;
+          background-color: #D8D8D8;
+          color: #666666;
+          border-bottom: solid 3px white;
+          max-width: 397px;
         }
-        .calendar-date {
-          border-top: solid 1px #1a732d;
-          border-bottom: solid 1px #1a732d;
+
+        .cuadroDia{
+          background-color: #E7E7E7;
+          border: solid 3px white;
         }
+
+      }
+
+      .feriadoSi {
+        width: 41px;
+        font-weight: bold;
+        background-color: #FF8080;
+        color: #333333;
+      }
+      .feriadoNo {
+        width: 41px;
+        font-weight: bold;
+        background-color: #E7E7E7;
+        color: #333333;
       }
 
 }
