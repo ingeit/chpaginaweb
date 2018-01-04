@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FechasHabilesProvider } from '../../providers/fechas-habiles/fechas-habiles';
 import { CalendarComponentOptions } from 'ion2-calendar'
@@ -45,7 +45,8 @@ export class CalendarioPage {
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              public fechaProvider: FechasHabilesProvider, ) {
+              public fechaProvider: FechasHabilesProvider,
+              private _zone: NgZone ) {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
                 this.obtenerFechasHabiles();
   }
@@ -78,7 +79,8 @@ export class CalendarioPage {
 
 //a mano
   getDaysOfMonth() {
-    this.daysInThisMonth = new Array(0);
+    
+    this.daysInThisMonth = new Array();
     this.daysInLastMonth = new Array();
     this.daysInNextMonth = new Array();
     console.log(this.date.getMonth());
@@ -105,19 +107,29 @@ export class CalendarioPage {
     for (let j=0; j < this.respuesta.length; j++) {
       if(this.respuesta[j].Fechas.getFullYear() === año && this.respuesta[j].Fechas.getMonth() === mes){
         console.log("coincidencia en año y mes de mysql ");
-        this.daysInThisMonth[contador] = {fecha: this.respuesta[j].Fechas.getDate(), feriado:"no"};   
-        contador++;   
+          this.daysInThisMonth.push({fecha: this.respuesta[j].Fechas.getDate(), feriado:"no"});   
+          contador++; 
       }else{
         console.log("no coincidencia en año y mes de mysql ");
+        console.log("mostrando array de dias: 0",this.daysInThisMonth);
       }
-      
     }
+    // relleno el array hasta 31 elementos
+    for (let j=0; j < thisNumOfDays; j++) {
+      if(this.daysInThisMonth[j] === undefined ){
+        this.daysInThisMonth.push({fecha: 0, feriado: "no"});
+      }
+    }
+
+
+    //************************************************************************ */
+    // AQUI ESTA EL ERROR
     console.log("array dias del mes sucio: ",this.daysInThisMonth);
     console.log("cantidad de dias",thisNumOfDays)
     console.log("tamaño del array: ",this.daysInThisMonth.length)
-    for (let j = 0; j< thisNumOfDays; j++){
-      if(this.daysInThisMonth[j].fecha !== j+1 ){
-        this.daysInThisMonth.splice(j, 0, {fecha: j+1, feriado: "si"});
+    for (let k = 0; k< thisNumOfDays;k++){
+      if(this.daysInThisMonth[k].fecha !== k+1 ){
+          this.daysInThisMonth.splice(k, 0, {fecha: k+1, feriado: "si"});
       }
     }
     
