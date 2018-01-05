@@ -34,8 +34,8 @@
       <ion-row class="calendar-date">
           <ion-col col-1 *ngFor="let lastDay of ene0" class="last-month">{{lastDay}}</ion-col>
         <ion-col  *ngFor="let day of ene1, let i = index" class="cuadroDia" col-1 >
-          <button *ngIf="day.feriado === 'no'" (click)="click(0,i)" class="feriadoNo" >{{day.fecha}}</button>
-          <button *ngIf="day.feriado === 'si'" (click)="click(0,i)" class="feriadoSi" >{{day.fecha}}</button>
+          <button *ngIf="day.diaHabil === 'si'" (click)="click(0,i)" class="feriadoNo" >{{day.fecha}}</button>
+          <button *ngIf="day.diaHabil === 'no'" (click)="click(0,i)" class="feriadoSi" >{{day.fecha}}</button>
         </ion-col>
         <ion-col *ngFor="let nextDay of ene2" class="next-month" col-1>{{nextDay}}</ion-col>
       </ion-row>
@@ -63,8 +63,8 @@
         <ion-row class="calendar-date">
             <ion-col col-1 *ngFor="let lastDay of feb0" class="last-month">{{lastDay}}</ion-col>
           <ion-col  *ngFor="let day of feb1, let i = index" class="cuadroDia" col-1 >
-            <button *ngIf="day.feriado === 'no'" (click)="click(1,i)" class="feriadoNo" >{{day.fecha}}</button>
-            <button *ngIf="day.feriado === 'si'" (click)="click(1,i)" class="feriadoSi" >{{day.fecha}}</button>
+            <button *ngIf="day.diaHabil === 'si'" (click)="click(1,i)" class="feriadoNo" >{{day.fecha}}</button>
+            <button *ngIf="day.diaHabil === 'no'" (click)="click(1,i)" class="feriadoSi" >{{day.fecha}}</button>
           </ion-col>
           <ion-col *ngFor="let nextDay of feb2" class="next-month" col-1>{{nextDay}}</ion-col>
         </ion-row>
@@ -92,8 +92,8 @@
           <ion-row class="calendar-date">
               <ion-col col-1 *ngFor="let lastDay of mar0" class="last-month">{{lastDay}}</ion-col>
             <ion-col  *ngFor="let day of mar1, let i = index" class="cuadroDia" col-1 >
-              <button *ngIf="day.feriado === 'no'" (click)="click(2,i)" class="feriadoNo" >{{day.fecha}}</button>
-              <button *ngIf="day.feriado === 'si'" (click)="click(2,i)" class="feriadoSi" >{{day.fecha}}</button>
+              <button *ngIf="day.diaHabil === 'si'" (click)="click(2,i)" class="feriadoNo" >{{day.fecha}}</button>
+              <button *ngIf="day.diaHabil === 'no'" (click)="click(2,i)" class="feriadoSi" >{{day.fecha}}</button>
             </ion-col>
             <ion-col *ngFor="let nextDay of mar2" class="next-month" col-1>{{nextDay}}</ion-col>
           </ion-row>
@@ -121,8 +121,8 @@
             <ion-row class="calendar-date">
                 <ion-col col-1 *ngFor="let lastDay of abr0" class="last-month">{{lastDay}}</ion-col>
               <ion-col  *ngFor="let day of abr1, let i = index" class="cuadroDia" col-1 >
-                <button *ngIf="day.feriado === 'no'"(click)="click(3,i)" class="feriadoNo" >{{day.fecha}}</button>
-                <button *ngIf="day.feriado === 'si'"(click)="click(3,i)" class="feriadoSi" >{{day.fecha}}</button>
+                <button *ngIf="day.diaHabil === 'si'"(click)="click(3,i)" class="feriadoNo" >{{day.fecha}}</button>
+                <button *ngIf="day.diaHabil === 'no'"(click)="click(3,i)" class="feriadoSi" >{{day.fecha}}</button>
               </ion-col>
               <ion-col *ngFor="let nextDay of abr2" class="next-month" col-1>{{nextDay}}</ion-col>
             </ion-row>
@@ -150,8 +150,8 @@
               <ion-row class="calendar-date">
                   <ion-col col-1 *ngFor="let lastDay of may0" class="last-month">{{lastDay}}</ion-col>
                 <ion-col  *ngFor="let day of may1, let i = index" class="cuadroDia" col-1 >
-                  <button *ngIf="day.feriado === 'no'"(click)="click(4,i)" class="feriadoNo" >{{day.fecha}}</button>
-                  <button *ngIf="day.feriado === 'si'"(click)="click(4,i)" class="feriadoSi" >{{day.fecha}}</button>
+                  <button *ngIf="day.diaHabil === 'si'"(click)="click(4,i)" class="feriadoNo" >{{day.fecha}}</button>
+                  <button *ngIf="day.diaHabil === 'no'"(click)="click(4,i)" class="feriadoSi" >{{day.fecha}}</button>
                 </ion-col>
                 <ion-col *ngFor="let nextDay of may2" class="next-month" col-1>{{nextDay}}</ion-col>
               </ion-row>
@@ -179,8 +179,8 @@
                 <ion-row class="calendar-date">
                     <ion-col col-1 *ngFor="let lastDay of jun0" class="last-month">{{lastDay}}</ion-col>
                   <ion-col  *ngFor="let day of jun1, let i = index" class="cuadroDia" col-1 >
-                    <button *ngIf="day.feriado === 'no'"(click)="click(5,i)" class="feriadoNo" >{{day.fecha}}</button>
-                    <button *ngIf="day.feriado === 'si'"(click)="click(5,i)" class="feriadoSi" >{{day.fecha}}</button>
+                    <button *ngIf="day.diaHabil === 'si'"(click)="click(5,i)" class="feriadoNo" >{{day.fecha}}</button>
+                    <button *ngIf="day.diaHabil === 'no'"(click)="click(5,i)" class="feriadoSi" >{{day.fecha}}</button>
                   </ion-col>
                   <ion-col *ngFor="let nextDay of jun2" class="next-month" col-1>{{nextDay}}</ion-col>
                 </ion-row>
@@ -208,8 +208,8 @@
                   <ion-row class="calendar-date">
                       <ion-col col-1 *ngFor="let lastDay of jul0" class="last-month">{{lastDay}}</ion-col>
                     <ion-col  *ngFor="let day of jul1, let i = index" class="cuadroDia" col-1 >
-                      <button *ngIf="day.feriado === 'no'"(click)="click(6,i)" class="feriadoNo" >{{day.fecha}}</button>
-                      <button *ngIf="day.feriado === 'si'"(click)="click(6,i)" class="feriadoSi" >{{day.fecha}}</button>
+                      <button *ngIf="day.diaHabil === 'si'"(click)="click(6,i)" class="feriadoNo" >{{day.fecha}}</button>
+                      <button *ngIf="day.diaHabil === 'no'"(click)="click(6,i)" class="feriadoSi" >{{day.fecha}}</button>
                     </ion-col>
                     <ion-col *ngFor="let nextDay of jul2" class="next-month" col-1>{{nextDay}}</ion-col>
                   </ion-row>
@@ -237,8 +237,8 @@
                     <ion-row class="calendar-date">
                         <ion-col col-1 *ngFor="let lastDay of ago0" class="last-month">{{lastDay}}</ion-col>
                       <ion-col  *ngFor="let day of ago1, let i = index" class="cuadroDia" col-1 >
-                        <button *ngIf="day.feriado === 'no'"(click)="click(7,i)" class="feriadoNo" >{{day.fecha}}</button>
-                        <button *ngIf="day.feriado === 'si'"(click)="click(7,i)" class="feriadoSi" >{{day.fecha}}</button>
+                        <button *ngIf="day.diaHabil === 'si'"(click)="click(7,i)" class="feriadoNo" >{{day.fecha}}</button>
+                        <button *ngIf="day.diaHabil === 'no'"(click)="click(7,i)" class="feriadoSi" >{{day.fecha}}</button>
                       </ion-col>
                       <ion-col *ngFor="let nextDay of ago2" class="next-month" col-1>{{nextDay}}</ion-col>
                     </ion-row>
@@ -266,8 +266,8 @@
                       <ion-row class="calendar-date">
                           <ion-col col-1 *ngFor="let lastDay of sep0" class="last-month">{{lastDay}}</ion-col>
                         <ion-col  *ngFor="let day of sep1, let i = index" class="cuadroDia" col-1 >
-                          <button *ngIf="day.feriado === 'no'"(click)="click(8,i)" class="feriadoNo" >{{day.fecha}}</button>
-                          <button *ngIf="day.feriado === 'si'"(click)="click(8,i)" class="feriadoSi" >{{day.fecha}}</button>
+                          <button *ngIf="day.diaHabil === 'si'"(click)="click(8,i)" class="feriadoNo" >{{day.fecha}}</button>
+                          <button *ngIf="day.diaHabil === 'no'"(click)="click(8,i)" class="feriadoSi" >{{day.fecha}}</button>
                         </ion-col>
                         <ion-col *ngFor="let nextDay of sep2" class="next-month" col-1>{{nextDay}}</ion-col>
                       </ion-row>
@@ -295,8 +295,8 @@
                         <ion-row class="calendar-date">
                             <ion-col col-1 *ngFor="let lastDay of oct0" class="last-month">{{lastDay}}</ion-col>
                           <ion-col  *ngFor="let day of oct1, let i = index" class="cuadroDia" col-1 >
-                            <button *ngIf="day.feriado === 'no'"(click)="click(9,i)" class="feriadoNo" >{{day.fecha}}</button>
-                            <button *ngIf="day.feriado === 'si'"(click)="click(9,i)" class="feriadoSi" >{{day.fecha}}</button>
+                            <button *ngIf="day.diaHabil === 'si'"(click)="click(9,i)" class="feriadoNo" >{{day.fecha}}</button>
+                            <button *ngIf="day.diaHabil === 'no'"(click)="click(9,i)" class="feriadoSi" >{{day.fecha}}</button>
                           </ion-col>
                           <ion-col *ngFor="let nextDay of oct2" class="next-month" col-1>{{nextDay}}</ion-col>
                         </ion-row>
@@ -324,8 +324,8 @@
                           <ion-row class="calendar-date">
                               <ion-col col-1 *ngFor="let lastDay of nov0" class="last-month">{{lastDay}}</ion-col>
                             <ion-col  *ngFor="let day of nov1, let i = index" class="cuadroDia" col-1 >
-                              <button *ngIf="day.feriado === 'no'"(click)="click(10,i)" class="feriadoNo" >{{day.fecha}}</button>
-                              <button *ngIf="day.feriado === 'si'"(click)="click(10,i)" class="feriadoSi" >{{day.fecha}}</button>
+                              <button *ngIf="day.diaHabil === 'si'"(click)="click(10,i)" class="feriadoNo" >{{day.fecha}}</button>
+                              <button *ngIf="day.diaHabil === 'no'"(click)="click(10,i)" class="feriadoSi" >{{day.fecha}}</button>
                             </ion-col>
                             <ion-col *ngFor="let nextDay of nov2" class="next-month" col-1>{{nextDay}}</ion-col>
                           </ion-row>
@@ -353,12 +353,14 @@
                             <ion-row class="calendar-date">
                                 <ion-col col-1 *ngFor="let lastDay of dic0" class="last-month">{{lastDay}}</ion-col>
                               <ion-col  *ngFor="let day of dic1, let i = index" class="cuadroDia" col-1 >
-                                <button *ngIf="day.feriado === 'no'"(click)="click(11,i)" class="feriadoNo" >{{day.fecha}}</button>
-                                <button *ngIf="day.feriado === 'si'"(click)="click(11,i)" class="feriadoSi" >{{day.fecha}}</button>
+                                <button *ngIf="day.diaHabil === 'si'"(click)="click(11,i)" class="feriadoNo" >{{day.fecha}}</button>
+                                <button *ngIf="day.diaHabil === 'no'"(click)="click(11,i)" class="feriadoSi" >{{day.fecha}}</button>
                               </ion-col>
                               <ion-col *ngFor="let nextDay of dic2" class="next-month" col-1>{{nextDay}}</ion-col>
                             </ion-row>
                           </ion-grid>
                         </div>                              
                       </div>
+
+        <button float-right color="secondary" ion-button type="submit" (click)="guardar()">Guardar cambios</button>
 </ion-content>

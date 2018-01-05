@@ -19,6 +19,7 @@ import 'moment/locale/es';
 export class CalendarioPage {
 
   respuesta: any;
+  mysql: any;
   calendarioAnual:any = [];
   añoCalendario = 2018;
   
@@ -34,6 +35,7 @@ export class CalendarioPage {
   // };
 
   //a mano
+  prueba: any;
   date = new Date();
   daysInThisMonth: any;
   daysInLastMonth: any;
@@ -82,6 +84,9 @@ export class CalendarioPage {
   dic1: any;
   dic2: any;
 
+  arrayNuevosDiasHabiles: any;
+  arrayNuevosFeriados: any;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider,
@@ -89,8 +94,14 @@ export class CalendarioPage {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
                 this.obtenerFechasHabiles();
                 // this.daysInThisMonth = [[],[]];
-                // this.daysInThisMonth[0].push({feriado: "si", hola: "hola"})
+                // this.daysInThisMonth[0].push({diaHabil: "si", hola: "hola"})
                 // console.log(this.daysInThisMonth);
+                
+                // this.prueba = [1,2,3,4,5]
+                // console.log(this.prueba);
+                // this.prueba.splice(1,1);
+                // console.log(this.prueba);
+
 
   }
 
@@ -105,10 +116,6 @@ export class CalendarioPage {
     this.fechaProvider.obtenerFechas().then((data)=>{
       this.respuesta = data;
       this.crearAlmanaque();
-      // for(let i=0; i < this.respuesta.length; i++){ // n is array.length
-      //   this.respuesta[i].Fechas = this.respuesta[i].Fechas.getFullYear()+"-"+this.respuesta[i].Fechas.getMonth()+1+"-"+this.respuesta[i].Fechas.getDate();
-      // }
-      // console.log("respuesta ",this.respuesta); 
     });
   }
 
@@ -146,7 +153,7 @@ export class CalendarioPage {
     let contador = 0;
     for (let j=0; j < this.respuesta.length; j++) {
       if(this.respuesta[j].Fechas.getFullYear() === año && this.respuesta[j].Fechas.getMonth() === mesAlm){
-          this.daysInThisMonth.push({fecha: this.respuesta[j].Fechas.getDate(), feriado:"no"});   
+          this.daysInThisMonth.push({fecha: this.respuesta[j].Fechas.getDate(), diaHabil:"si"});   
           contador++; 
       }
     }
@@ -154,13 +161,13 @@ export class CalendarioPage {
     // relleno el array hasta 31 elementos 
     for (let j=0; j < thisNumOfDays; j++) {
       if(this.daysInThisMonth[j] === undefined ){
-        this.daysInThisMonth.push({fecha: 0, feriado: "no"});
+        this.daysInThisMonth.push({fecha: 0, diaHabil: "si"});
       }
     }
 
     for (let k = 0; k < thisNumOfDays;k++){
       if(this.daysInThisMonth[k].fecha !== k+1 ){
-          this.daysInThisMonth.splice(k, 0, {fecha: k+1, feriado: "si"});
+          this.daysInThisMonth.splice(k, 0, {fecha: k+1, diaHabil: "no"});
           this.daysInThisMonth.pop();
       }
     }
@@ -251,7 +258,7 @@ export class CalendarioPage {
       this.dic1 = this.arrayAlmanaqueThis[11];
       this.dic2 = this.arrayAlmanaqueNext[11];
 
-      console.log(this.arrayAlmanaqueNext);
+      console.log("almanaque completo recien generado ",this.ene1);
     
   }
 
@@ -263,98 +270,205 @@ export class CalendarioPage {
     console.log(dia,' de ',this.monthNames[mes]," del ",año);
     switch (mes) {
       case 0:
-        if(this.ene1[dia-1].feriado === 'si'){
-          this.ene1[dia-1].feriado = 'no';
+        if(this.ene1[dia-1].diaHabil === 'no'){
+          this.ene1[dia-1].diaHabil = 'si';
         }else{
-          this.ene1[dia-1].feriado = 'si';
+          this.ene1[dia-1].diaHabil = 'no';
         }
         break;
         case 1:
-        if(this.feb1[dia-1].feriado === 'si'){
-          this.feb1[dia-1].feriado = 'no';
+        if(this.feb1[dia-1].diaHabil === 'no'){
+          this.feb1[dia-1].diaHabil = 'si';
         }else{
-          this.feb1[dia-1].feriado = 'si';
+          this.feb1[dia-1].diaHabil = 'no';
         }
         break;
         case 2:
-        if(this.mar1[dia-1].feriado === 'si'){
-          this.mar1[dia-1].feriado = 'no';
+        if(this.mar1[dia-1].diaHabil === 'no'){
+          this.mar1[dia-1].diaHabil = 'si';
         }else{
-          this.mar1[dia-1].feriado = 'si';
+          this.mar1[dia-1].diaHabil = 'no';
         }
         break;
         case 3:
-        if(this.abr1[dia-1].feriado === 'si'){
-          this.abr1[dia-1].feriado = 'no';
+        if(this.abr1[dia-1].diaHabil === 'no'){
+          this.abr1[dia-1].diaHabil = 'si';
         }else{
-          this.abr1[dia-1].feriado = 'si';
+          this.abr1[dia-1].diaHabil = 'no';
         }
         break;
         case 4:
-        if(this.may1[dia-1].feriado === 'si'){
-          this.may1[dia-1].feriado = 'no';
+        if(this.may1[dia-1].diaHabil === 'no'){
+          this.may1[dia-1].diaHabil = 'si';
         }else{
-          this.may1[dia-1].feriado = 'si';
+          this.may1[dia-1].diaHabil = 'no';
         }
         break;
         case 5:
-        if(this.jun1[dia-1].feriado === 'si'){
-          this.jun1[dia-1].feriado = 'no';
+        if(this.jun1[dia-1].diaHabil === 'no'){
+          this.jun1[dia-1].diaHabil = 'si';
         }else{
-          this.jun1[dia-1].feriado = 'si';
+          this.jun1[dia-1].diaHabil = 'no';
         }
         break;
         case 6:
-        if(this.jul1[dia-1].feriado === 'si'){
-          this.jul1[dia-1].feriado = 'no';
+        if(this.jul1[dia-1].diaHabil === 'no'){
+          this.jul1[dia-1].diaHabil = 'si';
         }else{
-          this.jul1[dia-1].feriado = 'si';
+          this.jul1[dia-1].diaHabil = 'no';
         }
         break;
         case 7:
-        if(this.ago1[dia-1].feriado === 'si'){
-          this.ago1[dia-1].feriado = 'no';
+        if(this.ago1[dia-1].diaHabil === 'no'){
+          this.ago1[dia-1].diaHabil = 'si';
         }else{
-          this.ago1[dia-1].feriado = 'si';
+          this.ago1[dia-1].diaHabil = 'no';
         }
         break;
         case 8:
-        if(this.sep1[dia-1].feriado === 'si'){
-          this.sep1[dia-1].feriado = 'no';
+        if(this.sep1[dia-1].diaHabil === 'no'){
+          this.sep1[dia-1].diaHabil = 'si';
         }else{
-          this.sep1[dia-1].feriado = 'si';
+          this.sep1[dia-1].diaHabil = 'no';
         }
         break;
         case 9:
-        if(this.oct1[dia-1].feriado === 'si'){
-          this.oct1[dia-1].feriado = 'no';
+        if(this.oct1[dia-1].diaHabil === 'no'){
+          this.oct1[dia-1].diaHabil = 'si';
         }else{
-          this.oct1[dia-1].feriado = 'si';
+          this.oct1[dia-1].diaHabil = 'no';
         }
         break;
         case 10:
-        if(this.nov1[dia-1].feriado === 'si'){
-          this.nov1[dia-1].feriado = 'no';
+        if(this.nov1[dia-1].diaHabil === 'no'){
+          this.nov1[dia-1].diaHabil = 'si';
         }else{
-          this.nov1[dia-1].feriado = 'si';
+          this.nov1[dia-1].diaHabil = 'no';
         }
         break;
         case 11:
-        if(this.dic1[dia-1].feriado === 'si'){
-          this.dic1[dia-1].feriado = 'no';
+        if(this.dic1[dia-1].diaHabil === 'no'){
+          this.dic1[dia-1].diaHabil = 'si';
         }else{
-          this.dic1[dia-1].feriado = 'si';
+          this.dic1[dia-1].diaHabil = 'no';
         }
         break;
 
     }
-    // for(let i = 0; )
-    // if(this.daysInThisMonth[dia - 1].feriado === 'si'){
-    //   this.daysInThisMonth[dia - 1].feriado = 'no';
-    // }else{
-    //   this.daysInThisMonth[dia - 1].feriado = 'si';
-    // }
+  }
+
+  guardar(){
+    //transformamos la sfechas de mysql en el formado YYYY-MM-DD
+    this.mysql = this.respuesta;
+    for(let i=0; i < this.mysql.length; i++){ // n is array.length
+      switch (this.mysql[i].Fechas.getMonth()) {
+        case 0:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+1+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 1:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+2+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 2:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+3+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 3:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+4+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 4:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+5+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 5:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+6+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 6:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+7+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 7:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+8+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 8:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+9+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 9:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+10+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 10:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+11+"-"+this.mysql[i].Fechas.getDate();
+        break;
+        case 11:
+        this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+12+"-"+this.mysql[i].Fechas.getDate();
+        break;
+
     
+      }
+        
+    }
+    console.log("fechas de mysql transofrmadas as YYYY-MM-DD",this.mysql); 
+
+    this.prueba=[];
+    console.log("lenght ene1",this.ene1.length);
+    for(let i = 0; i < this.ene1.length ; i++){
+      this.prueba.push({fecha: this.currentYear+"-"+"1"+"-"+this.ene1[i].fecha, diaHabil : this.ene1[i].diaHabil});
+    }
+    for(let i = 0; i< this.feb1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"2"+"-"+this.feb1[i].fecha, diaHabil : this.feb1[i].diaHabil});
+    }
+    for(let i = 0; i< this.mar1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"3"+"-"+this.mar1[i].fecha, diaHabil : this.mar1[i].diaHabil});
+    }
+    for(let i = 0; i< this.abr1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"4"+"-"+this.abr1[i].fecha, diaHabil : this.abr1[i].diaHabil});
+    }
+    for(let i = 0; i< this.may1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"5"+"-"+this.may1[i].fecha, diaHabil : this.may1[i].diaHabil});
+    }
+    for(let i = 0; i< this.jun1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"6"+"-"+this.jun1[i].fecha, diaHabil : this.jun1[i].diaHabil});
+    }
+    for(let i = 0; i< this.jul1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"7"+"-"+this.jul1[i].fecha, diaHabil : this.jul1[i].diaHabil});
+    }
+    for(let i = 0; i< this.ago1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"8"+"-"+this.ago1[i].fecha, diaHabil : this.ago1[i].diaHabil});
+    }
+    for(let i = 0; i< this.sep1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"9"+"-"+this.sep1[i].fecha, diaHabil : this.sep1[i].diaHabil});
+    }
+    for(let i = 0; i< this.oct1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"10"+"-"+this.oct1[i].fecha, diaHabil : this.oct1[i].diaHabil});
+    }
+    for(let i = 0; i< this.nov1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"11"+"-"+this.nov1[i].fecha, diaHabil : this.nov1[i].diaHabil});
+    }
+    for(let i = 0; i< this.dic1.length ; i++){
+      this.prueba.push({ fecha: this.currentYear+"-"+"12"+"-"+this.dic1[i].fecha, diaHabil : this.dic1[i].diaHabil});
+    }
+
+    console.log("mostramos el almanaque completo con las interacciones del cliente ",this.prueba);
+
+    this.arrayNuevosDiasHabiles = new Array();
+    this.arrayNuevosFeriados = new Array();
+
+    // console.log(this.mysql.indexOf("2018-1-2"));
+  
+     for(let i = 0; i< this.prueba.length ; i++){
+      let index = this.mysql.findIndex(function(fechas) {
+        return fechas.Fechas === this.prueba[i].fecha
+      });
+        if(index > -1 && this.prueba[i].diaHabil === 'si'){
+          this.prueba.splice(i,1);
+        }
+        if(index === -1 && this.prueba[i].diaHabil === 'si'){
+          this.arrayNuevosDiasHabiles = this.prueba.splice(i,1);
+        }
+        if(index > -1 && this.prueba[i].diaHabil === 'no'){
+          this.arrayNuevosFeriados.push(this.prueba[i]);
+          this.prueba.splice(i,1);
+        }
+        this.prueba.splice(i,1);    
+    }
+    console.log("nuevos dias hab",this.arrayNuevosDiasHabiles);
+    console.log("nuevos feriados",this.arrayNuevosFeriados);
 
   }
 
