@@ -258,16 +258,11 @@ export class CalendarioPage {
       this.dic1 = this.arrayAlmanaqueThis[11];
       this.dic2 = this.arrayAlmanaqueNext[11];
 
-      console.log("almanaque completo recien generado ",this.ene1);
-    
   }
 
   click(mes,dia){
     dia++;
-    console.log("mostrando el objeto mes " , mes);
-    console.log("mostrando el objeto dia " , dia);
     let año = this.currentYear;
-    console.log(dia,' de ',this.monthNames[mes]," del ",año);
     switch (mes) {
       case 0:
         if(this.ene1[dia-1].diaHabil === 'no'){
@@ -359,6 +354,7 @@ export class CalendarioPage {
 
   guardar(){
     //transformamos la sfechas de mysql en el formado YYYY-MM-DD
+    this.mysql = new Array;
     this.mysql = this.respuesta;
     for(let i=0; i < this.mysql.length; i++){ // n is array.length
       switch (this.mysql[i].Fechas.getMonth()) {
@@ -398,15 +394,12 @@ export class CalendarioPage {
         case 11:
         this.mysql[i].Fechas = this.mysql[i].Fechas.getFullYear()+"-"+12+"-"+this.mysql[i].Fechas.getDate();
         break;
-
-    
-      }
-        
+      }  
     }
-    console.log("fechas de mysql transofrmadas as YYYY-MM-DD",this.mysql); 
+
+    console.log("almanaque mysql recien generado ",this.mysql);
 
     this.prueba=[];
-    console.log("lenght ene1",this.ene1.length);
     for(let i = 0; i < this.ene1.length ; i++){
       this.prueba.push({fecha: this.currentYear+"-"+"1"+"-"+this.ene1[i].fecha, diaHabil : this.ene1[i].diaHabil});
     }
@@ -446,14 +439,19 @@ export class CalendarioPage {
 
     console.log("mostramos el almanaque completo con las interacciones del cliente ",this.prueba);
 
-    this.arrayNuevosDiasHabiles = new Array();
-    this.arrayNuevosFeriados = new Array();
+    // this.arrayNuevosDiasHabiles = new Array();
+    // this.arrayNuevosFeriados = new Array();
 
     // console.log(this.mysql.indexOf("2018-1-2"));
-  
+
+    // let index = this.mysql.some(function(fecha){return fecha["Fechas"] === this.prueba[1].fecha});
+
+    // console.log(index);
+
      for(let i = 0; i< this.prueba.length ; i++){
+      let aux =  this.prueba[i].fecha;
       let index = this.mysql.findIndex(function(fechas) {
-        return fechas.Fechas === this.prueba[i].fecha
+        return fechas.Fechas === aux
       });
         if(index > -1 && this.prueba[i].diaHabil === 'si'){
           this.prueba.splice(i,1);
@@ -467,11 +465,14 @@ export class CalendarioPage {
         }
         this.prueba.splice(i,1);    
     }
-    console.log("nuevos dias hab",this.arrayNuevosDiasHabiles);
-    console.log("nuevos feriados",this.arrayNuevosFeriados);
+    
+
+    console.log("mostramos thisprueba en teoria vacio",this.prueba)
+    // console.log("nuevos dias hab",this.arrayNuevosDiasHabiles);
+    // console.log("nuevos feriados",this.arrayNuevosFeriados);
 
   }
 
-  
+ 
 
 }
