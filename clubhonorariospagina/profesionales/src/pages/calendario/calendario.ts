@@ -123,26 +123,71 @@ export class CalendarioPage {
     });
   }
 
+  crearAlmanaque(){
+    this.arrayAlmanaqueLast = [[],[]];
+    this.arrayAlmanaqueThis = [[],[]];
+    this.arrayAlmanaqueNext = [[],[]];
+    for (let i = 0; i<12 ; i++){
+      this.arrayAlmanaqueLast[i] = this.getDaysOfMonth(i)[0];
+      this.arrayAlmanaqueThis[i] = this.getDaysOfMonth(i)[1];
+      this.arrayAlmanaqueNext[i] = this.getDaysOfMonth(i)[2];
+    }
 
-  cambio(evento){
+    this.ene0 = this.arrayAlmanaqueLast[0];
+    this.ene1 = this.arrayAlmanaqueThis[0];
+    this.ene2 = this.arrayAlmanaqueNext[0];
+
+    this.feb0 = this.arrayAlmanaqueLast[1];
+    this.feb1 = this.arrayAlmanaqueThis[1];
+    this.feb2 = this.arrayAlmanaqueNext[1];
     
-    // console.log(evento)
-    // console.log("datemulti 0 ", this.dateMulti[0]['_d']);
+    this.mar0 = this.arrayAlmanaqueLast[2];
+    this.mar1 = this.arrayAlmanaqueThis[2];
+    this.mar2 = this.arrayAlmanaqueNext[2];
     
+    this.abr0 = this.arrayAlmanaqueLast[3];
+    this.abr1 = this.arrayAlmanaqueThis[3];
+    this.abr2 = this.arrayAlmanaqueNext[3];
+    
+    this.may0 = this.arrayAlmanaqueLast[4];
+    this.may1 = this.arrayAlmanaqueThis[4];
+    this.may2 = this.arrayAlmanaqueNext[4];
+    
+    this.jun0 = this.arrayAlmanaqueLast[5];
+    this.jun1 = this.arrayAlmanaqueThis[5];
+    this.jun2 = this.arrayAlmanaqueNext[5];
+    
+    this.jul0 = this.arrayAlmanaqueLast[6];
+    this.jul1 = this.arrayAlmanaqueThis[6];
+    this.jul2 = this.arrayAlmanaqueNext[6];
+    
+    this.ago0 = this.arrayAlmanaqueLast[7];
+    this.ago1 = this.arrayAlmanaqueThis[7];
+    this.ago2 = this.arrayAlmanaqueNext[7];
+    
+    this.sep0 = this.arrayAlmanaqueLast[8];
+    this.sep1 = this.arrayAlmanaqueThis[8];
+    this.sep2 = this.arrayAlmanaqueNext[8];
+    
+    this.oct0 = this.arrayAlmanaqueLast[9];
+    this.oct1 = this.arrayAlmanaqueThis[9];
+    this.oct2 = this.arrayAlmanaqueNext[9];
+    
+    this.nov0 = this.arrayAlmanaqueLast[10];
+    this.nov1 = this.arrayAlmanaqueThis[10];
+    this.nov2 = this.arrayAlmanaqueNext[10];
+    
+    this.dic0 = this.arrayAlmanaqueLast[11];
+    this.dic1 = this.arrayAlmanaqueThis[11];
+    this.dic2 = this.arrayAlmanaqueNext[11];
   }
 
-//a mano
   getDaysOfMonth(mesAlm) {
     
     this.daysInThisMonth = new Array();
     this.daysInLastMonth = new Array();
     this.daysInNextMonth = new Array();
     this.currentYear = this.date.getFullYear();
-    // if(this.date.getMonth() === new Date().getMonth()) {
-    //   this.currentDate = new Date().getDate();
-    // } else {
-    //   this.currentDate = 999;
-    // }
   
     var firstDayThisMonth = new Date(this.date.getFullYear(), mesAlm, 1).getDay();
     var prevNumOfDays = new Date(this.date.getFullYear(), mesAlm, 0).getDate();
@@ -155,6 +200,7 @@ export class CalendarioPage {
     let año = this.date.getFullYear();
     let mes = mesAlm;
     let mesindexado = mes+1;
+
     for (let j=0; j < this.respuesta.length; j++) {
       if(this.respuesta[j].Fechas.getFullYear() === año && this.respuesta[j].Fechas.getMonth() === mesAlm){
           this.daysInThisMonth.push({fecha: this.respuesta[j].Fechas.getDate(), diaHabil:"si"}); 
@@ -218,64 +264,6 @@ export class CalendarioPage {
     
   }
 
-  crearAlmanaque(){
-      this.arrayAlmanaqueLast = [[],[]];
-      this.arrayAlmanaqueThis = [[],[]];
-      this.arrayAlmanaqueNext = [[],[]];
-      for (let i = 0; i<12 ; i++){
-        this.arrayAlmanaqueLast[i] = this.getDaysOfMonth(i)[0];
-        this.arrayAlmanaqueThis[i] = this.getDaysOfMonth(i)[1];
-        this.arrayAlmanaqueNext[i] = this.getDaysOfMonth(i)[2];
-      }
-
-      this.ene0 = this.arrayAlmanaqueLast[0];
-      this.ene1 = this.arrayAlmanaqueThis[0];
-      this.ene2 = this.arrayAlmanaqueNext[0];
-
-      this.feb0 = this.arrayAlmanaqueLast[1];
-      this.feb1 = this.arrayAlmanaqueThis[1];
-      this.feb2 = this.arrayAlmanaqueNext[1];
-      
-      this.mar0 = this.arrayAlmanaqueLast[2];
-      this.mar1 = this.arrayAlmanaqueThis[2];
-      this.mar2 = this.arrayAlmanaqueNext[2];
-      
-      this.abr0 = this.arrayAlmanaqueLast[3];
-      this.abr1 = this.arrayAlmanaqueThis[3];
-      this.abr2 = this.arrayAlmanaqueNext[3];
-      
-      this.may0 = this.arrayAlmanaqueLast[4];
-      this.may1 = this.arrayAlmanaqueThis[4];
-      this.may2 = this.arrayAlmanaqueNext[4];
-      
-      this.jun0 = this.arrayAlmanaqueLast[5];
-      this.jun1 = this.arrayAlmanaqueThis[5];
-      this.jun2 = this.arrayAlmanaqueNext[5];
-      
-      this.jul0 = this.arrayAlmanaqueLast[6];
-      this.jul1 = this.arrayAlmanaqueThis[6];
-      this.jul2 = this.arrayAlmanaqueNext[6];
-      
-      this.ago0 = this.arrayAlmanaqueLast[7];
-      this.ago1 = this.arrayAlmanaqueThis[7];
-      this.ago2 = this.arrayAlmanaqueNext[7];
-      
-      this.sep0 = this.arrayAlmanaqueLast[8];
-      this.sep1 = this.arrayAlmanaqueThis[8];
-      this.sep2 = this.arrayAlmanaqueNext[8];
-      
-      this.oct0 = this.arrayAlmanaqueLast[9];
-      this.oct1 = this.arrayAlmanaqueThis[9];
-      this.oct2 = this.arrayAlmanaqueNext[9];
-      
-      this.nov0 = this.arrayAlmanaqueLast[10];
-      this.nov1 = this.arrayAlmanaqueThis[10];
-      this.nov2 = this.arrayAlmanaqueNext[10];
-      
-      this.dic0 = this.arrayAlmanaqueLast[11];
-      this.dic1 = this.arrayAlmanaqueThis[11];
-      this.dic2 = this.arrayAlmanaqueNext[11];
-  }
 
   click(mes,dia){
     dia++;
@@ -463,8 +451,67 @@ export class CalendarioPage {
     alert.present();
   }
 
-  guardar(){
-    console.log("click en guardar")
+  guardar(cambios){
+    if(cambios === 'si'){
+      console.log("click en guardar SI HAY CAMBIOS, LLAMANDO A PROVIDER")
+    }else{
+      console.log("click en guardar NO HAY CAMBIOS, no se llama provider")
+    }
+    
+  }
+
+  guardarCambios() {
+    this.calcularNuevosDias();
+    let mensaje = "FORMATO: Año-Mes-Día<br>";
+    let cambios;
+    if(this.arrayNuevosDiasHabiles.length === 0 && this.arrayNuevosFeriados.length === 0){
+      mensaje = "No se detectaron cambios"
+      cambios = "no";
+    }else{
+      cambios = "si";
+      let diasHabiles ="";
+      let diasFeriados = "";
+      if(this.arrayNuevosDiasHabiles.length !== 0){
+        mensaje = mensaje.concat("Nuevos días hábiles:<br>");
+        for(let i = 0; i < this.arrayNuevosDiasHabiles.length; i++){
+          diasHabiles = this.arrayNuevosDiasHabiles[i].fecha+"<br>"
+          mensaje = mensaje.concat(diasHabiles);
+        }
+      }else{
+        mensaje = mensaje.concat("Nuevos días HÁBILES:<br>");
+        mensaje = mensaje.concat("no se detectaron nuevos días hábiles:<br>");
+      }
+      if(this.arrayNuevosFeriados.length !== 0){
+        mensaje = mensaje.concat("Nuevos días NO HÁBILES:<br>");
+        for(let i = 0; i < this.arrayNuevosFeriados.length; i++){
+          diasFeriados = this.arrayNuevosFeriados[i].fecha+"<br>"
+          mensaje = mensaje.concat(diasFeriados);
+        }
+      }else{
+        mensaje = mensaje.concat("Nuevos días NO HÁBILES:<br>");
+        mensaje = mensaje.concat("no se detectaron nuevos días no hábiles:<br>");
+      }
+    }
+    let alert = this.alertCtrl.create({
+      title: "Guardar cambios",
+      message: mensaje,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.guardar(cambios);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
