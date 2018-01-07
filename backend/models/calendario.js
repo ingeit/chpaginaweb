@@ -21,7 +21,6 @@ exports.listarFechasHabiles = function(fn){
 }
 
 exports.modificarCalendario = function(arrayFechas,fn){
-    console.log(arrayFechas);
     connection.query('call modificar_dias_habiles('+arrayFechas+')', function(err, rows){  
          console.log("rows 0 en models ", rows[0]);
         if (err) {
