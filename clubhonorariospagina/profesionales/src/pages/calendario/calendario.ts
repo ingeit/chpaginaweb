@@ -214,6 +214,21 @@ export class CalendarioPage {
       }
     }
 
+    /////////////////////////////////////////////////////////////////////////////
+    // con esta funcion hacemos que el AÑO que no este cargado en mysql,       //
+    // se ponga por defecto en HABILES                                         //
+    // solo para clicear los "fines de semana" como no habiles                 //
+    // y guardar los cambios para que impacte en mysql                         //
+    //                                                                         //
+    //                                                                         //
+    // if(this.daysInThisMonth.length === 0){                                  //
+    //   for (let j=1; j <= thisNumOfDays; j++) {                              //
+    //     this.daysInThisMonth.push({fecha: j, diaHabil:"si"});               //
+    //   }                                                                     //
+    // }                                                                       //
+    //                                                                         //
+    /////////////////////////////////////////////////////////////////////////////
+
     // relleno el array hasta 31 elementos
     for (let j=0; j < thisNumOfDays; j++) {
       if(this.daysInThisMonth[j] === undefined ){
@@ -458,7 +473,7 @@ export class CalendarioPage {
 
   guardarCambios() {
     this.calcularNuevosDias();
-    let mensaje = "FORMATO: Año-Mes-Día<br>";
+    let mensaje = "FORMATO: Año-Mes-Día<br><br>";
     let cambios;
     if(this.arrayNuevosDiasHabiles.length === 0 && this.arrayNuevosFeriados.length === 0){
       mensaje = "No se detectaron cambios"
@@ -468,7 +483,7 @@ export class CalendarioPage {
       let diasHabiles ="";
       let diasFeriados = "";
       if(this.arrayNuevosDiasHabiles.length !== 0){
-        mensaje = mensaje.concat("Nuevos días hábiles:<br>");
+        mensaje = mensaje.concat(this.arrayNuevosDiasHabiles.length+" nuevos días HÁBILES:<br>");
         for(let i = 0; i < this.arrayNuevosDiasHabiles.length; i++){
           diasHabiles = this.arrayNuevosDiasHabiles[i].fecha+"<br>"
           mensaje = mensaje.concat(diasHabiles);
@@ -478,13 +493,13 @@ export class CalendarioPage {
         mensaje = mensaje.concat("no se detectaron nuevos días hábiles:<br>");
       }
       if(this.arrayNuevosFeriados.length !== 0){
-        mensaje = mensaje.concat("Nuevos días NO HÁBILES:<br>");
+        mensaje = mensaje.concat("<br>"+this.arrayNuevosFeriados.length+" nuevos días NO HÁBILES:<br>");
         for(let i = 0; i < this.arrayNuevosFeriados.length; i++){
           diasFeriados = this.arrayNuevosFeriados[i].fecha+"<br>"
           mensaje = mensaje.concat(diasFeriados);
         }
       }else{
-        mensaje = mensaje.concat("Nuevos días NO HÁBILES:<br>");
+        mensaje = mensaje.concat("<br>Nuevos días NO HÁBILES:<br>");
         mensaje = mensaje.concat("no se detectaron nuevos días no hábiles:<br>");
       }
     }
@@ -563,6 +578,7 @@ export class CalendarioPage {
     let alert = this.alertCtrl.create({
     title: titulo,
     subTitle: mensaje,
+    cssClass: 'alerta',
     buttons: [{
       text: 'Aceptar',
       handler: () => {
