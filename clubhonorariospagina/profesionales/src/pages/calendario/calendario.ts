@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { FechasHabilesProvider } from '../../providers/fechas-habiles/fechas-habiles';
 import { CalendarComponentOptions } from 'ion2-calendar'
 import * as moment from 'moment';
@@ -90,6 +90,7 @@ export class CalendarioPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider,
+              private alertCtrl: AlertController,
               private _zone: NgZone ) {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
                 this.obtenerFechasHabiles();
@@ -192,17 +193,32 @@ export class CalendarioPage {
     
   }
 
-  goToLastMonth() {
-    this.date.setFullYear(this.date.getFullYear() - 1)
-    this.crearAlmanaque();
+  irAlAnioAnterior() {
+    if(this.arrayNuevosDiasHabiles === [] || this.arrayNuevosFeriados === [] ){
+      let titulo = "Modificacion sin guardar";
+      let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
+      this.confirmarNuevoAlmanaque(titulo,mensaje,"anioAnterior");
+    }else{
+      this.date.setFullYear(this.date.getFullYear() - 1);
+      this.crearAlmanaque();
+    }
   }
 
-  goToNextMonth() {
-    this.date.setFullYear(this.date.getFullYear() + 1)
-    this.crearAlmanaque();
+  irAlAnioSiguiente() {
+    if(this.arrayNuevosDiasHabiles === [] || this.arrayNuevosFeriados === []){
+      let titulo = "Modificacion sin guardar";
+      let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
+      this.confirmarNuevoAlmanaque(titulo,mensaje,"anioSiguiente");
+    }else{
+      this.date.setFullYear(this.date.getFullYear() + 1)
+      this.crearAlmanaque();
+    }
+    
   }
 
   crearAlmanaque(){
+      this.arrayNuevosDiasHabiles = new Array();
+      this.arrayNuevosFeriados = new Array();
       this.arrayAlmanaqueLast = [[],[]];
       this.arrayAlmanaqueThis = [[],[]];
       this.arrayAlmanaqueNext = [[],[]];
@@ -259,7 +275,6 @@ export class CalendarioPage {
       this.dic0 = this.arrayAlmanaqueLast[11];
       this.dic1 = this.arrayAlmanaqueThis[11];
       this.dic2 = this.arrayAlmanaqueNext[11];
-
   }
 
   click(mes,dia){
@@ -267,96 +282,94 @@ export class CalendarioPage {
     let año = this.currentYear;
     switch (mes) {
       case 0:
-        if(this.ene1[dia-1].diaHabil === 'no'){
-          this.ene1[dia-1].diaHabil = 'si';
-        }else{
-          this.ene1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 1:
-        if(this.feb1[dia-1].diaHabil === 'no'){
-          this.feb1[dia-1].diaHabil = 'si';
-        }else{
-          this.feb1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 2:
-        if(this.mar1[dia-1].diaHabil === 'no'){
-          this.mar1[dia-1].diaHabil = 'si';
-        }else{
-          this.mar1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 3:
-        if(this.abr1[dia-1].diaHabil === 'no'){
-          this.abr1[dia-1].diaHabil = 'si';
-        }else{
-          this.abr1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 4:
-        if(this.may1[dia-1].diaHabil === 'no'){
-          this.may1[dia-1].diaHabil = 'si';
-        }else{
-          this.may1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 5:
-        if(this.jun1[dia-1].diaHabil === 'no'){
-          this.jun1[dia-1].diaHabil = 'si';
-        }else{
-          this.jun1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 6:
-        if(this.jul1[dia-1].diaHabil === 'no'){
-          this.jul1[dia-1].diaHabil = 'si';
-        }else{
-          this.jul1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 7:
-        if(this.ago1[dia-1].diaHabil === 'no'){
-          this.ago1[dia-1].diaHabil = 'si';
-        }else{
-          this.ago1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 8:
-        if(this.sep1[dia-1].diaHabil === 'no'){
-          this.sep1[dia-1].diaHabil = 'si';
-        }else{
-          this.sep1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 9:
-        if(this.oct1[dia-1].diaHabil === 'no'){
-          this.oct1[dia-1].diaHabil = 'si';
-        }else{
-          this.oct1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 10:
-        if(this.nov1[dia-1].diaHabil === 'no'){
-          this.nov1[dia-1].diaHabil = 'si';
-        }else{
-          this.nov1[dia-1].diaHabil = 'no';
-        }
-        break;
-        case 11:
-        if(this.dic1[dia-1].diaHabil === 'no'){
-          this.dic1[dia-1].diaHabil = 'si';
-        }else{
-          this.dic1[dia-1].diaHabil = 'no';
-        }
-        break;
-
+      if(this.ene1[dia-1].diaHabil === 'no'){
+        this.ene1[dia-1].diaHabil = 'si';
+      }else{
+        this.ene1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 1:
+      if(this.feb1[dia-1].diaHabil === 'no'){
+        this.feb1[dia-1].diaHabil = 'si';
+      }else{
+        this.feb1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 2:
+      if(this.mar1[dia-1].diaHabil === 'no'){
+        this.mar1[dia-1].diaHabil = 'si';
+      }else{
+        this.mar1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 3:
+      if(this.abr1[dia-1].diaHabil === 'no'){
+        this.abr1[dia-1].diaHabil = 'si';
+      }else{
+        this.abr1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 4:
+      if(this.may1[dia-1].diaHabil === 'no'){
+        this.may1[dia-1].diaHabil = 'si';
+      }else{
+        this.may1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 5:
+      if(this.jun1[dia-1].diaHabil === 'no'){
+        this.jun1[dia-1].diaHabil = 'si';
+      }else{
+        this.jun1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 6:
+      if(this.jul1[dia-1].diaHabil === 'no'){
+        this.jul1[dia-1].diaHabil = 'si';
+      }else{
+        this.jul1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 7:
+      if(this.ago1[dia-1].diaHabil === 'no'){
+        this.ago1[dia-1].diaHabil = 'si';
+      }else{
+        this.ago1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 8:
+      if(this.sep1[dia-1].diaHabil === 'no'){
+        this.sep1[dia-1].diaHabil = 'si';
+      }else{
+        this.sep1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 9:
+      if(this.oct1[dia-1].diaHabil === 'no'){
+        this.oct1[dia-1].diaHabil = 'si';
+      }else{
+        this.oct1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 10:
+      if(this.nov1[dia-1].diaHabil === 'no'){
+        this.nov1[dia-1].diaHabil = 'si';
+      }else{
+        this.nov1[dia-1].diaHabil = 'no';
+      }
+      break;
+      case 11:
+      if(this.dic1[dia-1].diaHabil === 'no'){
+        this.dic1[dia-1].diaHabil = 'si';
+      }else{
+        this.dic1[dia-1].diaHabil = 'no';
+      }
+      break;
     }
+    this.guardar();
   }
 
   guardar(){
-    this.arrayNuevosDiasHabiles = new Array();
-    this.arrayNuevosFeriados = new Array();
     this.prueba=[];
 
     for(let i = 0; i < this.ene1.length ; i++){
@@ -412,6 +425,40 @@ export class CalendarioPage {
     console.log("nuevos dias hab",this.arrayNuevosDiasHabiles);
     console.log("nuevos feriados",this.arrayNuevosFeriados);
 
+  }
+
+  confirmarNuevoAlmanaque(titulo,mensaje,anioObjetivo) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      message: mensaje,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.arrayNuevosDiasHabiles = new Array();
+            this.arrayNuevosFeriados = new Array();
+            switch (anioObjetivo) {
+              case "anioAnterior":
+                this.irAlAnioAnterior();
+              break;
+              case "anioSiguiente":
+                this.irAlAnioSiguiente();
+              break;
+              default:
+                break;
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
