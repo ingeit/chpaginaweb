@@ -95,6 +95,8 @@ export class CalendarioPage {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
                 this.obtenerFechasHabiles();
                 this.mysql = new Array();
+                this.arrayNuevosDiasHabiles = new Array();
+                this.arrayNuevosFeriados = new Array();
                 // this.daysInThisMonth = [[],[]];
                 // this.daysInThisMonth[0].push({diaHabil: "si", hola: "hola"})
                 // console.log(this.daysInThisMonth);
@@ -194,7 +196,7 @@ export class CalendarioPage {
   }
 
   irAlAnioAnterior() {
-    if(this.arrayNuevosDiasHabiles === [] || this.arrayNuevosFeriados === [] ){
+    if(this.arrayNuevosDiasHabiles.length !== 0 || this.arrayNuevosFeriados.length !== 0 ){
       let titulo = "Modificacion sin guardar";
       let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
       this.confirmarNuevoAlmanaque(titulo,mensaje,"anioAnterior");
@@ -205,7 +207,7 @@ export class CalendarioPage {
   }
 
   irAlAnioSiguiente() {
-    if(this.arrayNuevosDiasHabiles === [] || this.arrayNuevosFeriados === []){
+    if(this.arrayNuevosDiasHabiles.length !== 0 || this.arrayNuevosFeriados.length !== 0 ){
       let titulo = "Modificacion sin guardar";
       let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
       this.confirmarNuevoAlmanaque(titulo,mensaje,"anioSiguiente");
@@ -217,8 +219,6 @@ export class CalendarioPage {
   }
 
   crearAlmanaque(){
-      this.arrayNuevosDiasHabiles = new Array();
-      this.arrayNuevosFeriados = new Array();
       this.arrayAlmanaqueLast = [[],[]];
       this.arrayAlmanaqueThis = [[],[]];
       this.arrayAlmanaqueNext = [[],[]];
@@ -366,10 +366,12 @@ export class CalendarioPage {
       }
       break;
     }
-    this.guardar();
+    this.calcularNuevosDias();
   }
 
-  guardar(){
+  calcularNuevosDias(){
+    this.arrayNuevosDiasHabiles = new Array();
+    this.arrayNuevosFeriados = new Array();
     this.prueba=[];
 
     for(let i = 0; i < this.ene1.length ; i++){
@@ -459,6 +461,10 @@ export class CalendarioPage {
       ]
     });
     alert.present();
+  }
+
+  guardar(){
+    console.log("click en guardar")
   }
 
 }
