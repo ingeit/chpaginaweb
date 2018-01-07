@@ -209,7 +209,7 @@ export class CalendarioPage {
       }
     }
 
-    // relleno el array hasta 31 elementos 
+    // relleno el array hasta 31 elementos
     for (let j=0; j < thisNumOfDays; j++) {
       if(this.daysInThisMonth[j] === undefined ){
         this.daysInThisMonth.push({fecha: 0, diaHabil: "si"});
