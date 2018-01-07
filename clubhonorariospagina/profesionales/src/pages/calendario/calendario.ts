@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { FechasHabilesProvider } from '../../providers/fechas-habiles/fechas-habiles';
 import { CalendarComponentOptions } from 'ion2-calendar'
 import * as moment from 'moment';
@@ -18,6 +18,7 @@ import 'moment/locale/es';
 })
 export class CalendarioPage {
 
+  public loading:any;
   respuesta: any;
   mysql: any;
   calendarioAnual:any = [];
@@ -90,6 +91,7 @@ export class CalendarioPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public fechaProvider: FechasHabilesProvider,
+              public loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
               private _zone: NgZone ) {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -117,8 +119,10 @@ export class CalendarioPage {
   }
 
   obtenerFechasHabiles(){
+    this.showLoader("Consultando calendario...")
     this.fechaProvider.obtenerFechas().then((data)=>{
       this.respuesta = data;
+      this.loading.dismiss();
       this.crearAlmanaque();
     });
   }
@@ -451,15 +455,6 @@ export class CalendarioPage {
     alert.present();
   }
 
-  guardar(cambios){
-    if(cambios === 'si'){
-      console.log("click en guardar SI HAY CAMBIOS, LLAMANDO A PROVIDER")
-    }else{
-      console.log("click en guardar NO HAY CAMBIOS, no se llama provider")
-    }
-    
-  }
-
   guardarCambios() {
     this.calcularNuevosDias();
     let mensaje = "FORMATO: Año-Mes-Día<br>";
@@ -510,6 +505,82 @@ export class CalendarioPage {
           }
         }
       ]
+    });
+    alert.present();
+  }
+
+  guardar(cambios){
+    let bandera
+    if(cambios === 'si'){
+      bandera = 0;
+      this.showLoader('Realizando cambios. Por favor espere...');
+      if(this.arrayNuevosDiasHabiles.length !== 0 && bandera !== 1){
+        console.log("hay nuevos habiles")
+        let aux = "";
+        // Armamos un array con todos los dias habiles separados por *
+        for(let i = 0; i< this.arrayNuevosDiasHabiles.length; i++ ){
+          aux = aux.concat(this.arrayNuevosDiasHabiles[i].fecha);
+          aux = aux.concat("*");
+        }
+        let details = {fechas : aux}
+        console.log(details);
+        this.fechaProvider.nuevosDiasHabiles(details).then((data)=>{
+          let response = data[0];
+          console.log("response codigo "+response.codigo)
+          if(response.codigo !== "1"){ // hacemos asi, porque si hay prolema con MYSQL, no sabemos salvo que leamos expicito el 1 de codigo OK
+            console.log("entrando al if porque codigo es 0, distinto de 1")
+            bandera = 1;
+          }
+        });
+      }
+      if(this.arrayNuevosFeriados.length !== 0 && bandera !== 1){
+        console.log("hay nuevos feriads")
+        let aux = "";
+        // Armamos un array con todos los dias feriados separados por *
+        for(let i = 0; i< this.arrayNuevosFeriados.length; i++ ){
+          aux = aux.concat(this.arrayNuevosFeriados[i].fecha);
+          aux = aux.concat("*");
+        }
+        let details = {fechas : aux}
+        console.log(details);
+        this.fechaProvider.eliminarDias(details).then((data)=>{
+          let response = data[0];
+          if(response.codigo !== "1"){ // hacemos asi, porque si hay prolema con MYSQL, no sabemos salvo que leamos expicito el 1 de codigo OK
+            bandera = 1;
+          }
+        });
+      }
+      this.loading.dismiss();
+      console.log("bandera",bandera);
+      if(bandera !== 1 ){
+        this.mostrarAlerta('Operacion Exitosa', this.respuesta.mensaje)
+      }else{
+        this.mostrarAlerta('ERROR', "No se realizaron los cambios. Motivo: "+this.respuesta.mensaje)
+      }
+      
+      
+    }else{
+      console.log("click en guardar NO HAY CAMBIOS, no se llama provider")
+    }
+  }
+
+  showLoader(mensaje){
+    this.loading = this.loadingCtrl.create({
+      content: mensaje
+    });
+    this.loading.present();
+  }
+
+  mostrarAlerta(titulo,mensaje) {
+    let alert = this.alertCtrl.create({
+    title: titulo,
+    subTitle: mensaje,
+    buttons: [{
+      text: 'Aceptar',
+      handler: () => {
+        this.navCtrl.setRoot(CalendarioPage);
+     }
+    }]
     });
     alert.present();
   }

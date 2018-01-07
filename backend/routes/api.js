@@ -4,6 +4,7 @@ var router = express.Router();
 var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
 var ProfesionalesController = require('./../controllers/profesionalesController');
+var CalendarioController = require('./../controllers/calendarioController');
 var MysqlController = require('./../controllers/mysqlController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
@@ -33,8 +34,10 @@ router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 //router.get('/mysql', MysqlController.dump);
 //router.post('/test',OperacionController.test);
 
-
-router.get('/listarFechasHabiles', ProfesionalesController.listarFechasHabiles);
+//Calendario
+router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles);
+router.post('/nuevoDiasHabiles', CalendarioController.nuevoDiasHabiles);
+// router.post('/eliminarDiasHabiles', CalendarioController.eliminarDiasHabiles);
 
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
 // router.get('/email',OperacionController.email);

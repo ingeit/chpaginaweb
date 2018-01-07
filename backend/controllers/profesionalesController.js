@@ -26,17 +26,6 @@ exports.bajaProfesional = function(req, res, next){
     });
 }
 
-exports.listarFechasHabiles = function(req, res, next){
-    profesional.listarFechasHabiles(function(consulta){
-        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
-            res.json(consulta);
-        }else{
-            consulta[0].codigo = 1; 
-            res.json(consulta);
-        }
-    });
-}
-
 exports.listarProfesionales = function(req, res, next){
     profesional.listarProfesionales(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){

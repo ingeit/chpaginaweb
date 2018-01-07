@@ -362,5 +362,5 @@
                         </div>                              
                       </div>
 
-        <button float-right color="secondary" ion-button type="submit" (click)="guardarCambios()">Guardar cambios</button>
+        <button [disabled]="arrayNuevosDiasHabiles.length === 0 && this.arrayNuevosFeriados.length === 0" float-right color="secondary" ion-button type="submit" (click)="guardarCambios()">Guardar cambios</button>
 </ion-content>
