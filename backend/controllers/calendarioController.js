@@ -12,15 +12,14 @@ exports.listarFechasHabiles = function(req, res, next){
     });
 }
 
-// nuevoDiasHabiles
-// eliminarDiasHabiles
-
-exports.nuevoDiasHabiles = function(req, res, next){
+exports.modificarCalendario = function(req, res, next){
     console.log(req.body.fechas);
     var arrayFechas = '"'+req.body.fechas+'"';
-    calendario.nuevosDiasHabiles(arrayFechas,function(consulta){
-        console.log(consulta);
-        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+    calendario.modificarCalendario(arrayFechas,function(consulta){
+        console.log("mensaje .codigo de mysql en controller ",consulta[0].codigo);
+        if(typeof consulta[0].codigo === 'undefined' || consulta[0].codigo === 0){
+            consulta[0].codigo = 0; 
+            consulta[0].mensaje = consulta[0].Message;
             res.json(consulta);
         }else{
             consulta[0].codigo = 1; 

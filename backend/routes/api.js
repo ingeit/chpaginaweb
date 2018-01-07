@@ -36,8 +36,8 @@ router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 
 //Calendario
 router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles);
-router.post('/nuevoDiasHabiles', CalendarioController.nuevoDiasHabiles);
-// router.post('/eliminarDiasHabiles', CalendarioController.eliminarDiasHabiles);
+router.post('/modificarCalendario', CalendarioController.modificarCalendario);
+
 
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
 // router.get('/email',OperacionController.email);

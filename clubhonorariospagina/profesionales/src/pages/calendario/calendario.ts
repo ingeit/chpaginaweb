@@ -19,6 +19,7 @@ import 'moment/locale/es';
 export class CalendarioPage {
 
   public loading:any;
+  public response: any;
   respuesta: any;
   mysql: any;
   calendarioAnual:any = [];
@@ -510,55 +511,42 @@ export class CalendarioPage {
   }
 
   guardar(cambios){
-    let bandera
     if(cambios === 'si'){
-      bandera = 0;
-      this.showLoader('Realizando cambios. Por favor espere...');
-      if(this.arrayNuevosDiasHabiles.length !== 0 && bandera !== 1){
-        console.log("hay nuevos habiles")
-        let aux = "";
-        // Armamos un array con todos los dias habiles separados por *
-        for(let i = 0; i< this.arrayNuevosDiasHabiles.length; i++ ){
-          aux = aux.concat(this.arrayNuevosDiasHabiles[i].fecha);
-          aux = aux.concat("*");
-        }
-        let details = {fechas : aux}
-        console.log(details);
-        this.fechaProvider.nuevosDiasHabiles(details).then((data)=>{
-          let response = data[0];
-          console.log("response codigo "+response.codigo)
-          if(response.codigo !== "1"){ // hacemos asi, porque si hay prolema con MYSQL, no sabemos salvo que leamos expicito el 1 de codigo OK
-            console.log("entrando al if porque codigo es 0, distinto de 1")
-            bandera = 1;
-          }
-        });
-      }
-      if(this.arrayNuevosFeriados.length !== 0 && bandera !== 1){
         console.log("hay nuevos feriads")
         let aux = "";
-        // Armamos un array con todos los dias feriados separados por *
-        for(let i = 0; i< this.arrayNuevosFeriados.length; i++ ){
-          aux = aux.concat(this.arrayNuevosFeriados[i].fecha);
-          aux = aux.concat("*");
+        // Armamos un array con todos los dias diferentes separados por * y entre nuevos habiles y nuevos feriados separamos con un %
+        for(let i = 0; i< this.arrayNuevosDiasHabiles.length; i++ ){
+          if(i !== 0){
+            aux = aux.concat("*");
+            aux = aux.concat(this.arrayNuevosDiasHabiles[i].fecha);
+          }else{
+            aux = aux.concat(this.arrayNuevosDiasHabiles[i].fecha);
+          }
+          
         }
+        aux = aux.concat("*");
+        aux = aux.concat("%");
+        for(let i = 0; i< this.arrayNuevosFeriados.length; i++ ){
+          if(i !== 0){
+            aux = aux.concat("*");
+            aux = aux.concat(this.arrayNuevosFeriados[i].fecha);
+          }else{
+            aux = aux.concat(this.arrayNuevosFeriados[i].fecha);
+          }
+        }
+        aux = aux.concat("*");
         let details = {fechas : aux}
         console.log(details);
-        this.fechaProvider.eliminarDias(details).then((data)=>{
-          let response = data[0];
-          if(response.codigo !== "1"){ // hacemos asi, porque si hay prolema con MYSQL, no sabemos salvo que leamos expicito el 1 de codigo OK
-            bandera = 1;
+        this.fechaProvider.modificarCalendario(details).then((data)=>{
+          this.loading.dismiss();
+          this.response = data[0];
+          console.log(this.response);
+          if(this.response.codigo !== 1){
+            this.mostrarAlerta('ERROR', "No se realizaron los cambios. Motivo: "+this.response.mensaje)
+          }else{
+            this.mostrarAlerta('Operacion Exitosa', this.response.mensaje)
           }
         });
-      }
-      this.loading.dismiss();
-      console.log("bandera",bandera);
-      if(bandera !== 1 ){
-        this.mostrarAlerta('Operacion Exitosa', this.respuesta.mensaje)
-      }else{
-        this.mostrarAlerta('ERROR', "No se realizaron los cambios. Motivo: "+this.respuesta.mensaje)
-      }
-      
-      
     }else{
       console.log("click en guardar NO HAY CAMBIOS, no se llama provider")
     }

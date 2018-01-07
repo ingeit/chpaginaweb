@@ -20,9 +20,10 @@ exports.listarFechasHabiles = function(fn){
     });
 }
 
-exports.nuevosDiasHabiles = function(arrayFechas,fn){
+exports.modificarCalendario = function(arrayFechas,fn){
     console.log(arrayFechas);
-    connection.query('call nuevos_dias_habiles('+arrayFechas+')', function(err, rows){   
+    connection.query('call modificar_dias_habiles('+arrayFechas+')', function(err, rows){  
+         console.log("rows 0 en models ", rows[0]);
         if (err) {
             consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 
             fn (consulta);  
