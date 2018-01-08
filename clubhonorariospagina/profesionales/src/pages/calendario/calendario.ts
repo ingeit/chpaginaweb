@@ -96,7 +96,7 @@ export class CalendarioPage {
               private alertCtrl: AlertController,
               private _zone: NgZone ) {
                 this.monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-                this.obtenerFechasHabiles();
+                this.obtenerFechasHabiles(this.date.getFullYear());
                 this.mysql = new Array();
                 this.arrayNuevosDiasHabiles = new Array();
                 this.arrayNuevosFeriados = new Array();
@@ -119,9 +119,10 @@ export class CalendarioPage {
     console.log('ionViewDidLoad CalendarioPage');
   }
 
-  obtenerFechasHabiles(){
-    this.showLoader("Consultando calendario...")
-    this.fechaProvider.obtenerFechas().then((data)=>{
+  obtenerFechasHabiles(year){
+    this.showLoader("")
+    let details = { anio: year};
+    this.fechaProvider.obtenerFechasPorAnio(details).then((data)=>{
       this.respuesta = data;
       this.loading.dismiss();
       this.crearAlmanaque();
@@ -267,8 +268,9 @@ export class CalendarioPage {
       let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
       this.confirmarNuevoAlmanaque(titulo,mensaje,"anioAnterior");
     }else{
+      let anio = this.date.getFullYear() - 1;
       this.date.setFullYear(this.date.getFullYear() - 1);
-      this.crearAlmanaque();
+      this.obtenerFechasHabiles(anio);
     }
   }
 
@@ -278,8 +280,9 @@ export class CalendarioPage {
       let mensaje = "¿Está seguro que desea continuar?. Los cambios realizados se perderán";
       this.confirmarNuevoAlmanaque(titulo,mensaje,"anioSiguiente");
     }else{
-      this.date.setFullYear(this.date.getFullYear() + 1)
-      this.crearAlmanaque();
+      let anio = this.date.getFullYear() + 1;
+      this.date.setFullYear(this.date.getFullYear() + 1);
+      this.obtenerFechasHabiles(anio);
     }
     
   }

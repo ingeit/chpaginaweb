@@ -12,6 +12,18 @@ exports.listarFechasHabiles = function(req, res, next){
     });
 }
 
+exports.listarFechasHabilesPorAnio = function(req, res, next){
+    var anio = req.body.anio;
+    calendario.listarFechasHabilesPorAnio(anio,function(consulta){
+        if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
+            res.json(consulta);
+        }else{
+            consulta[0].codigo = 1; 
+            res.json(consulta);
+        }
+    });
+}
+
 exports.modificarCalendario = function(req, res, next){
     var arrayFechas = '"'+req.body.fechas+'"';
     calendario.modificarCalendario(arrayFechas,function(consulta){

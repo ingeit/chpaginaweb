@@ -51,7 +51,7 @@ export class CalendarioPage {
   }
 
   obtenerFechasHabiles(){
-    this.fechaProvider.obtenerFechas().then((data)=>{
+    this.fechaProvider.obtenerFechasMes().then((data)=>{
       this.respuesta = data;
       this.getDaysOfMonth();
       // for(let i=0; i < this.respuesta.length; i++){ // n is array.length

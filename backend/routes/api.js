@@ -35,8 +35,10 @@ router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 //router.post('/test',OperacionController.test);
 
 //Calendario
-router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles);
+router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles); // Por mes
+router.post('/listarFechasHabilesPorAnio', CalendarioController.listarFechasHabilesPorAnio);
 router.post('/modificarCalendario', CalendarioController.modificarCalendario);
+
 
 
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
