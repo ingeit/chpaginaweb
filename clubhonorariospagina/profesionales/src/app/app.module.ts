@@ -20,8 +20,6 @@ import { FormProfesionalPage } from '../pages/form-profesional/form-profesional'
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { CalendarioPage } from '../pages/calendario/calendario';
 
-import { CalendarModule } from "ion2-calendar";
-
 // Providers
 import { Storage } from '@ionic/storage';
 import { LoginProvider } from '../providers/login/login';
@@ -48,7 +46,6 @@ import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habile
     HttpModule,
     NgxPaginationModule,
     TooltipsModule,
-    CalendarModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
       mode: "md",
