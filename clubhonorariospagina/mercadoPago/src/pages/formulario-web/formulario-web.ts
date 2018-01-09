@@ -81,7 +81,7 @@ export class FormularioWebPage {
               cardExpirationMonth: ['',Validators.compose([Validators.maxLength(2),Validators.minLength(1),Validators.pattern(/()\d/g),Validators.required])],
               cardExpirationYear: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])],
               cardholderName: ['',Validators.compose([Validators.required])],
-              codSeguridad: ['',Validators.compose([Validators.maxLength(3),Validators.minLength(4),Validators.pattern(/()\d/g),Validators.required])],
+              codSeguridad: ['',Validators.compose([Validators.maxLength(4),Validators.minLength(3),Validators.pattern(/()\d/g),Validators.required])],
               bancos:[''],
               dniProfesional: ['',Validators.compose([Validators.maxLength(12),Validators.minLength(7),Validators.pattern(/()\d/g),Validators.required])],
               apellidoProfesional: [''],
