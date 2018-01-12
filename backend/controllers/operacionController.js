@@ -809,6 +809,16 @@ exports.crash = function(req, res, next){
     });
 }
 
+exports.ventaNuevaMRBREAK = function(req, res, next){
+    
+    var montoTotal = req.body.montoTotal;
+    var cadena = '"'+req.body.cadena+'"';
+
+    operacion.nuevaVentaMRBR(montoTotal,cadena,function(consulta){
+        res.json(consulta);  
+    });
+}
+
 // UNA MUESTRA CORRECTa de MANEJOS DE ERRORES
 
 // exports.crash = function(req, res, next){

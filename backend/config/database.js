@@ -4,6 +4,6 @@ module.exports = {
   user : "root",
   password : "soporteit",
   //password : "",
-  database : "ClubHonorarios"
+  database : "MrBreak"
 };
 
