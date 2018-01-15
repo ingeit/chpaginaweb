@@ -88,15 +88,6 @@ exports.crash = function(fn){
     });
 }
 
-exports.nuevaVentaMRBR = function(montoTotal,cadena,fn){
-    connection.query('call venta_nueva('+montoTotal+','+cadena+')', function(err, rows){  
-        if (err) {
-          consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 
-          fn (consulta);  
-      }else fn(rows[0]); 
-        });
-}
-
 exports.test = function(idOperacion,fn){
     connection.query('call operacion_dame('+idOperacion+')', function(err, rows){  
                 // console.log("desde model errr ",err,"desde model rows ", rows);
