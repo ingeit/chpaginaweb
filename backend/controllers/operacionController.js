@@ -23,7 +23,7 @@ getPayment.then (
     function (paymentData) {
         res.send(paymentData);
     },
-    function (error) {
+    function (error) { 
         res.send(error);
     });
 
