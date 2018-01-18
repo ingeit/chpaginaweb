@@ -12,6 +12,22 @@ exports.getOperaciones = function(req, res, next){
         res.json(consulta);
     });
 }
+exports.verPagos = function(req, res, next){
+
+    var MP = require ("mercadopago");
+
+    var mp = new MP (configMP.access_token);
+    var getPayment = mp.get ("/v1/payments/search");
+
+getPayment.then (
+    function (paymentData) {
+        res.send(paymentData);
+    },
+    function (error) {
+        res.send(error);
+    });
+
+}
 
 exports.getOperacionesPorFecha = function(req, res, next){
     var fechaInicio = '"'+req.body.fechaInicio+'"';
