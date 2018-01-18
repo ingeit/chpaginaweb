@@ -1,0 +1,3591 @@
+{
+    "status": 200,
+    "response": {
+        "paging": {
+            "total": 379,
+            "limit": 30,
+            "offset": 0
+        },
+        "results": [{
+            "id": 3130070926,
+            "date_created": "2017-11-09T12:01:31.000-04:00",
+            "date_approved": "2017-11-09T12:01:33.000-04:00",
+            "date_last_updated": "2017-11-09T13:46:21.000-04:00",
+            "money_release_date": "2017-11-23T12:01:33.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 260528447,
+                "first_name": "BONUS TICKET",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@bonusticket.com.ar",
+                "nickname": "BONUSTICKETNORAALICIAGALVEZ",
+                "identification": {
+                    "number": "27269239625",
+                    "type": "Otro"
+                },
+                "last_name": "Nora Alicia Galvez"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 310,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "refunded",
+            "status_detail": "refunded",
+            "currency_id": "ARS",
+            "description": "CUPONERA 12 MESES",
+            "live_mode": true,
+            "payer": {
+                "id": 261861182,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "@261861182",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "relq",
+                "type": null
+            },
+            "order": {
+                "id": 597198774,
+                "type": "mercadopago"
+            },
+            "external_reference": null,
+            "transaction_amount": 1200,
+            "transaction_amount_refunded": 1200,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 930.72,
+                "total_paid_amount": 1200,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 100,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": null,
+                "expiration_month": null,
+                "cardholder": {
+                    "identification": {
+                        "number": null,
+                        "type": null
+                    },
+                    "name": null
+                },
+                "expiration_year": null,
+                "date_created": null,
+                "date_last_updated": null,
+                "last_four_digits": null
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 12,
+            "notification_url": null,
+            "refunds": [{
+                "id": 361799083,
+                "amount": 1200,
+                "source": {
+                    "id": "260528447",
+                    "name": "BONUS TICKET Nora Alicia Galvez",
+                    "type": "collector"
+                },
+                "reason": null,
+                "date_created": "2017-11-09T13:46:21.770-04:00",
+                "payment_id": 3130070926,
+                "metadata": {},
+                "unique_sequence_number": null
+            }],
+            "application_id": "951593730614252",
+            "additional_info": {
+                "items": [],
+                "payer": {
+                    "first_name": null,
+                    "phone": {
+                        "area_code": null,
+                        "number": null
+                    },
+                    "address": {
+                        "zip_code": null,
+                        "street_name": null,
+                        "street_number": null
+                    },
+                    "last_name": null,
+                    "registration_date": null
+                },
+                "shipments": {
+                    "receiver_address": {
+                        "zip_code": null,
+                        "floor": null,
+                        "street_name": null,
+                        "apartment": null
+                    }
+                }
+            },
+            "authorization_code": "006699",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": null,
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": null,
+            "merchant_services": {},
+            "metadata": {},
+            "fee_details": [{
+                "amount": 66.12,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 203.16,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 261861182,
+            "collector_id": 260528447
+        }, {
+            "id": 3176553100,
+            "date_created": "2017-11-23T23:04:04.000-04:00",
+            "date_approved": "2017-11-23T23:04:06.000-04:00",
+            "date_last_updated": "2017-11-23T23:04:06.000-04:00",
+            "money_release_date": "2017-12-07T23:04:06.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 228415881,
+                "first_name": "MERCADOPAGO POINT AR",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "46408000"
+                },
+                "email": "pointarg@mercadopago.com",
+                "nickname": "MERCADOPAGOPOINT",
+                "identification": {
+                    "number": "30703088534",
+                    "type": "Otro"
+                },
+                "last_name": "MERCADOLIBRE S.R.L"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 319,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Point - Lector de tarjetas de cr&eacute;dito y d&eacute;bito de Mercado Pago",
+            "live_mode": true,
+            "payer": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah",
+                "type": "registered"
+            },
+            "order": {
+                "id": 606657235,
+                "type": "mercadopago"
+            },
+            "external_reference": null,
+            "transaction_amount": 299,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 100,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 299,
+                "total_paid_amount": 220.83,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 73.61,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "490698",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "R e lobo quinteros"
+                },
+                "expiration_year": 2017,
+                "date_created": "2017-11-23T23:04:04.000-04:00",
+                "date_last_updated": "2017-11-23T23:04:04.000-04:00",
+                "last_four_digits": "4331"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "951593730614252",
+            "additional_info": null,
+            "authorization_code": "005602",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 21.83,
+                "fee_payer": "payer",
+                "type": "financing_fee"
+            }],
+            "payer_id": 261861182,
+            "collector_id": 228415881
+        }, {
+            "id": 3177059391,
+            "date_created": "2017-11-23T23:06:22.000-04:00",
+            "date_approved": "2017-11-23T23:06:23.000-04:00",
+            "date_last_updated": "2017-11-23T23:06:23.000-04:00",
+            "money_release_date": "2017-12-07T23:06:23.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 228415881,
+                "first_name": "MERCADOPAGO POINT AR",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "46408000"
+                },
+                "email": "pointarg@mercadopago.com",
+                "nickname": "MERCADOPAGOPOINT",
+                "identification": {
+                    "number": "30703088534",
+                    "type": "Otro"
+                },
+                "last_name": "MERCADOLIBRE S.R.L"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 319,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Point - Lector de tarjetas de cr&eacute;dito y d&eacute;bito de Mercado Pago",
+            "live_mode": true,
+            "payer": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah",
+                "type": "registered"
+            },
+            "order": {
+                "id": 606657858,
+                "type": "mercadopago"
+            },
+            "external_reference": null,
+            "transaction_amount": 299,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 100,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 299,
+                "total_paid_amount": 220.83,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 73.61,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": 235814443,
+                "first_six_digits": "490698",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "R e lobo quinteros"
+                },
+                "expiration_year": 2017,
+                "date_created": "2017-11-23T23:05:55.000-04:00",
+                "date_last_updated": "2017-11-23T23:05:55.000-04:00",
+                "last_four_digits": "4331"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "951593730614252",
+            "additional_info": null,
+            "authorization_code": "005590",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 21.83,
+                "fee_payer": "payer",
+                "type": "financing_fee"
+            }],
+            "payer_id": 261861182,
+            "collector_id": 228415881
+        }, {
+            "id": 3180091813,
+            "date_created": "2017-11-24T15:40:41.000-04:00",
+            "date_approved": "2017-11-24T15:40:43.000-04:00",
+            "date_last_updated": "2017-11-24T15:42:06.000-04:00",
+            "money_release_date": "2017-12-08T15:40:43.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 1,
+            "payment_method_id": "debvisa",
+            "payment_type_id": "debit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": null
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 10,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 9.52,
+                "total_paid_amount": 10,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 10,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": null,
+                "expiration_month": null,
+                "cardholder": {
+                    "identification": {
+                        "number": null,
+                        "type": null
+                    },
+                    "name": null
+                },
+                "expiration_year": null,
+                "date_created": null,
+                "date_last_updated": null,
+                "last_four_digits": null
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 1,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": {
+                "items": [],
+                "payer": {
+                    "first_name": null,
+                    "phone": {
+                        "area_code": null,
+                        "number": null
+                    },
+                    "address": {
+                        "zip_code": null,
+                        "street_name": null,
+                        "street_number": null
+                    },
+                    "last_name": null,
+                    "registration_date": null
+                },
+                "shipments": {
+                    "receiver_address": {
+                        "zip_code": null,
+                        "floor": null,
+                        "street_name": null,
+                        "apartment": null
+                    }
+                }
+            },
+            "authorization_code": "947056",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": null,
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": null,
+            "merchant_services": {},
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 0.48,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3192239699,
+            "date_created": "2017-11-28T09:34:29.000-04:00",
+            "date_approved": "2017-11-28T09:34:32.000-04:00",
+            "date_last_updated": "2017-11-28T09:34:32.000-04:00",
+            "money_release_date": "2017-11-28T09:34:32.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 310,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "anonymous"
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 40,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 35.09,
+                "total_paid_amount": 40,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 13.33,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "405071",
+                "expiration_month": 6,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "Card Holder Name"
+                },
+                "expiration_year": 2022,
+                "date_created": "2017-11-28T09:34:29.000-04:00",
+                "date_last_updated": "2017-11-28T09:34:29.000-04:00",
+                "last_four_digits": "5804"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": null,
+            "authorization_code": "006832",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32717506",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 2.59,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 2.32,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3204529494,
+            "date_created": "2017-12-01T14:13:18.000-04:00",
+            "date_approved": "2017-12-01T14:13:20.000-04:00",
+            "date_last_updated": "2017-12-01T14:13:20.000-04:00",
+            "money_release_date": "2017-12-15T14:13:20.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "CH 3",
+            "live_mode": true,
+            "payer": {
+                "id": 260516861,
+                "first_name": "ABOGADOSTUCUMAN.COM",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "0381156022450"
+                },
+                "email": "relq@abogadostucuman.com",
+                "nickname": "ABOGADOSTUCUMANCOMLUISCESAR",
+                "identification": {
+                    "number": "20076531901",
+                    "type": "Otro"
+                },
+                "last_name": "Luis Cesar Lobo",
+                "type": "registered"
+            },
+            "order": {
+                "id": 611950129,
+                "type": "mercadopago"
+            },
+            "external_reference": null,
+            "transaction_amount": 122.04,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 108.24,
+                "total_paid_amount": 122.04,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 40.68,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "433831",
+                "expiration_month": 10,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "R LOBO QUINTEROS"
+                },
+                "expiration_year": 2021,
+                "date_created": "2017-12-01T14:13:18.000-04:00",
+                "date_last_updated": "2017-12-01T14:13:18.000-04:00",
+                "last_four_digits": "5919"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "951593730614252",
+            "additional_info": null,
+            "authorization_code": "008434",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 6.72,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 7.08,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 260516861,
+            "collector_id": 261861182
+        }, {
+            "id": 3207877287,
+            "date_created": "2017-12-02T18:10:07.000-04:00",
+            "date_approved": "2017-12-02T18:10:08.000-04:00",
+            "date_last_updated": "2017-12-02T18:10:08.000-04:00",
+            "money_release_date": "2017-12-16T18:10:08.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "CLUBHONORARIOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "mutual de a y p ruah"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "ch 12",
+            "live_mode": true,
+            "payer": {
+                "id": 82522050,
+                "first_name": "GILDA LORENA",
+                "phone": {
+                    "extension": "",
+                    "area_code": "0381",
+                    "number": "4395175"
+                },
+                "email": "chuecagordillo@hotmail.com",
+                "nickname": "CHUECAGORDILLO2005",
+                "identification": {
+                    "number": "28222351",
+                    "type": "DNI"
+                },
+                "last_name": "GORDILLO",
+                "type": "registered"
+            },
+            "order": {
+                "id": 612576836,
+                "type": "mercadopago"
+            },
+            "external_reference": null,
+            "transaction_amount": 150.79,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 116.95,
+                "total_paid_amount": 150.79,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 12.57,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "452487",
+                "expiration_month": 2,
+                "cardholder": {
+                    "identification": {
+                        "number": "28222351",
+                        "type": "DNI"
+                    },
+                    "name": "Gilda lorena gordillo"
+                },
+                "expiration_year": 2022,
+                "date_created": "2017-12-02T18:10:07.000-04:00",
+                "date_last_updated": "2017-12-02T18:10:07.000-04:00",
+                "last_four_digits": "2571"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 12,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "951593730614252",
+            "additional_info": null,
+            "authorization_code": "028117",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 8.31,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 25.53,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 82522050,
+            "collector_id": 261861182
+        }, {
+            "id": 3241822616,
+            "date_created": "2017-12-12T16:40:03.000-04:00",
+            "date_approved": "2017-12-12T16:40:05.000-04:00",
+            "date_last_updated": "2017-12-12T16:40:05.000-04:00",
+            "money_release_date": "2017-12-14T16:40:05.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 120991561,
+                "first_name": "LOPEZ BRA\\u00D1EIRO NICOLAS Y ",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": "47739464  47755229"
+                },
+                "email": "contacto@bandurriadeco.com.ar",
+                "nickname": "DECOBANDURRIA",
+                "identification": {
+                    "number": "30714587273",
+                    "type": "Otro"
+                },
+                "last_name": "LOPEZ BRA\\u00D1EIRO GERMAN S.H."
+            },
+            "operation_type": "money_transfer",
+            "issuer_id": 319,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Lona + ojales",
+            "live_mode": true,
+            "payer": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH",
+                "type": "registered"
+            },
+            "order": {},
+            "external_reference": "money_request-b3553286-0b0e-4b2b-88fc-ff1521f7b76e",
+            "transaction_amount": 308,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 291.03,
+                "total_paid_amount": 308,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 308,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": 235814443,
+                "first_six_digits": "490698",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "R e lobo quinteros"
+                },
+                "expiration_year": 2017,
+                "date_created": "2017-11-23T23:05:55.000-04:00",
+                "date_last_updated": "2017-11-23T23:08:10.000-04:00",
+                "last_four_digits": "4331"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 1,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "951593730614252",
+            "additional_info": null,
+            "authorization_code": "018602",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 16.97,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }],
+            "payer_id": 261861182,
+            "collector_id": 120991561
+        }, {
+            "id": 3242528945,
+            "date_created": "2017-12-12T19:20:48.000-04:00",
+            "date_approved": null,
+            "date_last_updated": "2017-12-12T19:20:51.000-04:00",
+            "money_release_date": null,
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 310,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "rejected",
+            "status_detail": "cc_rejected_call_for_authorize",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "anonymous"
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 10,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 0,
+                "total_paid_amount": 10,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 3.33,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "450995",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "RE LOBO QUINTEROS        "
+                },
+                "expiration_year": 2023,
+                "date_created": "2017-12-12T19:20:48.000-04:00",
+                "date_last_updated": "2017-12-12T19:20:48.000-04:00",
+                "last_four_digits": "9454"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": null,
+            "authorization_code": null,
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32717506",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3243050926,
+            "date_created": "2017-12-12T19:21:45.000-04:00",
+            "date_approved": "2017-12-12T19:21:47.000-04:00",
+            "date_last_updated": "2017-12-12T19:21:47.000-04:00",
+            "money_release_date": "2017-12-12T19:21:47.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 310,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "anonymous"
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 10,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 8.77,
+                "total_paid_amount": 10,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 3.33,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "405071",
+                "expiration_month": 6,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "Card Holder Name"
+                },
+                "expiration_year": 2022,
+                "date_created": "2017-12-12T19:21:45.000-04:00",
+                "date_last_updated": "2017-12-12T19:21:45.000-04:00",
+                "last_four_digits": "5804"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": null,
+            "authorization_code": "007408",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32717506",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 0.65,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 0.58,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3245035217,
+            "date_created": "2017-12-13T11:37:34.000-04:00",
+            "date_approved": "2017-12-13T11:37:37.000-04:00",
+            "date_last_updated": "2017-12-13T11:37:37.000-04:00",
+            "money_release_date": "2017-12-13T11:37:37.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "anonymous"
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 10,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 8.77,
+                "total_paid_amount": 10,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 3.33,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "402918",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "39138331",
+                        "type": "DNI"
+                    },
+                    "name": "NICOLAS TORASSO           "
+                },
+                "expiration_year": 2019,
+                "date_created": "2017-12-13T11:37:34.000-04:00",
+                "date_last_updated": "2017-12-13T11:37:34.000-04:00",
+                "last_four_digits": "3632"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": null,
+            "authorization_code": "981607",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32717506",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 0.65,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 0.58,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3249015297,
+            "date_created": "2017-12-14T12:04:27.000-04:00",
+            "date_approved": "2017-12-14T12:04:29.000-04:00",
+            "date_last_updated": "2017-12-14T12:04:29.000-04:00",
+            "money_release_date": "2017-12-14T12:04:29.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 310,
+            "payment_method_id": "amex",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "anonymous"
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 14,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 12.28,
+                "total_paid_amount": 14,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 4.67,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "377792",
+                "expiration_month": 4,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "Card Holder Name"
+                },
+                "expiration_year": 2022,
+                "date_created": "2017-12-14T12:04:27.000-04:00",
+                "date_last_updated": "2017-12-14T12:04:27.000-04:00",
+                "last_four_digits": "2240"
+            },
+            "statement_descriptor": "MERCADOPAGO",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": {
+                "iso_response_code": "0000"
+            },
+            "authorization_code": "380000",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "9903604411",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 0.91,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 0.81,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3250932939,
+            "date_created": "2017-12-14T20:51:57.000-04:00",
+            "date_approved": "2017-12-14T20:52:00.000-04:00",
+            "date_last_updated": "2017-12-14T20:52:52.000-04:00",
+            "money_release_date": "2017-12-14T20:52:00.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "pos_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Venta presencial",
+            "live_mode": true,
+            "payer": {
+                "id": 147688640,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": null,
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": null
+            },
+            "order": {},
+            "external_reference": "Venta presencial",
+            "transaction_amount": 562.12,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 525.75,
+                "total_paid_amount": 562.12,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 562.12,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": true,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": null,
+                "expiration_month": null,
+                "cardholder": {
+                    "identification": {
+                        "number": null,
+                        "type": null
+                    },
+                    "name": null
+                },
+                "expiration_year": null,
+                "date_created": null,
+                "date_last_updated": null,
+                "last_four_digits": null
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 1,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2707436798674401",
+            "additional_info": {
+                "items": [],
+                "payer": {
+                    "first_name": null,
+                    "phone": {
+                        "area_code": null,
+                        "number": null
+                    },
+                    "address": {
+                        "zip_code": null,
+                        "street_name": null,
+                        "street_number": null
+                    },
+                    "last_name": null,
+                    "registration_date": null
+                },
+                "shipments": {
+                    "receiver_address": {
+                        "zip_code": null,
+                        "floor": null,
+                        "street_name": null,
+                        "apartment": null
+                    }
+                }
+            },
+            "authorization_code": "032156",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": null,
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": null,
+            "merchant_services": {},
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 36.37,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }],
+            "payer_id": 147688640,
+            "collector_id": 261861182
+        }, {
+            "id": 3253555178,
+            "date_created": "2017-12-15T17:52:06.000-04:00",
+            "date_approved": "2017-12-15T17:52:08.000-04:00",
+            "date_last_updated": "2017-12-15T17:52:08.000-04:00",
+            "money_release_date": "2018-01-05T17:52:08.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 228415881,
+                "first_name": "MERCADOPAGO POINT AR",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "46408000"
+                },
+                "email": null,
+                "nickname": "MERCADOPAGOPOINT",
+                "identification": {
+                    "number": "30703088534",
+                    "type": "Otro"
+                },
+                "last_name": "MERCADOLIBRE S.R.L"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 319,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Mercado Pago Point - Lector De Tarjetas De Cr&eacute;dito Y D&eacute;bito",
+            "live_mode": true,
+            "payer": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": null,
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH",
+                "type": "registered"
+            },
+            "order": {
+                "id": "1573827349",
+                "type": "mercadolibre"
+            },
+            "external_reference": "1573827349",
+            "transaction_amount": 1194,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": null,
+            "transaction_details": {
+                "net_received_amount": 1194,
+                "total_paid_amount": 1652.26,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 137.69,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": 235814443,
+                "first_six_digits": "490698",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "R e lobo quinteros"
+                },
+                "expiration_year": 2017,
+                "date_created": "2017-11-23T23:05:55.000-04:00",
+                "date_last_updated": "2017-12-12T16:38:05.000-04:00",
+                "last_four_digits": "4331"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 12,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "2568868276694852",
+            "additional_info": {
+                "items": [{
+                    "id": "MLA640159834",
+                    "title": "Mercado Pago Point - Lector De Tarjetas De Cr&eacute;dito Y D&eacute;bito",
+                    "picture_url": null,
+                    "description": null,
+                    "category_id": "MLA3529",
+                    "quantity": "6",
+                    "unit_price": "199"
+                }]
+            },
+            "authorization_code": "012107",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 458.26,
+                "fee_payer": "payer",
+                "type": "financing_fee"
+            }],
+            "payer_id": 261861182,
+            "collector_id": 228415881
+        }, {
+            "id": 3255604557,
+            "date_created": "2017-12-16T12:43:18.000-04:00",
+            "date_approved": "2017-12-16T12:43:19.000-04:00",
+            "date_last_updated": "2017-12-16T12:43:19.000-04:00",
+            "money_release_date": "2017-12-30T12:43:19.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 319,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a Provisorio, N",
+            "live_mode": true,
+            "payer": {
+                "id": 290846318,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "pagos@clubhonorarios.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 12.2,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 10.82,
+                "total_paid_amount": 12.2,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 4.07,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "490698",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "30117313",
+                        "type": "DNI"
+                    },
+                    "name": "Lobo Ramiro"
+                },
+                "expiration_year": 2017,
+                "date_created": "2017-12-16T12:43:18.000-04:00",
+                "date_last_updated": "2017-12-16T12:43:18.000-04:00",
+                "last_four_digits": "4331"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "008548",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 0.67,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 0.71,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 290846318,
+            "collector_id": 261861182
+        }, {
+            "id": 3266783665,
+            "date_created": "2017-12-19T13:41:40.000-04:00",
+            "date_approved": "2017-12-19T13:41:43.000-04:00",
+            "date_last_updated": "2017-12-19T13:41:43.000-04:00",
+            "money_release_date": "2018-01-02T13:41:43.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1043,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a GANIM, Rocio Celina",
+            "live_mode": true,
+            "payer": {
+                "id": 170745685,
+                "first_name": "Rocio Celina",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3815550086"
+                },
+                "email": "rocioganim@gmail.com",
+                "nickname": "ROCIOCELINAGANIM",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "Ganim",
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1246.12,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 1105.19,
+                "total_paid_amount": 1246.12,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 415.37,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "491956",
+                "expiration_month": 6,
+                "cardholder": {
+                    "identification": {
+                        "number": "38489945",
+                        "type": "DNI"
+                    },
+                    "name": "SAEZ NAHUEL JORGE O."
+                },
+                "expiration_year": 2020,
+                "date_created": "2017-12-19T13:41:40.000-04:00",
+                "date_last_updated": "2017-12-19T13:41:40.000-04:00",
+                "last_four_digits": "2752"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "007290",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 68.66,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 72.27,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 170745685,
+            "collector_id": 261861182
+        }, {
+            "id": 3267276249,
+            "date_created": "2017-12-19T15:11:23.000-04:00",
+            "date_approved": null,
+            "date_last_updated": "2017-12-19T15:11:23.000-04:00",
+            "money_release_date": null,
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "rejected",
+            "status_detail": "cc_rejected_insufficient_amount",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a SUAREZ, Sergio Javier",
+            "live_mode": true,
+            "payer": {
+                "id": 142579592,
+                "first_name": "yuliana araceli",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3814720132"
+                },
+                "email": "yuliana_velardez@hotmail.com",
+                "nickname": "YULIANAARACELIVELARDEZ",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "velardez",
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 22543.33,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 0,
+                "total_paid_amount": 22543.33,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 1878.61,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "452487",
+                "expiration_month": 3,
+                "cardholder": {
+                    "identification": {
+                        "number": "36866023",
+                        "type": "DNI"
+                    },
+                    "name": "VELARDEZ YULIANA ARACELI"
+                },
+                "expiration_year": 2021,
+                "date_created": "2017-12-19T15:11:23.000-04:00",
+                "date_last_updated": "2017-12-19T15:11:23.000-04:00",
+                "last_four_digits": "7937"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 12,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": null,
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [],
+            "payer_id": 142579592,
+            "collector_id": 261861182
+        }, {
+            "id": 3267806814,
+            "date_created": "2017-12-19T16:34:36.000-04:00",
+            "date_approved": "2017-12-19T16:34:37.000-04:00",
+            "date_last_updated": "2017-12-19T18:12:58.000-04:00",
+            "money_release_date": "2018-01-02T16:34:37.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "refunded",
+            "status_detail": "refunded",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MIGNONE, Fabricio Italo",
+            "live_mode": true,
+            "payer": {
+                "id": 215831274,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "aaa@aaa.com",
+                "nickname": "@215831274",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 7916.55,
+            "transaction_amount_refunded": 7916.55,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 6140.08,
+                "total_paid_amount": 7916.55,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 659.71,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "452487",
+                "expiration_month": 4,
+                "cardholder": {
+                    "identification": {
+                        "number": "22264434",
+                        "type": "DNI"
+                    },
+                    "name": "CORDOBA ELENA"
+                },
+                "expiration_year": 2020,
+                "date_created": "2017-12-19T16:34:36.000-04:00",
+                "date_last_updated": "2017-12-19T16:34:36.000-04:00",
+                "last_four_digits": "1963"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 12,
+            "notification_url": null,
+            "refunds": [{
+                "id": 364555835,
+                "amount": 7916.55,
+                "source": {
+                    "id": "261861182",
+                    "name": "MUTUAL DE ACTIVOS Y PASIVOS RUAH",
+                    "type": "collector"
+                },
+                "reason": null,
+                "date_created": "2017-12-19T18:12:58.540-04:00",
+                "payment_id": 3267806814,
+                "metadata": {},
+                "unique_sequence_number": null
+            }],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "088898",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 436.2,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 1340.27,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 215831274,
+            "collector_id": 261861182
+        }, {
+            "id": 3267351924,
+            "date_created": "2017-12-19T16:34:40.000-04:00",
+            "date_approved": "2017-12-19T16:34:42.000-04:00",
+            "date_last_updated": "2017-12-19T16:34:42.000-04:00",
+            "money_release_date": "2018-01-02T16:34:42.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 279,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a FAUO, Sergio Emmanuel",
+            "live_mode": true,
+            "payer": {
+                "id": 290846318,
+                "first_name": "",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "pagos@clubhonorarios.com",
+                "nickname": "@290846318",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "pagos",
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 2895.36,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 2462.8,
+                "total_paid_amount": 2895.36,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 482.56,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "402918",
+                "expiration_month": 10,
+                "cardholder": {
+                    "identification": {
+                        "number": "14995335",
+                        "type": "DNI"
+                    },
+                    "name": "CANSINO Margarita"
+                },
+                "expiration_year": 2020,
+                "date_created": "2017-12-19T16:34:40.000-04:00",
+                "date_last_updated": "2017-12-19T16:34:40.000-04:00",
+                "last_four_digits": "7218"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "964485",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 159.53,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 273.03,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 290846318,
+            "collector_id": 261861182
+        }, {
+            "id": 3267709506,
+            "date_created": "2017-12-19T16:55:38.000-04:00",
+            "date_approved": "2017-12-19T18:25:26.000-04:00",
+            "date_last_updated": "2017-12-19T19:35:14.000-04:00",
+            "money_release_date": "2018-01-02T18:25:26.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 310,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "refunded",
+            "status_detail": "refunded",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a LEPEN, Vanesa",
+            "live_mode": true,
+            "payer": {
+                "id": 291433429,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "felicitas383@gmail.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1214.33,
+            "transaction_amount_refunded": 1214.33,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 1076.99,
+                "total_paid_amount": 1214.33,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 404.78,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "450979",
+                "expiration_month": 3,
+                "cardholder": {
+                    "identification": {
+                        "number": "32132652",
+                        "type": "DNI"
+                    },
+                    "name": "CORREA Felicitas"
+                },
+                "expiration_year": 2023,
+                "date_created": "2017-12-19T16:55:38.000-04:00",
+                "date_last_updated": "2017-12-19T16:55:38.000-04:00",
+                "last_four_digits": "0303"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [{
+                "id": 364561179,
+                "amount": 1214.33,
+                "source": {
+                    "id": "261861182",
+                    "name": "MUTUAL DE ACTIVOS Y PASIVOS RUAH",
+                    "type": "collector"
+                },
+                "reason": null,
+                "date_created": "2017-12-19T19:35:14.110-04:00",
+                "payment_id": 3267709506,
+                "metadata": {},
+                "unique_sequence_number": null
+            }],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "007195",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 66.91,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 70.43,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 291433429,
+            "collector_id": 261861182
+        }, {
+            "id": 3267369291,
+            "date_created": "2017-12-19T16:57:06.000-04:00",
+            "date_approved": "2017-12-19T16:57:08.000-04:00",
+            "date_last_updated": "2017-12-19T16:57:08.000-04:00",
+            "money_release_date": "2018-01-02T16:57:08.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MIGNONE, Fabricio Italo",
+            "live_mode": true,
+            "payer": {
+                "id": 215831274,
+                "first_name": "",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "aaa@aaa.com",
+                "nickname": "@215831274",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 6820.72,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 5801.71,
+                "total_paid_amount": 6820.72,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 1136.79,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "452487",
+                "expiration_month": 4,
+                "cardholder": {
+                    "identification": {
+                        "number": "22264434",
+                        "type": "DNI"
+                    },
+                    "name": "CORDOBA ELENA"
+                },
+                "expiration_year": 2020,
+                "date_created": "2017-12-19T16:57:06.000-04:00",
+                "date_last_updated": "2017-12-19T16:57:06.000-04:00",
+                "last_four_digits": "1963"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "090628",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 375.82,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 643.19,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 215831274,
+            "collector_id": 261861182
+        }, {
+            "id": 3267552835,
+            "date_created": "2017-12-19T17:09:00.000-04:00",
+            "date_approved": "2017-12-19T17:09:02.000-04:00",
+            "date_last_updated": "2017-12-19T17:09:02.000-04:00",
+            "money_release_date": "2018-01-02T17:09:02.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a PALAZZO, Adriana Margarita",
+            "live_mode": true,
+            "payer": {
+                "id": 32308496,
+                "first_name": "Adriana",
+                "phone": {
+                    "extension": "",
+                    "area_code": "381",
+                    "number": "4539804"
+                },
+                "email": "adripalazzo@yahoo.com.ar",
+                "nickname": "PALAZZO_A",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "Palazzo",
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 4547.15,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 3867.8,
+                "total_paid_amount": 4547.15,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 757.86,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "402918",
+                "expiration_month": 9,
+                "cardholder": {
+                    "identification": {
+                        "number": "34007704",
+                        "type": "DNI"
+                    },
+                    "name": "QUIROZ NORMA"
+                },
+                "expiration_year": 2019,
+                "date_created": "2017-12-19T17:09:00.000-04:00",
+                "date_last_updated": "2017-12-19T17:09:00.000-04:00",
+                "last_four_digits": "7577"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "777472",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 250.55,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 428.8,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 32308496,
+            "collector_id": 261861182
+        }, {
+            "id": 3267882520,
+            "date_created": "2017-12-19T17:29:33.000-04:00",
+            "date_approved": "2017-12-19T17:29:34.000-04:00",
+            "date_last_updated": "2017-12-19T17:29:34.000-04:00",
+            "money_release_date": "2018-01-02T17:29:34.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a APAS, Ana Maria",
+            "live_mode": true,
+            "payer": {
+                "id": 215831274,
+                "first_name": "",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "aaa@aaa.com",
+                "nickname": "@215831274",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 590.69,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 523.88,
+                "total_paid_amount": 590.69,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 196.9,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "430496",
+                "expiration_month": 9,
+                "cardholder": {
+                    "identification": {
+                        "number": "16686051",
+                        "type": "DNI"
+                    },
+                    "name": "arias rosa"
+                },
+                "expiration_year": 2024,
+                "date_created": "2017-12-19T17:29:33.000-04:00",
+                "date_last_updated": "2017-12-19T17:29:33.000-04:00",
+                "last_four_digits": "5675"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "007958",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 32.55,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 34.26,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 215831274,
+            "collector_id": 261861182
+        }, {
+            "id": 3268261717,
+            "date_created": "2017-12-19T19:57:59.000-04:00",
+            "date_approved": "2017-12-19T22:54:47.000-04:00",
+            "date_last_updated": "2017-12-20T17:56:07.000-04:00",
+            "money_release_date": "2018-01-02T22:54:47.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "refunded",
+            "status_detail": "refunded",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MANSILLA, Diego Julian",
+            "live_mode": true,
+            "payer": {
+                "id": 291467642,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "diegomansilla678@hotmail.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1559.02,
+            "transaction_amount_refunded": 1559.02,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 1326.1,
+                "total_paid_amount": 1559.02,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 259.84,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "450972",
+                "expiration_month": 8,
+                "cardholder": {
+                    "identification": {
+                        "number": "21335482",
+                        "type": "DNI"
+                    },
+                    "name": "amaya maria angelica"
+                },
+                "expiration_year": 2018,
+                "date_created": "2017-12-19T19:57:59.000-04:00",
+                "date_last_updated": "2017-12-19T19:57:59.000-04:00",
+                "last_four_digits": "2384"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [{
+                "id": 364639686,
+                "amount": 1559.02,
+                "source": {
+                    "id": "261861182",
+                    "name": "MUTUAL DE ACTIVOS Y PASIVOS RUAH",
+                    "type": "collector"
+                },
+                "reason": null,
+                "date_created": "2017-12-20T17:56:07.810-04:00",
+                "payment_id": 3268261717,
+                "metadata": {},
+                "unique_sequence_number": null
+            }],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "007258",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 85.9,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 147.02,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 291467642,
+            "collector_id": 261861182
+        }, {
+            "id": 3268081529,
+            "date_created": "2017-12-19T20:01:30.000-04:00",
+            "date_approved": null,
+            "date_last_updated": "2017-12-19T20:01:30.000-04:00",
+            "money_release_date": null,
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "rejected",
+            "status_detail": "cc_rejected_bad_filled_security_code",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MANSILLA, Diego Julian",
+            "live_mode": true,
+            "payer": {
+                "id": 291467642,
+                "first_name": "",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "diegomansilla678@hotmail.com",
+                "nickname": "@291467642",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "diegomansilla678",
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1559.02,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 0,
+                "total_paid_amount": 1559.02,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 259.84,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "450972",
+                "expiration_month": 9,
+                "cardholder": {
+                    "identification": {
+                        "number": "21335482",
+                        "type": "DNI"
+                    },
+                    "name": "amaya maria angelica"
+                },
+                "expiration_year": 2018,
+                "date_created": "2017-12-19T20:01:30.000-04:00",
+                "date_last_updated": "2017-12-19T20:01:30.000-04:00",
+                "last_four_digits": "2384"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": null,
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [],
+            "payer_id": 291467642,
+            "collector_id": 261861182
+        }, {
+            "id": 3268632831,
+            "date_created": "2017-12-19T20:04:50.000-04:00",
+            "date_approved": null,
+            "date_last_updated": "2017-12-19T21:05:06.000-04:00",
+            "money_release_date": null,
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "rejected",
+            "status_detail": "cc_rejected_high_risk",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MANSILLA, Diego Julian",
+            "live_mode": true,
+            "payer": {
+                "id": 291467642,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "diegomansilla678@hotmail.com",
+                "nickname": "@291467642",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": "diegomansilla678",
+                "type": null
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1559.02,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 0,
+                "total_paid_amount": 1559.02,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 259.84,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": null,
+                "expiration_month": null,
+                "cardholder": {
+                    "identification": {
+                        "number": null,
+                        "type": null
+                    },
+                    "name": null
+                },
+                "expiration_year": null,
+                "date_created": null,
+                "date_last_updated": null,
+                "last_four_digits": null
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": {
+                "items": [],
+                "payer": {
+                    "first_name": null,
+                    "phone": {
+                        "area_code": null,
+                        "number": null
+                    },
+                    "address": {
+                        "zip_code": null,
+                        "street_name": null,
+                        "street_number": null
+                    },
+                    "last_name": null,
+                    "registration_date": null
+                },
+                "shipments": {
+                    "receiver_address": {
+                        "zip_code": null,
+                        "floor": null,
+                        "street_name": null,
+                        "apartment": null
+                    }
+                }
+            },
+            "authorization_code": "875938",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": null,
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": null,
+            "merchant_services": {},
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [],
+            "payer_id": 291467642,
+            "collector_id": 261861182
+        }, {
+            "id": 3269995135,
+            "date_created": "2017-12-20T09:55:42.000-04:00",
+            "date_approved": "2017-12-20T09:55:44.000-04:00",
+            "date_last_updated": "2017-12-20T09:55:44.000-04:00",
+            "money_release_date": "2018-01-03T09:55:44.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1043,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a GIOIA, Maira Yanina",
+            "live_mode": true,
+            "payer": {
+                "id": 291550159,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "mairagioia@gmail.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 2078.7,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 1768.14,
+                "total_paid_amount": 2078.7,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 346.45,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "491956",
+                "expiration_month": 9,
+                "cardholder": {
+                    "identification": {
+                        "number": "11463472",
+                        "type": "DNI"
+                    },
+                    "name": "rios luis alberto"
+                },
+                "expiration_year": 2020,
+                "date_created": "2017-12-20T09:55:42.000-04:00",
+                "date_last_updated": "2017-12-20T09:55:42.000-04:00",
+                "last_four_digits": "1921"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "006931",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32827883",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 114.54,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 196.02,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 291550159,
+            "collector_id": 261861182
+        }, {
+            "id": 3270575495,
+            "date_created": "2017-12-20T11:41:05.000-04:00",
+            "date_approved": "2017-12-20T11:41:07.000-04:00",
+            "date_last_updated": "2017-12-20T11:41:07.000-04:00",
+            "money_release_date": "2018-01-03T11:41:07.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 3,
+            "payment_method_id": "master",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a MEDINA, Silvia Rosa",
+            "live_mode": true,
+            "payer": {
+                "id": 291567409,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "andrealevin21@gmail.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 1342.48,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 1190.65,
+                "total_paid_amount": 1342.48,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 447.49,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "559198",
+                "expiration_month": 12,
+                "cardholder": {
+                    "identification": {
+                        "number": "31644075",
+                        "type": "DNI"
+                    },
+                    "name": "levin andrea"
+                },
+                "expiration_year": 2021,
+                "date_created": "2017-12-20T11:41:05.000-04:00",
+                "date_last_updated": "2017-12-20T11:41:05.000-04:00",
+                "last_four_digits": "2667"
+            },
+            "statement_descriptor": "MERCADOPAGO",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "618888",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "22162508",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 73.97,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 77.86,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 291567409,
+            "collector_id": 261861182
+        }, {
+            "id": 3270275339,
+            "date_created": "2017-12-20T12:15:42.000-04:00",
+            "date_approved": "2017-12-20T12:15:45.000-04:00",
+            "date_last_updated": "2017-12-20T12:15:45.000-04:00",
+            "money_release_date": "2018-01-03T12:15:45.000-04:00",
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": "",
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 1,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "approved",
+            "status_detail": "accredited",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a JAIME, Cecilia Alejandra",
+            "live_mode": true,
+            "payer": {
+                "id": 215831274,
+                "first_name": "",
+                "phone": {
+                    "extension": "",
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "aaa@aaa.com",
+                "nickname": "@215831274",
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 341.72,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 303.07,
+                "total_paid_amount": 341.72,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 113.91,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "452487",
+                "expiration_month": 2,
+                "cardholder": {
+                    "identification": {
+                        "number": "30807478",
+                        "type": "DNI"
+                    },
+                    "name": "SIERRA LORENA"
+                },
+                "expiration_year": 2022,
+                "date_created": "2017-12-20T12:15:42.000-04:00",
+                "date_last_updated": "2017-12-20T12:15:42.000-04:00",
+                "last_four_digits": "8639"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 3,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "146226",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [{
+                "amount": 18.83,
+                "fee_payer": "collector",
+                "type": "mercadopago_fee"
+            }, {
+                "amount": 19.82,
+                "fee_payer": "collector",
+                "type": "financing_fee"
+            }],
+            "payer_id": 215831274,
+            "collector_id": 261861182
+        }, {
+            "id": 3271882610,
+            "date_created": "2017-12-20T17:19:08.000-04:00",
+            "date_approved": null,
+            "date_last_updated": "2017-12-20T17:19:08.000-04:00",
+            "money_release_date": null,
+            "money_release_schema": null,
+            "collector": {
+                "id": 261861182,
+                "first_name": "MUTUAL DE ACTIVOS",
+                "phone": {
+                    "extension": null,
+                    "area_code": " ",
+                    "number": "3816022450"
+                },
+                "email": "relq@clubhonorarios.com",
+                "nickname": "CLUBHONORARIOSMUTUALDEAYP",
+                "identification": {
+                    "number": "30708549807",
+                    "type": "Otro"
+                },
+                "last_name": "Y PASIVOS RUAH"
+            },
+            "operation_type": "regular_payment",
+            "issuer_id": 316,
+            "payment_method_id": "visa",
+            "payment_type_id": "credit_card",
+            "status": "rejected",
+            "status_detail": "cc_rejected_high_risk",
+            "currency_id": "ARS",
+            "description": "Pago de Honorarios a ARMANDO, Miguel Angel",
+            "live_mode": true,
+            "payer": {
+                "id": 291635052,
+                "first_name": null,
+                "phone": {
+                    "extension": null,
+                    "area_code": null,
+                    "number": null
+                },
+                "email": "aberturadelnorte12@gmail.com",
+                "nickname": null,
+                "identification": {
+                    "number": null,
+                    "type": null
+                },
+                "last_name": null,
+                "type": "guest"
+            },
+            "order": {},
+            "external_reference": null,
+            "transaction_amount": 5911.29,
+            "transaction_amount_refunded": 0,
+            "coupon_amount": 0,
+            "shipping_cost": 0,
+            "differential_pricing_id": 33454181,
+            "transaction_details": {
+                "net_received_amount": 0,
+                "total_paid_amount": 5911.29,
+                "overpaid_amount": 0,
+                "external_resource_url": null,
+                "installment_amount": 985.22,
+                "financial_institution": null,
+                "financial_institution_description": null,
+                "payment_method_reference_id": null
+            },
+            "captured": true,
+            "binary_mode": false,
+            "call_for_authorize_id": null,
+            "card": {
+                "id": null,
+                "first_six_digits": "454075",
+                "expiration_month": 4,
+                "cardholder": {
+                    "identification": {
+                        "number": "26137406",
+                        "type": "DNI"
+                    },
+                    "name": "BARRAZA MARCELA"
+                },
+                "expiration_year": 2019,
+                "date_created": "2017-12-20T17:19:08.000-04:00",
+                "date_last_updated": "2017-12-20T17:19:08.000-04:00",
+                "last_four_digits": "4673"
+            },
+            "statement_descriptor": "WWW.MERCADOPAGO.COM",
+            "installments": 6,
+            "notification_url": null,
+            "refunds": [],
+            "application_id": "4878048892163147",
+            "additional_info": null,
+            "authorization_code": "013344",
+            "concept_id": null,
+            "concept_amount": null,
+            "processing_mode": "aggregator",
+            "merchant_account_id": null,
+            "acquirer": null,
+            "merchant_number": "32700908",
+            "merchant_services": {
+                "fraud_manual_review": false,
+                "fraud_scoring": false
+            },
+            "connection": null,
+            "acquirer_reconciliation": [],
+            "metadata": {},
+            "fee_details": [],
+            "payer_id": 291635052,
+            "collector_id": 261861182
+        }]
+    }
+}
