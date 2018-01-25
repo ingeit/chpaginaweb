@@ -9,6 +9,8 @@ import { ListaOperacionesPage } from '../pages/lista-operaciones/lista-operacion
 import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-profesionales';
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { TarjetasPage } from '../pages/tarjetas/tarjetas';
+import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';
@@ -33,7 +35,8 @@ export class MyApp {
                 // used for an example of ngFor and navigation
                 this.pages = [
                   { tituloPrincipal: 'Operaciones',iconoPrincipal:'card',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListaOperacionesPage}] },
-                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListarProfesionalesPage},{titulo:'Nuevo',icono:'person-add',componente:FormProfesionalPage}] }
+                  { tituloPrincipal: 'Profesionales',iconoPrincipal:'people',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:ListarProfesionalesPage},{titulo:'Nuevo',icono:'person-add',componente:FormProfesionalPage}] },
+                  { tituloPrincipal: 'Tarjetas',iconoPrincipal:'card',mostrarComponentes:false, componenentes: [{titulo:'Listar',icono:'list',componente:TarjetasPage},{titulo:'Nueva',icono:'card-add',componente:FormTarjetaPage}] }
                 ];
   }
 

@@ -7,6 +7,7 @@ import { HttpModule} from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 //Pages
@@ -19,6 +20,8 @@ import { ListarProfesionalesPage } from '../pages/listar-profesionales/listar-pr
 import { FormProfesionalPage } from '../pages/form-profesional/form-profesional';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { CalendarioPage } from '../pages/calendario/calendario';
+import { TarjetasPage } from '../pages/tarjetas/tarjetas';
+import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -39,13 +42,16 @@ import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habile
     DashboardPage,
     ListarProfesionalesPage,
     FormProfesionalPage,
-    CalendarioPage
+    CalendarioPage,
+    TarjetasPage,
+    FormTarjetaPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
     TooltipsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Ir Atras',
       mode: "md",
@@ -71,7 +77,9 @@ import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habile
     ListarProfesionalesPage,
     FormProfesionalPage,
     SideMenu,
-    CalendarioPage
+    CalendarioPage,
+    TarjetasPage,
+    FormTarjetaPage
   ],
   providers: [
     StatusBar,

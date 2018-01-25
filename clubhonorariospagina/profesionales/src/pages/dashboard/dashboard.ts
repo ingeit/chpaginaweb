@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
 import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
 import { CalendarioPage } from '../calendario/calendario';
+import { TarjetasPage } from '../tarjetas/tarjetas';
+import { FormTarjetaPage } from '../form-tarjeta/form-tarjeta';
 
 /**
  * Generated class for the DashboardPage page.
@@ -37,8 +39,9 @@ export class DashboardPage {
           case "calendario":
           this.navCtrl.setRoot(CalendarioPage);
             break;
-          default:
-            break;
+          case "tarjetas":
+          this.navCtrl.setRoot(FormTarjetaPage); 
+          break;  
         }
   }
 
