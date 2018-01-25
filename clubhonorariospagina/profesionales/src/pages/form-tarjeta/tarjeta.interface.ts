@@ -1,5 +1,6 @@
 export interface Tarjeta {
     nombre: string; // required field with minimum 5 characters
+    nombreCorto: string; // required field with minimum 5 characters
     cuotaComision: CuotaComision[]; // user can have one or more addresses
 }
 

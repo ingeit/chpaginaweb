@@ -28,6 +28,7 @@ export class FormTarjetaPage {
     // we will initialize our form here
     this.formularioTarjeta = this._fb.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
+      nombreCorto: ['', [Validators.required, Validators.minLength(5)]],
       cuotaComision: this._fb.array([
         this.initAddress(),
       ])
