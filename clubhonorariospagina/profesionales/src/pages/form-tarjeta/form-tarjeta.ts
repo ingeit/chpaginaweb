@@ -26,11 +26,9 @@ export class FormTarjetaPage {
       private _fb: FormBuilder, 
       public tarjetaProv: TarjetasProvider, 
       public loadingCtrl: LoadingController) {
-
    }
 
    ngOnInit() {
-      // we will initialize our form here
       this.formularioTarjeta = this._fb.group({
          nombre: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
          nombreCorto: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
@@ -41,7 +39,6 @@ export class FormTarjetaPage {
    }
 
    initAddress() {
-      // initialize our address
       return this._fb.group({
          numCuota: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), Validators.pattern(/(?!0)[0-9]{1,2}$/)]],
          comision: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(15), Validators.pattern(/^[1-9]{1,1}\.[0-9]{2,14}?$/)]],
@@ -49,14 +46,12 @@ export class FormTarjetaPage {
    }
 
    agregarCuotaComision() {
-      // add address to the list
       const control = <FormArray>this.formularioTarjeta.controls['cuotaComision'];
       console.log(this.formularioTarjeta)
       control.push(this.initAddress());
    }
 
-   removeAddress(i: number) {
-      // remove address from the list
+   eliminarCuotaComision(i: number) {
       const control = <FormArray>this.formularioTarjeta.controls['cuotaComision'];
       control.removeAt(i);
    }
