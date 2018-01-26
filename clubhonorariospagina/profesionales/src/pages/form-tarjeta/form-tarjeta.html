@@ -1,73 +1,61 @@
 <ion-header>
-   <ion-navbar>
-      <ion-title>Formulario Nueva Tarjeta</ion-title>
-   </ion-navbar>
+    <ion-navbar>
+        <ion-title>Formulario Nueva Tarjeta</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-   <form col-6 offset-3 [formGroup]="formularioTarjeta" novalidate (ngSubmit)="save(formularioTarjeta)">
-         <h4>Agregar Tarjeta</h4>
-      <ion-item>
-         <ion-label>Nombre</ion-label>
-         <ion-input type="text" class="form-control" formControlName="nombre"></ion-input>
-         <p *ngIf="!formularioTarjeta.controls.nombre.valid" class="text-danger">
-            Name is required (minimum 5 characters).
-         </p>
-      </ion-item>
-      <ion-item>
-         <ion-label>Nombre corto</ion-label>
-         <ion-input type="text" class="form-control" formControlName="nombreCorto"></ion-input>
-         <p *ngIf="!formularioTarjeta.controls.nombreCorto.valid" class="text-danger">
-            Name is required (minimum 5 characters).
-         </p>
-      </ion-item>
-      <!--cuotaComision-->
-      <div formArrayName="cuotaComision">
-         <div *ngFor="let address of formularioTarjeta.controls.cuotaComision.controls; let i=index">
-            <div>
-               <a *ngIf="formularioTarjeta.controls.cuotaComision.controls.length > 1" (click)="removeAddress(i)">
-                  <ion-icon name="trash"></ion-icon>
-               </a>
+    <form col-6 offset-3 [formGroup]="formularioTarjeta" novalidate (ngSubmit)="nuevaTarjeta()">
+        <h4>Agregar Tarjeta</h4>
+        <ion-item>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" formControlName="nombre"></ion-input>
+        </ion-item>
+        <p *ngIf="!formularioTarjeta.controls.nombre.valid && submitAttempt" class="text-danger">
+            Nombre obligatorio (maximo 20 caracteres).
+        </p>
+        <ion-item>
+            <ion-label floating>Nombre corto</ion-label>
+            <ion-input type="text" formControlName="nombreCorto"></ion-input>
+        </ion-item>
+        <p *ngIf="!formularioTarjeta.controls.nombreCorto.valid && submitAttempt" class="text-danger">
+            Nombre corto obligatorio (maximo 20 caracteres).
+        </p>
+        <!--cuotaComision-->
+        <div formArrayName="cuotaComision">
+            <div *ngFor="let address of formularioTarjeta.controls.cuotaComision.controls; let i=index">
+                <div [formGroupName]="i">
+                    <ion-row>
+                        <ion-col col-5>
+                            <ion-item>
+                                <ion-label floating>Numero de cuota</ion-label>
+                                <ion-input type="number" formControlName="numCuota"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!formularioTarjeta.controls.cuotaComision.controls[i].controls.numCuota.valid && submitAttempt">
+                                Numero de cuota obligatorio (mayor que 0)
+                            </p>
+                        </ion-col>
+                        <ion-col col-5>
+                            <ion-item>
+                                <ion-label floating>Comision</ion-label>
+                                <ion-input type="number" formControlName="comision"></ion-input>
+                            </ion-item>
+                            <p *ngIf="!formularioTarjeta.controls.cuotaComision.controls[i].controls.comision.valid && submitAttempt">
+                                Comision de cuota obligatorio (maximo 1 digito entero y 14 decimales)
+                            </p>
+                        </ion-col>
+                        <ion-col col-1>
+                                <ion-icon *ngIf="formularioTarjeta.controls.cuotaComision.controls.length > 0" (click)="removeAddress(i)" name="trash"></ion-icon>
+                        </ion-col>
+                    </ion-row>
+                </div>
             </div>
-            <div [formGroupName]="i">
-               <ion-row>
-                  <ion-col col-6>
-                     <ion-item>
-                        <ion-label>Numero de cuota</ion-label>
-                        <ion-input type="text" formControlName="numCuota"></ion-input>
-                        <p [hidden]="formularioTarjeta.controls.cuotaComision.controls[i].controls.numCuota.valid">
-                           Street is required
-                        </p>
-                     </ion-item>
-                  </ion-col>
-                  <ion-col col-6>
-                     <ion-item>
-                        <ion-label>Comision</ion-label>
-                        <ion-input type="text" formControlName="comision"></ion-input>
-                     </ion-item>
-                  </ion-col>
-               </ion-row>
-
-            </div>
-         </div>
-      </div>
-
-      <div class="margin-20">
-         <a (click)="addAddress()" style="cursor: default">
-            Add another address +
-         </a>
-      </div>
-
-      <div>
-         <button type="submit" [disabled]="!formularioTarjeta.valid">Submit</button>
-      </div>
-      <div></div>
-
-      <div>
-         <div>formularioTarjeta details:-</div>
-         <pre>Is formularioTarjeta valid?: <br>{{formularioTarjeta.valid | json}}</pre>
-         <pre>form value: <br>{{formularioTarjeta.value | json}}</pre>
-      </div>
-   </form>
-
+        </div>
+    </form>
+    <button col-3 offset-3 ion-button outline icon-start small (click)="agregarCuotaComision()">
+        <ion-icon name="add-circle"></ion-icon>
+        Agregar cuota + comision
+    </button>
+    <button col-6 offset-3 ion-button type="submit">Crear tarjeta</button>
+    <button col-6 offset-3 ion-button color="danger">Cancelar</button>
 </ion-content>

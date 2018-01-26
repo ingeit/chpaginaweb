@@ -5,6 +5,7 @@ var CategoriasController = require('./../controllers/categoriaController');
 var OperacionController = require('./../controllers/operacionController');
 var ProfesionalesController = require('./../controllers/profesionalesController');
 var CalendarioController = require('./../controllers/calendarioController');
+var TarjetaController = require('./../controllers/tarjetaController');
 var MysqlController = require('./../controllers/mysqlController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
@@ -39,7 +40,8 @@ router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles); //
 router.post('/listarFechasHabilesPorAnio', CalendarioController.listarFechasHabilesPorAnio);
 router.post('/modificarCalendario', CalendarioController.modificarCalendario);
 
-
+//Tarjetas
+router.post('/nuevaTarjeta', TarjetaController.nuevaTarjeta);
 
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
 // router.get('/email',OperacionController.email);

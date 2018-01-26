@@ -29,6 +29,7 @@ import { LoginProvider } from '../providers/login/login';
 import { OperacionesProvider } from '../providers/operaciones/operaciones';
 import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
 import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habiles';
+import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
 
 
 
@@ -90,7 +91,8 @@ import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habile
     LoginProvider,
     OperacionesProvider,
     ProfesionalesProvider,
-    FechasHabilesProvider
+    FechasHabilesProvider,
+    TarjetasProvider
   ]
 })
 export class AppModule {}
