@@ -29,6 +29,9 @@
                         <ion-row>
                             <ion-col col-5>
                                 <ion-item>
+                                    <ion-note col-1 item-start>
+                                        <ion-icon color="danger"  *ngIf="formularioTarjeta.controls.cuotaComision.controls.length > 0" (click)="eliminarCuotaComision(i)" name="trash"></ion-icon>
+                                    </ion-note>
                                     <ion-label floating>Nº cuota</ion-label>
                                     <ion-input type="number" formControlName="numCuota"></ion-input>
                                 </ion-item>
@@ -40,13 +43,12 @@
                                 <ion-item>
                                     <ion-label floating>Comision</ion-label>
                                     <ion-input type="number" formControlName="comision"></ion-input>
+
                                 </ion-item>
+
                                 <p *ngIf="!formularioTarjeta.controls.cuotaComision.controls[i].controls.comision.valid && submitAttempt">
                                     Comision de cuota obligatorio (maximo 1 digito entero y 14 decimales)
                                 </p>
-                            </ion-col>
-                            <ion-col col-1>
-                                <ion-icon *ngIf="formularioTarjeta.controls.cuotaComision.controls.length > 0" (click)="eliminarCuotaComision(i)" name="trash"></ion-icon>
                             </ion-col>
                         </ion-row>
                     </div>
