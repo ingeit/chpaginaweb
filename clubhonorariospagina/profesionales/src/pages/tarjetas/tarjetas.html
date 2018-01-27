@@ -7,12 +7,47 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>tarjetas</ion-title>
+    <ion-title>Tarjetas de credito</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row *ngIf="arrayTarjetas">
+      <ion-col col-md-3 col-12 *ngFor="let t of arrayTarjetas">
+        <ion-item-group>
+          <ion-row>
+            <ion-item-divider>
+              {{t.nombre}} ({{t.nombreCorto}})
+              <ion-icon (click)="modificarTarjeta(t)" name="create" item-end></ion-icon>
+            </ion-item-divider>
+            <ion-col col-6>Nº de cuota</ion-col>
+            <ion-col col-6>Comision</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let cc of t.cuotaComision">
+            <ion-col>
+              <ion-item no-lines>
+                {{cc.cantidadCuota}}
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item no-lines>
+                {{cc.comision}}
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-item-group>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="arrayTarjetas === 0 || arrayTarjetas === undefined">
+      <ion-col col-md-6 offset-md-3 col-12>
+        <h1>
+          No hay tarjetas creadas en el sistema
+        </h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

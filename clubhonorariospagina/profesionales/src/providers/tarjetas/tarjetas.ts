@@ -27,9 +27,41 @@ export class TarjetasProvider {
     });
   }
 
-  obtenerProfesionales(){
+  modificarTarjeta(credentials){
     return new Promise((resolve, reject) => {
-        this.http.get(`${configServer.data.urlServidor}/api/listarProfesionales/`)
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+      
+        this.http.post(`${configServer.data.urlServidor}/api/modificarTarjeta/`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  eliminarTarjeta(credentials){
+    return new Promise((resolve, reject) => {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+      
+        this.http.post(`${configServer.data.urlServidor}/api/eliminarTarjeta/`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  listarTarjetas(){
+    return new Promise((resolve, reject) => {
+        this.http.get(`${configServer.data.urlServidor}/api/listarTarjetas/`)
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);

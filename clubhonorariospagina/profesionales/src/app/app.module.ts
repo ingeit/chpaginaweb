@@ -22,6 +22,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { CalendarioPage } from '../pages/calendario/calendario';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
+import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -45,7 +46,8 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     FormProfesionalPage,
     CalendarioPage,
     TarjetasPage,
-    FormTarjetaPage
+    FormTarjetaPage,
+    FormModificarTarjetaPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     SideMenu,
     CalendarioPage,
     TarjetasPage,
-    FormTarjetaPage
+    FormTarjetaPage,
+    FormModificarTarjetaPage
   ],
   providers: [
     StatusBar,

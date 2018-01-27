@@ -40,7 +40,7 @@ export class DashboardPage {
           this.navCtrl.setRoot(CalendarioPage);
             break;
           case "tarjetas":
-          this.navCtrl.setRoot(FormTarjetaPage); 
+          this.navCtrl.setRoot(TarjetasPage); 
           break;  
         }
   }

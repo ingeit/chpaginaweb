@@ -11,6 +11,7 @@ import { FormProfesionalPage } from '../pages/form-profesional/form-profesional'
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
+import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TarjetasProvider } from '../../providers/tarjetas/tarjetas';
+import { FormModificarTarjetaPage } from '../form-modificar-tarjeta/form-modificar-tarjeta';
 
 /**
  * Generated class for the TarjetasPage page.
@@ -14,11 +16,57 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TarjetasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private respuesta: any;
+  private arrayTarjetas: any;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public tarjetaProv: TarjetasProvider ) {
+    this.listarTarjetas();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TarjetasPage');
   }
+
+  listarTarjetas() {
+    this.tarjetaProv.listarTarjetas().then((data) => {
+      // this.loading.dismiss();
+      this.respuesta = data;
+      console.log(this.respuesta)
+      if(this.respuesta[0].codigo !== 0){
+        this.arrayTarjetas = [];
+      for (let i = 0; i < this.respuesta.length; i++) {
+        if (!this.arrayTarjetas[this.respuesta[i].idTarjeta]) {
+          this.arrayTarjetas[this.respuesta[i].idTarjeta] = {
+            idTarjeta: this.respuesta[i].idTarjeta,
+            nombre: this.respuesta[i].nombre,
+            nombreCorto: this.respuesta[i].nombreCorto,
+            cuotaComision: [{
+              cantidadCuota: this.respuesta[i].cantidadCuota,
+              comision: this.respuesta[i].comision
+            }]
+          }
+        } else {
+          this.arrayTarjetas[this.respuesta[i].idTarjeta].cuotaComision.push({ cantidadCuota: this.respuesta[i].cantidadCuota, comision: this.respuesta[i].comision });
+        }
+      }
+      console.log(this.arrayTarjetas)
+      //eliminamos los indices que no tienen tarjeta, por ejemplo, [0] no contiene nada
+      for (let i = 0; i < this.arrayTarjetas.length; i++) {
+        if (this.arrayTarjetas[i] === undefined ) {
+          this.arrayTarjetas.splice(i, 1);
+          i--; // hacemos esto, porque si hay 2 undefined consecutivos, el segundo undefined ocupa el lugar del primero (i-1), y el for ya no lo recorre para borrarlo
+        }
+      }
+      console.log(this.arrayTarjetas)
+      }
+    });
+  }
+
+  modificarTarjeta(tarjeta) {
+    this.navCtrl.setRoot(FormModificarTarjetaPage,{tarjeta: tarjeta});
+  }
+
 
 }
