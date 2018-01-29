@@ -110,7 +110,7 @@ CREATE TABLE `DiasHabiles` (
 
 LOCK TABLES `DiasHabiles` WRITE;
 /*!40000 ALTER TABLE `DiasHabiles` DISABLE KEYS */;
-INSERT INTO `DiasHabiles` VALUES ('2017-01-02'),('2017-01-03'),('2017-01-04'),('2017-01-05'),('2017-01-06'),('2017-01-09'),('2017-01-10'),('2017-01-11'),('2017-01-12'),('2017-01-13'),('2017-01-16'),('2017-01-17'),('2017-01-18'),('2017-01-19'),('2017-01-20'),('2017-01-23'),('2017-01-24'),('2017-01-25'),('2017-01-26'),('2017-01-27'),('2017-01-30'),('2017-01-31'),('2017-02-01'),('2017-02-02'),('2017-02-03'),('2017-02-06'),('2017-02-07'),('2017-02-08'),('2017-02-09'),('2017-02-10'),('2017-02-13'),('2017-02-14'),('2017-02-15'),('2017-02-16'),('2017-02-17'),('2017-02-20'),('2017-02-21'),('2017-02-22'),('2017-02-23'),('2017-02-24'),('2017-03-01'),('2017-03-02'),('2017-03-03'),('2017-03-06'),('2017-03-07'),('2017-03-08'),('2017-03-09'),('2017-03-10'),('2017-03-13'),('2017-03-14'),('2017-03-15'),('2017-03-16'),('2017-03-17'),('2017-03-20'),('2017-03-21'),('2017-03-22'),('2017-03-23'),('2017-03-27'),('2017-03-28'),('2017-03-29'),('2017-03-30'),('2017-03-31'),('2017-04-03'),('2017-04-04'),('2017-04-05'),('2017-04-06'),('2017-04-07'),('2017-04-10'),('2017-04-11'),('2017-04-12'),('2017-04-17'),('2017-04-18'),('2017-04-19'),('2017-04-20'),('2017-04-21'),('2017-04-24'),('2017-04-25'),('2017-04-26'),('2017-04-27'),('2017-04-28'),('2017-05-02'),('2017-05-03'),('2017-05-04'),('2017-05-05'),('2017-05-08'),('2017-05-09'),('2017-05-10'),('2017-05-11'),('2017-05-12'),('2017-05-15'),('2017-05-16'),('2017-05-17'),('2017-05-18'),('2017-05-19'),('2017-05-22'),('2017-05-23'),('2017-05-24'),('2017-05-26'),('2017-05-29'),('2017-05-30'),('2017-05-31'),('2017-06-01'),('2017-06-02'),('2017-06-05'),('2017-06-06'),('2017-06-07'),('2017-06-08'),('2017-06-09'),('2017-06-12'),('2017-06-13'),('2017-06-14'),('2017-06-15'),('2017-06-16'),('2017-06-19'),('2017-06-21'),('2017-06-22'),('2017-06-23'),('2017-06-26'),('2017-06-27'),('2017-06-28'),('2017-06-29'),('2017-06-30'),('2017-07-03'),('2017-07-04'),('2017-07-05'),('2017-07-06'),('2017-07-07'),('2017-07-10'),('2017-07-11'),('2017-07-12'),('2017-07-13'),('2017-07-14'),('2017-07-17'),('2017-07-18'),('2017-07-19'),('2017-07-20'),('2017-07-21'),('2017-07-24'),('2017-07-25'),('2017-07-26'),('2017-07-27'),('2017-07-28'),('2017-07-31'),('2017-08-01'),('2017-08-02'),('2017-08-03'),('2017-08-04'),('2017-08-07'),('2017-08-08'),('2017-08-09'),('2017-08-10'),('2017-08-11'),('2017-08-14'),('2017-08-15'),('2017-08-16'),('2017-08-17'),('2017-08-18'),('2017-08-22'),('2017-08-23'),('2017-08-24'),('2017-08-25'),('2017-08-28'),('2017-08-29'),('2017-08-30'),('2017-08-31'),('2017-09-01'),('2017-09-04'),('2017-09-05'),('2017-09-06'),('2017-09-07'),('2017-09-08'),('2017-09-11'),('2017-09-12'),('2017-09-13'),('2017-09-14'),('2017-09-15'),('2017-09-18'),('2017-09-19'),('2017-09-20'),('2017-09-21'),('2017-09-22'),('2017-09-25'),('2017-09-26'),('2017-09-27'),('2017-09-28'),('2017-09-29'),('2017-10-02'),('2017-10-03'),('2017-10-04'),('2017-10-05'),('2017-10-06'),('2017-10-10'),('2017-10-11'),('2017-10-12'),('2017-10-13'),('2017-10-16'),('2017-10-17'),('2017-10-18'),('2017-10-19'),('2017-10-20'),('2017-10-23'),('2017-10-24'),('2017-10-25'),('2017-10-26'),('2017-10-27'),('2017-10-30'),('2017-10-31'),('2017-11-01'),('2017-11-02'),('2017-11-03'),('2017-11-06'),('2017-11-07'),('2017-11-08'),('2017-11-09'),('2017-11-10'),('2017-11-13'),('2017-11-14'),('2017-11-15'),('2017-11-16'),('2017-11-17'),('2017-11-21'),('2017-11-22'),('2017-11-23'),('2017-11-24'),('2017-11-27'),('2017-11-28'),('2017-11-29'),('2017-11-30'),('2017-12-01'),('2017-12-04'),('2017-12-05'),('2017-12-06'),('2017-12-07'),('2017-12-11'),('2017-12-12'),('2017-12-13'),('2017-12-14'),('2017-12-15'),('2017-12-18'),('2017-12-19'),('2017-12-20'),('2017-12-21'),('2017-12-22'),('2017-12-26'),('2017-12-27'),('2017-12-28'),('2017-12-29'),('2018-01-02'),('2018-01-03'),('2018-01-04'),('2018-01-05'),('2018-01-08'),('2018-01-09'),('2018-01-10'),('2018-01-11'),('2018-01-12'),('2018-01-15'),('2018-01-16'),('2018-01-17'),('2018-01-18'),('2018-01-19'),('2018-01-22'),('2018-01-23'),('2018-01-24'),('2018-01-25'),('2018-01-26'),('2018-01-29'),('2018-01-30'),('2018-01-31'),('2018-02-01'),('2018-02-02'),('2018-02-05'),('2018-02-06'),('2018-02-07'),('2018-02-08'),('2018-02-09'),('2018-02-14'),('2018-02-15'),('2018-02-16'),('2018-02-19'),('2018-02-20'),('2018-02-21'),('2018-02-22'),('2018-02-23'),('2018-02-26'),('2018-02-27'),('2018-02-28'),('2018-03-01'),('2018-03-02'),('2018-03-05'),('2018-03-06'),('2018-03-07'),('2018-03-08'),('2018-03-09'),('2018-03-12'),('2018-03-13'),('2018-03-14'),('2018-03-15'),('2018-03-16'),('2018-03-19'),('2018-03-20'),('2018-03-21'),('2018-03-22'),('2018-03-23'),('2018-03-26'),('2018-03-27'),('2018-03-28'),('2018-04-03'),('2018-04-04'),('2018-04-05'),('2018-04-06'),('2018-04-09'),('2018-04-10'),('2018-04-11'),('2018-04-12'),('2018-04-13'),('2018-04-16'),('2018-04-17'),('2018-04-18'),('2018-04-19'),('2018-04-20'),('2018-04-23'),('2018-04-24'),('2018-04-25'),('2018-04-26'),('2018-04-27'),('2018-05-02'),('2018-05-03'),('2018-05-04'),('2018-05-07'),('2018-05-08'),('2018-05-09'),('2018-05-10'),('2018-05-11'),('2018-05-14'),('2018-05-15'),('2018-05-16'),('2018-05-17'),('2018-05-18'),('2018-05-21'),('2018-05-22'),('2018-05-23'),('2018-05-24'),('2018-05-28'),('2018-05-29'),('2018-05-30'),('2018-05-31'),('2018-06-01'),('2018-06-04'),('2018-06-05'),('2018-06-06'),('2018-06-07'),('2018-06-08'),('2018-06-11'),('2018-06-12'),('2018-06-13'),('2018-06-14'),('2018-06-15'),('2018-06-18'),('2018-06-19'),('2018-06-21'),('2018-06-22'),('2018-06-25'),('2018-06-26'),('2018-06-27'),('2018-06-28'),('2018-06-29'),('2018-07-02'),('2018-07-03'),('2018-07-04'),('2018-07-05'),('2018-07-06'),('2018-07-10'),('2018-07-11'),('2018-07-12'),('2018-07-13'),('2018-07-16'),('2018-07-17'),('2018-07-18'),('2018-07-19'),('2018-07-20'),('2018-07-23'),('2018-07-24'),('2018-07-25'),('2018-07-26'),('2018-07-27'),('2018-07-30'),('2018-07-31'),('2018-08-01'),('2018-08-02'),('2018-08-03'),('2018-08-06'),('2018-08-07'),('2018-08-08'),('2018-08-09'),('2018-08-10'),('2018-08-13'),('2018-08-14'),('2018-08-15'),('2018-08-16'),('2018-08-17'),('2018-08-21'),('2018-08-22'),('2018-08-23'),('2018-08-24'),('2018-08-27'),('2018-08-28'),('2018-08-29'),('2018-08-30'),('2018-08-31'),('2018-09-03'),('2018-09-04'),('2018-09-05'),('2018-09-06'),('2018-09-07'),('2018-09-10'),('2018-09-11'),('2018-09-12'),('2018-09-13'),('2018-09-14'),('2018-09-17'),('2018-09-18'),('2018-09-19'),('2018-09-20'),('2018-09-21'),('2018-09-24'),('2018-09-25'),('2018-09-26'),('2018-09-27'),('2018-09-28'),('2018-10-01'),('2018-10-02'),('2018-10-03'),('2018-10-04'),('2018-10-05'),('2018-10-08'),('2018-10-09'),('2018-10-10'),('2018-10-11'),('2018-10-12'),('2018-10-16'),('2018-10-17'),('2018-10-18'),('2018-10-19'),('2018-10-22'),('2018-10-23'),('2018-10-24'),('2018-10-25'),('2018-10-26'),('2018-10-29'),('2018-10-30'),('2018-10-31'),('2018-11-01'),('2018-11-02'),('2018-11-05'),('2018-11-06'),('2018-11-07'),('2018-11-08'),('2018-11-09'),('2018-11-12'),('2018-11-13'),('2018-11-14'),('2018-11-15'),('2018-11-16'),('2018-11-20'),('2018-11-21'),('2018-11-22'),('2018-11-23'),('2018-11-26'),('2018-11-27'),('2018-11-28'),('2018-11-29'),('2018-11-30'),('2018-12-03'),('2018-12-04'),('2018-12-05'),('2018-12-06'),('2018-12-07'),('2018-12-10'),('2018-12-11'),('2018-12-12'),('2018-12-13'),('2018-12-14'),('2018-12-17'),('2018-12-18'),('2018-12-19'),('2018-12-20'),('2018-12-21'),('2018-12-26'),('2018-12-27'),('2018-12-28');
+INSERT INTO `DiasHabiles` VALUES ('2017-01-02'),('2017-01-03'),('2017-01-04'),('2017-01-05'),('2017-01-06'),('2017-01-09'),('2017-01-10'),('2017-01-11'),('2017-01-12'),('2017-01-13'),('2017-01-16'),('2017-01-17'),('2017-01-18'),('2017-01-19'),('2017-01-20'),('2017-01-23'),('2017-01-24'),('2017-01-25'),('2017-01-26'),('2017-01-27'),('2017-01-30'),('2017-01-31'),('2017-02-01'),('2017-02-02'),('2017-02-03'),('2017-02-06'),('2017-02-07'),('2017-02-08'),('2017-02-09'),('2017-02-10'),('2017-02-13'),('2017-02-14'),('2017-02-15'),('2017-02-16'),('2017-02-17'),('2017-02-20'),('2017-02-21'),('2017-02-22'),('2017-02-23'),('2017-02-24'),('2017-03-01'),('2017-03-02'),('2017-03-03'),('2017-03-06'),('2017-03-07'),('2017-03-08'),('2017-03-09'),('2017-03-10'),('2017-03-13'),('2017-03-14'),('2017-03-15'),('2017-03-16'),('2017-03-17'),('2017-03-20'),('2017-03-21'),('2017-03-22'),('2017-03-23'),('2017-03-27'),('2017-03-28'),('2017-03-29'),('2017-03-30'),('2017-03-31'),('2017-04-03'),('2017-04-04'),('2017-04-05'),('2017-04-06'),('2017-04-07'),('2017-04-10'),('2017-04-11'),('2017-04-12'),('2017-04-17'),('2017-04-18'),('2017-04-19'),('2017-04-20'),('2017-04-21'),('2017-04-24'),('2017-04-25'),('2017-04-26'),('2017-04-27'),('2017-04-28'),('2017-05-02'),('2017-05-03'),('2017-05-04'),('2017-05-05'),('2017-05-08'),('2017-05-09'),('2017-05-10'),('2017-05-11'),('2017-05-12'),('2017-05-15'),('2017-05-16'),('2017-05-17'),('2017-05-18'),('2017-05-19'),('2017-05-22'),('2017-05-23'),('2017-05-24'),('2017-05-26'),('2017-05-29'),('2017-05-30'),('2017-05-31'),('2017-06-01'),('2017-06-02'),('2017-06-05'),('2017-06-06'),('2017-06-07'),('2017-06-08'),('2017-06-09'),('2017-06-12'),('2017-06-13'),('2017-06-14'),('2017-06-15'),('2017-06-16'),('2017-06-19'),('2017-06-21'),('2017-06-22'),('2017-06-23'),('2017-06-26'),('2017-06-27'),('2017-06-28'),('2017-06-29'),('2017-06-30'),('2017-07-03'),('2017-07-04'),('2017-07-05'),('2017-07-06'),('2017-07-07'),('2017-07-10'),('2017-07-11'),('2017-07-12'),('2017-07-13'),('2017-07-14'),('2017-07-17'),('2017-07-18'),('2017-07-19'),('2017-07-20'),('2017-07-21'),('2017-07-24'),('2017-07-25'),('2017-07-26'),('2017-07-27'),('2017-07-28'),('2017-07-31'),('2017-08-01'),('2017-08-02'),('2017-08-03'),('2017-08-04'),('2017-08-07'),('2017-08-08'),('2017-08-09'),('2017-08-10'),('2017-08-11'),('2017-08-14'),('2017-08-15'),('2017-08-16'),('2017-08-17'),('2017-08-18'),('2017-08-22'),('2017-08-23'),('2017-08-24'),('2017-08-25'),('2017-08-28'),('2017-08-29'),('2017-08-30'),('2017-08-31'),('2017-09-01'),('2017-09-04'),('2017-09-05'),('2017-09-06'),('2017-09-07'),('2017-09-08'),('2017-09-11'),('2017-09-12'),('2017-09-13'),('2017-09-14'),('2017-09-15'),('2017-09-18'),('2017-09-19'),('2017-09-20'),('2017-09-21'),('2017-09-22'),('2017-09-25'),('2017-09-26'),('2017-09-27'),('2017-09-28'),('2017-09-29'),('2017-10-02'),('2017-10-03'),('2017-10-04'),('2017-10-05'),('2017-10-06'),('2017-10-10'),('2017-10-11'),('2017-10-12'),('2017-10-13'),('2017-10-16'),('2017-10-17'),('2017-10-18'),('2017-10-19'),('2017-10-20'),('2017-10-23'),('2017-10-24'),('2017-10-25'),('2017-10-26'),('2017-10-27'),('2017-10-30'),('2017-10-31'),('2017-11-01'),('2017-11-02'),('2017-11-03'),('2017-11-06'),('2017-11-07'),('2017-11-08'),('2017-11-09'),('2017-11-10'),('2017-11-13'),('2017-11-14'),('2017-11-15'),('2017-11-16'),('2017-11-17'),('2017-11-21'),('2017-11-22'),('2017-11-23'),('2017-11-24'),('2017-11-27'),('2017-11-28'),('2017-11-29'),('2017-11-30'),('2017-12-01'),('2017-12-04'),('2017-12-05'),('2017-12-06'),('2017-12-07'),('2017-12-11'),('2017-12-12'),('2017-12-13'),('2017-12-14'),('2017-12-15'),('2017-12-18'),('2017-12-19'),('2017-12-20'),('2017-12-21'),('2017-12-22'),('2017-12-26'),('2017-12-27'),('2017-12-28'),('2017-12-29'),('2018-01-02'),('2018-01-03'),('2018-01-04'),('2018-01-05'),('2018-01-08'),('2018-01-09'),('2018-01-10'),('2018-01-11'),('2018-01-12'),('2018-01-15'),('2018-01-16'),('2018-01-17'),('2018-01-18'),('2018-01-19'),('2018-01-22'),('2018-01-23'),('2018-01-24'),('2018-01-25'),('2018-01-26'),('2018-01-29'),('2018-01-30'),('2018-01-31'),('2018-02-01'),('2018-02-02'),('2018-02-05'),('2018-02-06'),('2018-02-07'),('2018-02-08'),('2018-02-09'),('2018-02-14'),('2018-02-15'),('2018-02-16'),('2018-02-19'),('2018-02-20'),('2018-02-21'),('2018-02-22'),('2018-02-23'),('2018-02-26'),('2018-02-27'),('2018-02-28'),('2018-03-01'),('2018-03-02'),('2018-03-05'),('2018-03-06'),('2018-03-07'),('2018-03-08'),('2018-03-09'),('2018-03-12'),('2018-03-13'),('2018-03-14'),('2018-03-15'),('2018-03-16'),('2018-03-19'),('2018-03-20'),('2018-03-21'),('2018-03-22'),('2018-03-23'),('2018-03-26'),('2018-03-27'),('2018-03-28'),('2018-04-03'),('2018-04-04'),('2018-04-05'),('2018-04-06'),('2018-04-09'),('2018-04-10'),('2018-04-11'),('2018-04-12'),('2018-04-13'),('2018-04-16'),('2018-04-17'),('2018-04-18'),('2018-04-20'),('2018-04-23'),('2018-04-24'),('2018-04-25'),('2018-04-26'),('2018-04-27'),('2018-05-02'),('2018-05-03'),('2018-05-07'),('2018-05-08'),('2018-05-09'),('2018-05-10'),('2018-05-11'),('2018-05-14'),('2018-05-15'),('2018-05-16'),('2018-05-17'),('2018-05-18'),('2018-05-21'),('2018-05-22'),('2018-05-23'),('2018-05-24'),('2018-05-28'),('2018-05-29'),('2018-05-30'),('2018-05-31'),('2018-06-01'),('2018-06-04'),('2018-06-05'),('2018-06-06'),('2018-06-07'),('2018-06-08'),('2018-06-11'),('2018-06-12'),('2018-06-13'),('2018-06-14'),('2018-06-15'),('2018-06-18'),('2018-06-19'),('2018-06-20'),('2018-06-21'),('2018-06-22'),('2018-06-25'),('2018-06-26'),('2018-06-27'),('2018-06-28'),('2018-06-29'),('2018-07-02'),('2018-07-03'),('2018-07-04'),('2018-07-05'),('2018-07-06'),('2018-07-10'),('2018-07-11'),('2018-07-12'),('2018-07-13'),('2018-07-16'),('2018-07-17'),('2018-07-18'),('2018-07-19'),('2018-07-20'),('2018-07-23'),('2018-07-24'),('2018-07-25'),('2018-07-26'),('2018-07-27'),('2018-07-30'),('2018-07-31'),('2018-08-01'),('2018-08-02'),('2018-08-03'),('2018-08-06'),('2018-08-07'),('2018-08-08'),('2018-08-09'),('2018-08-10'),('2018-08-13'),('2018-08-14'),('2018-08-15'),('2018-08-16'),('2018-08-17'),('2018-08-21'),('2018-08-22'),('2018-08-23'),('2018-08-24'),('2018-08-27'),('2018-08-28'),('2018-08-29'),('2018-08-30'),('2018-08-31'),('2018-09-03'),('2018-09-04'),('2018-09-05'),('2018-09-06'),('2018-09-07'),('2018-09-10'),('2018-09-11'),('2018-09-12'),('2018-09-13'),('2018-09-14'),('2018-09-17'),('2018-09-18'),('2018-09-19'),('2018-09-20'),('2018-09-21'),('2018-09-24'),('2018-09-25'),('2018-09-26'),('2018-09-27'),('2018-09-28'),('2018-10-01'),('2018-10-02'),('2018-10-03'),('2018-10-04'),('2018-10-05'),('2018-10-08'),('2018-10-09'),('2018-10-10'),('2018-10-11'),('2018-10-12'),('2018-10-16'),('2018-10-17'),('2018-10-18'),('2018-10-19'),('2018-10-22'),('2018-10-23'),('2018-10-24'),('2018-10-25'),('2018-10-26'),('2018-10-29'),('2018-10-30'),('2018-10-31'),('2018-11-01'),('2018-11-02'),('2018-11-05'),('2018-11-06'),('2018-11-07'),('2018-11-08'),('2018-11-09'),('2018-11-12'),('2018-11-13'),('2018-11-14'),('2018-11-15'),('2018-11-16'),('2018-11-20'),('2018-11-21'),('2018-11-22'),('2018-11-23'),('2018-11-26'),('2018-11-27'),('2018-11-28'),('2018-11-29'),('2018-11-30'),('2018-12-03'),('2018-12-04'),('2018-12-05'),('2018-12-06'),('2018-12-07'),('2018-12-10'),('2018-12-11'),('2018-12-12'),('2018-12-13'),('2018-12-14'),('2018-12-17'),('2018-12-18'),('2018-12-19'),('2018-12-20'),('2018-12-21'),('2018-12-26'),('2018-12-27'),('2018-12-28'),('2019-01-01'),('2019-01-02'),('2019-01-03');
 /*!40000 ALTER TABLE `DiasHabiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +318,7 @@ DROP TABLE IF EXISTS `Tarjetas`;
 CREATE TABLE `Tarjetas` (
   `idTarjeta` int(11) NOT NULL COMMENT 'ID se compone por 3 digitos: XYY\ndonde X = 1 si es AMEX, 2 si es MASTER, 3 si es VISA\ndonde YY = cantida de cuotas directamente (con el 0 adelante en caso de cuotas menor a 10).\nEj: para Visa en 9 cuotas -> idTarjeta = 309\npara Amex en 12 cuotas -> idTarjeta = 112\nEsto nos sirve para mandar todo a la vista y hacer los filtros onsite mas rapido con una coincidencia (id), y no con 2 (cuotas AND nombreTarjeta)',
   `nombre` varchar(20) NOT NULL,
-  `nombreCorto` varchar(10) DEFAULT NULL,
+  `nombreCorto` varchar(20) DEFAULT NULL,
   `estado` char(1) DEFAULT 'A',
   PRIMARY KEY (`idTarjeta`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
@@ -331,7 +331,7 @@ CREATE TABLE `Tarjetas` (
 
 LOCK TABLES `Tarjetas` WRITE;
 /*!40000 ALTER TABLE `Tarjetas` DISABLE KEYS */;
-INSERT INTO `Tarjetas` VALUES (1,'VISA','VISA','A'),(2,'VISasdA','VISasdA','A');
+INSERT INTO `Tarjetas` VALUES (1,'VISA','VISA','B'),(2,'AMERICAN','AMEX','B');
 /*!40000 ALTER TABLE `Tarjetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,7 +347,7 @@ CREATE TABLE `Tarjetas_Cuotas` (
   `cantidadCuota` int(11) NOT NULL,
   `comision` decimal(15,14) NOT NULL,
   PRIMARY KEY (`idTarjeta`,`cantidadCuota`),
-  CONSTRAINT `fk_tarjetas_idTarjeta` FOREIGN KEY (`idTarjeta`) REFERENCES `Tarjetas` (`idTarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_tarjetas_idTarjeta` FOREIGN KEY (`idTarjeta`) REFERENCES `Tarjetas` (`idTarjeta`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -357,7 +357,7 @@ CREATE TABLE `Tarjetas_Cuotas` (
 
 LOCK TABLES `Tarjetas_Cuotas` WRITE;
 /*!40000 ALTER TABLE `Tarjetas_Cuotas` DISABLE KEYS */;
-INSERT INTO `Tarjetas_Cuotas` VALUES (1,1,1.11100000000000),(1,2,1.22200000000000),(1,3,1.33300000000000),(1,4,1.44400000000000),(1,5,1.55500000000000),(1,6,1.66600000000000),(2,1,2.12300000000000),(2,3,4.33300000000000);
+INSERT INTO `Tarjetas_Cuotas` VALUES (1,1,1.11000000000000),(1,2,2.11000000000000),(2,1,1.11000000000000),(2,2,2.11000000000000);
 /*!40000 ALTER TABLE `Tarjetas_Cuotas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -804,6 +804,136 @@ BEGIN
 		
 		SELECT p.*
 		FROM Provincias as p ORDER BY p.idProvincia DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listar_fechas_habiles_anio` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_fechas_habiles_anio`(anio INT)
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+        
+		IF NOT EXISTS ( SELECT fecha AS Fechas FROM DiasHabiles WHERE fecha like concat(anio,'%')) THEN
+			SELECT 1 as codigo;
+		ELSE 
+			SELECT 1 as codigo, fecha AS Fechas FROM DiasHabiles WHERE fecha like concat(anio,'%');
+		END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `modificar_dias_habiles` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificar_dias_habiles`(vCadena VARCHAR(3660))
+PROC: BEGIN
+	/*
+    El operador '*' se utiliza para separar las fechas entre si.
+    El operador '%' se utiliza para separar la mitad del array diferenciando los habiles de los feriados.
+    Formato de vCadena: fechaHabil*fechaHabil*...*fechaHabil % fechaFeriada*fechaFeriada...fechaFeriada
+    */
+    
+    DECLARE nuevosHabiles VARCHAR(3660);
+	DECLARE nuevosFeriados VARCHAR(3660);
+    DECLARE aux varchar(10);
+    
+	-- Manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+     
+	IF (vCadena IS NULL OR vCadena = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar modificaciones en el calendario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    
+	START TRANSACTION;
+		/* BORRAR AL FINALIZAR
+        Formato de pLineas: idItem|cantidad|precio*
+		El operador '|' se utiliza para separar los atributos de un Item.
+		El operador '*' se utiliza para separar las Lineas de Venta.*/
+	
+        -- Obtengo los nuevos dias habiles
+		SET nuevosHabiles = SUBSTRING_INDEX(vCadena,'%',1);
+        -- Obtengo los nuevos feriados
+		SET nuevosFeriados = SUBSTRING_INDEX(vCadena,'%',-1); -- el -1 cuenta desde la derecha.. leer  https://www.w3resource.com/mysql/string-functions/mysql-substring_index-function.php
+            
+		-- LOOP solo para dias habiles nuevos
+        LAZOHABILES : LOOP
+        
+			-- Condicion de salida
+			IF (nuevosHabiles = '' OR nuevosHabiles = '*') THEN
+				LEAVE LAZOHABILES;
+			END IF;
+            
+			-- Obtengo una fecha
+            SET aux =  SUBSTRING_INDEX(nuevosHabiles,'*',1);
+			
+            -- Control de parámetros incorrectos
+            IF NOT EXISTS (SELECT fecha FROM DiasHabiles WHERE fecha = aux)	THEN
+				INSERT INTO DiasHabiles VALUES (aux);
+			END IF;
+            
+            -- Elimino la fecha del array    
+			SET nuevosHabiles = RIGHT(nuevosHabiles,CHAR_LENGTH(nuevosHabiles) - CHAR_LENGTH(aux));
+			SET nuevosHabiles = RIGHT(nuevosHabiles,CHAR_LENGTH(nuevosHabiles)-1);
+            
+		END LOOP LAZOHABILES;
+        
+        -- LOOP solo para dias feriados nuevos
+        LAZOFERIADOS : LOOP
+        
+			-- Condicion de salida
+			IF (nuevosFeriados = '' OR nuevosFeriados = '*') THEN
+				LEAVE LAZOFERIADOS;
+			END IF;
+            
+			-- Obtengo una fecha
+            SET aux =  SUBSTRING_INDEX(nuevosFeriados,'*',1);
+			
+            -- Control de parámetros incorrectos
+            IF EXISTS (SELECT fecha FROM DiasHabiles WHERE fecha = aux)	THEN
+				DELETE FROM DiasHabiles WHERE fecha = aux;
+			END IF;
+            
+            -- Elimino la fecha del array    
+			SET nuevosFeriados = RIGHT(nuevosFeriados,CHAR_LENGTH(nuevosFeriados) - CHAR_LENGTH(aux));
+			SET nuevosFeriados = RIGHT(nuevosFeriados,CHAR_LENGTH(nuevosFeriados)-1);
+            
+		END LOOP LAZOFERIADOS;
+    
+	SELECT 1 AS codigo, 'Modificaciones realizadas con exito' mensaje;
+    COMMIT;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1698,6 +1828,36 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_listar`()
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    IF EXISTS( SELECT idTarjeta FROM Tarjetas WHERE estado='A') THEN
+		SELECT t.idTarjeta, t.nombre, t.nombreCorto, tc.cantidadCuota, tc.comision FROM	Tarjetas AS t
+		INNER JOIN Tarjetas_Cuotas AS tc ON t.idTarjeta = tc.idTarjeta
+		WHERE   t.estado='A'
+		ORDER BY t.nombre ASC;
+    ELSE
+		SELECT 0 as codigo;
+    END IF;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `tarjeta_modificar` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1708,7 +1868,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_modificar`(tIdTarjeta INT, tNombreCorto VARCHAR(10),cuotasYcomisiones VARCHAR(1000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_modificar`(tIdTarjeta INT, tNombre VARCHAR(20), tNombreCorto VARCHAR(20), cuotasYcomisiones VARCHAR(1000))
 PROC: BEGIN
 
     DECLARE aux VARCHAR(50);
@@ -1722,20 +1882,22 @@ PROC: BEGIN
 		ROLLBACK;
 	END;
         
+	-- Control de parametros vacios
+    IF (tNombre IS NULL OR tNombre = '') THEN
+		SELECT 0 as codigo,'Debe ingresar un nombre de tarjeta' mensaje;
+        LEAVE PROC;
+	END IF;
     IF (tNombreCorto IS NULL OR tNombreCorto = '' ) THEN
 		SELECT 0 as codigo,'Debe ingresar un nombre corto de tarjeta' mensaje;
         LEAVE PROC;
 	END IF;
    
    -- Control de parametros existentes
-    IF NOT EXISTS (SELECT idTarjeta FROM Tarjetas WHERE idTarjeta=tIdTarjeta ) THEN
-		SELECT 0 AS codigo, 'La tarjeta no existe' AS mensaje;
-		LEAVE PROC;
-    END IF;
 
     START TRANSACTION;
-    
-		UPDATE Tarjetas SET nombreCorto = tNombreCorto WHERE idTarjeta=tIdTarjeta;
+		DELETE FROM Tarjetas WHERE idTarjeta=tIdTarjeta;
+		/* La tarjeta no existia en estado de baja, asi que se la crea con sus comisiones*/
+		INSERT INTO Tarjetas VALUES (tIdTarjeta,tNombre,tNombreCorto,'A');
 	    /* Formato de cuotasYcomisiones: numeroCuota|comision*
 		El operador '|' se utiliza para separar los la cuota con su respectiva comision.
 		El operador '*' se utiliza para separar las diferentes cuotas.*/
@@ -1755,13 +1917,8 @@ PROC: BEGIN
                 ROLLBACK;
                 LEAVE PROC;
 			END IF;
-			
-            IF EXISTS (SELECT idTarjeta FROM Tarjetas_Cuotas WHERE (idTarjeta=tIdTarjeta AND cantidadCuota=tCuota)) THEN
-				UPDATE Tarjetas_Cuotas SET comision = tComision WHERE (idTarjeta=tIdTarjeta AND cantidadCuota=tCuota);
-			ELSE
-				INSERT INTO Tarjetas_Cuotas VALUES(tIdTarjeta,tCuota,tComision);
-            END IF; 
-			
+					            
+			INSERT INTO Tarjetas_Cuotas VALUES(tIdTarjeta,tCuota,tComision);
 		
             -- Elimino cuota y comision ya procesada
 			SET aux = SUBSTRING_INDEX(cuotasYcomisiones,'*',1);    
@@ -1793,7 +1950,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_nueva`(tNombre VARCHAR(20), tNombreCorto VARCHAR(10),cuotasYcomisiones VARCHAR(1000))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_nueva`(tNombre VARCHAR(20), tNombreCorto VARCHAR(20),cuotasYcomisiones VARCHAR(1000))
 PROC: BEGIN
 
 	DECLARE tIdTarjeta INT;
@@ -1976,4 +2133,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-24 20:29:04
+-- Dump completed on 2018-01-29 15:04:13
