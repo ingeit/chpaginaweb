@@ -1,9 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FechasHabilesProvider } from '../../providers/fechas-habiles/fechas-habiles';
-import { CalendarComponentOptions } from 'ion2-calendar'
-import * as moment from 'moment';
-import 'moment/locale/es';
 /**
  * Generated class for the CalendarioPage page.
  *
