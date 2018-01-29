@@ -42,7 +42,7 @@
                             <ion-col col-5>
                                 <ion-item>
                                     <ion-label floating>Comision</ion-label>
-                                    <ion-input type="number" formControlName="comision"></ion-input>
+                                    <ion-input (keyup.enter)="agregarCuotaComision()" type="number" formControlName="comision"></ion-input>
 
                                 </ion-item>
 
