@@ -7,5 +7,3 @@ SP tarjeta_nueva
 
 FK rol en tabla usuarios
 tabla nueva rol
-
-asd
