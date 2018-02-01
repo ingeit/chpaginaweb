@@ -24,7 +24,8 @@ function setUserInfo(request){
     return {
         _id: request.idUsuario,
         username: request.usuario,
-        rol:request.rol,
+        rol: request.rol,
+        idUsuarioMD5: request.idUsuarioMD5
     };
 }
  

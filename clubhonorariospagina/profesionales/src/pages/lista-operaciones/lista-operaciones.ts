@@ -1,5 +1,6 @@
 import { Component,ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController,LoadingController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { SideMenu } from '../sideMenu/sideMenu';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { Operaciones } from '../../modelos/operaciones.interface';
@@ -31,7 +32,8 @@ export class ListaOperacionesPage {
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public iab: InAppBrowser,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public storage: Storage) {
                 this.dameFecha();
   }
 
@@ -120,6 +122,15 @@ export class ListaOperacionesPage {
       this.mostrarAlerta('Error','Seleccione un rango de Fechas');
     }
     
+  }
+
+  nuevaOperacion(){
+    this.storage.get('idUsuarioMD5').then((value) =>{
+      console.log(value);
+      // let url = 'https://clubhonorarios.com/mpop/#/'+value;
+      let url = 'localhost:8100/#/'+value;
+      const browser = this.iab.create(url);
+    });
   }
 
   mostrarAlerta(titulo,mensaje) {

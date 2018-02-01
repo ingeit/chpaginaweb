@@ -51,6 +51,7 @@ export class HomePage {
           this.loading.dismiss();
           this.respuesta = result;
           if(this.respuesta.codigo !== 0){
+            console.log(this.login.value.username)
             this.menu.enable(true);
             this.navCtrl.setRoot(ListaOperacionesPage);
           }

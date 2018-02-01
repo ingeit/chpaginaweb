@@ -9,10 +9,9 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class LoginProvider {
-
+  
   constructor(public http: Http,
               public storage: Storage) {
-
   }
 
   
@@ -30,6 +29,7 @@ export class LoginProvider {
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
             this.storage.set('rol', data.user.rol);
+            this.storage.set('idUsuarioMD5', data.user.idUsuarioMD5);            
             resolve(data);
           }, (err) => {
             reject(err);
