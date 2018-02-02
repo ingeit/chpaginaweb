@@ -56,6 +56,7 @@ exports.getFechas = function(fn){
 
 exports.getComisiones = function(fn){
     connection.query('call dame_comisiones()', function(err, rows){  
+                console.log(rows)
                 if (err) {
                     consulta = [{'codigo' : 0, 'mensaje' : "Error numero: "+err.errno+" descripcion: "+err.message}] 
                     fn (consulta);  

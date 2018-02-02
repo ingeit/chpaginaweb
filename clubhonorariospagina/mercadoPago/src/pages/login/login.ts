@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { FormularioWebPage } from '../formulario-web/formulario-web';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 
 /**
@@ -63,9 +65,9 @@ export class LoginPage {
             this.profesional = result[0];
             console.log(this.profesional);
             if(this.profesional.codigo === 1){
-               // ir a siguiente ventana
+                this.navCtrl.push(FormularioWebPage,{profesional: this.profesional});
             }else{
-               //mostrar error
+               this.mostrarAlerta('Error','Ola')
             }
          }
          );

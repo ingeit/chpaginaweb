@@ -30,10 +30,10 @@ export class FormularioProvider {
     });
   }
 
-  public dameComisiones(){
+  public dameTarjetas(){
     return new Promise((resolve, reject) => {
       let url;
-      url = `${configServer.data.urlServidor}/api/dameComisiones`
+      url = `${configServer.data.urlServidor}/api/listarTarjetas`
         this.http.get(url).map(res => res.json())
           .subscribe(res => {
             resolve(res);

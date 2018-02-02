@@ -33,7 +33,7 @@ registerLocaleData(localeEs);
     HttpModule,
     IonicImageViewerModule,
     IonicModule.forRoot(MyApp, {
-      backButtonText: 'Ir Atras',
+      backButtonText: '',
       mode: "md",
       iconMode: 'md',
       modalEnter: 'modal-slide-in',
