@@ -184,29 +184,53 @@ LOCK TABLES `Permisos` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Permisos_Roles`
+-- Table structure for table `Permisos_Temporarios`
 --
 
-DROP TABLE IF EXISTS `Permisos_Roles`;
+DROP TABLE IF EXISTS `Permisos_Temporarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Permisos_Roles` (
-  `idRol` int(11) NOT NULL,
+CREATE TABLE `Permisos_Temporarios` (
+  `idUsuario` int(11) NOT NULL,
   `idPermiso` int(11) NOT NULL,
-  PRIMARY KEY (`idPermiso`,`idRol`),
-  KEY `fk_permisos_roles_idRol_idx` (`idRol`),
-  CONSTRAINT `fk_permisos_roles_idPermiso` FOREIGN KEY (`idPermiso`) REFERENCES `Permisos` (`idPermiso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_permisos_roles_idRol` FOREIGN KEY (`idRol`) REFERENCES `Roles` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`idUsuario`,`idPermiso`),
+  KEY `fk_permisos_temporarios_idUsuario_idx` (`idUsuario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Permisos_Temporarios`
+--
+
+LOCK TABLES `Permisos_Temporarios` WRITE;
+/*!40000 ALTER TABLE `Permisos_Temporarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Permisos_Temporarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Permisos_Usuarios`
+--
+
+DROP TABLE IF EXISTS `Permisos_Usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Permisos_Usuarios` (
+  `idUsuario` int(11) NOT NULL,
+  `idPermiso` int(11) NOT NULL,
+  PRIMARY KEY (`idPermiso`,`idUsuario`),
+  KEY `fk_permisos_usuarios_idUsuario_idx` (`idUsuario`),
+  CONSTRAINT `fk_permisos_usuarios_idPermiso` FOREIGN KEY (`idPermiso`) REFERENCES `Permisos` (`idPermiso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_permisos_usuarios_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Permisos_Roles`
+-- Dumping data for table `Permisos_Usuarios`
 --
 
-LOCK TABLES `Permisos_Roles` WRITE;
-/*!40000 ALTER TABLE `Permisos_Roles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Permisos_Roles` ENABLE KEYS */;
+LOCK TABLES `Permisos_Usuarios` WRITE;
+/*!40000 ALTER TABLE `Permisos_Usuarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Permisos_Usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -405,7 +429,7 @@ CREATE TABLE `Tarjetas` (
 
 LOCK TABLES `Tarjetas` WRITE;
 /*!40000 ALTER TABLE `Tarjetas` DISABLE KEYS */;
-INSERT INTO `Tarjetas` VALUES (2,'VISA','VISA','A'),(4,'AMERICAN','AMEX','A');
+INSERT INTO `Tarjetas` VALUES (1,'VISA','VISA','A'),(2,'AMERICAN','AMEX','A');
 /*!40000 ALTER TABLE `Tarjetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,7 +455,7 @@ CREATE TABLE `Tarjetas_Cuotas` (
 
 LOCK TABLES `Tarjetas_Cuotas` WRITE;
 /*!40000 ALTER TABLE `Tarjetas_Cuotas` DISABLE KEYS */;
-INSERT INTO `Tarjetas_Cuotas` VALUES (2,1,1.11000000000000),(2,2,2.11000000000000),(4,1,1.11000000000000),(4,2,2.11000000000000);
+INSERT INTO `Tarjetas_Cuotas` VALUES (1,1,1.11100000000000),(1,2,2.11100000000000),(1,3,3.11110000000000),(2,1,1.22200000000000),(2,2,2.22200000000000);
 /*!40000 ALTER TABLE `Tarjetas_Cuotas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,7 +469,6 @@ DROP TABLE IF EXISTS `Usuarios`;
 CREATE TABLE `Usuarios` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `idUsuarioMD5` varchar(32) NOT NULL,
-  `idRol` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
@@ -454,9 +477,7 @@ CREATE TABLE `Usuarios` (
   `fechaBaja` timestamp NULL DEFAULT NULL,
   `estado` char(1) NOT NULL,
   PRIMARY KEY (`idUsuario`),
-  UNIQUE KEY `usuario_UNIQUE` (`usuario`),
-  KEY `fk_idRol_idx` (`idRol`),
-  CONSTRAINT `fk_usuario_idRol` FOREIGN KEY (`idRol`) REFERENCES `Roles` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -466,7 +487,7 @@ CREATE TABLE `Usuarios` (
 
 LOCK TABLES `Usuarios` WRITE;
 /*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
-INSERT INTO `Usuarios` VALUES (1,'c4ca4238a0b923820dcc509a6f75849b',1,'Ramiro','Lobo Quintero','ramiro','7b6cf1f9168cdfa3135ce28ec84ac693','2018-01-29 21:35:16',NULL,'A'),(2,'c81e728d9d4c2f636f067f89cc14862c',2,'Fabiana','Lepen','admchfl','5b54b96d99482b3043c969be0814ed4f','2018-01-29 21:35:16',NULL,'A'),(3,'eccbc87e4b5ce2fe28308fd9f2a7baf3',1,'Ricardo','Bruno','rbruno','c902b0284a3b91260c73dfd9fb6131b6','2018-01-29 21:38:37',NULL,'A'),(4,'a87ff679a2f3e71d9181a67b7542122c',1,'Ricardo','Bruno','prueba','asd','2018-01-29 22:27:14',NULL,'A'),(5,'cfcd208495d565ef66e7dff9f98764da',1,'prueba','asd','asd','c902b0284a3b91260c73dfd9fb6131b6','2018-02-01 23:02:17',NULL,'A');
+INSERT INTO `Usuarios` VALUES (1,'c4ca4238a0b923820dcc509a6f75849b','Ramiro','Lobo Quintero','ramiro','7b6cf1f9168cdfa3135ce28ec84ac693','2018-01-29 21:35:16',NULL,'A'),(2,'c81e728d9d4c2f636f067f89cc14862c','Fabiana','Lepen','admchfl','5b54b96d99482b3043c969be0814ed4f','2018-01-29 21:35:16',NULL,'A'),(3,'eccbc87e4b5ce2fe28308fd9f2a7baf3','Ricardo','Bruno','rbruno','c902b0284a3b91260c73dfd9fb6131b6','2018-01-29 21:38:37',NULL,'A'),(4,'a87ff679a2f3e71d9181a67b7542122c','Ricardo','Bruno','prueba','asd','2018-01-29 22:27:14',NULL,'A'),(5,'cfcd208495d565ef66e7dff9f98764da','prueba','asd','asd','c902b0284a3b91260c73dfd9fb6131b6','2018-02-01 23:02:17',NULL,'A');
 /*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -497,6 +518,1861 @@ UNLOCK TABLES;
 --
 -- Dumping events for database 'ClubHonorarios'
 --
+
+--
+-- Dumping routines for database 'ClubHonorarios'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_baja`(cIdCategoria INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT idCategoria FROM Categorias WHERE idCategoria = cIdCategoria) THEN
+		SELECT 0 as codigo, 'Categoria inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (SELECT estado FROM Categorias WHERE idCategoria = cIdCategoria) = 'B' THEN
+		SELECT 0 as codigo, 'La Categoria ya se encuentra dada de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	Categorias
+        SET		estado = 'B'
+        WHERE	idCategoria = cIdCategoria;
+        SELECT cIdCategoria as codigo, 'Categoria dada de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_dame` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_dame`(cIdCategoria INT)
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    
+	IF NOT EXISTS (SELECT idCategoria FROM Categorias WHERE idCategoria = cIdCategoria) THEN
+		SELECT 0 as codigo, 'La Categoria no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT	idCategoria as codigo, nombre
+    FROM	Categorias
+    WHERE   idCategoria=cIdCategoria;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_listar`()
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    
+    SELECT	idCategoria as codigo, nombre
+    FROM	Categorias
+    WHERE   estado='A'
+    ORDER BY nombre ASC;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_listarAnsestros` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_listarAnsestros`(pPertenece INT)
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    DECLARE v1 VARCHAR(255);
+    
+    DROP TEMPORARY TABLE IF EXISTS filasAColumna;
+	CREATE TEMPORARY TABLE IF NOT EXISTS filasAColumna (
+	  `idCategoria` INT,
+	  `nombre` varchar(50)
+	);
+	
+    WHILE pPertenece IS NOT NULL DO
+		INSERT INTO filasAColumna (idCategoria,nombre)SELECT idCategoria,nombre from Categorias where idCategoria = pPertenece;
+		set pPertenece = (SELECT pertenece from Categorias where idCategoria = pPertenece);
+	END WHILE;
+    
+    select * from filasAColumna order by idCategoria ASC;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_modificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_modificar`(cIdCategoria INT, cNombre VARCHAR(45))
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+	IF NOT EXISTS (SELECT idCategoria FROM Categorias WHERE idCategoria = cIdCategoria) THEN
+		SELECT 0 as codigo, 'La categoria no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF (cNombre IS NULL OR cNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre de la Categoria.' mensaje;
+        LEAVE PROC;
+	END IF;
+
+	START TRANSACTION;
+		UPDATE Categorias 
+        SET nombre=cNombre
+        WHERE idCategoria=cIdCategoria;
+		SELECT cIdCategoria as codigo, 'Categoria actualizada con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `categoria_nueva` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `categoria_nueva`(cNombre VARCHAR(45))
+PROC: BEGIN
+
+	DECLARE cIdCategoria INT;
+    -- Manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+	-- Control de categoria existente
+	IF (cNombre IS NULL OR cNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar un nombre de categoria.' mensaje;
+        LEAVE PROC;
+	END IF;
+    -- Control de parametros incorrectos
+	IF EXISTS (SELECT nombre FROM Categorias WHERE nombre = cNombre) THEN
+		SELECT 0 as codigo, 'La categoria ya existe' mensaje;
+        LEAVE PROC;
+	END IF;
+
+    START TRANSACTION;
+		SET cIdCategoria = 1 + (SELECT COALESCE(MAX(idCategoria),0) FROM Categorias);
+		INSERT INTO Categorias VALUES (cIdCategoria,cNombre,'A');
+    SELECT cIdCategoria AS codigo, 'Categoria creada exitosamente' mensaje;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `control_importes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `control_importes`(IN oTarjeta VARCHAR(10),
+IN oImporteVenta DECIMAL(20,10),IN oImporteCobrar DECIMAL(20,10),IN oCuotas TINYINT,
+IN oImporteCarga DECIMAL(20,10),IN oImporteCuota DECIMAL(20,10),OUT codigoOut INT,
+OUT mensajeOut VARCHAR(45))
+PROC: BEGIN
+
+    DECLARE tTasa DECIMAL(15,14);
+    DECLARE tImporteCobrar DECIMAL(20,10);
+    DECLARE tImporteCarga DECIMAL(20,10);
+    DECLARE tImporteCuota DECIMAL(20,10);
+        
+    SET tTasa = (SELECT tasa FROM Tarjetas WHERE nombre=oTarjeta AND cuotas=oCuotas);
+    
+    SET tImporteCobrar = ROUND((oImporteVenta*0.95*100),2)/100;
+    /*
+		Esto sirve para redondear al siguiente decimal en 0.05 puntos arriba siempre
+		Con lo siguiente redondeamos para arriba al proximo 0,05 centavo:
+		Ejemplo: 
+		0.01 -> 0.05
+		2.12 -> 2.15
+		0.16 -> 0.20
+        SET tImporteCarga = (oImporteVenta*tTasa DIV 0.05) * 0.05 + IF(oImporteVenta*tTasa MOD 0.05 = 0, 0, 0.05);
+    */
+    
+    /*
+	Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
+          // Ej: 10.225 = 10.23
+          //     10.223 = 10.22     
+	*/
+    SET tImporteCarga = ROUND((oImporteVenta*tTasa),2);
+    SET tImporteCuota = ROUND((tImporteCarga/oCuotas),2);
+    
+    IF (tImporteCobrar NOT BETWEEN oImporteCobrar - 0.1 AND oImporteCobrar + 0.1) THEN
+		SELECT 0 INTO codigoOut;
+        SELECT 'Importe a cobrar incorrecto' INTO mensajeOut;
+        LEAVE PROC;
+	ELSEIF (tImporteCarga NOT BETWEEN tImporteCarga - 0.1 AND tImporteCarga + 0.1) THEN
+			SELECT 0 INTO codigoOut;
+			SELECT 'Importe de carga incorrecto' INTO mensajeOut;
+			LEAVE PROC;
+		ELSEIF(tImporteCuota NOT BETWEEN tImporteCuota - 0.1 AND tImporteCuota + 0.1) THEN
+				SELECT 0 INTO codigoOut;
+                SELECT 'Importe de cuotas incorrecto' INTO mensajeOut;
+				LEAVE PROC;
+	ELSE 
+		SELECT 1 INTO codigoOut;
+		SELECT 'Parametros correctos' INTO mensajeOut;
+	END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `cual_me_falta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`%` PROCEDURE `cual_me_falta`(vCadena VARCHAR(100))
+BEGIN
+
+	SET @sql=CONCAT('SELECT idOperacion FROM Operaciones WHERE idOperacion NOT IN (',vCadena, ')');
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `dame_ciudades` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dame_ciudades`(pIdProvincia int)
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+		
+		SELECT c.*
+		FROM Ciudades as c
+		WHERE c.idProvincia = pIdProvincia ORDER BY c.idCiudad DESC;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `dame_comisiones` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dame_comisiones`()
+PROC: BEGIN
+
+        SELECT 1 as codigo,t.idTarjeta,t.nombre,t.nombreCorto,tc.cantidadCuota,tc.comision FROM Tarjetas AS t
+        INNER JOIN Tarjetas_Cuotas AS tc ON t.idTarjeta = tc.idTarjeta
+        WHERE t.estado = 'A'
+        ORDER BY t.idTarjeta ASC;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `dame_fechas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dame_fechas`()
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+		
+		SELECT 1 as codigo, NOW() AS fechaTransaccion,  (SELECT DATE(fecha) FROM DiasHabiles 
+		WHERE DATE(fecha) >= DATE(NOW()) LIMIT 3,1) AS fechaPago;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `dame_provincias` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dame_provincias`()
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+		
+		SELECT p.*
+		FROM Provincias as p ORDER BY p.idProvincia DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listar_fechas_habiles` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_fechas_habiles`()
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+	
+			SELECT 1 as codigo, fecha AS Fechas FROM DiasHabiles;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `listar_fechas_habiles_anio` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_fechas_habiles_anio`(anio INT)
+BEGIN
+
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+        
+		IF NOT EXISTS ( SELECT fecha AS Fechas FROM DiasHabiles WHERE fecha like concat(anio,'%')) THEN
+			SELECT 1 as codigo;
+		ELSE 
+			SELECT 1 as codigo, fecha AS Fechas FROM DiasHabiles WHERE fecha like concat(anio,'%');
+		END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `modificar_dias_habiles` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificar_dias_habiles`(vCadena VARCHAR(3660))
+PROC: BEGIN
+	/*
+    El operador '*' se utiliza para separar las fechas entre si.
+    El operador '%' se utiliza para separar la mitad del array diferenciando los habiles de los feriados.
+    Formato de vCadena: fechaHabil*fechaHabil*...*fechaHabil % fechaFeriada*fechaFeriada...fechaFeriada
+    */
+    
+    DECLARE nuevosHabiles VARCHAR(3660);
+	DECLARE nuevosFeriados VARCHAR(3660);
+    DECLARE aux varchar(10);
+    
+	-- Manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+     
+	IF (vCadena IS NULL OR vCadena = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar modificaciones en el calendario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    
+	START TRANSACTION;
+		/* BORRAR AL FINALIZAR
+        Formato de pLineas: idItem|cantidad|precio*
+		El operador '|' se utiliza para separar los atributos de un Item.
+		El operador '*' se utiliza para separar las Lineas de Venta.*/
+	
+        -- Obtengo los nuevos dias habiles
+		SET nuevosHabiles = SUBSTRING_INDEX(vCadena,'%',1);
+        -- Obtengo los nuevos feriados
+		SET nuevosFeriados = SUBSTRING_INDEX(vCadena,'%',-1); -- el -1 cuenta desde la derecha.. leer  https://www.w3resource.com/mysql/string-functions/mysql-substring_index-function.php
+            
+		-- LOOP solo para dias habiles nuevos
+        LAZOHABILES : LOOP
+        
+			-- Condicion de salida
+			IF (nuevosHabiles = '' OR nuevosHabiles = '*') THEN
+				LEAVE LAZOHABILES;
+			END IF;
+            
+			-- Obtengo una fecha
+            SET aux =  SUBSTRING_INDEX(nuevosHabiles,'*',1);
+			
+            -- Control de parámetros incorrectos
+            IF NOT EXISTS (SELECT fecha FROM DiasHabiles WHERE fecha = aux)	THEN
+				INSERT INTO DiasHabiles VALUES (aux);
+			END IF;
+            
+            -- Elimino la fecha del array    
+			SET nuevosHabiles = RIGHT(nuevosHabiles,CHAR_LENGTH(nuevosHabiles) - CHAR_LENGTH(aux));
+			SET nuevosHabiles = RIGHT(nuevosHabiles,CHAR_LENGTH(nuevosHabiles)-1);
+            
+		END LOOP LAZOHABILES;
+        
+        -- LOOP solo para dias feriados nuevos
+        LAZOFERIADOS : LOOP
+        
+			-- Condicion de salida
+			IF (nuevosFeriados = '' OR nuevosFeriados = '*') THEN
+				LEAVE LAZOFERIADOS;
+			END IF;
+            
+			-- Obtengo una fecha
+            SET aux =  SUBSTRING_INDEX(nuevosFeriados,'*',1);
+			
+            -- Control de parámetros incorrectos
+            IF EXISTS (SELECT fecha FROM DiasHabiles WHERE fecha = aux)	THEN
+				DELETE FROM DiasHabiles WHERE fecha = aux;
+			END IF;
+            
+            -- Elimino la fecha del array    
+			SET nuevosFeriados = RIGHT(nuevosFeriados,CHAR_LENGTH(nuevosFeriados) - CHAR_LENGTH(aux));
+			SET nuevosFeriados = RIGHT(nuevosFeriados,CHAR_LENGTH(nuevosFeriados)-1);
+            
+		END LOOP LAZOFERIADOS;
+    
+	SELECT 1 AS codigo, 'Modificaciones realizadas con exito' mensaje;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operaciones_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operaciones_baja`(oIdOperacion INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT oIdOperacion FROM Operaciones WHERE idOperacion = oIdOperacion) THEN
+		SELECT 0 as codigo, 'Operacion inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF (SELECT estado FROM Operaciones WHERE idOperacion = oIdOperacion) = 'B' THEN
+		SELECT 0 as codigo, 'La operacion ya se encuentra dada de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	Operaciones
+        SET		estado = 'B'
+        WHERE	idOperacion = oIdOperacion;
+        SELECT oIdOperacion as codigo, 'Operacion dada de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operacion_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operacion_baja`(oIdOperacion INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT oIdOperacion FROM Operaciones WHERE idOperacion = oIdOperacion) THEN
+		SELECT 0 as codigo, 'Operacion inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF (SELECT estado FROM Operaciones WHERE idOperacion = oIdOperacion) = 'B' THEN
+		SELECT 0 as codigo, 'La operacion ya se encuentra dada de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	Operaciones
+        SET		estado = 'B'
+        WHERE	idOperacion = oIdOperacion;
+        SELECT oIdOperacion as codigo, 'Operacion dada de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operacion_dame` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operacion_dame`(oIdOperacion INT)
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    
+	IF NOT EXISTS (SELECT oIdOperacion FROM Operaciones WHERE idOperacion = oIdOperacion) THEN
+		SELECT 0 as codigo, 'La operacion no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT	* 
+    FROM	Operaciones
+    WHERE   idOperacion=oIdOperacion AND estado = 'A';
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operacion_listar_dia` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operacion_listar_dia`()
+PROC: BEGIN
+
+	IF NOT EXISTS (SELECT idOperacion FROM Operaciones WHERE DATE(fechaTransaccion)=DATE(NOW()) ) THEN 
+		SELECT 0 AS codigo, 'No se realizaron operaciones en el dia' as mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT 	1 AS codigo, o.*
+    FROM	Operaciones AS o
+    WHERE estado = 'A' AND DATE(fechaTransaccion)=DATE(NOW())
+	ORDER BY idOperacion ASC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operacion_listar_rango` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operacion_listar_rango`(fechaInicio TIMESTAMP, fechaFin TIMESTAMP)
+PROC: BEGIN
+
+	IF NOT (fechaInicio REGEXP '^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][1-9]|3[0-1])')
+		THEN 
+		SELECT 0 AS codigo, 'Fecha inicio en formato incorrecto';
+		LEAVE PROC;
+    END IF;
+    IF NOT (fechaFin REGEXP '^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][1-9]|3[0-1])')
+		THEN 
+		SELECT 0 AS codigo, 'Fecha fin en formato incorrecto';
+		LEAVE PROC;
+    END IF;
+
+	IF NOT EXISTS (
+			SELECT idOperacion FROM Operaciones WHERE 
+			DATE(fechaTransaccion) BETWEEN DATE(fechaInicio) AND DATE(fechaFin)) 
+		THEN 
+			SELECT 0 AS codigo, 'No se realizaron operaciones en el rango elegido' as mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT 	1 AS codigo, o.*
+    FROM	Operaciones AS o
+    WHERE estado = 'A' AND DATE(fechaTransaccion) BETWEEN DATE(fechaInicio) AND DATE(fechaFin);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `operacion_nueva` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `operacion_nueva`(oDniProfesional BIGINT, oApellidoProfesional VARCHAR(45), oNombreProfesional VARCHAR(45),
+oMailProfesional VARCHAR(45), oDniCliente BIGINT, oApellidoCliente VARCHAR(45), oNombreCliente VARCHAR(45), oTelefonoCliente VARCHAR(20), oMailCliente VARCHAR(45), oTarjeta VARCHAR(10), oImporteVenta DECIMAL(20,10), oImporteCobrar DECIMAL(20,10), oCuotas TINYINT, oImporteCarga DECIMAL(20,10), oImporteCuota DECIMAL(20,10), oCodigoAuto INT, oCupon BIGINT, oTipoTarjeta CHAR)
+PROC: BEGIN
+
+
+
+	DECLARE oIdOperacion INT;
+    DECLARE oFechaTransaccion TIMESTAMP;
+    DECLARE oFechaPago TIMESTAMP;
+	DECLARE fechaTransacTemp TIMESTAMP;
+
+	 DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	 BEGIN
+	 SELECT 0 as codigo,'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+        
+    
+	-- Control de parametros vacios
+    IF (oDniProfesional IS NULL OR oDniProfesional = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar el DNI del profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oApellidoProfesional IS NULL OR oApellidoProfesional = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar el apellido del profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oNombreProfesional IS NULL OR oNombreProfesional = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar el nombre del profesional' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oMailProfesional IS NULL OR oMailProfesional = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar el mail del profesional' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oDniCliente IS NULL OR oDniCliente = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar el DNI del cliente.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oApellidoCliente IS NULL OR oApellidoCliente = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar el apellido del cliente.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oNombreCliente IS NULL OR oNombreCliente = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar el nombre del cliente' mensaje;
+        LEAVE PROC;
+	END IF; 
+    
+    IF NOT(oTarjeta IN ('VISA','MASTER','AMEX','MP')) THEN
+		SELECT 0 as codigo,'Debe ingresar una tarjeta valida' mensaje;
+        LEAVE PROC;
+	END IF; 
+    
+    IF (oImporteVenta IS NULL OR oImporteVenta = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar un importe de venta valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oImporteCobrar IS NULL  OR oImporteCobrar = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar un importe a cobrar valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oCuotas IS NULL OR oCuotas = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar una cantidad de cuotas correcta.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oImporteCarga IS NULL OR oImporteCarga = 0) THEN
+		SELECT 0 as codigo,'Debe ingresar un importe a cargar valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oImporteCuota IS NULL) THEN
+		SELECT 0 as codigo,'Debe ingresar un importe de cuota valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oCupon IS NULL) THEN
+		SELECT 0 as codigo,'Debe ingresar un numero de cupon valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (oCodigoAuto IS NULL) THEN
+		SELECT 0 as codigo,'Debe ingresar un codigo auto valido.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    -- Control de importes correctos
+    
+    
+		IF oTipoTarjeta = 'C' THEN 
+			CALL control_importes(oTarjeta,oImporteVenta,oImporteCobrar,oCuotas,oImporteCarga,oImporteCuota,@codigoOut,@mensajeOut);
+			IF (@codigoOut = 0) THEN
+				SELECT 0 AS codigo, @mensajeOut AS mensaje;
+				LEAVE PROC;
+			END IF;
+		END IF;
+
+    
+    START TRANSACTION;
+    
+		SET oFechaTransaccion = NOW();
+		/* 
+        Esto sirve para pasar la fecha de transaccion al dia siguiente HABIL en caso de que se realize pasadas las 20:30 horas
+        IF (DATE_FORMAT(oFechaTransaccion, '%H:%i:%s') >= '20:30:00') THEN
+			SET oFechaTransaccion = (SELECT fecha FROM DiasHabiles 
+									WHERE DATE(fecha) > DATE(oFechaTransaccion)
+									LIMIT 1);
+		END IF;
+        */
+        
+        /* DEFINO ESTA fechaTranscTemp para corregir la fecha de pago despues de las 20.30 */
+        SET fechaTransacTemp = NOW();
+        
+        IF (DATE_FORMAT(fechaTransacTemp, '%H:%i:%s') >= '20:30:30') THEN
+			SET fechaTransacTemp = (SELECT fecha FROM DiasHabiles 
+									WHERE DATE(fecha) > DATE(fechaTransacTemp)
+									LIMIT 1);
+		END IF;
+		
+		SET oFechaPago = (SELECT fecha FROM DiasHabiles 
+		WHERE DATE(fecha) >= DATE(fechaTransacTemp)
+		LIMIT 3,1);
+        
+        
+		
+		SET oIdOperacion = 1 + (SELECT COALESCE(MAX(idOperacion),50000) FROM Operaciones);
+		INSERT INTO Operaciones VALUES 
+        (oIdOperacion,oDniProfesional,oApellidoProfesional,oNombreProfesional,oMailProfesional,oFechaTransaccion,
+        oFechaPago,oDniCliente,oApellidoCliente,oNombreCliente,oTelefonoCliente,oMailCliente,oTarjeta,oImporteVenta,oImporteCobrar,oCuotas,oImporteCarga,
+        oImporteCuota,oCodigoAuto,oCupon,NOW(),oTipoTarjeta,'A');
+		SELECT oIdOperacion AS codigo, 
+        'Operacion creada con exito.' AS mensaje,
+        DATE_FORMAT(oFechaTransaccion, "%d/%m/%Y %h:%i %p") AS fechaTransaccion,
+        DATE_FORMAT(oFechaPago, "%d/%m/%Y") AS fechaPago;
+        
+	COMMIT;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_baja`(pIdProfesional INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT idProfesional FROM ProfesionalesTemp WHERE idProfesional = pIdProfesional) THEN
+		SELECT 0 as codigo, 'Profesional inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF (SELECT estado FROM ProfesionalesTemp WHERE idProfesional = pIdProfesional) = 'B' THEN
+		SELECT 0 as codigo, 'El profesional ya se encuentra dado de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	ProfesionalesTemp
+        SET		estado = 'B'
+        WHERE	idProfesional = pIdProfesional;
+        SELECT pIdProfesional as codigo, 'Profesional dado de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_dame` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_dame`(pDni BIGINT)
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    
+	IF NOT EXISTS (SELECT idProfesional FROM ProfesionalesTemp WHERE dni = pDni AND estado='A') THEN
+		SELECT 0 as codigo, 'El Profesional no existe o esta dado de baja' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT 1 AS codigo, p.* FROM ProfesionalesTemp AS p WHERE dni = pDni;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_listar`()
+PROC: BEGIN
+
+	SELECT p.*,pr.nombre as nombreProvincia,c.nombre as nombreCiudad,v.nombre as nombreVendedor FROM ProfesionalesTemp as p 
+	INNER JOIN Provincias as pr ON p.provincia = pr.idProvincia
+	INNER JOIN Ciudades as c on p.localidad = c.idCiudad
+	INNER JOIN Vendedores as v on p.vendedor = v.idVendedor
+	WHERE estado = 'A' ORDER BY idProfesional DESC;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_listar_rango` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_listar_rango`(fechaInicio TIMESTAMP, fechaFin TIMESTAMP)
+PROC: BEGIN
+
+	IF NOT (fechaInicio REGEXP '^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][1-9]|3[0-1])')
+		THEN 
+		SELECT 0 AS codigo, 'Fecha inicio en formato incorrecto';
+		LEAVE PROC;
+    END IF;
+    IF NOT (fechaFin REGEXP '^([1-3][0-9]{3,3})-(0?[1-9]|1[0-2])-(0?[1-9]|[1-2][1-9]|3[0-1])')
+		THEN 
+		SELECT 0 AS codigo, 'Fecha fin en formato incorrecto';
+		LEAVE PROC;
+    END IF;
+
+	IF NOT EXISTS (
+			SELECT idProfesional FROM ProfesionalesTemp WHERE 
+			DATE(fechaAlta) BETWEEN DATE(fechaInicio) AND DATE(fechaFin)) 
+		THEN 
+			SELECT 0 AS codigo, 'No se crearon Profesionales en el rango elegido' as mensaje;
+        LEAVE PROC;
+	END IF;
+    
+		SELECT p.*,pr.nombre as nombreProvincia,c.nombre as nombreCiudad,v.nombre as nombreVendedor FROM ProfesionalesTemp as p 
+		INNER JOIN Provincias as pr ON p.provincia = pr.idProvincia
+		INNER JOIN Ciudades as c on p.localidad = c.idCiudad
+		INNER JOIN Vendedores as v on p.vendedor = v.idVendedor
+    WHERE DATE(p.fechaAlta) BETWEEN DATE(fechaInicio) AND DATE(fechaFin);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_modificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_modificar`(pIdProfesional INT, pApellido VARCHAR(45), pNombre VARCHAR(45), pEspecialidad TEXT, pDomicilio VARCHAR(200), pLocalidad VARCHAR(100), pProvincia VARCHAR(45), pTelefono VARCHAR(100), pProfesion VARCHAR(45), pMail VARCHAR(45), pVendedor VARCHAR(45), pAutorizado VARCHAR (100), pDniAutorizado BIGINT)
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+        
+    IF NOT EXISTS (SELECT idProfesional FROM ProfesionalesTemp WHERE idProfesional= pIdProfesional AND estado='A') THEN
+		SELECT 0 as codigo, 'El profesional no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pApellido IS NULL OR pApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pNombre IS NULL OR pNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pDomicilio IS NULL OR pDomicilio = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el domicilio del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pLocalidad IS NULL OR pLocalidad = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la localidad del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;	
+	IF (pProvincia IS NULL OR pProvincia = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la provincia del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pTelefono IS NULL OR pTelefono = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el telefono del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pProfesion IS NULL OR pProfesion = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la profesion del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pVendedor IS NULL OR pVendedor = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el vendedor del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+
+	START TRANSACTION;
+		UPDATE ProfesionalesTemp 
+        SET apellido=pApellido, nombre=pNombre, especialidad=pEspecialidad, domicilio=pDomicilio, localidad=pLocalidad, provincia=pProvincia, telefono=pTelefono, profesion=pProfesion, mail=pMail, vendedor=pVendedor, autorizado=pAutorizado, dniAutorizado=pDniAutorizado
+        WHERE idProfesional=pIdProfesional;
+		SELECT pIdProfesional as codigo, 'Profesional modificado con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesionalTemp_nuevo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesionalTemp_nuevo`(pFechaImpresion TIMESTAMP,pDni BIGINT, pApellido VARCHAR(45), pNombre VARCHAR(45), pEspecialidad TEXT, pDomicilio VARCHAR(200), pLocalidad VARCHAR(100), pProvincia VARCHAR(45), pTelefono VARCHAR(100), pProfesion VARCHAR(45), pMail VARCHAR(45), pVendedor VARCHAR(45), pAutorizado VARCHAR (100), pDniAutorizado BIGINT)
+PROC: BEGIN
+
+	DECLARE pIdProfesional INT;
+    -- Manejo de errores
+    
+        DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+        
+	IF (pDni IS NULL) THEN
+		SELECT 0 as codigo, 'Debe ingresar el DNI del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pApellido IS NULL OR pApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pNombre IS NULL OR pNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pDomicilio IS NULL OR pDomicilio = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el domicilio del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pLocalidad IS NULL OR pLocalidad = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la localidad del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;	
+	IF (pProvincia IS NULL OR pProvincia = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la provincia del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pTelefono IS NULL OR pTelefono = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el telefono del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pProfesion IS NULL OR pProfesion = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar la profesion del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (pVendedor IS NULL OR pVendedor = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el vendedor del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    
+	IF EXISTS (SELECT dni FROM ProfesionalesTemp WHERE dni= pDni AND estado='A') THEN
+		SELECT 0 as codigo, 'El profesional ya existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF EXISTS (SELECT dni FROM ProfesionalesTemp WHERE dni=pDni AND estado='B') THEN
+		START TRANSACTION;
+			UPDATE ProfesionalesTemp SET estado='A',fechaAlta=NOW() WHERE dni=pDni;
+            SELECT 1 AS codigo, 'El profesional se encontraba dado de baja. Actualmente se lo dio de alta con la informacion ya existente en el sistema. Para modificar la informacion, recurra al menu "Modificar Profesional"' mensaje;
+		COMMIT;
+        LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+    
+    SET pIdProfesional = 1 + (SELECT COALESCE(MAX(idProfesional),0) FROM ProfesionalesTemp);
+	INSERT INTO ProfesionalesTemp VALUES (pIdProfesional,pFechaImpresion, pDni, pApellido, pNombre, pEspecialidad, pDomicilio, pLocalidad, pProvincia, pTelefono, NOW(), pProfesion, pMail, pVendedor, pAutorizado, pDniAutorizado ,'A');
+	SELECT pIdProfesional AS codigo, 'Profesional creado exitosamente' mensaje;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesional_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesional_baja`(pIdProfesional INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT idProfesional FROM Profesionales WHERE idProfesional = pIdProfesional) THEN
+		SELECT 0 as codigo, 'Profesional inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (SELECT estado FROM Profesionales WHERE idProfesional = pIdProfesional) = 'B' THEN
+		SELECT 0 as codigo, 'El profesional ya se encuentra dado de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	Profesionales
+        SET		estado = 'B'
+        WHERE	idProfesional = pIdProfesional;
+        SELECT pIdProfesional as codigo, 'Profesional dado de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesional_dame` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesional_dame`(pIdProfesional INT)
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    
+	IF NOT EXISTS (SELECT idProfesional FROM Profesionales WHERE idProfesional = pIdProfesional) THEN
+		SELECT 0 as codigo, 'El Profesional no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    SELECT p.idProfesional, p.nombre, p.apellido, p.domicilio, 
+	pr.nombre AS provincia, ci.nombre AS ciudad, p.email, p.telefono, p.celular,
+	/* seleccionamos las Categorias del profesional y 
+	las agrupamos convirtiendo en un array en una sola columna*/
+	(SELECT CONCAT('[',GROUP_CONCAT(c.nombre SEPARATOR ','),']') 
+	FROM Categorias AS c
+	JOIN Profesional_Categoria AS pc ON c.idCategoria=pc.idCategoria
+	WHERE pc.idProfesional=pIdProfesional) AS categoria
+	/* FIN Categorias*/
+	FROM Profesionales AS p
+	JOIN Provincias AS pr ON p.idProvincia=pr.idProvincia
+	JOIN Ciudades AS ci ON p.idCiudad=ci.idCiudad
+	WHERE idProfesional=pIdProfesional;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesional_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesional_listar`()
+PROC: BEGIN
+	
+    DROP TEMPORARY TABLE IF EXISTS filasAcolumnas;
+	CREATE TEMPORARY TABLE IF NOT EXISTS filasAcolumnas AS 
+	(SELECT pc.idProfesional, c.nombre
+	FROM Profesional_Categoria AS pc
+    LEFT JOIN Categorias AS c ON c.idCategoria=pc.idCategoria);
+
+	DROP TEMPORARY TABLE IF EXISTS coincidencia;
+	CREATE TEMPORARY TABLE IF NOT EXISTS coincidencia AS
+		( SELECT idProfesional, GROUP_concat(nombre) AS categoria
+		FROM filasAcolumnas GROUP by idProfesional);
+
+	SELECT p.idProfesional, p.nombre, p.apellido, p.domicilio, 
+	pr.nombre AS provincia, ci.nombre AS ciudad, p.email, p.telefono, p.celular, co.categoria
+	FROM Profesionales AS p
+	JOIN Provincias AS pr ON p.idProvincia=pr.idProvincia
+	JOIN Ciudades AS ci ON p.idCiudad=ci.idCiudad
+	JOIN coincidencia AS co ON p.idProfesional=co.idProfesional;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesional_modificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesional_modificar`(pIdProfesional INT, pNombre VARCHAR(45), pApellido VARCHAR(45),pDomicilio VARCHAR(45), 
+pIdProvincia SMALLINT(2), pIdCiudad INT(4), pEmail VARCHAR(45), 
+pTelefono VARCHAR(45), pCelular VARCHAR(45), pCategoriasCadena VARCHAR (45))
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+	IF NOT EXISTS (SELECT idProfesional FROM Profesionales WHERE idProfesional = pIdProfesional) THEN
+		SELECT 0 as codigo, 'El Profesional no existe' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF (pNombre IS NULL OR pNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF (pApellido IS NULL OR pApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+
+	START TRANSACTION;
+		UPDATE Profesionales 
+        SET nombre=pNombre, apellido=pApellido, domicilio=pDomicilio, idProvincia=pIdProvincia, 
+        idCiudad=pIdCiudad, email=pEmail, telefono=pTelefono, celular=pCelular
+        WHERE idProfesional=pIdProfesional;
+		SELECT pIdProfesional as codigo, 'Profesional actualizado con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `profesional_nuevo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `profesional_nuevo`(pNombre VARCHAR(45), pApellido VARCHAR(45),pDomicilio VARCHAR(45), 
+pIdProvincia SMALLINT(2), pIdCiudad INT(4), pEmail VARCHAR(45), 
+pTelefono VARCHAR(45), pCelular VARCHAR(45), pCategoriasCadena VARCHAR (45))
+PROC: BEGIN
+	DECLARE aux VARCHAR(50);
+    DECLARE pIdCategoria INT;
+	DECLARE pIdProfesional INT;
+    -- Manejo de errores
+    
+        DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+        
+	IF (pNombre IS NULL OR pNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF (pApellido IS NULL OR pApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del Profesional.' mensaje;
+        LEAVE PROC;
+	END IF;
+	IF EXISTS (SELECT email FROM Profesionales WHERE email = pEmail) THEN
+		SELECT 0 as codigo, 'El mail ya esta en uso' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    	/*
+    Procedimiento que permite dar de alta una venta a partir de sus Lineas de Venta, contenidas en pLineas.
+    Formato de pLineas: idItem|cantidad|precio*
+    El operador '|' se utiliza para separar los atributos de un Item.
+    El operador '*' se utiliza para separar las Lineas de Venta.
+    Devuelve el 'OK' mas el id de la nueva venta en Mensaje.
+    */
+    START TRANSACTION;
+    
+    SET pIdProfesional = 1 + (SELECT COALESCE(MAX(idProfesional),0) FROM Profesionales);
+		INSERT INTO Profesionales VALUES 
+        (pIdProfesional, pNombre, pApellido, pDomicilio, pIdProvincia, pIdCiudad, pEmail, pTelefono, pCelular,'A');
+    
+        LAZO : LOOP
+			-- Obtengo categoria
+            SET pIdCategoria = SUBSTRING_INDEX(pCategoriasCadena,'*',1);
+			
+            -- Control de parámetros incorrectos
+            IF NOT EXISTS (SELECT idCategoria FROM Categorias WHERE idCategoria = pIdCategoria)	THEN
+				SELECT 0 as codigo, 'Error. Categoria inexistente.' mensaje;
+                ROLLBACK;
+                LEAVE PROC;
+			END IF;
+            
+            -- A Tabla Profesional_Categoria
+            INSERT INTO Profesional_Categoria VALUES (pIdProfesional,pIdCategoria);
+            
+            -- Elimino la categoria de la cadena, para ver la siguiente categoria
+			SET aux = SUBSTRING_INDEX(pCategoriasCadena,'*',1);    
+			SET pCategoriasCadena = RIGHT(pCategoriasCadena,CHAR_LENGTH(pCategoriasCadena) - CHAR_LENGTH(aux));
+			SET pCategoriasCadena = RIGHT(pCategoriasCadena,CHAR_LENGTH(pCategoriasCadena)-1);
+            
+            -- Condición de salida
+			IF (pCategoriasCadena = '') THEN
+				LEAVE LAZO;
+			END IF;
+		END LOOP LAZO;
+	SELECT pIdProfesional AS codigo, 'Profesional creado exitosamente' mensaje;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_baja`(tIdTarjeta INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT idTarjeta FROM Tarjetas WHERE idTarjeta = tIdTarjeta) THEN
+		SELECT 0 as codigo, 'Tarjeta inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (SELECT estado FROM Tarjetas WHERE idTarjeta = tIdTarjeta) = 'B' THEN
+		SELECT 0 as codigo, 'La tarjeta ya se encuentra dada de baja.' mensaje;
+		LEAVE PROC;
+	END IF;
+    
+    START TRANSACTION;
+		UPDATE 	Tarjetas
+        SET		estado = 'B'
+        WHERE	idTarjeta = tIdTarjeta;
+        SELECT tIdTarjeta as codigo, 'Tarjeta dada de baja con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_cuotas_baja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_cuotas_baja`(tIdTarjeta INT,tCantidadCuota INT)
+PROC: BEGIN
+	/*
+    Procedimiento que da de baja un producto.
+    */
+    IF NOT EXISTS (SELECT idTarjeta FROM Tarjetas_Cuotas WHERE idTarjeta = tIdTarjeta AND cantidadCuota = tCantidadCuota) THEN
+		SELECT 0 as codigo, 'Cuota y comision inexistente en el sistema.' mensaje;
+        LEAVE PROC;
+	END IF;
+
+    START TRANSACTION;
+    
+		DELETE FROM Tarjetas_Cuotas
+		WHERE idTarjeta = tIdTarjeta AND cantidadCuota = tCantidadCuota;
+        SELECT tIdTarjeta as codigo, 'Cuota y comision eliminadas con exito.' mensaje;
+	COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_listar`()
+PROC: BEGIN
+	/*
+    Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
+    */
+    IF EXISTS( SELECT idTarjeta FROM Tarjetas WHERE estado='A') THEN
+		SELECT t.idTarjeta, t.nombre, t.nombreCorto, tc.cantidadCuota, tc.comision FROM	Tarjetas AS t
+		INNER JOIN Tarjetas_Cuotas AS tc ON t.idTarjeta = tc.idTarjeta
+		WHERE   t.estado='A'
+		ORDER BY t.nombre ASC;
+    ELSE
+		SELECT 0 as codigo;
+    END IF;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_modificar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_modificar`(tIdTarjeta INT, tNombre VARCHAR(20), tNombreCorto VARCHAR(20), cuotasYcomisiones VARCHAR(1000))
+PROC: BEGIN
+
+    DECLARE aux VARCHAR(50);
+    DECLARE tCuota INT;
+    DECLARE tComision DECIMAL(15,14);
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	BEGIN
+        SHOW ERRORS;
+        SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+		ROLLBACK;
+	END;
+        
+	-- Control de parametros vacios
+    IF (tNombre IS NULL OR tNombre = '') THEN
+		SELECT 0 as codigo,'Debe ingresar un nombre de tarjeta' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (tNombreCorto IS NULL OR tNombreCorto = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar un nombre corto de tarjeta' mensaje;
+        LEAVE PROC;
+	END IF;
+   
+   -- Control de parametros existentes
+
+    START TRANSACTION;
+		DELETE FROM Tarjetas WHERE idTarjeta=tIdTarjeta;
+		/* La tarjeta no existia en estado de baja, asi que se la crea con sus comisiones*/
+		INSERT INTO Tarjetas VALUES (tIdTarjeta,tNombre,tNombreCorto,'A');
+	    /* Formato de cuotasYcomisiones: numeroCuota|comision*
+		El operador '|' se utiliza para separar los la cuota con su respectiva comision.
+		El operador '*' se utiliza para separar las diferentes cuotas.*/
+        LAZO : LOOP
+			-- Obtengo una cuota y comision
+            SET aux = SUBSTRING_INDEX(cuotasYcomisiones,'*',1);
+            -- Obtengo numero de Cuota
+            SET tCuota=  SUBSTRING_INDEX(aux,'|',1);
+            -- Elimino cantidadCuota
+            SET aux = RIGHT(aux,CHAR_LENGTH(aux)-CHAR_LENGTH(SUBSTRING_INDEX(aux,'|',1))-1);
+            -- Obtengo comision de cuota
+            SET tComision = SUBSTRING_INDEX(aux,'|',1); 
+			
+            -- Control de parametros vacios
+            IF (tCuota <= 0) THEN
+				SELECT 0 as codigo, 'La cantidad de cuota no puede ser menor o igual que cero.' mensaje;
+                ROLLBACK;
+                LEAVE PROC;
+			END IF;
+					            
+			INSERT INTO Tarjetas_Cuotas VALUES(tIdTarjeta,tCuota,tComision);
+		
+            -- Elimino cuota y comision ya procesada
+			SET aux = SUBSTRING_INDEX(cuotasYcomisiones,'*',1);    
+			SET cuotasYcomisiones = RIGHT(cuotasYcomisiones,CHAR_LENGTH(cuotasYcomisiones) - CHAR_LENGTH(aux));
+			SET cuotasYcomisiones = RIGHT(cuotasYcomisiones,CHAR_LENGTH(cuotasYcomisiones)-1);
+            
+            -- Condición de salida
+			IF (cuotasYcomisiones = '' OR cuotasYcomisiones = '*') THEN
+				LEAVE LAZO;
+			END IF;
+		END LOOP LAZO;
+        
+		SELECT tIdTarjeta AS codigo, 'Tarjeta modificada con exito.' AS mensaje;
+	COMMIT;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `tarjeta_nueva` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tarjeta_nueva`(tNombre VARCHAR(20), tNombreCorto VARCHAR(20),cuotasYcomisiones VARCHAR(1000))
+PROC: BEGIN
+
+	DECLARE tIdTarjeta INT;
+    DECLARE aux VARCHAR(50);
+    DECLARE tCuota INT;
+    DECLARE tComision DECIMAL(15,14);
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+	BEGIN
+        SHOW ERRORS;
+        SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+		ROLLBACK;
+	END;
+        
+	-- Control de parametros vacios
+    IF (tNombre IS NULL OR tNombre = '') THEN
+		SELECT 0 as codigo,'Debe ingresar un nombre de tarjeta' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (tNombreCorto IS NULL OR tNombreCorto = '' ) THEN
+		SELECT 0 as codigo,'Debe ingresar un nombre corto de tarjeta' mensaje;
+        LEAVE PROC;
+	END IF;
+   
+   -- Control de parametros existentes
+	IF EXISTS (SELECT nombre FROM Tarjetas WHERE nombre = tNombre AND estado='A') THEN
+		SELECT 0 as codigo, 'La tarjeta ya existe' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF EXISTS (SELECT idTarjeta FROM Tarjetas WHERE nombre = tNombre AND estado='B') THEN
+		UPDATE Tarjetas SET estado = 'A' WHERE nombre=tNombre;
+		SELECT 1 AS codigo, 'La tarjeta estaba dada de BAJA. Se reactivo tarjeta con su cantidad de cuotas y comisiones antiguas.' AS mensaje;
+		LEAVE PROC;
+    END IF;
+
+    START TRANSACTION;
+		
+		/* La tarjeta no existia en estado de baja, asi que se la crea con sus comisiones*/
+		SET tIdTarjeta = 1 + (SELECT COALESCE(MAX(idTarjeta),0) FROM Tarjetas);
+		INSERT INTO Tarjetas VALUES (tIdTarjeta,tNombre,tNombreCorto,'A');
+	    /* Formato de cuotasYcomisiones: numeroCuota|comision*
+		El operador '|' se utiliza para separar los la cuota con su respectiva comision.
+		El operador '*' se utiliza para separar las diferentes cuotas.*/
+        LAZO : LOOP
+			-- Obtengo una cuota y comision
+            SET aux = SUBSTRING_INDEX(cuotasYcomisiones,'*',1);
+            -- Obtengo numero de Cuota
+            SET tCuota=  SUBSTRING_INDEX(aux,'|',1);
+            -- Elimino cantidadCuota
+            SET aux = RIGHT(aux,CHAR_LENGTH(aux)-CHAR_LENGTH(SUBSTRING_INDEX(aux,'|',1))-1);
+            -- Obtengo comision de cuota
+            SET tComision = SUBSTRING_INDEX(aux,'|',1); 
+			
+            -- Control de parametros vacios
+            IF (tCuota <= 0) THEN
+				SELECT 0 as codigo, 'La cantidad de cuota no puede ser menor o igual que cero.' mensaje;
+                ROLLBACK;
+                LEAVE PROC;
+			END IF;
+					            
+			INSERT INTO Tarjetas_Cuotas VALUES(tIdTarjeta,tCuota,tComision);
+		
+            -- Elimino cuota y comision ya procesada
+			SET aux = SUBSTRING_INDEX(cuotasYcomisiones,'*',1);    
+			SET cuotasYcomisiones = RIGHT(cuotasYcomisiones,CHAR_LENGTH(cuotasYcomisiones) - CHAR_LENGTH(aux));
+			SET cuotasYcomisiones = RIGHT(cuotasYcomisiones,CHAR_LENGTH(cuotasYcomisiones)-1);
+            
+            -- Condición de salida
+			IF (cuotasYcomisiones = '' OR cuotasYcomisiones = '*') THEN
+				LEAVE LAZO;
+			END IF;
+		END LOOP LAZO;
+        
+		SELECT tIdTarjeta AS codigo, 'Tarjeta creada con exito.' AS mensaje;
+	COMMIT;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_buscarPorUsername` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_buscarPorUsername`(uUsername VARCHAR(50))
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+		SELECT 0 as codigo, 'Error en la transaccion.' mensaje;
+				SHOW ERRORS;
+				ROLLBACK;
+		END;
+        
+		IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario = uUsername) THEN
+			SELECT 0 as codigo, 'El Usuario no existe' mensaje;
+					LEAVE PROC;
+		END IF;
+      
+		SELECT u.idUsuario AS codigo,u.idUsuario,u.idUsuarioMD5,u.usuario,r.rol AS rol
+    FROM Usuarios u
+    INNER JOIN Roles r ON u.idRol=r.idRol
+    WHERE u.usuario = uUsername;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_login` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_login`(uUsuario VARCHAR(45), uContrasenia VARCHAR(45))
+PROC: BEGIN
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION 
+		BEGIN
+			SELECT 0 as codigo, 'Error en la transaccion.' mensaje;
+            SHOW ERRORS;
+            ROLLBACK;
+        END;
+    
+    IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE usuario=uUsuario AND contrasenia=MD5(uContrasenia))
+    THEN
+		SELECT 0 as codigo, 'Nombre de Usuario y contraseña incorrectos' mensaje;
+        LEAVE PROC;
+	ELSE 
+		SELECT 1 as codigo, 'Ingreso Correcto' mensaje;
+        LEAVE PROC;
+	END IF;
+        
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuario_nuevo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uIdRol INT, uNombre VARCHAR(45), uApellido VARCHAR(45), uUsuario VARCHAR(45), uContrasenia VARCHAR(45))
+PROC: BEGIN
+
+	DECLARE uIdUsuario INT;
+    -- Manejo de errores
+    
+        DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		BEGIN
+			SHOW ERRORS;
+			SELECT 0 as codigo, 'Error en la transacción.' mensaje;
+            ROLLBACK;
+		END;
+        
+    IF (uNombre IS NULL OR uNombre = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (uApellido IS NULL OR uApellido = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el apellido del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (uUsuario IS NULL OR uUsuario = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar el nombre de usuario del usuario.' mensaje;
+        LEAVE PROC;
+	END IF;
+    IF (uContrasenia IS NULL OR uContrasenia = '') THEN
+		SELECT 0 as codigo, 'Debe ingresar una contraseña.' mensaje;
+        LEAVE PROC;
+	END IF;	
+	    
+	IF EXISTS (SELECT usuario FROM Usuarios WHERE usuario = uUsuario AND estado='A') THEN
+		SELECT 0 as codigo, 'El nombre de usuario se encuentra en uso' mensaje;
+        LEAVE PROC;
+	END IF;
+    
+    IF NOT EXISTS (SELECT idRol FROM Roles WHERE idRol = uIdRol) THEN
+		SELECT 0 as codigo, 'Rol inexistente en el sistema' mensaje;
+        LEAVE PROC;
+	END IF;
+        
+    START TRANSACTION;
+    
+    SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuarios);
+	INSERT INTO Usuarios VALUES (idUsuario,MD5(idUsuario),uIdRol,uNombre,uApellido,uUsuario,MD5(uContrasenia),NOW(),null,'A');
+	SELECT uIdUsuario AS codigo, 'Usuario creado exitosamente' mensaje;
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `vendedores_listar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `vendedores_listar`()
+BEGIN
+  SELECT * FROM Vendedores;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -507,4 +2383,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02 11:58:12
+-- Dump completed on 2018-02-06 20:07:46
