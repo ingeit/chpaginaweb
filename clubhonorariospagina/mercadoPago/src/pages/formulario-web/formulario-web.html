@@ -1,214 +1,214 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>
-            <img class="titleMenu ocultarMenu" src="https://clubhonorarios.com/img/logo/logo-max.png" />
-        </ion-title>
-    </ion-navbar>
+   <ion-navbar color="primary">
+      <button ion-button menuToggle>
+         <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+         <img class="titleMenu ocultarMenu" src="https://clubhonorarios.com/img/logo/logo-max.png" />
+      </ion-title>
+   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <!-- <button (click)="scanearTarjeta()">Scan</button>
+   <!-- <button (click)="scanearTarjeta()">Scan</button>
     <p>{{respuestaDeTarjeta}}</p> -->
-    <div class="contenedor">
-        <ion-grid>
-            <ion-row>
-                <!-- Informacion del profesional -->
-                <ion-col col-12 col-md-6>
-                    <h3>
-                        <ion-icon name="contact"></ion-icon>&nbsp;{{profesional.apellido | uppercase}}, {{profesional.nombre}} - DNI: {{profesional.dni}}
-                    </h3>
-                    <h2>
-                        <ion-icon name="briefcase"></ion-icon>&nbsp;{{profesional.profesion}} - {{profesional.especialidad}}
-                    </h2>
-                    <h2>
-                        <ion-icon name="mail"></ion-icon>&nbsp;{{profesional.mail}} -
-                        <ion-icon name="phone-portrait"></ion-icon>&nbsp;{{profesional.telefono}}
-                    </h2>
-                </ion-col>
-                <ion-col col-12 col-md-6>
-                    <ion-row>
-                        <ion-col>
-                            <label>Fecha de Transaccion:</label>
-                            <h4> {{fechas?.fechaTransaccion | date:'dd-MM-yyyy HH:mm':'+0000'}}</h4>
-                        </ion-col>
-                        <ion-col>
-                            <label>Fecha de Pago: </label>
-                            <h4>{{fechas?.fechaPago | date:'dd-MM-yyyy':'+0000'}}</h4>
-                        </ion-col>
-                    </ion-row>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
-                        <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
-                            <ion-segment-button value="1">
-                                <ion-icon name="person-add"></ion-icon>
-                            </ion-segment-button>
-                            <ion-segment-button value="2">
-                                <ion-icon name="logo-usd"></ion-icon>
-                            </ion-segment-button>
-                            <ion-segment-button value="3">
-                                <ion-icon name="card"></ion-icon>
-                            </ion-segment-button>
-                        </ion-segment>
+   <div class="contenedor">
+      <ion-grid>
+         <ion-row>
+            <!-- Informacion del profesional -->
+            <ion-col col-12 col-md-6>
+               <h3>
+                  <ion-icon name="contact"></ion-icon>&nbsp;{{profesional.apellido | uppercase}}, {{profesional.nombre}} - DNI: {{profesional.dni}}
+               </h3>
+               <h2>
+                  <ion-icon name="briefcase"></ion-icon>&nbsp;{{profesional.profesion}} - {{profesional.especialidad}}
+               </h2>
+               <h2>
+                  <ion-icon name="mail"></ion-icon>&nbsp;{{profesional.mail}} -
+                  <ion-icon name="phone-portrait"></ion-icon>&nbsp;{{profesional.telefono}}
+               </h2>
+            </ion-col>
+            <ion-col col-12 col-md-6>
+               <ion-row>
+                  <ion-col>
+                     <label>Fecha de Transaccion:</label>
+                     <h4> {{fechas?.fechaTransaccion | date:'dd-MM-yyyy HH:mm':'+0000'}}</h4>
+                  </ion-col>
+                  <ion-col>
+                     <label>Fecha de Pago: </label>
+                     <h4>{{fechas?.fechaPago | date:'dd-MM-yyyy':'+0000'}}</h4>
+                  </ion-col>
+               </ion-row>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col>
+               <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
+                  <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
+                     <ion-segment-button value="1">
+                        <ion-icon name="person-add"></ion-icon>
+                     </ion-segment-button>
+                     <ion-segment-button value="2">
+                        <ion-icon name="logo-usd"></ion-icon>
+                     </ion-segment-button>
+                     <ion-segment-button value="3">
+                        <ion-icon name="card"></ion-icon>
+                     </ion-segment-button>
+                  </ion-segment>
 
-                        <div [ngSwitch]="pasos">
+                  <div [ngSwitch]="pasos">
 
-                            <ion-list *ngSwitchCase="'1'">
-                                <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
-                                <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
-                                <ion-item>
-                                    <ion-label floating>Apellido *</ion-label>
-                                    <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
-                                        [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
-                                </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
+                     <ion-list *ngSwitchCase="'1'">
+                        <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
+                        <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
+                        <ion-item>
+                           <ion-label floating>Apellido *</ion-label>
+                           <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
+                              [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
 
-                                <ion-item>
-                                    <ion-label floating>Nombre *</ion-label>
-                                    <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
-                                </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
+                        <ion-item>
+                           <ion-label floating>Nombre *</ion-label>
+                           <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
 
-                                <ion-item>
-                                    <ion-label floating>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
-                                    <ion-input formControlName="telefonoCliente" type="text" class="form-control" name="telefonoCliente" id="telefonoCliente"></ion-input>
-                                </ion-item>
+                        <ion-item>
+                           <ion-label floating>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
+                           <ion-input formControlName="telefonoCliente" type="text" class="form-control" name="telefonoCliente" id="telefonoCliente"></ion-input>
+                        </ion-item>
 
-                                <ion-item>
-                                    <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
-                                    <ion-input formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
-                                </ion-item>
-                                <button col-3 offset-8 color="secondary" ion-button (click)="otroPaso('2')">Siguiente</button>
-                            </ion-list>
+                        <ion-item>
+                           <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
+                           <ion-input formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
+                        </ion-item>
+                        <button col-3 offset-8 color="secondary" ion-button (click)="otroPaso('2')">Siguiente</button>
+                     </ion-list>
 
-                            <ion-list *ngSwitchCase="'2'">
-                                <h2 style="margin-top: 0.3rem;">Informacion de operacion</h2>
-                                <ion-item>
-                                    <ion-label floating>Importe de venta</ion-label>
-                                    <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control"
-                                        name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
-                                </ion-item>
-                                <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
+                     <ion-list *ngSwitchCase="'2'">
+                        <h2 style="margin-top: 0.3rem;">Informacion de operacion</h2>
+                        <ion-item>
+                           <ion-label floating>Importe de venta</ion-label>
+                           <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control"
+                              name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
 
-                                <ion-item *ngIf="!mostrarCuotaBanco ">
-                                    <ion-label for="installments" floating>Elija cantidad de cuotas *</ion-label>
-                                    <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas' id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
-                                        <ion-option value="3">3</ion-option>
-                                        <ion-option value="6">6</ion-option>
-                                        <ion-option value="9">9</ion-option>
-                                        <ion-option value="12">12</ion-option>
-                                    </ion-select>
-                                </ion-item>
-                                <ion-item *ngIf="mostrarCuotaBanco">
-                                    <ion-label for="installments" floating>Elija cantidad de cuotas del banco *</ion-label>
-                                    <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
-                                        id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
-                                        <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
-                                    </ion-select>
-                                </ion-item>
-                                <ion-row>
-                                    <ion-col col-12 col-lg-6 col-md-12>
-                                        <ion-item>
-                                            <ion-label class="letraFuerte" floating>Importe a cobrar</ion-label>
-                                            <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCobrar' disabled type="number" step="0.05" class="form-control importes"
-                                                name="importeCobrar" id="importeCobrar"></ion-input>
-                                        </ion-item>
-                                    </ion-col>
-                                    <ion-col col-12 col-lg-6 col-md-12>
-                                        <ion-item>
-                                            <ion-label class="letraFuerte" floating>Importe de cuotas</ion-label>
-                                            <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCuota' disabled type="number" step="0.05" class="form-control importes"
-                                                name="importeCuota" id="importeCuota"></ion-input>
-                                        </ion-item>
-                                    </ion-col>
-                                </ion-row>
+                        <ion-item *ngIf="!mostrarCuotaBanco ">
+                           <ion-label for="installments" floating>Elija cantidad de cuotas *</ion-label>
+                           <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas' id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
+                              <ion-option value="3">3</ion-option>
+                              <ion-option value="6">6</ion-option>
+                              <ion-option value="9">9</ion-option>
+                              <ion-option value="12">12</ion-option>
+                           </ion-select>
+                        </ion-item>
+                        <ion-item *ngIf="mostrarCuotaBanco">
+                           <ion-label for="installments" floating>Elija cantidad de cuotas del banco *</ion-label>
+                           <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
+                              id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
+                              <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
+                           </ion-select>
+                        </ion-item>
+                        <ion-row>
+                           <ion-col col-12 col-lg-6 col-md-12>
+                              <ion-item>
+                                 <ion-label class="letraFuerte" floating>Importe a cobrar</ion-label>
+                                 <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCobrar' disabled type="number" step="0.05" class="form-control importes"
+                                    name="importeCobrar" id="importeCobrar"></ion-input>
+                              </ion-item>
+                           </ion-col>
+                           <ion-col col-12 col-lg-6 col-md-12>
+                              <ion-item>
+                                 <ion-label class="letraFuerte" floating>Importe de cuotas</ion-label>
+                                 <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCuota' disabled type="number" step="0.05" class="form-control importes"
+                                    name="importeCuota" id="importeCuota"></ion-input>
+                              </ion-item>
+                           </ion-col>
+                        </ion-row>
 
-                                <ion-item>
-                                    <ion-label class="letraFuerte" floating>Importe total de transaccion</ion-label>
-                                    <ion-input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCarga' type="number" step="0.05" class="form-control importes"
-                                        name="importeCarga" id="importeCarga"></ion-input>
-                                </ion-item>
-                                <button col-3 color="secondary" ion-button (click)="otroPaso('1')">Anterior</button>
-                                <button col-3 offset-5 color="secondary" ion-button (click)="otroPaso('3')">Siguiente</button>
-                            </ion-list>
+                        <ion-item>
+                           <ion-label class="letraFuerte" floating>Importe total de transaccion</ion-label>
+                           <ion-input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCarga' type="number" step="0.05" class="form-control importes"
+                              name="importeCarga" id="importeCarga"></ion-input>
+                        </ion-item>
+                        <button col-3 color="secondary" ion-button (click)="otroPaso('1')">Anterior</button>
+                        <button col-3 offset-5 color="secondary" ion-button (click)="otroPaso('3')">Siguiente</button>
+                     </ion-list>
 
-                            <ion-list *ngSwitchCase="'3'">
-                                <h2 style="margin-top: 0.3rem;">Datos de la tarjeta</h2>
-                                <div id="imagenTajeta">
-                                    <ion-item>
-                                        <ion-label for="cardNumber" floating>Número de Tarjeta de Credito:</ion-label>
-                                        <ion-input formControlName="numeroTarjeta" type="number" id="cardNumber" data-checkout="cardNumber" (ionChange)="devolverNombreDeTarjeta($event)">
-                                        </ion-input>
-                                    </ion-item>
-                                    <img [src]="urlBannerTarjeta" alt="">
-                                    <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
-                                </div>
+                     <ion-list *ngSwitchCase="'3'">
+                        <h2 style="margin-top: 0.3rem;">Datos de la tarjeta</h2>
+                        <div id="imagenTajeta">
+                           <ion-item>
+                              <ion-label for="cardNumber" floating>Número de Tarjeta de Credito:</ion-label>
+                              <ion-input formControlName="numeroTarjeta" type="number" id="cardNumber" data-checkout="cardNumber" (ionChange)="devolverNombreDeTarjeta($event)">
+                              </ion-input>
+                           </ion-item>
+                           <img [src]="urlBannerTarjeta" alt="">
+                           <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.numeroTarjeta.valid  && submitAttempt">Por favor, ingrese el Numero de la Tarjeta de Credito</p>
+                        </div>
 
-                                <ion-item>
-                                    <ion-label for="cardholderName" floating>Nombre y apellido impreso en la tarjeta</ion-label>
-                                    <ion-input type="text" formControlName="cardholderName" id="cardholderName" data-checkout="cardholderName"></ion-input>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-label for="docNumber" floating>Documento del titular de esta tarjeta </ion-label>
-                                    <ion-input formControlName="dniCliente" type="number" class="form-control" id="docNumber" data-checkout="docNumber" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
-                                </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
+                        <ion-item>
+                           <ion-label for="cardholderName" floating>Nombre y apellido impreso en la tarjeta</ion-label>
+                           <ion-input type="text" formControlName="cardholderName" id="cardholderName" data-checkout="cardholderName"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                           <ion-label for="docNumber" floating>Documento del titular de esta tarjeta </ion-label>
+                           <ion-input formControlName="dniCliente" type="number" class="form-control" id="docNumber" data-checkout="docNumber" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
 
-                                <ion-item *ngIf="formulario.controls.numeroTarjeta.valid && listadoBancos.length !== 0">
-                                    <ion-label for="issuer" floating>Elija el banco *</ion-label>
-                                    <ion-select formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
-                                        <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
-                                    </ion-select>
-                                </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.bancos.valid  && submitAttempt">Por favor, elija un Banco</p>
+                        <ion-item *ngIf="formulario.controls.numeroTarjeta.valid && listadoBancos.length !== 0">
+                           <ion-label for="issuer" floating>Elija el banco *</ion-label>
+                           <ion-select formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
+                              <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
+                           </ion-select>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.bancos.valid  && submitAttempt">Por favor, elija un Banco</p>
 
-                                <ion-row>
-                                    <ion-col col-12 col-lg-4 col-md-12>
-                                        <ion-item>
-                                            <ion-label for="securityCode" floating>Codigo de Seguridad</ion-label>
-                                            <ion-input formControlName="codSeguridad" type="text" id="securityCode" data-checkout="securityCode"> </ion-input>
-                                        </ion-item>
-                                        <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.codSeguridad.valid  && submitAttempt">Por favor, ingrese codigo de Seguridad</p> -->
-                                    </ion-col>
-                                    <ion-col col-12 col-lg-4 col-md-12>
-                                        <ion-item>
-                                            <ion-label for="cardExpirationMonth" stacked>Mes de Expiracion (2 digitos)</ion-label>
-                                            <ion-input placeholder="Ej: 02" formControlName="cardExpirationMonth" type="number" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
-                                            </ion-input>
-                                        </ion-item>
-                                        <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationMonth.valid  && submitAttempt">Por favor, ingrese el mes de Expiracion</p> -->
-                                    </ion-col>
-                                    <ion-col col-12 col-lg-4 col-md-12>
-                                        <ion-item>
-                                            <ion-label for="cardExpirationYear" stacked>Año de Expiracion (4 digitos)</ion-label>
-                                            <ion-input placeholder="Ej: 2018" formControlName="cardExpirationYear" type="number" id="cardExpirationYear" data-checkout="cardExpirationYear">
-                                            </ion-input>
-                                        </ion-item>
-                                        <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationYear.valid  && submitAttempt">Por favor, ingrese el año de Expiracion</p> -->
-                                    </ion-col>
-                                </ion-row>
-                                <!-- <ion-item>
+                        <ion-row>
+                           <ion-col col-12 col-lg-4 col-md-12>
+                              <ion-item>
+                                 <ion-label for="securityCode" floating>Codigo de Seguridad</ion-label>
+                                 <ion-input formControlName="codSeguridad" type="text" id="securityCode" data-checkout="securityCode"> </ion-input>
+                              </ion-item>
+                              <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.codSeguridad.valid  && submitAttempt">Por favor, ingrese codigo de Seguridad</p> -->
+                           </ion-col>
+                           <ion-col col-12 col-lg-4 col-md-12>
+                              <ion-item>
+                                 <ion-label for="cardExpirationMonth" stacked>Mes de Expiracion (2 digitos)</ion-label>
+                                 <ion-input placeholder="Ej: 02" formControlName="cardExpirationMonth" type="number" id="cardExpirationMonth" data-checkout="cardExpirationMonth">
+                                 </ion-input>
+                              </ion-item>
+                              <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationMonth.valid  && submitAttempt">Por favor, ingrese el mes de Expiracion</p> -->
+                           </ion-col>
+                           <ion-col col-12 col-lg-4 col-md-12>
+                              <ion-item>
+                                 <ion-label for="cardExpirationYear" stacked>Año de Expiracion (4 digitos)</ion-label>
+                                 <ion-input placeholder="Ej: 2018" formControlName="cardExpirationYear" type="number" id="cardExpirationYear" data-checkout="cardExpirationYear">
+                                 </ion-input>
+                              </ion-item>
+                              <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationYear.valid  && submitAttempt">Por favor, ingrese el año de Expiracion</p> -->
+                           </ion-col>
+                        </ion-row>
+                        <!-- <ion-item>
                                 <ion-label for="simul" floating>Test de Simulacion</ion-label>
                                 <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
                                       <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
                                 </ion-select>
                           </ion-item> -->
-                          <button col-3 color="secondary" ion-button (click)="otroPaso('2')">Anterior</button>
-                            <button col-3 offset-5 color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
-                            </ion-list>
-                            
-                        </div>
-                    </form>
+                        <button col-3 color="secondary" ion-button (click)="otroPaso('2')">Anterior</button>
+                        <button col-3 offset-5 color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
+                     </ion-list>
 
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+                  </div>
+               </form>
 
-    </div>
+            </ion-col>
+         </ion-row>
+      </ion-grid>
+
+   </div>
 
 </ion-content>

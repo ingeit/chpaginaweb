@@ -25,6 +25,7 @@ export class FormularioWebPage {
    private tarjetas: any;
    private tarjetaNombre: string;
    private tarjetaId: any;
+   private cantCoutas: number;
    private importeCobrar: number;
    private importeCarga: number;
    private importeCuota: number;
@@ -32,7 +33,6 @@ export class FormularioWebPage {
    private submitAttempt: boolean = false;
    private loading: any;
    private respuesta: any;
-   cuotas: number;
    comision: number;
    tarjetasComisiones: any;
 
@@ -41,7 +41,7 @@ export class FormularioWebPage {
    listadoBancos = [];
    listaCuotas: any = null;
    bin: any = null;
-   cantCoutas: any = null;
+   
    mostrarCuotaBanco: boolean = false;
    issuer_id: any = null;
    urlBannerTarjeta: any;
@@ -179,6 +179,7 @@ export class FormularioWebPage {
 
    autoCompletarImportes() {
       // antes de autocompletar, controlo que haya un importe venta, para no rellenar con ceros.
+      console.log(this.cantCoutas)
       if (this.formulario.get('importeVenta').value && this.cantCoutas) {
          let importeVenta: number;
          importeVenta = this.formulario.get('importeVenta').value;
@@ -284,7 +285,7 @@ export class FormularioWebPage {
                   auxCuotas.push(lc);
                   console.log("cuotas banco ", lc.installments);
                }
-               let cuota = parseInt(this.cantCoutas);
+               let cuota = this.cantCoutas;
                if (lc.installments === cuota) {
                   correcto = 1;
                   console.log("correcto las cuotas!")
@@ -325,7 +326,7 @@ export class FormularioWebPage {
                tarjetaNombre: this.tarjetaNombre,
                payment_method_id: this.tarjetaId,
                issuer_id: this.issuer_id,
-               cuotas: this.cuotas,
+               cuotas: this.cantCoutas,
                importeVenta: parseFloat(this.formulario.get('importeVenta').value),
                importeCobrar: parseFloat(this.formulario.get('importeCobrar').value),
                importeCarga: this.formulario.get('importeCarga').value,
