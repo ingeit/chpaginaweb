@@ -23,21 +23,19 @@ export class FormularioWebPage {
    private pasos: String;
    private fechas: any;
    private tarjetas: any;
-   formulario: FormGroup;
-   fechaTransaccionMysql: any;
-   fechaPagoMysql: any;
-   submitAttempt: boolean = false;
-   loading: any;
-   respuesta: any;
-   importeVenta: number;
-   importeCobrar: number;
-   importeCarga: number;
-   importeCuota: number;
-   tarjeta: any;
-   cuotas: string;
+   private tarjetaNombre: string;
+   private tarjetaId: any;
+   private importeCobrar: number;
+   private importeCarga: number;
+   private importeCuota: number;
+   private formulario: FormGroup;
+   private submitAttempt: boolean = false;
+   private loading: any;
+   private respuesta: any;
+   cuotas: number;
    comision: number;
    tarjetasComisiones: any;
-   tarjetaNombre: string;
+
    dniProfesionalForm: any;
    lapos: any;
    listadoBancos = [];
@@ -76,11 +74,11 @@ export class FormularioWebPage {
       public operacionesProv: OperacionesProvider
    ) {
 
-      //Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+      Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
       // Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
       // Mercadopago.getIdentificationTypes(); 
 
-      this.pasos = "paso1";
+      this.pasos = "1";
       this.profesional = navParams.get('profesional');
       console.log(this.profesional)
       this.dameFechas();
@@ -94,25 +92,12 @@ export class FormularioWebPage {
          cardholderName: ['', Validators.compose([Validators.required])],
          codSeguridad: ['', Validators.compose([Validators.maxLength(4), Validators.minLength(3), Validators.pattern(/()\d/g), Validators.required])],
          bancos: [''],
-
-         dniProfesional: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
-         apellidoProfesional: [''],
-         nombreProfesional: [''],
-         mailProfesional: [''],
          dniCliente: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
          apellidoCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
          nombreCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
          telefonoCliente: [''],
          mailCliente: [''],
-         tarjeta: [''],
-         cuotas: [''],
          importeVenta: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
-         importeCobrar: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
-         importeCarga: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
-         importeCuota: [''],
-         profesionProfesional: [''],
-         especialidadProfesional: [''],
-         telefonoProfesional: [''],
       });
    }
 
@@ -179,29 +164,6 @@ export class FormularioWebPage {
       }
    }
 
-   // dameFechasyComisiones() {
-   //   // 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
-   //   this.showLoader('Consultando Hora en servidor');
-   //   this.formularioProvider.dameFechas().then((result) => {
-   //     this.respuesta = result[0];
-   //     if (this.respuesta.codigo === 1) {
-   //       console.log("fecha transaccion desde formulario 1 provider", this.respuesta.fechaTransaccion);
-   //       this.fechaTransaccionMysql = this.respuesta.fechaTransaccion;
-   //       this.fechaPagoMysql = this.respuesta.fechaPago;
-   //       // CONSULTA ANIDADA para comisiones
-
-   //       //CONSUILTA ANIDADA FIN
-   //       this.loading.dismiss();
-   //     }
-   //   }, (err) => {
-   //     console.log("error promises en hora del servidor");
-   //     this.loading.dismiss();
-   //     this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
-   //     // this.loading.dismiss();
-   //     // this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
-   //   });
-   // }
-
    pagar() {
       console.log("Pagando...");
       if (!this.formulario.valid) {
@@ -216,66 +178,19 @@ export class FormularioWebPage {
    }
 
    autoCompletarImportes() {
-      //var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
-      let x;
-      let yy;
-      let xyy;
       // antes de autocompletar, controlo que haya un importe venta, para no rellenar con ceros.
-      if (this.formulario.get('importeVenta').value) {
+      if (this.formulario.get('importeVenta').value && this.cantCoutas) {
+         let importeVenta: number;
+         importeVenta = this.formulario.get('importeVenta').value;
+         this.importeCobrar = Math.round(importeVenta * 0.95 * 100) / 100;
 
-         // obtener importe venta del input
-         this.importeVenta = this.formulario.get('importeVenta').value;
-         // seteo importe a cobrar del 95%  del valor de importe venta traido del input.
-         this.importeCobrar = Math.round(this.importeVenta * 0.95 * 100) / 100;
-         this.formulario.controls['importeCobrar'].setValue(this.importeCobrar);
-         // calculo el importe total segun tarjeta y cuotas, simulo valor, falta traer los datos de mysql.
+         let i = this.tarjetas.findIndex(t => t.nombreCorto == "VISA");
+         let j = this.tarjetas[i].cuotaComision.findIndex(c => c.cantidadCuota == this.cantCoutas);
+         this.comision = this.tarjetas[i].cuotaComision[j].comision;
 
-         this.cuotas = ('0' + this.cantCoutas).slice(-2);
-
-         //paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
-         switch (this.tarjetaNombre) {
-            case "amex":
-               this.tarjeta = 1
-               break;
-            case "master":
-               this.tarjeta = 2
-               break;
-            case "visa":
-               this.tarjeta = 3
-               break;
-            default:
-               break;
-         }
-
-         //IMPORTANTE!!!!!
-         //X siempre es igual a 3, ya que mercado pago tiene los mismos intereses que VISA
-         x = 3;
-         //armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
-
-         yy = this.cuotas;
-         // Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
-         xyy = x + yy;
-
-         for (let t of this.tarjetasComisiones) {
-            if (t.idTarjeta.toString() === xyy) {
-               console.log("coincidencia en " + t.idTarjeta);
-               this.comision = t.tasa;
-               console.log(" y la comision es " + this.comision);
-            }
-         }
-
-         // Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
-         // Ej: 10.225 = 10.23
-         //     10.223 = 10.22 
-         console.log("importe carga original " + this.importeVenta * this.comision);
-         this.importeCarga = Math.round(this.importeVenta * this.comision * 100) / 100;
-
-         console.log("importe carga redondeado " + this.importeCarga);
-
-         this.formulario.controls['importeCarga'].setValue(this.importeCarga);
-         this.importeCuota = Math.round((this.importeCarga / parseInt(this.cuotas)) * 100) / 100;
-         this.formulario.controls['importeCuota'].setValue(this.importeCuota);
-         this.formulario.controls['cuotas'].setValue(this.cantCoutas);
+         this.importeCarga = Math.round(importeVenta * this.comision * 100) / 100;
+         this.importeCuota = Math.round((this.importeCarga / this.cantCoutas) * 100) / 100;
+         console.log(this.importeCuota);
       }
    }
 
@@ -300,44 +215,6 @@ export class FormularioWebPage {
       this.confirmar();
    }
 
-   consultarProfesional() {
-      if (this.dniProfesionalForm) {
-         let details = {
-            dni: parseInt(this.dniProfesionalForm),
-         };
-         console.log('dni en form: ', details);
-         this.showLoader('Consultando Profesional');
-         this.formularioProvider.dameProfesional(details).then((result) => {
-            console.log('entrando al provider');
-            this.respuesta = result[0];
-            this.loading.dismiss();
-            if (this.respuesta.codigo === 1) {
-               let apellidoProfesional = this.respuesta.apellido;
-               let nombreProfesional = this.respuesta.nombre;
-               let mailProfesional = this.respuesta.mail;
-               let profesionProfesional = this.respuesta.profesion;
-               let especialidadProfesional = this.respuesta.especialidad;
-               let telefonoProfesional = this.respuesta.telefono;
-               this.formulario.controls['dniProfesional'].setValue(this.dniProfesionalForm);
-               this.formulario.controls['apellidoProfesional'].setValue(apellidoProfesional);
-               this.formulario.controls['nombreProfesional'].setValue(nombreProfesional);
-               this.formulario.controls['mailProfesional'].setValue(mailProfesional);
-               this.formulario.controls['profesionProfesional'].setValue(profesionProfesional);
-               this.formulario.controls['especialidadProfesional'].setValue(especialidadProfesional);
-               this.formulario.controls['telefonoProfesional'].setValue(telefonoProfesional);
-            } else {
-               this.mostrarAlerta('ERROR', this.respuesta.mensaje + ". Por favor comunicarse via telefonica a nuestras oficinas");
-            }
-         }, (err) => {
-            this.loading.dismiss();
-            this.mostrarAlerta('ERROR', this.respuesta.mensaje);
-         });
-      } else {
-         this.mostrarAlerta('ERROR', this.respuesta.mensaje);
-      }
-   }
-
-
    devolverNombreDeTarjeta(numTarjeta) {
       this.bin = numTarjeta.value.replace(/[ .-]/g, '').slice(0, 6);
       if (this.bin.length >= 6) {
@@ -353,11 +230,13 @@ export class FormularioWebPage {
                   paymentMethod.setAttribute('type', "hidden");
                   paymentMethod.setAttribute('value', response[0].id);
                   form.appendChild(paymentMethod);
-                  this.tarjetaNombre = response[0].id;
+                  this.tarjetaId = response[0].id;
+                  this.tarjetaNombre = response[0].name.toUpperCase();
                   this.urlBannerTarjeta = response[0].secure_thumbnail;
                   console.log('valor del campo escondido', this.tarjetaNombre)
                } else {
-                  this.tarjetaNombre = response[0].id;
+                  this.tarjetaId = response[0].id;
+                  this.tarjetaNombre = response[0].name.toUpperCase();
                   this.urlBannerTarjeta = response[0].secure_thumbnail;
                   console.log('se actualizo el valor del campo escondido', this.tarjetaNombre);
                   (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
@@ -437,17 +316,14 @@ export class FormularioWebPage {
 
          } else {
             let details = {
-               dniProfesional: parseInt(this.formulario.get('dniProfesional').value),
-               apellidoProfesional: this.formulario.get('apellidoProfesional').value,
-               nombreProfesional: this.formulario.get('nombreProfesional').value,
-               mailProfesional: this.formulario.get('mailProfesional').value,
+               idProfesional: this.profesional.idProfesional,
                dniCliente: parseInt(this.formulario.get('dniCliente').value),
                apellidoCliente: this.formulario.get('apellidoCliente').value,
                nombreCliente: this.formulario.get('nombreCliente').value,
                telefonoCliente: this.formulario.get('telefonoCliente').value,
                mailCliente: this.formulario.get('mailCliente').value,
-               tarjetaID: this.tarjeta,
-               payment_method_id: this.tarjetaNombre,
+               tarjetaNombre: this.tarjetaNombre,
+               payment_method_id: this.tarjetaId,
                issuer_id: this.issuer_id,
                cuotas: this.cuotas,
                importeVenta: parseFloat(this.formulario.get('importeVenta').value),
@@ -461,16 +337,18 @@ export class FormularioWebPage {
                this.loading.dismiss();
                this.respuesta = data;
                this.navCtrl.setRoot(FormularioWebPaso2Page, {
-                  fechaTransaccion: this.fechaTransaccionMysql,
-                  fechaPago: this.fechaPagoMysql,
                   formulario: this.formulario.controls,
                   tarjetaNombre: this.tarjetaNombre,
-                  tarjetasComisiones: this.tarjetasComisiones,
                   sdkResponse: this.respuesta
                });
             });
          }
       });
+   }
+
+   otroPaso(paso) {
+      console.log(paso)
+      this.pasos = paso;
    }
 
    scanearTarjeta() {

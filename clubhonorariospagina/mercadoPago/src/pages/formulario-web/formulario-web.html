@@ -45,57 +45,58 @@
                 <ion-col>
                     <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
                         <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
-                            <ion-segment-button value="paso1">
+                            <ion-segment-button value="1">
                                 <ion-icon name="person-add"></ion-icon>
                             </ion-segment-button>
-                            <ion-segment-button value="paso2">
+                            <ion-segment-button value="2">
                                 <ion-icon name="logo-usd"></ion-icon>
                             </ion-segment-button>
-                            <ion-segment-button value="paso3">
+                            <ion-segment-button value="3">
                                 <ion-icon name="card"></ion-icon>
                             </ion-segment-button>
                         </ion-segment>
 
                         <div [ngSwitch]="pasos">
 
-                            <ion-list *ngSwitchCase="'paso1'">
+                            <ion-list *ngSwitchCase="'1'">
                                 <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
                                 <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
                                 <ion-item>
-                                    <ion-label stacked>Apellido *</ion-label>
+                                    <ion-label floating>Apellido *</ion-label>
                                     <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
                                         [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
                                 </ion-item>
                                 <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
 
                                 <ion-item>
-                                    <ion-label stacked>Nombre *</ion-label>
+                                    <ion-label floating>Nombre *</ion-label>
                                     <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
                                 </ion-item>
                                 <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
 
                                 <ion-item>
-                                    <ion-label stacked>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
+                                    <ion-label floating>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
                                     <ion-input formControlName="telefonoCliente" type="text" class="form-control" name="telefonoCliente" id="telefonoCliente"></ion-input>
                                 </ion-item>
 
                                 <ion-item>
-                                    <ion-label for="email" stacked>Mail (Se usara para el envio del comprobante de pago)</ion-label>
+                                    <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
                                     <ion-input formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
                                 </ion-item>
+                                <button col-3 offset-8 color="secondary" ion-button (click)="otroPaso('2')">Siguiente</button>
                             </ion-list>
 
-                            <ion-list *ngSwitchCase="'paso2'">
-                                <h2>Informacion de operacion</h2>
+                            <ion-list *ngSwitchCase="'2'">
+                                <h2 style="margin-top: 0.3rem;">Informacion de operacion</h2>
                                 <ion-item>
-                                    <ion-label stacked>Importe de venta</ion-label>
+                                    <ion-label floating>Importe de venta</ion-label>
                                     <ion-input formControlName="importeVenta" (ionChange)='autoCompletarImportes()' type="number" step="0.05" class="form-control"
                                         name="importeVenta" id="importeVenta" [class.errorClubHonorarios]="!formulario.controls.importeVenta.valid &&  submitAttempt"></ion-input>
                                 </ion-item>
                                 <p style="color:red;" style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.importeVenta.valid  && submitAttempt">Ingrese el importe de venta</p>
 
                                 <ion-item *ngIf="!mostrarCuotaBanco ">
-                                    <ion-label for="installments" stacked>Elija cantidad de cuotas *</ion-label>
+                                    <ion-label for="installments" floating>Elija cantidad de cuotas *</ion-label>
                                     <ion-select [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas' id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
                                         <ion-option value="3">3</ion-option>
                                         <ion-option value="6">6</ion-option>
@@ -103,44 +104,44 @@
                                         <ion-option value="12">12</ion-option>
                                     </ion-select>
                                 </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
-
                                 <ion-item *ngIf="mostrarCuotaBanco">
-                                    <ion-label for="installments" stacked>Elija cantidad de cuotas del banco *</ion-label>
+                                    <ion-label for="installments" floating>Elija cantidad de cuotas del banco *</ion-label>
                                     <ion-select [disabled]="!formulario.controls.bancos.valid" [ngModelOptions]="{standalone: true}" [(ngModel)]='cantCoutas'
                                         id="installments" name="installments" (ionChange)='autoCompletarImportes()'>
                                         <ion-option *ngFor="let c of listaCuotas" value="{{c.installments}}">{{c.installments}}</ion-option>
                                     </ion-select>
                                 </ion-item>
-                                <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>
                                 <ion-row>
                                     <ion-col col-12 col-lg-6 col-md-12>
                                         <ion-item>
-                                            <ion-label class="letraFuerte" stacked>Importe a cobrar</ion-label>
-                                            <ion-input disabled formControlName="importeCobrar" type="number" step="0.05" class="form-control importes" name="importeCobrar"
-                                                id="importeCobrar"></ion-input>
+                                            <ion-label class="letraFuerte" floating>Importe a cobrar</ion-label>
+                                            <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCobrar' disabled type="number" step="0.05" class="form-control importes"
+                                                name="importeCobrar" id="importeCobrar"></ion-input>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-12 col-lg-6 col-md-12>
                                         <ion-item>
-                                            <ion-label class="letraFuerte" stacked>Importe de cuotas</ion-label>
-                                            <ion-input disabled formControlName="importeCuota" type="number" step="0.05" class="form-control importes" name="importeCuota"
-                                                id="importeCuota"></ion-input>
+                                            <ion-label class="letraFuerte" floating>Importe de cuotas</ion-label>
+                                            <ion-input [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCuota' disabled type="number" step="0.05" class="form-control importes"
+                                                name="importeCuota" id="importeCuota"></ion-input>
                                         </ion-item>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-item>
-                                    <ion-label class="letraFuerte" stacked>Importe total de transaccion</ion-label>
-                                    <ion-input disabled formControlName="importeCarga" type="number" step="0.05" class="form-control importes" name="importeCarga"
-                                        id="importeCarga"></ion-input>
+                                    <ion-label class="letraFuerte" floating>Importe total de transaccion</ion-label>
+                                    <ion-input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]='importeCarga' type="number" step="0.05" class="form-control importes"
+                                        name="importeCarga" id="importeCarga"></ion-input>
                                 </ion-item>
+                                <button col-3 color="secondary" ion-button (click)="otroPaso('1')">Anterior</button>
+                                <button col-3 offset-5 color="secondary" ion-button (click)="otroPaso('3')">Siguiente</button>
                             </ion-list>
 
-                            <ion-list *ngSwitchCase="'paso3'">
+                            <ion-list *ngSwitchCase="'3'">
+                                <h2 style="margin-top: 0.3rem;">Datos de la tarjeta</h2>
                                 <div id="imagenTajeta">
                                     <ion-item>
-                                        <ion-label for="cardNumber" stacked>Número de Tarjeta de Credito:</ion-label>
+                                        <ion-label for="cardNumber" floating>Número de Tarjeta de Credito:</ion-label>
                                         <ion-input formControlName="numeroTarjeta" type="number" id="cardNumber" data-checkout="cardNumber" (ionChange)="devolverNombreDeTarjeta($event)">
                                         </ion-input>
                                     </ion-item>
@@ -149,17 +150,17 @@
                                 </div>
 
                                 <ion-item>
-                                    <ion-label for="cardholderName" stacked>Nombre y apellido impreso en la tarjeta</ion-label>
+                                    <ion-label for="cardholderName" floating>Nombre y apellido impreso en la tarjeta</ion-label>
                                     <ion-input type="text" formControlName="cardholderName" id="cardholderName" data-checkout="cardholderName"></ion-input>
                                 </ion-item>
                                 <ion-item>
-                                    <ion-label for="docNumber" stacked>Documento del titular de esta tarjeta </ion-label>
+                                    <ion-label for="docNumber" floating>Documento del titular de esta tarjeta </ion-label>
                                     <ion-input formControlName="dniCliente" type="number" class="form-control" id="docNumber" data-checkout="docNumber" [class.errorClubHonorarios]="!formulario.controls.dniCliente.valid && submitAttempt"></ion-input>
                                 </ion-item>
                                 <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.dniCliente.valid  && submitAttempt">Por favor, ingrese el DNI</p>
 
                                 <ion-item *ngIf="formulario.controls.numeroTarjeta.valid && listadoBancos.length !== 0">
-                                    <ion-label for="issuer" stacked>Elija el banco *</ion-label>
+                                    <ion-label for="issuer" floating>Elija el banco *</ion-label>
                                     <ion-select formControlName="bancos" id="issuer" name="issuer" (ionChange)='obtenerCuotasMP($event)'>
                                         <ion-option *ngFor="let b of listadoBancos" value="{{b.id}}">{{b.name}}</ion-option>
                                     </ion-select>
@@ -169,7 +170,7 @@
                                 <ion-row>
                                     <ion-col col-12 col-lg-4 col-md-12>
                                         <ion-item>
-                                            <ion-label for="securityCode" stacked>Codigo de Seguridad</ion-label>
+                                            <ion-label for="securityCode" floating>Codigo de Seguridad</ion-label>
                                             <ion-input formControlName="codSeguridad" type="text" id="securityCode" data-checkout="securityCode"> </ion-input>
                                         </ion-item>
                                         <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.codSeguridad.valid  && submitAttempt">Por favor, ingrese codigo de Seguridad</p> -->
@@ -191,8 +192,16 @@
                                         <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationYear.valid  && submitAttempt">Por favor, ingrese el año de Expiracion</p> -->
                                     </ion-col>
                                 </ion-row>
+                                <!-- <ion-item>
+                                <ion-label for="simul" floating>Test de Simulacion</ion-label>
+                                <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
+                                      <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
+                                </ion-select>
+                          </ion-item> -->
+                          <button col-3 color="secondary" ion-button (click)="otroPaso('2')">Anterior</button>
+                            <button col-3 offset-5 color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
                             </ion-list>
-
+                            
                         </div>
                     </form>
 
@@ -203,44 +212,3 @@
     </div>
 
 </ion-content>
-
-<form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
-    <ion-grid>
-        <ion-row>
-            <!-- <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3> -->
-            <ion-col col-12 col-lg-4 col-sm-12>
-                <ion-row class="alturaMinima">
-                    <ion-col col-12 col-lg-12 col-sm-12>
-                        <div class="card2 card-container">
-
-                        </div>
-                    </ion-col>
-                    <ion-col class="alturaMinima" col-12 col-lg-12 col-sm-12>
-                        <div class="card2 card-container">
-
-                        </div>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-            <ion-col col-12 col-lg-4 col-sm-12>
-                <ion-row class="alturaMinima">
-                    <ion-col col-lg-12 class="alturaMinima">
-                        <div class="card2 card-container">
-
-
-
-
-                            <!-- <ion-item>
-                                <ion-label for="simul" stacked>Test de Simulacion</ion-label>
-                                <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
-                                      <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
-                                </ion-select>
-                          </ion-item> -->
-                            <button float-right color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
-                        </div>
-                    </ion-col>
-                </ion-row>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</form>
