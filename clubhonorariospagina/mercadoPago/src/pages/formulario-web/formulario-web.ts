@@ -33,32 +33,29 @@ export class FormularioWebPage {
    private submitAttempt: boolean = false;
    private loading: any;
    private respuesta: any;
-   comision: number;
-   tarjetasComisiones: any;
-
-   dniProfesionalForm: any;
-   lapos: any;
-   listadoBancos = [];
-   listaCuotas: any = null;
-   bin: any = null;
-   
-   mostrarCuotaBanco: boolean = false;
-   issuer_id: any = null;
-   urlBannerTarjeta: any;
+   private comision: number;
+   private tarjetasComisiones: any;
+   private listadoBancos = [];
+   private listaCuotas: any = null;
+   private bin: any = null;
+   private mostrarCuotaBanco: boolean = false;
+   private issuer_id: any = null;
+   private urlBannerTarjeta: any;
    @ViewChild(Content) content: Content;
    @ViewChild('paymentMethodId') paymentMeth: any;
-   paymentMethodId: any;
-   respuestaDeTarjeta: any;
-   // listaSimulaciones = [
-   //   {cod: 'APRO', desc:' Aprobado'},
-   //   {cod: 'CONT', desc:' Pago Pendiente'},
-   //   {cod: 'CALL', desc:' Llamar para autorizar'},
-   //   {cod: 'FUND', desc:' Monto insuficiente'},
-   //   {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
-   //   {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
-   //   {cod: 'FORM', desc:' Rechazado por error en el formulario'},
-   //   {cod: 'OTHE', desc:' Rechazo general'},
-   // ]
+   private paymentMethodId: any;
+   private respuestaDeTarjeta: any;
+
+   listaSimulaciones = [
+     {cod: 'APRO', desc:' Aprobado'},
+     {cod: 'CONT', desc:' Pago Pendiente'},
+     {cod: 'CALL', desc:' Llamar para autorizar'},
+     {cod: 'FUND', desc:' Monto insuficiente'},
+     {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
+     {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
+     {cod: 'FORM', desc:' Rechazado por error en el formulario'},
+     {cod: 'OTHE', desc:' Rechazo general'},
+   ]
 
    constructor(public navCtrl: NavController,
       public navParams: NavParams,
@@ -74,9 +71,12 @@ export class FormularioWebPage {
       public operacionesProv: OperacionesProvider
    ) {
 
-      Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+      // Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
       // Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
       // Mercadopago.getIdentificationTypes(); 
+
+      // clave ricky sandbox
+      Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30"); 
 
       this.pasos = "1";
       this.profesional = navParams.get('profesional');
@@ -269,7 +269,7 @@ export class FormularioWebPage {
       this.showLoader('Consultando Cuotas..');
       Mercadopago.getInstallments({
          "bin": this.bin,
-         "amount": this.formulario.get('importeCarga').value,
+         "amount": this.importeCarga,
          "issuer_id": banco
       }, (status, response) => {
          this.loading.dismiss();
@@ -285,11 +285,11 @@ export class FormularioWebPage {
                   auxCuotas.push(lc);
                   console.log("cuotas banco ", lc.installments);
                }
-               let cuota = this.cantCoutas;
-               if (lc.installments === cuota) {
+               this.cantCoutas;
+               if (lc.installments == this.cantCoutas) {
                   correcto = 1;
                   console.log("correcto las cuotas!")
-                  console.log("cuota elegida: ", cuota)
+                  console.log("cuota elegida: ", this.cantCoutas)
                   console.log("cuota del banco: ", lc.installments)
                }
             }
@@ -305,8 +305,11 @@ export class FormularioWebPage {
 
    confirmar() {
       var $form = document.querySelector('#pay');
+      console.log($form);
       this.showLoader('Realizando operación. Espere por favor...');
       Mercadopago.createToken($form, (status, sdkResponseHandler) => {
+         console.log(status)
+         console.log(sdkResponseHandler)
          if (status != 200 && status != 201) {
             this.loading.dismiss();
             try {
@@ -318,6 +321,9 @@ export class FormularioWebPage {
          } else {
             let details = {
                idProfesional: this.profesional.idProfesional,
+               nombreProfesional: this.profesional.nombre,
+               apellidoProfesional: this.profesional.apellido,
+               mailProfesional: this.profesional.mail,
                dniCliente: parseInt(this.formulario.get('dniCliente').value),
                apellidoCliente: this.formulario.get('apellidoCliente').value,
                nombreCliente: this.formulario.get('nombreCliente').value,
@@ -328,8 +334,8 @@ export class FormularioWebPage {
                issuer_id: this.issuer_id,
                cuotas: this.cantCoutas,
                importeVenta: parseFloat(this.formulario.get('importeVenta').value),
-               importeCobrar: parseFloat(this.formulario.get('importeCobrar').value),
-               importeCarga: this.formulario.get('importeCarga').value,
+               importeCobrar: this.importeCobrar,
+               importeCarga: this.importeCarga,
                importeCuota: this.importeCuota,
                sdkResponse: sdkResponseHandler
             };

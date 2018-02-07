@@ -44,6 +44,7 @@
          <ion-row>
             <ion-col>
                <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
+                  <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
                   <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
                      <ion-segment-button value="1">
                         <ion-icon name="person-add"></ion-icon>
@@ -60,7 +61,6 @@
 
                      <ion-list *ngSwitchCase="'1'">
                         <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
-                        <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
                         <ion-item>
                            <ion-label floating>Apellido *</ion-label>
                            <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
@@ -192,12 +192,12 @@
                               <!-- <p style="color:red;"  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cardExpirationYear.valid  && submitAttempt">Por favor, ingrese el año de Expiracion</p> -->
                            </ion-col>
                         </ion-row>
-                        <!-- <ion-item>
-                                <ion-label for="simul" floating>Test de Simulacion</ion-label>
-                                <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
-                                      <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
-                                </ion-select>
-                          </ion-item> -->
+                        <ion-item>
+                           <ion-label for="simul" floating>Test de Simulacion</ion-label>
+                           <ion-select id="simul" name="simul" (ionChange)='simular($event)'>
+                              <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
+                           </ion-select>
+                        </ion-item>
                         <button col-3 color="secondary" ion-button (click)="otroPaso('2')">Anterior</button>
                         <button col-3 offset-5 color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
                      </ion-list>

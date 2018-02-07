@@ -41,6 +41,7 @@ export class FormularioWebPaso2Page {
   comision: number;
   tipoTarjeta: any;
 
+
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
                private _app: App,
@@ -52,10 +53,10 @@ export class FormularioWebPaso2Page {
     this.formulario = this.navParams.get('formulario');  
     this.tarjetaNombre = this.navParams.get('tarjetaNombre');
     this.sdkResponseHandler = navParams.get('sdkResponse');
-    this.cuotas = this.formulario.cuotas.value;
-    this.impTotal = this.formulario.importeCarga.value;
-    this.impCuota = this.formulario.importeCuota.value;
     console.log(this.formulario);
+    // this.cuotas = this.formulario.cuotas.value;
+    // this.impTotal = this.formulario.importeCarga.value;
+    // this.impCuota = this.formulario.importeCuota.value;
     if(this.sdkResponseHandler.MPCodigo === 'error'){
       this.mostrarCartelMPError = true;
     }else{
