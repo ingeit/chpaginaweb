@@ -14,7 +14,7 @@ import ProfesionalModelo from '../../modelos/profesional';
 
 @IonicPage({
    name: 'login',
-   segment: ':idMD5'
+   segment: ':idUsuario'
 })
 @Component({
    selector: 'page-login',
@@ -22,7 +22,7 @@ import ProfesionalModelo from '../../modelos/profesional';
 })
 export class LoginPage {
 
-   private idMD5: any;
+   private idUsuario: any;
    private profesionalForm: FormGroup;
    private submitAttempt: boolean = false;
    private loading: any;
@@ -42,11 +42,12 @@ export class LoginPage {
    }
 
    ionViewDidLoad() {
-      this.idMD5 = this.navParams.get('idMD5');
-      if (this.idMD5 === '') {
-         console.log("nada, es un profesional")
+      this.idUsuario = this.navParams.get('idUsuario');
+      if (this.idUsuario === '') {
+          this.idUsuario = null;
+         console.log("nada, es un profesional", this.idUsuario)
       } else {
-         console.log("username con hash,es una operadora ", this.idMD5)
+         console.log("username con hash,es una operadora ", this.idUsuario)
       }
    }
 
@@ -63,7 +64,7 @@ export class LoginPage {
             this.loading.dismiss();
             if(respuesta.codigo == 1){
                 console.log(respuesta.profesional)
-                this.navCtrl.push(FormularioWebPage,{profesional: respuesta.profesional});
+                this.navCtrl.push(FormularioWebPage,{profesional: respuesta.profesional, idUsuario: this.idUsuario});
             }else{
                this.mostrarAlerta('Error','No se pudo encontrar el profesional')
             }

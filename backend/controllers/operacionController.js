@@ -179,47 +179,26 @@ exports.operacionNuevaMP = function (req, res, next) {
             console.log(consulta);
             if (consulta[0].codigo >= 1) {
                var respuesta = consulta[0];
-               var oFechaTransaccion = respuesta.fechaTransaccion;
-               var oFechaPago = respuesta.fechaPago;
-               var oIdOperacion = respuesta.codigo;
-               email('profesional', req.body, oIdOperacion, oFechaTransaccion, oFechaPago, function (res1) {
-                  console.log("enviando mail desde operacion nueva: ", res1);
-                  console.log("mail cliente = ", req.body.mailCliente);
-                  if (req.body.mailCliente != '') {
-                     console.log("mail cliente no es vacio, mandando mail");
-                     email('cliente', req.body, oIdOperacion, oFechaTransaccion, oFechaPago, function (res2) {
-                        console.log("enviando mail desde operacion nueva: ", res2);
-                        let response = {
-                           'mysql': consulta,
-                           'mailProfesional': res1,
-                           'mailCliente': res2,
-                           'MPComprobante': payment.response.id,
-                           'MPCodigo': 'ok',
-                           'MP': 'Pago Realizado Exitosamente'
-                        };
-                        console.log(response);
-                        res.json(response);
-                     });
-                  } else {
-                     console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
-                     let response = {
-                        'mysql': consulta,
-                        'mailProfesional': res1,
-                        'mailCliente': 'error',
-                        'MPComprobante': payment.response.id,
-                        'MPCodigo': 'ok',
-                        'MP': 'Pago Realizado Exitosamente'
-                     };
-                     res.json(response);
-                  }
-
-               });
+               campos.fechas.transaccion = respuesta.fechaTransaccion;
+               campos.fechas.pago = respuesta.fechaPago;
+               campos.idOperacion = respuesta.codigo;
+               campos.codigoAuto = 0;
+               campos.cupon = payment.response.id;
+               email('profesional', campos);
+               if (campos.cliente.mail != campos.profesional.mail) {
+                  email('cliente', campos);
+               }
+               let response = {
+                  'mysql': consulta,
+                  'MPComprobante': payment.response.id,
+                  'MPCodigo': 'ok',
+                  'MP': 'Pago Realizado Exitosamente'
+               };
+               res.json(response);
             } else {
                console.log("la op no se realizo, no se envian mails y se cancela", consulta);
                let response = {
                   'mysql': consulta,
-                  'mailProfesional': 'error',
-                  'mailCliente': 'error',
                   'MPComprobante': payment.response.id,
                   'MPCodigo': 'ok',
                   'MP': 'Pago Realizado Exitosamente'
@@ -579,54 +558,32 @@ exports.excel = function (req, res, next) {
    );
 }
 
-var email = function (destino, operacion, oIdOperacion, oFechaTransaccion, oFechaPago, fn) {
-
-   var oDniProfesional = operacion.dniProfesional;
-   var oApellidoProfesional = operacion.apellidoProfesional;
-   var oNombreProfesional = operacion.nombreProfesional;
-   var oMailProfesional = operacion.mailProfesional;
-   var oDniCliente = operacion.dniCliente;
-   var oApellidoCliente = operacion.apellidoCliente;
-   var oNombreCliente = operacion.nombreCliente;
-   var oTelefonoCliente = operacion.telefonoCliente;
-   var oMailCliente = operacion.mailCliente;
-   var oTarjeta = operacion.tarjeta;
-   var oImporteVenta = operacion.importeVenta;
-   var oImporteCobrar = operacion.importeCobrar;
-   var oCuotas = operacion.cuotas;
-   var oImporteCarga = operacion.importeCarga;
-   var oImporteCuota = operacion.importeCuota;
-   var oCodigoAuto = operacion.codigoAuto;
-   var oCupon = operacion.cupon;
-
-
+var email = function (destino, campos) {
    var pdf = require('html-pdf');
    // fs lee archivos
    var fs = require('fs');
    // embedd js para escribiri variables en html
-
    data = {
-      'fechaImpresion': oFechaTransaccion,
-      'dni': oDniProfesional,
-      'apellido': oApellidoProfesional,
-      'nombre': oNombreProfesional,
-      'numOperacion': oIdOperacion,
-      'mail': oMailProfesional,
-      'cuitProfesional': oDniProfesional,
-      'fechaPago': oFechaPago,
-      'dniCliente': oDniCliente,
-      'apellidoCliente': oApellidoCliente,
-      'nombreCliente': oNombreCliente,
-      'tarjeta': oTarjeta,
-      'honorariosProfesional': oImporteVenta,
-      'montoAcreditado': oImporteCobrar,
-      'cuotas': oCuotas,
-      'importeCuota': oImporteCuota,
-      'codigoAuto': oCodigoAuto,
-      'cupon': oCupon,
-      'mailCliente': oMailCliente,
+      'fechaImpresion': campos.fechas.transaccion,
+      'dni': campos.profesional.dni,
+      'apellido': campos.profesional.apellido,
+      'nombre': campos.profesional.nombre,
+      'numOperacion': campos.idOperacion,
+      'mail': campos.profesional.mail,
+      'cuitProfesional': campos.profesional.dni,
+      'fechaPago': campos.fechas.pago,
+      'dniCliente': campos.cliente.dni,
+      'apellidoCliente': campos.cliente.apellido,
+      'nombreCliente': campos.cliente.nombre,
+      'tarjeta': campos.tarjeta.nombre,
+      'honorariosProfesional': campos.importes.venta,
+      'montoAcreditado': campos.importes.cobrar,
+      'cuotas': campos.importes.cantCuotas,
+      'importeCuota': campos.importes.cuota,
+      'codigoAuto': campos.codigoAuto,
+      'cupon': campos.cupon,
+      'mailCliente': campos.cliente.mail,
    }
-
    config = {
       "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
       "orientation": "portrait", // portrait or landscape  
@@ -672,7 +629,7 @@ var email = function (destino, operacion, oIdOperacion, oFechaTransaccion, oFech
          case 'profesional':
             var mailOptions = {
                from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
-               to: oMailProfesional,
+               to: campos.profesional.mail,
                bcc: 'pagos@clubhonorarios.com',// fl@clubhonorarios.com , diego.macian@soramus.com
                subject: 'Comprobante de transacción realizada',
                html: '<h3>Estimado Cliente:</h3>' +
@@ -689,7 +646,7 @@ var email = function (destino, operacion, oIdOperacion, oFechaTransaccion, oFech
                   {   // stream as an attachment
                      // formato de nombre:
                      // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
-                     filename: 'Prof ' + oApellidoProfesional.toUpperCase() + ' ' + oNombreProfesional + ' - Cl ' + oApellidoCliente.toUpperCase() + ' ' + oNombreCliente + ' - Op ' + oIdOperacion + ' - ' + oFechaTransaccion + '.pdf',
+                     filename: 'Prof ' + campos.profesional.apellido.toUpperCase() + ' ' + campos.profesional.nombre + ' - Cl ' + campos.cliente.apellido.toUpperCase() + ' ' + campos.cliente.nombre + ' - Op ' + campos.idOperacion + ' - ' + campos.fechas.transaccion + '.pdf',
                      content: stream,
                   },
                   {
@@ -702,14 +659,14 @@ var email = function (destino, operacion, oIdOperacion, oFechaTransaccion, oFech
          case 'cliente':
             var mailOptions = {
                from: 'Club Honorarios <op@clubhonorarios.com>', //grab form data from the request body object
-               to: oMailCliente,
-               subject: 'Comprobante de Operacion Numero ' + oIdOperacion,
-               text: 'Titular de la tarjeta: Se adjunto el comprobante de pago numero: ' + oIdOperacion + ' en formato PDF',
+               to: campos.cliente.mail,
+               subject: 'Comprobante de Operacion Numero ' + campos.idOperacion,
+               text: 'Titular de la tarjeta: Se adjunto el comprobante de pago numero: ' + campos.idOperacion + ' en formato PDF',
                attachments: [
                   {   // stream as an attachment
                      // formato de nombre:
                      // Prof (nombre del profesional) - Cl (nombre del cliente) - Op (nro de la Operación correlativa que habría q definir por ejemplo desde 50.001) - fecha operación (dd-mm-aaaa). pdf
-                     filename: 'Cl ' + oApellidoCliente.toUpperCase() + ' ' + oNombreCliente + ' - Prof ' + oApellidoProfesional.toUpperCase() + ' ' + oNombreProfesional + ' - Op ' + oIdOperacion + ' - ' + oFechaTransaccion + '.pdf',
+                     filename: 'Cl ' + campos.cliente.apellido.toUpperCase() + ' ' + campos.cliente.nombre + ' - Prof ' + campos.profesional.apellido.toUpperCase() + ' ' + campos.profesional.nombre + ' - Op ' + campos.idOperacion + ' - ' + campos.fechas.transaccion + '.pdf',
                      content: stream
                   }],
             };
@@ -717,11 +674,7 @@ var email = function (destino, operacion, oIdOperacion, oFechaTransaccion, oFech
          default:
       }
       transporter.sendMail(mailOptions, function (error, info) {
-         if (error) {
-            fn('error');
-         } else {
-            fn(info.response);
-         };
+
       });
    });
 }

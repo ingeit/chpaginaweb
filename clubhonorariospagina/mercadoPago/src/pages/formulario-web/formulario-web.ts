@@ -74,13 +74,14 @@ export class FormularioWebPage {
 
       // clave ricky sandbox
       Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
+
       this.pasos = "1";
       this.campos = new ModeloFormulario();
-      this.campos.profesional = navParams.get('profesional'); ;
-      console.log(this.campos.profesional);
+      this.campos.profesional = navParams.get('profesional');
+      this.campos.idUsuario = navParams.get('idUsuario');
+      console.log(this.campos);
       this.dameFechas();
       this.dameTarjetas();
-      // this.dameFechasyComisiones();
 
       this.formulario = formBuilder.group({
          numeroTarjeta: ['', Validators.compose([Validators.maxLength(17), Validators.minLength(6), Validators.pattern(/()\d/g), Validators.required])],
@@ -208,11 +209,6 @@ export class FormularioWebPage {
       alert.present();
    }
 
-
-   generarDebug() {
-      this.confirmar();
-   }
-
    devolverNombreDeTarjeta(numTarjeta) {
       this.bin = numTarjeta.value.replace(/[ .-]/g, '').slice(0, 6);
       if (this.bin.length >= 6) {
@@ -300,11 +296,8 @@ export class FormularioWebPage {
 
    confirmar() {
       var $form = document.querySelector('#pay');
-      console.log($form);
       this.showLoader('Realizando operación. Espere por favor...');
       Mercadopago.createToken($form, (status, sdkResponseHandler) => {
-         console.log(status)
-         console.log(sdkResponseHandler)
          if (status != 200 && status != 201) {
             this.loading.dismiss();
             try {
@@ -312,7 +305,6 @@ export class FormularioWebPage {
             } catch (error) {
                this.mostrarAlerta('Error', 'No se puede comunicar con MercadoPago');
             }
-
          } else {
             // termino de completar los campos para enviar
             let cliente = new ClienteModelo(this.formulario.get('dniCliente').value, this.formulario.get('nombreCliente').value, this.formulario.get('apellidoCliente').value, this.formulario.get('mailCliente').value, this.formulario.get('telefonoCliente').value);
@@ -324,6 +316,8 @@ export class FormularioWebPage {
             this.campos.sdkResponse.id = sdkResponseHandler.id;
 
             this.operacionesProv.operacionNueva(this.campos).then((data: any) => {
+                  // ACA ME FIJO SI SE HIZO TODO BIEN; O TENGO QUE IR A /OP
+
                this.loading.dismiss();
                this.campos.sdkResponse = data;
                this.campos.tarjeta.numero = this.formulario.get('numeroTarjeta').value;
@@ -335,7 +329,6 @@ export class FormularioWebPage {
    }
 
    otroPaso(paso) {
-      console.log(paso)
       this.pasos = paso;
    }
 
