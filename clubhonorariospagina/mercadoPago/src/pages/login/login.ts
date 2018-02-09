@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { FormularioWebPage } from '../formulario-web/formulario-web';
 import { FormularioProvider } from '../../providers/formulario/formulario';
+import ProfesionalModelo from '../../modelos/profesional';
 
 /**
  * Generated class for the LoginPage page.
@@ -24,7 +24,6 @@ export class LoginPage {
 
    private idMD5: any;
    private profesionalForm: FormGroup;
-   private profesional: any;
    private submitAttempt: boolean = false;
    private loading: any;
    private respuesta: any;
@@ -59,15 +58,14 @@ export class LoginPage {
          let details = {
             dni: this.profesionalForm.value.dni
          };
-         this.formProv.dameProfesional(details).then((result) => {
+         this.formProv.dameProfesional(details).then((respuesta: any) => {
             this.submitAttempt = false;
             this.loading.dismiss();
-            this.profesional = result[0];
-            console.log(this.profesional);
-            if(this.profesional.codigo === 1){
-                this.navCtrl.push(FormularioWebPage,{profesional: this.profesional});
+            if(respuesta.codigo == 1){
+                console.log(respuesta.profesional)
+                this.navCtrl.push(FormularioWebPage,{profesional: respuesta.profesional});
             }else{
-               this.mostrarAlerta('Error','Ola')
+               this.mostrarAlerta('Error','No se pudo encontrar el profesional')
             }
          }
          );

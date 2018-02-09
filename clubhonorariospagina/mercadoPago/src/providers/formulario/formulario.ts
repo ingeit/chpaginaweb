@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import * as configServer from './../../server'
+import * as configServer from './../../server';
+import ProfesionalModelo from '../../modelos/profesional';
 
 /*
   Generated class for the FormularioProvider provider.
@@ -52,8 +53,13 @@ export class FormularioProvider {
         this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
-          console.log("respuesta del subscribe: ",res);
-          resolve(res);
+          let aux = res[0];
+          let profesional = new ProfesionalModelo(aux.idProfesional,aux.dni,aux.nombre,aux.apellido,aux.profesion,aux.especialidad,aux.mail,aux.telefono);
+          let respuesta = {
+            codigo: aux.codigo,
+            profesional
+          }
+          resolve(respuesta);
         }, (err) => {
           console.log(err);
           reject(err);

@@ -4,12 +4,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { DatePipe } from '@angular/common';
 import { FormularioProvider } from '../../providers/formulario/formulario';
+
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
 import { ModalPage } from '../modal/modal';
 import * as configServer from './../../server'
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { CardIO } from '@ionic-native/card-io';
+import ModeloFormulario from './modelo-formulario';
+import ClienteModelo from '../../modelos/cliente';
+import ProfesionalModelo from '../../modelos/profesional';
 
 declare var Mercadopago;
 
@@ -19,20 +23,13 @@ declare var Mercadopago;
 })
 export class FormularioWebPage {
 
-   private profesional: any;
+   private campos: ModeloFormulario;
    private pasos: String;
-   private fechas: any;
    private tarjetas: any;
-   private tarjetaNombre: string;
    private tarjetaId: any;
-   private cantCoutas: number;
-   private importeCobrar: number;
-   private importeCarga: number;
-   private importeCuota: number;
    private formulario: FormGroup;
    private submitAttempt: boolean = false;
    private loading: any;
-   private respuesta: any;
    private comision: number;
    private tarjetasComisiones: any;
    private listadoBancos = [];
@@ -47,14 +44,14 @@ export class FormularioWebPage {
    private respuestaDeTarjeta: any;
 
    listaSimulaciones = [
-     {cod: 'APRO', desc:' Aprobado'},
-     {cod: 'CONT', desc:' Pago Pendiente'},
-     {cod: 'CALL', desc:' Llamar para autorizar'},
-     {cod: 'FUND', desc:' Monto insuficiente'},
-     {cod: 'SECU', desc:' Rechazado por Codigo de seguridad'},
-     {cod: 'EXPI', desc:' Rechazado por fecha de expiracion'},
-     {cod: 'FORM', desc:' Rechazado por error en el formulario'},
-     {cod: 'OTHE', desc:' Rechazo general'},
+      { cod: 'APRO', desc: ' Aprobado' },
+      { cod: 'CONT', desc: ' Pago Pendiente' },
+      { cod: 'CALL', desc: ' Llamar para autorizar' },
+      { cod: 'FUND', desc: ' Monto insuficiente' },
+      { cod: 'SECU', desc: ' Rechazado por Codigo de seguridad' },
+      { cod: 'EXPI', desc: ' Rechazado por fecha de expiracion' },
+      { cod: 'FORM', desc: ' Rechazado por error en el formulario' },
+      { cod: 'OTHE', desc: ' Rechazo general' },
    ]
 
    constructor(public navCtrl: NavController,
@@ -76,11 +73,11 @@ export class FormularioWebPage {
       // Mercadopago.getIdentificationTypes(); 
 
       // clave ricky sandbox
-      Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30"); 
-
+      Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
       this.pasos = "1";
-      this.profesional = navParams.get('profesional');
-      console.log(this.profesional)
+      this.campos = new ModeloFormulario();
+      this.campos.profesional = navParams.get('profesional'); ;
+      console.log(this.campos.profesional);
       this.dameFechas();
       this.dameTarjetas();
       // this.dameFechasyComisiones();
@@ -106,15 +103,17 @@ export class FormularioWebPage {
    }
 
    ionViewDidLoad() {
+      console.log(this.formulario)
    }
 
    dameFechas() {
-      this.formularioProvider.dameFechas().then((result) => {
-         this.fechas = result[0];
-         // .fechaTransaccion
-         // .fechaPago
-         console.log(this.fechas)
-         if (this.fechas.codigo !== 1) this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
+      this.formularioProvider.dameFechas().then((result: any) => {
+         if (result[0].codigo !== 1) {
+            this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
+         } else {
+            this.campos.fechas.pago = result[0].fechaPago;
+            this.campos.fechas.transaccion = result[0].fechaTransaccion;
+         }
       }).catch((err) => {
          this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
       });
@@ -179,19 +178,17 @@ export class FormularioWebPage {
 
    autoCompletarImportes() {
       // antes de autocompletar, controlo que haya un importe venta, para no rellenar con ceros.
-      console.log(this.cantCoutas)
-      if (this.formulario.get('importeVenta').value && this.cantCoutas) {
-         let importeVenta: number;
-         importeVenta = this.formulario.get('importeVenta').value;
-         this.importeCobrar = Math.round(importeVenta * 0.95 * 100) / 100;
+      if (this.formulario.get('importeVenta').value && this.campos.importes.cantCuotas) {
+         console.log("entrado a autocompletarimportes")
+         this.campos.importes.venta = this.formulario.get('importeVenta').value;
+         this.campos.importes.cobrar = Math.round(this.campos.importes.venta * 0.95 * 100) / 100;
 
          let i = this.tarjetas.findIndex(t => t.nombreCorto == "VISA");
-         let j = this.tarjetas[i].cuotaComision.findIndex(c => c.cantidadCuota == this.cantCoutas);
+         let j = this.tarjetas[i].cuotaComision.findIndex(c => c.cantidadCuota == this.campos.importes.cantCuotas);
          this.comision = this.tarjetas[i].cuotaComision[j].comision;
 
-         this.importeCarga = Math.round(importeVenta * this.comision * 100) / 100;
-         this.importeCuota = Math.round((this.importeCarga / this.cantCoutas) * 100) / 100;
-         console.log(this.importeCuota);
+         this.campos.importes.carga = Math.round(this.campos.importes.venta * this.comision * 100) / 100;
+         this.campos.importes.cuota = Math.round((this.campos.importes.carga / this.campos.importes.cantCuotas) * 100) / 100;
       }
    }
 
@@ -232,14 +229,12 @@ export class FormularioWebPage {
                   paymentMethod.setAttribute('value', response[0].id);
                   form.appendChild(paymentMethod);
                   this.tarjetaId = response[0].id;
-                  this.tarjetaNombre = response[0].name.toUpperCase();
+                  this.campos.tarjeta.nombre = response[0].name.toUpperCase();
                   this.urlBannerTarjeta = response[0].secure_thumbnail;
-                  console.log('valor del campo escondido', this.tarjetaNombre)
                } else {
                   this.tarjetaId = response[0].id;
-                  this.tarjetaNombre = response[0].name.toUpperCase();
+                  this.campos.tarjeta.nombre = response[0].name.toUpperCase();
                   this.urlBannerTarjeta = response[0].secure_thumbnail;
-                  console.log('se actualizo el valor del campo escondido', this.tarjetaNombre);
                   (<HTMLInputElement>document.querySelector("input[name=paymentMethodId]")).value = response[0].id;
                }
                console.log("la tarjeta es : ", response[0].id);
@@ -269,7 +264,7 @@ export class FormularioWebPage {
       this.showLoader('Consultando Cuotas..');
       Mercadopago.getInstallments({
          "bin": this.bin,
-         "amount": this.importeCarga,
+         "amount": this.campos.importes.carga,
          "issuer_id": banco
       }, (status, response) => {
          this.loading.dismiss();
@@ -285,11 +280,11 @@ export class FormularioWebPage {
                   auxCuotas.push(lc);
                   console.log("cuotas banco ", lc.installments);
                }
-               this.cantCoutas;
-               if (lc.installments == this.cantCoutas) {
+               this.campos.importes.cantCuotas;
+               if (lc.installments == this.campos.importes.cantCuotas) {
                   correcto = 1;
                   console.log("correcto las cuotas!")
-                  console.log("cuota elegida: ", this.cantCoutas)
+                  console.log("cuota elegida: ", this.campos.importes.cantCuotas)
                   console.log("cuota del banco: ", lc.installments)
                }
             }
@@ -319,35 +314,21 @@ export class FormularioWebPage {
             }
 
          } else {
-            let details = {
-               idProfesional: this.profesional.idProfesional,
-               nombreProfesional: this.profesional.nombre,
-               apellidoProfesional: this.profesional.apellido,
-               mailProfesional: this.profesional.mail,
-               dniCliente: parseInt(this.formulario.get('dniCliente').value),
-               apellidoCliente: this.formulario.get('apellidoCliente').value,
-               nombreCliente: this.formulario.get('nombreCliente').value,
-               telefonoCliente: this.formulario.get('telefonoCliente').value,
-               mailCliente: this.formulario.get('mailCliente').value,
-               tarjetaNombre: this.tarjetaNombre,
-               payment_method_id: this.tarjetaId,
-               issuer_id: this.issuer_id,
-               cuotas: this.cantCoutas,
-               importeVenta: parseFloat(this.formulario.get('importeVenta').value),
-               importeCobrar: this.importeCobrar,
-               importeCarga: this.importeCarga,
-               importeCuota: this.importeCuota,
-               sdkResponse: sdkResponseHandler
-            };
-            console.log('respuesta del sdk', details);
-            this.operacionesProv.operacionNueva(details).then((data) => {
+            // termino de completar los campos para enviar
+            let cliente = new ClienteModelo(this.formulario.get('dniCliente').value, this.formulario.get('nombreCliente').value, this.formulario.get('apellidoCliente').value, this.formulario.get('mailCliente').value, this.formulario.get('telefonoCliente').value);
+            this.campos.cliente = cliente;
+            
+            // informacion para MP
+            this.campos.payment_method_id = this.tarjetaId;
+            this.campos.issuer_id = this.issuer_id;
+            this.campos.sdkResponse.id = sdkResponseHandler.id;
+
+            this.operacionesProv.operacionNueva(this.campos).then((data: any) => {
                this.loading.dismiss();
-               this.respuesta = data;
-               this.navCtrl.setRoot(FormularioWebPaso2Page, {
-                  formulario: this.formulario.controls,
-                  tarjetaNombre: this.tarjetaNombre,
-                  sdkResponse: this.respuesta
-               });
+               this.campos.sdkResponse = data;
+               this.campos.tarjeta.numero = this.formulario.get('numeroTarjeta').value;
+               this.campos.tarjeta.nombreImpreso = this.formulario.get('cardholderName').value;
+               // this.navCtrl.setRoot(FormularioWebPaso2Page, { campos: this.campos });
             });
          }
       });
