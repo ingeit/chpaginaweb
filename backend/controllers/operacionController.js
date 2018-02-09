@@ -176,9 +176,8 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log("paymente.response.status es approved, entramos al if para guardar en mysql");
          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
          operacion.operacionNueva(campos, payment, function (consulta) {
-            console.log(consulta);
-            if (consulta[0].codigo >= 1) {
-               var respuesta = consulta[0];
+            var respuesta = consulta[0];
+            if (respuesta.codigo != 0) {
                campos.fechas.transaccion = respuesta.fechaTransaccion;
                campos.fechas.pago = respuesta.fechaPago;
                campos.idOperacion = respuesta.codigo;
@@ -189,19 +188,29 @@ exports.operacionNuevaMP = function (req, res, next) {
                   email('cliente', campos);
                }
                let response = {
-                  'mysql': consulta,
-                  'MPComprobante': payment.response.id,
-                  'MPCodigo': 'ok',
-                  'MP': 'Pago Realizado Exitosamente'
+                  mysql : {
+                     codigo: respuesta.codigo,
+                     mensaje: respuesta.mensaje
+                  },
+                  mp : {
+                     comprobante: payment.response.id,
+                     codigo: 'ok',
+                     mensaje: 'Pago Realizado Exitosamente'
+                  }
                };
                res.json(response);
             } else {
                console.log("la op no se realizo, no se envian mails y se cancela", consulta);
                let response = {
-                  'mysql': consulta,
-                  'MPComprobante': payment.response.id,
-                  'MPCodigo': 'ok',
-                  'MP': 'Pago Realizado Exitosamente'
+                  mysql : {
+                     codigo: 0,
+                     mensaje: respuesta.mensaje
+                  },
+                  mp : {
+                     comprobante: payment.response.id,
+                     codigo: 'ok',
+                     mensaje: 'Pago Realizado Exitosamente'
+                  }
                };
                res.json(response);
             }
@@ -218,28 +227,32 @@ exports.operacionNuevaMP = function (req, res, next) {
                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                operacion.operacionNueva(campos, payment, function (consulta) {
                   console.log(consulta);
-                  if (consulta[0].codigo >= 1) {
-                     var respuesta = consulta[0];
-                     var oFechaTransaccion = respuesta.fechaTransaccion;
-                     var oFechaPago = respuesta.fechaPago;
-                     var oIdOperacion = respuesta.codigo;
+                  var respuesta = consulta[0];
+                  if (respuesta.codigo != 0) {
                      let response = {
-                        'mysql': consulta,
-                        'MPComprobante': id,
-                        'MPCodigo': 'enProceso',
-                        'MP': "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        mysql : {
+                           codigo: respuesta.codigo,
+                           mensaje: respuesta.mensaje
+                        },
+                        mp : {
+                           comprobante: id,
+                           codigo: 'enProceso',
+                           mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        }
                      };
-                     console.log(response);
                      res.json(response);
                   } else {
                      console.log("la op no se realizo, no se envian mails y se cancela", consulta);
                      let response = {
-                        'mysql': consulta,
-                        'mailProfesional': 'error',
-                        'mailCliente': 'error',
-                        'MPComprobante': id,
-                        'MPCodigo': 'enProceso',
-                        'MP': "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        mysql : {
+                           codigo: 0,
+                           mensaje: respuesta.mensaje
+                        },
+                        mp : {
+                           comprobante: id,
+                           codigo: 'enProceso',
+                           mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        }
                      };
                      res.json(response);
                   }
@@ -251,8 +264,10 @@ exports.operacionNuevaMP = function (req, res, next) {
                console.log("informacion de la cancelacion:  ", data);
                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                let response = {
-                  'MPCodigo': 'error',
-                  'MP': 'El pago no se realizo. Motivo: Operacion cancelada'
+                  mp : {
+                     codigo: 'error',
+                     mensaje: 'El pago no se realizo. Motivo: Operacion cancelada'
+                  }
                };
                res.json(response);
             }
@@ -264,8 +279,10 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log("veamos si existe: este es el payment completo: ", payment);
          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
          let response = {
-            'MPCodigo': 'error',
-            'MP': 'El pago no se realizo. Motivo: ' + payment.response.status_detail
+            mp : {
+               codigo: 'error',
+               mensaje: 'El pago no se realizo. Motivo: ' + payment.response.status_detail
+            }
          };
          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
          console.log("mostrando payment.response.status_detail: ");
@@ -283,8 +300,10 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log('no se pudo cambiar el nombre del error a español, error del catch: ', tryError);
       }
       let response = {
-         'MPCodigo': 'error',
-         'MP': 'El pago no se realizo. ' + error
+         mp : {
+            codigo: 'error',
+            mensaje: 'El pago no se realizo. Motivo: ' + error
+         }
       };
       res.json(response);
    });

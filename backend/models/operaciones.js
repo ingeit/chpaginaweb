@@ -87,7 +87,7 @@ exports.operacionNueva = function (campos, payment, fn) {
         dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
             if (err) {
-                consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
+                consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }]
                 fn(consulta);
             } else fn(rows[0]);
 

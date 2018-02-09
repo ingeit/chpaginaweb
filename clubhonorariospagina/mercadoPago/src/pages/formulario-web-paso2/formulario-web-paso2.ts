@@ -14,9 +14,8 @@ declare var Mercadopago;
 })
 export class FormularioWebPaso2Page {
    private loading: any;
-   private fechas: any;
-   private formulario: any;
-   private tarjetaNombre: any;
+   private campos: any;
+   private respuesta: any;
    private imagenEditada = false;
    private imagenEditadaAzul = false;
    @ViewChild('myCanvas') canvas: any;
@@ -29,7 +28,7 @@ export class FormularioWebPaso2Page {
    private mostrarCartelMPPendiente: boolean = false;
    private mostrarCartelMysqlError: boolean = false;
    //para editar cuotas modificacion
-   private sdkResponseHandler: any;
+   
    private impTotal: number;
    private impCuota: number;
    private cuotas: number;
@@ -43,21 +42,19 @@ export class FormularioWebPaso2Page {
       public modalCtrl: ModalController,
       public navParams: NavParams) {
 
-      this.sdkResponseHandler = navParams.get('sdkResponse');
-      this.fechas = navParams.get('fechas');
-      this.formulario = this.navParams.get('formulario');
-      this.tarjetaNombre = this.navParams.get('tarjetaNombre');
+      this.respuesta = navParams.get('respuesta');
+      this.campos = this.navParams.get('campos');
 
-      console.log(this.formulario);
+      console.log(this.respuesta , this.campos);
       // this.impTotal = this.formulario.importeCarga.value;
       // this.impCuota = this.formulario.importeCuota.value;
-      if (this.sdkResponseHandler.MPCodigo === 'error') {
+      if (this.respuesta.mp.codigo == 'error') {
          this.mostrarCartelMPError = true;
       } else {
-         if (this.sdkResponseHandler.MPCodigo === 'enProceso') {
+         if (this.respuesta.mp.codigo == 'enProceso') {
             this.mostrarCartelMPPendiente = true;
          }
-         if (this.sdkResponseHandler.mysql[0].codigo === 0) {
+         if (this.respuesta.mysql.codigo == 0) {
             this.mostrarCartelMysqlError = true;
          }
       }
@@ -80,26 +77,26 @@ export class FormularioWebPaso2Page {
    }
 
    ionViewDidLoad() {
-      // creamos una instancia del objeto DatePipe para usar en las fechas luego.
-      let datePipe = new DatePipe('es-AR');
-      // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
-      this.fechas.fechaTransaccion = new Date(this.navParams.get('fechaTransaccion'));
-      this.fechas.fechaTransaccion = new Date(this.fechas.fechaTransaccion.getUTCFullYear(),
-         this.fechas.fechaTransaccion.getUTCMonth(),
-         this.fechas.fechaTransaccion.getUTCDate(),
-         this.fechas.fechaTransaccion.getUTCHours(),
-         this.fechas.fechaTransaccion.getUTCMinutes(),
-         this.fechas.fechaTransaccion.getUTCSeconds());
-      this.fechas.fechaTransaccion = datePipe.transform(this.fechas.fechaTransaccion, 'dd/MM/yyyy H:mm');
-      //Hacemos lo mismo para fecha de pago..
-      this.fechas.fechaPago = new Date(this.navParams.get('fechaPago'));
-      this.fechas.fechaPago = new Date(this.fechas.fechaPago.getUTCFullYear(),
-         this.fechas.fechaPago.getUTCMonth(),
-         this.fechas.fechaPago.getUTCDate(),
-         this.fechas.fechaPago.getUTCHours(),
-         this.fechas.fechaPago.getUTCMinutes(),
-         this.fechas.fechaPago.getUTCSeconds());
-      this.fechas.fechaPago = datePipe.transform(this.fechas.fechaPago, 'dd/MM/yyyy');
+      // // creamos una instancia del objeto DatePipe para usar en las fechas luego.
+      // let datePipe = new DatePipe('es-AR');
+      // // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
+      // this.fechas.fechaTransaccion = new Date(this.navParams.get('fechaTransaccion'));
+      // this.fechas.fechaTransaccion = new Date(this.fechas.fechaTransaccion.getUTCFullYear(),
+      //    this.fechas.fechaTransaccion.getUTCMonth(),
+      //    this.fechas.fechaTransaccion.getUTCDate(),
+      //    this.fechas.fechaTransaccion.getUTCHours(),
+      //    this.fechas.fechaTransaccion.getUTCMinutes(),
+      //    this.fechas.fechaTransaccion.getUTCSeconds());
+      // this.fechas.fechaTransaccion = datePipe.transform(this.fechas.fechaTransaccion, 'dd/MM/yyyy H:mm');
+      // //Hacemos lo mismo para fecha de pago..
+      // this.fechas.fechaPago = new Date(this.navParams.get('fechaPago'));
+      // this.fechas.fechaPago = new Date(this.fechas.fechaPago.getUTCFullYear(),
+      //    this.fechas.fechaPago.getUTCMonth(),
+      //    this.fechas.fechaPago.getUTCDate(),
+      //    this.fechas.fechaPago.getUTCHours(),
+      //    this.fechas.fechaPago.getUTCMinutes(),
+      //    this.fechas.fechaPago.getUTCSeconds());
+      // this.fechas.fechaPago = datePipe.transform(this.fechas.fechaPago, 'dd/MM/yyyy');
    }
 
 
