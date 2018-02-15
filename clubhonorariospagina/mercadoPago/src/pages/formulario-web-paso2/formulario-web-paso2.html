@@ -21,30 +21,35 @@
           <div class="round">
               <img src="assets/clipgreen.png" alt="">
           </div>
-          <h4>{{sdkResponseHandler.MP}}</h4>
-          <h4>Comprobante Nº: {{sdkResponseHandler.MPComprobante}}</h4>
-          <h4 *ngIf="!mostrarCartelMysqlError">Operacion Nº: {{sdkResponseHandler.mysql[0].codigo}}</h4>
+          <h4>{{respuesta.mp.mensaje}}</h4>
+          <h4>Comprobante Nº: {{respuesta.mp.comprobante}}</h4>
+          <h4 *ngIf="!mostrarCartelMysqlError">Operacion Nº: {{respuesta.mysql.codigo}}</h4>
       </div>  
       <div *ngIf="mostrarCartelMPError" class="cardRed card-container">
           <div class="round">
               <img src="assets/clipred.png" alt="">
           </div>
-          <h4>{{sdkResponseHandler.MP}}</h4>
+          <h4>{{respuesta.mp.mensaje}}</h4>
       </div>
       <div *ngIf="mostrarCartelMPPendiente" class="cardYellow card-container">
             <div class="round">
                 <img src="assets/clipyellow.png" alt="">
             </div>
-            <h4>{{sdkResponseHandler.MP}} Por favor comuníquese inmediatamente con una operadora de Club Honorarios. Disculpe las molestias</h4>
+            <h4>{{respuesta.mp.mensaje}} Por favor comuníquese inmediatamente con una operadora de Club Honorarios. Disculpe las molestias</h4>
     </div>
       <div style="margin-top:20px" *ngIf="mostrarCartelMysqlError" class="cardRed card-container">
           <div class="round">
               <img src="assets/clipred.png" alt="">
           </div>
-          <h4>Debe validar esta operacion con Club Honorarios. Por Favor ponganse en contacto con algun representante, reportando el siguiente error.</h4>
-          <h4 style="font-style:italic">{{sdkResponseHandler.mysql[0].mensaje}}</h4>
-      </div>  
+          <h4>Advertencia: Debe validar esta operacion con Club Honorarios. Por Favor ponganse en contacto con algun representante.</h4>
+      </div> 
       
+      
+      <div *ngIf="campos.usuario.idUsuario">
+          <h3>Opciones para operador</h3>
+      </div> 
+      
+
       <div class="bloque card-container" style="max-width: 1000px;">
         <div class="titulo">
           <span *ngIf="!mostrarCartelMPError && !mostrarCartelMPPendiente" >Datos Previos</span>

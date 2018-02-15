@@ -16,6 +16,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { CardIO } from '@ionic-native/card-io';
+import { UsuarioProvider } from '../providers/usuario/usuario';
 
 
 registerLocaleData(localeEs);
@@ -59,7 +60,8 @@ registerLocaleData(localeEs);
     InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FormularioProvider,
-    OperacionesProvider
+    OperacionesProvider,
+    UsuarioProvider
   ]
 })
 export class AppModule {}

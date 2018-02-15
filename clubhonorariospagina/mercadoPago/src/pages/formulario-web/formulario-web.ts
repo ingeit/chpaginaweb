@@ -78,7 +78,7 @@ export class FormularioWebPage {
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
 		this.campos.profesional = navParams.get('profesional');
-		this.campos.idUsuario = navParams.get('idUsuario');
+		this.campos.usuario = navParams.get('usuario');
 		console.log(this.campos);
 		this.dameFechas();
 		this.dameTarjetas();
@@ -351,7 +351,11 @@ export class FormularioWebPage {
 	simular(opcion) {
 		this.formulario.controls['cardholderName'].setValue(opcion);
 	}
-
+	
+	volver() {
+      Mercadopago.clearSession();
+      this.navCtrl.setRoot('login',{'idMD5' : this.campos.usuario.idUsuarioMD5});
+   }
 }
 
 

@@ -6,7 +6,12 @@ export default class ModeloFormulario{
       transaccion: null,
       pago: null
    };
-   idUsuario: number;
+   usuario = {
+      nombre: null,
+      apellido: null,
+      idUsuario: null,
+      idUsuarioMD5: null,
+   };
    profesional: ProfesionalModelo = null;
    cliente: ClienteModelo;
    importes = {

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, AlertController
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormularioWebPage } from '../formulario-web/formulario-web';
 import { FormularioProvider } from '../../providers/formulario/formulario';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 import ProfesionalModelo from '../../modelos/profesional';
 
 /**
@@ -14,7 +15,7 @@ import ProfesionalModelo from '../../modelos/profesional';
 
 @IonicPage({
    name: 'login',
-   segment: ':idUsuario'
+   segment: ':idMD5'
 })
 @Component({
    selector: 'page-login',
@@ -22,7 +23,7 @@ import ProfesionalModelo from '../../modelos/profesional';
 })
 export class LoginPage {
 
-   private idUsuario: any;
+   private usuario: any;
    private profesionalForm: FormGroup;
    private submitAttempt: boolean = false;
    private loading: any;
@@ -33,8 +34,11 @@ export class LoginPage {
       public alertCtrl: AlertController,
       public loadingCtrl: LoadingController,
       public formBuilder: FormBuilder,
-      public formProv: FormularioProvider, ) {
+      public formProv: FormularioProvider,
+      public usuarioProv: UsuarioProvider, ) {
 
+      this.usuario = {};
+      this.getUsuario();
       this.profesionalForm = formBuilder.group({
          dni: ['', Validators.compose([Validators.minLength(7), Validators.maxLength(12), Validators.pattern(/()\d/g), Validators.required])],
       });
@@ -42,13 +46,22 @@ export class LoginPage {
    }
 
    ionViewDidLoad() {
-      this.idUsuario = this.navParams.get('idUsuario');
-      if (this.idUsuario === '') {
-          this.idUsuario = null;
-         console.log("nada, es un profesional", this.idUsuario)
-      } else {
-         console.log("username con hash,es una operadora ", this.idUsuario)
-      }
+
+   }
+
+   public getUsuario() {
+      let details = {
+         idUsuarioMD5: this.navParams.get('idMD5')
+      };
+      this.usuarioProv.usuarioDame(details).then((respuesta: any) => {
+         if (respuesta[0].codigo == 1) {
+            this.usuario = respuesta[0];
+            delete this.usuario.codigo;
+         } else {
+            this.usuario.idUsuarioMD5 = '';
+         }
+         console.log("usuario final",this.usuario)
+      });
    }
 
    public getProfesional() {
@@ -62,14 +75,13 @@ export class LoginPage {
          this.formProv.dameProfesional(details).then((respuesta: any) => {
             this.submitAttempt = false;
             this.loading.dismiss();
-            if(respuesta.codigo == 1){
-                console.log(respuesta.profesional)
-                this.navCtrl.push(FormularioWebPage,{profesional: respuesta.profesional, idUsuario: this.idUsuario});
-            }else{
-               this.mostrarAlerta('Error','No se pudo encontrar el profesional')
+            if (respuesta.codigo == 1) {
+               console.log(respuesta.profesional)
+               this.navCtrl.push(FormularioWebPage, { profesional: respuesta.profesional, usuario: this.usuario });
+            } else {
+               this.mostrarAlerta('Error', 'No se pudo encontrar el profesional')
             }
-         }
-         );
+         });
       }
    }
 

@@ -183,10 +183,10 @@ exports.operacionNuevaMP = function (req, res, next) {
                campos.idOperacion = respuesta.codigo;
                campos.codigoAuto = 0;
                campos.cupon = payment.response.id;
-               email('profesional', campos);
-               if (campos.cliente.mail != campos.profesional.mail) {
-                  email('cliente', campos);
-               }
+            //    email('profesional', campos);
+            //    if (campos.cliente.mail != campos.profesional.mail) {
+            //       email('cliente', campos);
+            //    }
                let response = {
                   mysql : {
                      codigo: respuesta.codigo,
@@ -198,6 +198,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                      mensaje: 'Pago Realizado Exitosamente'
                   }
                };
+               console.log(response);
                res.json(response);
             } else {
                console.log("la op no se realizo, no se envian mails y se cancela", consulta);
@@ -212,6 +213,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                      mensaje: 'Pago Realizado Exitosamente'
                   }
                };
+               console.log(response);
                res.json(response);
             }
          });
@@ -240,6 +242,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                            mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
                         }
                      };
+                     console.log(response);
                      res.json(response);
                   } else {
                      console.log("la op no se realizo, no se envian mails y se cancela", consulta);
@@ -254,6 +257,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                            mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
                         }
                      };
+                     console.log(response);
                      res.json(response);
                   }
                });
@@ -269,6 +273,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                      mensaje: 'El pago no se realizo. Motivo: Operacion cancelada'
                   }
                };
+               console.log(response);
                res.json(response);
             }
          });
@@ -288,6 +293,7 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log("mostrando payment.response.status_detail: ");
          console.log(payment.response.status_detail);
          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         console.log(response);
          res.json(response);
       }
    }, (error) => {
@@ -305,6 +311,7 @@ exports.operacionNuevaMP = function (req, res, next) {
             mensaje: 'El pago no se realizo. Motivo: ' + error
          }
       };
+      console.log(response);
       res.json(response);
    });
 }
@@ -613,17 +620,17 @@ var email = function (destino, campos) {
    switch (destino) {
       case 'profesional':
          var ejs = require('ejs')
-            , path = '/home/backend/views/tamplateProfesional.ejs'
+            // , path = '/home/backend/views/tamplateProfesional.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
-            // , path = 'C:/views/tamplateProfesional.ejs'
+            , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
          var html = ejs.render(str, data);
          break;
       case 'cliente':
          var ejs = require('ejs')
-            , path = '/home/backend/views/tamplateCliente.ejs'
+            // , path = '/home/backend/views/tamplateCliente.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
-            // , path = 'C:/views/tamplateProfesional.ejs'
+            , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
          var html = ejs.render(str, data);
          break;

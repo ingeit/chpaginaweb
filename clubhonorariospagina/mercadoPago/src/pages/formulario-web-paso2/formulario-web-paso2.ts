@@ -6,6 +6,7 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { DatePipe } from '@angular/common';
 import { ModalPage } from '../modal/modal';
 import { FormularioWebPage } from '../formulario-web/formulario-web';
+import { LoginPage } from '../login/login';
 declare var Mercadopago;
 
 @Component({
@@ -18,20 +19,16 @@ export class FormularioWebPaso2Page {
    private respuesta: any;
    private imagenEditada = false;
    private imagenEditadaAzul = false;
+   private fechaTransaccion: any;
+   private fechaPago: any;
    @ViewChild('myCanvas') canvas: any;
    private canvasElement: any;
    private ctx: any;
    private urlImagenCanvas: any;
    private urlImagenCanvasAzul: any;
-
    private mostrarCartelMPError: boolean = false;
    private mostrarCartelMPPendiente: boolean = false;
    private mostrarCartelMysqlError: boolean = false;
-   //para editar cuotas modificacion
-   
-   private impTotal: number;
-   private impCuota: number;
-   private cuotas: number;
 
    constructor(public navCtrl: NavController,
       public alertCtrl: AlertController,
@@ -46,8 +43,6 @@ export class FormularioWebPaso2Page {
       this.campos = this.navParams.get('campos');
 
       console.log(this.respuesta , this.campos);
-      // this.impTotal = this.formulario.importeCarga.value;
-      // this.impCuota = this.formulario.importeCuota.value;
       if (this.respuesta.mp.codigo == 'error') {
          this.mostrarCartelMPError = true;
       } else {
@@ -77,26 +72,26 @@ export class FormularioWebPaso2Page {
    }
 
    ionViewDidLoad() {
-      // // creamos una instancia del objeto DatePipe para usar en las fechas luego.
-      // let datePipe = new DatePipe('es-AR');
-      // // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
-      // this.fechas.fechaTransaccion = new Date(this.navParams.get('fechaTransaccion'));
-      // this.fechas.fechaTransaccion = new Date(this.fechas.fechaTransaccion.getUTCFullYear(),
-      //    this.fechas.fechaTransaccion.getUTCMonth(),
-      //    this.fechas.fechaTransaccion.getUTCDate(),
-      //    this.fechas.fechaTransaccion.getUTCHours(),
-      //    this.fechas.fechaTransaccion.getUTCMinutes(),
-      //    this.fechas.fechaTransaccion.getUTCSeconds());
-      // this.fechas.fechaTransaccion = datePipe.transform(this.fechas.fechaTransaccion, 'dd/MM/yyyy H:mm');
-      // //Hacemos lo mismo para fecha de pago..
-      // this.fechas.fechaPago = new Date(this.navParams.get('fechaPago'));
-      // this.fechas.fechaPago = new Date(this.fechas.fechaPago.getUTCFullYear(),
-      //    this.fechas.fechaPago.getUTCMonth(),
-      //    this.fechas.fechaPago.getUTCDate(),
-      //    this.fechas.fechaPago.getUTCHours(),
-      //    this.fechas.fechaPago.getUTCMinutes(),
-      //    this.fechas.fechaPago.getUTCSeconds());
-      // this.fechas.fechaPago = datePipe.transform(this.fechas.fechaPago, 'dd/MM/yyyy');
+      // creamos una instancia del objeto DatePipe para usar en las fechas luego.
+      let datePipe = new DatePipe('es-AR');
+      // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
+      this.fechaTransaccion = new Date(this.campos.fechas.transaccion);
+      this.fechaTransaccion = new Date(this.fechaTransaccion.getUTCFullYear(),
+         this.fechaTransaccion.getUTCMonth(),
+         this.fechaTransaccion.getUTCDate(),
+         this.fechaTransaccion.getUTCHours(),
+         this.fechaTransaccion.getUTCMinutes(),
+         this.fechaTransaccion.getUTCSeconds());
+      this.fechaTransaccion = datePipe.transform(this.fechaTransaccion, 'dd/MM/yyyy H:mm');
+      //Hacemos lo mismo para fecha de pago..
+      this.fechaPago = new Date(this.campos.fechas.pago);
+      this.fechaPago = new Date(this.fechaPago.getUTCFullYear(),
+         this.fechaPago.getUTCMonth(),
+         this.fechaPago.getUTCDate(),
+         this.fechaPago.getUTCHours(),
+         this.fechaPago.getUTCMinutes(),
+         this.fechaPago.getUTCSeconds());
+         this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
    }
 
 
@@ -116,30 +111,16 @@ export class FormularioWebPaso2Page {
          this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
          this.ctx.drawImage(imageObj, 0, 0);
          this.ctx.fillStyle = "blue";
-         let details = {
-            dniProfesional: this.formulario.dniProfesional.value,
-            apellidoProfesional: this.primeraLetraMayuscula(this.formulario.apellidoProfesional.value),
-            nombreProfesional: this.primeraLetraMayuscula(this.formulario.nombreProfesional.value),
-            apellidoCliente: this.primeraLetraMayuscula(this.formulario.apellidoCliente.value),
-            nombreCliente: this.primeraLetraMayuscula(this.formulario.nombreCliente.value),
-            telefonoCliente: this.formulario.telefonoCliente.value,
-            tarjeta: this.tarjetaNombre,
-            importeVenta: this.formulario.importeVenta.value,
-            importeCobrar: this.formulario.importeCobrar.value,
-            importeCarga: this.impTotal,
-            importeCuota: this.impCuota,
-            numtarjeta: this.formulario.numeroTarjeta.value,
-         };
-         this.ctx.fillText(details.apellidoProfesional + ' ' + details.nombreProfesional, 150, 120);
-         this.ctx.fillText(details.dniProfesional, 150, 230);
-         this.ctx.fillText(details.tarjeta, 150, 330);
-         this.ctx.fillText(details.apellidoCliente + ' ' + details.nombreCliente, 150, 430);
-         this.ctx.fillText(details.numtarjeta, 150, 530);
-         this.ctx.fillText(details.telefonoCliente, 150, 640);
-         // this.ctx.fillText(this.fechaTransaccionMysql, 850, 320);
-         // this.ctx.fillText(this.fechaPago, 850, 430);
-         this.ctx.fillText(details.importeVenta, 850, 650);
-         this.ctx.fillText(details.importeCobrar, 850, 780);
+         this.ctx.fillText(this.primeraLetraMayuscula(this.campos.profesional.apellido) + ' ' + this.primeraLetraMayuscula(this.campos.profesional.nombre), 150, 120);
+         this.ctx.fillText(this.campos.profesional.dni, 150, 230);
+         this.ctx.fillText(this.campos.tarjeta.nombre, 150, 330);
+         this.ctx.fillText(this.campos.tarjeta.nombreImpreso, 150, 430);
+         this.ctx.fillText(this.campos.tarjeta.numero, 150, 530);
+         this.ctx.fillText(this.campos.cliente.celular, 150, 640);
+         this.ctx.fillText(this.fechaTransaccion, 850, 320);
+         this.ctx.fillText(this.fechaPago, 850, 430);
+         this.ctx.fillText(this.campos.importes.venta, 850, 650);
+         this.ctx.fillText(this.campos.importes.cobrar, 850, 780);
          this.urlImagenCanvasAzul = this.canvasElement.toDataURL();
          this.imagenEditadaAzul = true;
       })
@@ -160,30 +141,14 @@ export class FormularioWebPaso2Page {
          this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
          this.ctx.drawImage(imageObj, 0, 0);
          this.ctx.fillStyle = "blue";
-         let details = {
-            dniProfesional: this.formulario.dniProfesional.value,
-            apellidoProfesional: this.primeraLetraMayuscula(this.formulario.apellidoProfesional.value),
-            nombreProfesional: this.primeraLetraMayuscula(this.formulario.nombreProfesional.value),
-            apellidoCliente: this.primeraLetraMayuscula(this.formulario.apellidoCliente.value),
-            nombreCliente: this.primeraLetraMayuscula(this.formulario.nombreCliente.value),
-            telefonoCliente: this.formulario.telefonoCliente.value,
-            tarjeta: this.primeraLetraMayuscula(this.tarjetaNombre),
-            importeVenta: this.formulario.importeVenta.value,
-            importeCobrar: this.formulario.importeCobrar.value,
-            importeCarga: this.impTotal,
-            importeCuota: this.impCuota,
-            cantidadCuotas: this.cuotas,
-            numtarjeta: this.formulario.numeroTarjeta.value,
-            telefonoProfesional: this.formulario.telefonoProfesional.value,
-         };
-         this.ctx.fillText(details.apellidoProfesional + ' ' + details.nombreProfesional, 150, 140);
-         this.ctx.fillText(details.telefonoProfesional, 150, 250);
-         this.ctx.fillText(details.tarjeta, 150, 370);
-         this.ctx.fillText(details.apellidoCliente + ' ' + details.nombreCliente, 150, 480);
-         this.ctx.fillText(details.numtarjeta, 150, 600);
-         // this.ctx.fillText(this.fechaTransaccionMysql, 850, 320);
-         this.ctx.fillText(details.cantidadCuotas, 850, 590);
-         this.ctx.fillText(details.importeCuota, 850, 730);
+         this.ctx.fillText(this.primeraLetraMayuscula(this.campos.profesional.apellido) + ' ' + this.primeraLetraMayuscula(this.campos.profesional.nombre), 150, 140);
+         this.ctx.fillText(this.campos.profesional.telefono, 150, 250);
+         this.ctx.fillText(this.campos.tarjeta.nombre, 150, 370);
+         this.ctx.fillText(this.campos.tarjeta.nombreImpreso, 150, 480);
+         this.ctx.fillText(this.campos.tarjeta.numero, 150, 600);
+         this.ctx.fillText(this.fechaTransaccion, 850, 320);
+         this.ctx.fillText(this.campos.importes.cantCuotas, 850, 590);
+         this.ctx.fillText(this.campos.importes.cuota, 850, 730);
          this.urlImagenCanvas = this.canvasElement.toDataURL();
          this.imagenEditada = true;
       })
@@ -214,13 +179,8 @@ export class FormularioWebPaso2Page {
       this.loading.present();
    }
 
-   mostrarModal(respuesta) {
-      let modalRes = this.modalCtrl.create(ModalPage, { desde: 'form2', mensaje: respuesta }, { enableBackdropDismiss: false });
-      modalRes.present();
-   }
-
    volver() {
       Mercadopago.clearSession();
-      this.navCtrl.setRoot(FormularioWebPage);
+      this.navCtrl.setRoot('login',{'idMD5' : this.campos.usuario.idUsuarioMD5});
    }
 }
