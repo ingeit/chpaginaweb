@@ -3,10 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -23,6 +23,8 @@ import { CalendarioPage } from '../pages/calendario/calendario';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
+import { NuevaOperacionPage } from '../pages/nueva-operacion/nueva-operacion'
+import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2'
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -63,11 +65,11 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
       modalLeave: 'modal-slide-out',
       tabsPlacement: 'bottom',
       pageTransition: 'md-transition',
-      monthNames: ['Enero', 'Febrero', 'Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre' ],
-      monthShortNames: ['Ene', 'Feb', 'Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-      dayNames: ['Domingo', 'Lunes', 'Martes','Miercoles','Jueves','Viernes','Sabado' ],
-      dayShortNames: ['Dom', 'Lun', 'Mar','Mie','Jue','Vie','Sab'],
-      
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      monthShortNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+      dayShortNames: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+
     }),
   ],
   bootstrap: [IonicApp],
@@ -90,7 +92,7 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     SplashScreen,
     InAppBrowser,
     Storage,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoginProvider,
     OperacionesProvider,
     ProfesionalesProvider,
@@ -98,4 +100,4 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     TarjetasProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
