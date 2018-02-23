@@ -23,7 +23,6 @@ import { CalendarioPage } from '../pages/calendario/calendario';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
-import { NuevaOperacionPage } from '../pages/nueva-operacion/nueva-operacion'
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2'
 
 // Providers
@@ -50,7 +49,6 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     TarjetasPage,
     FormTarjetaPage,
     FormModificarTarjetaPage,
-    NuevaOperacionPage,
     NuevaOperacionPaso2Page
   ],
   imports: [
@@ -88,7 +86,6 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     TarjetasPage,
     FormTarjetaPage,
     FormModificarTarjetaPage,
-    NuevaOperacionPage,
     NuevaOperacionPaso2Page
   ],
   providers: [

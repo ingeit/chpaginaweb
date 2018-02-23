@@ -43,7 +43,7 @@ export class DashboardPage {
         this.navCtrl.setRoot(TarjetasPage);
         break;
       case "nuevaOp":
-        this.navCtrl.setRoot(NuevaOperacionPage);
+        this.navCtrl.setRoot('NuevaOperacion',{ 'campos': '' });
         break;
     }
   }

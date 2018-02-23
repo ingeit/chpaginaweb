@@ -12,6 +12,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
+import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';
