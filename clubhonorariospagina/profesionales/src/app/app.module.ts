@@ -49,7 +49,9 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     CalendarioPage,
     TarjetasPage,
     FormTarjetaPage,
-    FormModificarTarjetaPage
+    FormModificarTarjetaPage,
+    NuevaOperacionPage,
+    NuevaOperacionPaso2Page
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,9 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     CalendarioPage,
     TarjetasPage,
     FormTarjetaPage,
-    FormModificarTarjetaPage
+    FormModificarTarjetaPage,
+    NuevaOperacionPage,
+    NuevaOperacionPaso2Page
   ],
   providers: [
     StatusBar,

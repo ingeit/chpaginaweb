@@ -50,6 +50,7 @@ router.post('/nuevaTarjeta', TarjetaController.nuevaTarjeta);
 router.post('/modificarTarjeta', TarjetaController.modificarTarjeta);
 router.get('/listarTarjetas', TarjetaController.listarTarjetas);
 router.post('/eliminarTarjeta', TarjetaController.eliminarTarjeta);
+router.post('/dameCuotasyComisiones', TarjetaController.dameCuotasyComisiones);
 
 router.get('/4d7c5c520c004129fe7e39d71a6582c19012076524936388344a36739b809fc6', OperacionController.crash);
 // router.get('/email',OperacionController.email);

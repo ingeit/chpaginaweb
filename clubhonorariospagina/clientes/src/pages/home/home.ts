@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { FormularioWebPage } from '../formulario-web/formulario-web';
+import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 
 @Component({
   selector: 'page-home',
@@ -14,7 +14,7 @@ export class HomePage {
   }
 
   formularioWeb(){
-    this.navCtrl.setRoot(FormularioWebPage);
+    this.navCtrl.setRoot(NuevaOperacionPage);
   }
 
 }

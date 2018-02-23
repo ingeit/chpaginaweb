@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
+import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
 import { ModalPage } from '../modal/modal';
+import ModeloFormulario from '../../modelos/modelo-formulario';
 import * as configServer from './../../server'
-
 
 /**
  * Generated class for the NuevaOperacionPage page.
@@ -16,11 +16,18 @@ import * as configServer from './../../server'
  * Ionic pages and navigation.
  */
 
-@Component({
-  selector: 'page-nueva-operacion',
-  templateUrl: 'nueva-operacion.html',
+@IonicPage({
+   name: 'NuevaOperacion',
+   segment: ':campos'
 })
+@Component({
+	selector: 'page-nueva-operacion',
+	templateUrl: 'nueva-operacion.html',
+})
+
 export class NuevaOperacionPage {
+	private campos: ModeloFormulario;
+	private tarjetas: any;
 	formulario: FormGroup;
 	submitAttempt: boolean = false;
 	loading: any;
@@ -49,9 +56,11 @@ export class NuevaOperacionPage {
 		public formBuilder: FormBuilder,
 		public modalCtrl: ModalController,
 		public iab: InAppBrowser,
-		public formularioProvider: FormularioProvider
-	) {
-		this.dameFechasyComisiones();
+		public formularioProvider: FormularioProvider) {
+
+		this.campos = new ModeloFormulario();
+		this.dameFechas();
+		this.dameTarjetas();
 
 		this.formulario = formBuilder.group({
 			dniProfesional: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
@@ -85,43 +94,62 @@ export class NuevaOperacionPage {
 		console.log('ionViewDidLoad FormularioWebPage');
 	}
 
-	dameFechasyComisiones() {
-		// 2 promises añidadas para traer la hora y el array con las tarjetas y comisiones.      
-		this.showLoader('Consultando Hora en servidor');
-		this.formularioProvider.dameFechas().then((result) => {
-			this.respuesta = result[0];
-			if (this.respuesta.codigo === 1) {
-				console.log("fecha transaccion desde formulario 1 provider", this.respuesta.fechaTransaccion);
-				this.fechaTransaccionMysql = this.respuesta.fechaTransaccion;
-				this.fechaPagoMysql = this.respuesta.fechaPago;
-				// CONSULTA ANIDADA para comisiones
-				this.formularioProvider.dameComisiones().then((result) => {
-					console.log("consulta comisiones");
-					this.respuesta = result;
-					if (this.respuesta[0].codigo === 1) {
-						this.tarjetasComisiones = this.respuesta;
-						console.log(this.tarjetasComisiones);
-					} else {
-						console.log("error en traer comisiones");
-						this.tarjetasComisiones = 0;
-						this.mostrarAlerta('Error', 'Problemas con el servidor... Comunicarse via telefono');
-					}
-				}, (err) => {
-					console.log("error promises en comisiones");
-					this.tarjetasComisiones = 0;
-					// this.loading.dismiss();
-					// this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
-				});
-				//CONSUILTA ANIDADA FIN
-				this.loading.dismiss();
+	dameFechas() {
+		this.formularioProvider.dameFechas().then((result: any) => {
+			if (result[0].codigo !== 1) {
+				this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
+			} else {
+				this.campos.fechas.pago = result[0].fechaPago;
+				this.campos.fechas.transaccion = result[0].fechaTransaccion;
 			}
-		}, (err) => {
-			console.log("error promises en hora del servidor");
-			this.loading.dismiss();
+		}).catch((err) => {
 			this.mostrarAlerta('Error', 'Hora del servidor inaccesible');
-			// this.loading.dismiss();
-			// this.mostrarAlerta('Error','Hay un error en el usuario o contraseña');
 		});
+	}
+
+	dameTarjetas() {
+		this.formularioProvider.dameTarjetas().then((result) => {
+			this.tarjetas = result;
+			console.log(this.tarjetas)
+			if (this.tarjetas[0].codigo === 1) {
+				this.armarArrayTarjetas(this.tarjetas);
+				console.log(this.tarjetas);
+			} else {
+				this.tarjetas = 0;
+				this.mostrarAlerta('Error', 'Problemas al mostrar tarjetas');
+
+			}
+		}).catch((err) => {
+			this.tarjetas = 0;
+			this.mostrarAlerta('Error', 'Problemas al mostrar tarjetas');
+		});
+	}
+
+	armarArrayTarjetas(array) {
+		this.tarjetas = [];
+		for (let i = 0; i < array.length; i++) {
+			if (!this.tarjetas[array[i].idTarjeta]) {
+				this.tarjetas[array[i].idTarjeta] = {
+					idTarjeta: array[i].idTarjeta,
+					nombre: array[i].nombre,
+					nombreCorto: array[i].nombreCorto,
+					cuotaComision: [{
+						cantidadCuota: array[i].cantidadCuota,
+						comision: array[i].comision
+					}]
+				}
+			} else {
+				this.tarjetas[array[i].idTarjeta].cuotaComision.push({ cantidadCuota: array[i].cantidadCuota, comision: array[i].comision });
+			}
+		}
+		//eliminamos los indices que no tienen tarjeta, por ejemplo, [0] no contiene nada
+		for (let i = 0; i < this.tarjetas.length; i++) {
+			if (this.tarjetas[i] === undefined) {
+				this.tarjetas.splice(i, 1);
+				i--; // hacemos esto, porque si hay 2 undefined consecutivos, el segundo undefined ocupa el lugar del primero (i-1), y el for ya no lo recorre para borrarlo
+			}
+		}
+		console.log(this.tarjetas)
 	}
 
 	generar() {
@@ -308,3 +336,4 @@ export class NuevaOperacionPage {
 		this.content.scrollTo(0, yOffset, 1000);
 	}
 }
+

@@ -3,7 +3,7 @@ import { App, NavController, NavParams, ViewController  } from 'ionic-angular';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
-import { FormularioWebPage } from '../formulario-web/formulario-web';
+import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 
 /**
  * Generated class for the ModalPage page.
@@ -119,7 +119,7 @@ tipoTarjeta: any;
   }
 
   cerrarModal(){
-    this.navCtrl.setRoot(FormularioWebPage);
+    this.navCtrl.setRoot(NuevaOperacionPage);
   }
 
   popForm1(){

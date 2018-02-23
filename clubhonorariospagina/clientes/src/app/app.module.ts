@@ -7,7 +7,6 @@ import { HttpModule} from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ModalPage } from '../pages/modal/modal';
-import { FormularioWebPage } from '../pages/formulario-web/formulario-web';
 import { FormularioWebPaso2Page } from '../pages/formulario-web-paso2/formulario-web-paso2';
 import { FormularioProvider } from '../providers/formulario/formulario';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
@@ -23,7 +22,6 @@ registerLocaleData(localeEs);
     MyApp,
     HomePage,
     ModalPage,
-    FormularioWebPage,
     FormularioWebPaso2Page
   ],
   imports: [
@@ -47,7 +45,6 @@ registerLocaleData(localeEs);
     MyApp,
     HomePage,
     ModalPage,
-    FormularioWebPage,
     FormularioWebPaso2Page
   ],
   providers: [

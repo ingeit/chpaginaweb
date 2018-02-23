@@ -16,43 +16,43 @@ export class FormularioProvider {
     console.log('Hello FormularioProvider Provider');
   }
 
-  public dameFechas(){
+  public dameFechas() {
     return new Promise((resolve, reject) => {
       let url;
       url = `${configServer.data.urlServidor}/api/dameFechas`
-        this.http.get(url).map(res => res.json())
-          .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
- 
+      this.http.get(url).map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+
     });
   }
 
-  public dameComisiones(){
+  public dameTarjetas() {
     return new Promise((resolve, reject) => {
       let url;
-      url = `${configServer.data.urlServidor}/api/dameComisiones`
-        this.http.get(url).map(res => res.json())
-          .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
- 
+      url = `${configServer.data.urlServidor}/api/listarTarjetas`
+      this.http.get(url).map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+
     });
   }
 
-  public dameProfesional(credentials){
+  public dameProfesional(credentials) {
     return new Promise((resolve, reject) => {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        
-        this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), {headers: headers})
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
-          console.log("respuesta del subscribe: ",res);
+          console.log("respuesta del subscribe: ", res);
           resolve(res);
         }, (err) => {
           console.log(err);

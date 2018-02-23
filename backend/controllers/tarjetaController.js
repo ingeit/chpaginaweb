@@ -29,3 +29,9 @@ exports.eliminarTarjeta = function (req, res, next) {
         res.json(consulta);
     });
 }
+
+exports.dameCuotasyComisiones = function (req, res, next) {
+    tarjeta.dameCuotasyComisiones(req, function (consulta) {
+        res.json(consulta);
+    });
+}
