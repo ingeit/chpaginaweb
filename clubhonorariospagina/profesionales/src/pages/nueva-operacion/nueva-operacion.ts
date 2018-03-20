@@ -29,6 +29,7 @@ import * as jwt from 'jsonwebtoken';
 export class NuevaOperacionPage {
 	private campos: any;
 	private tarjetas: any;
+	private desde:any;
 	formulario: FormGroup;
 	submitAttempt: boolean = false;
 	loading: any;
@@ -62,11 +63,19 @@ export class NuevaOperacionPage {
 			this.campos = {};
 
 		if (this.navParams.get('campos') == '') {
-			console.log("vacio, nueva op")
+			this.desde = 'ningunLado'
 		} else {
-			this.campos = jwt.verify(this.navParams.get('campos'), 'shhhhh');
-			console.log("hola campos", this.campos)
+			this.desde = 'mpop';
+			jwt.verify(this.navParams.get('campos'), 'shhola',(err,decoded) => {
+				if (err){
+					console.log("error jwt");
+				}else{
+					console.log("decodificado",decoded)
+					this.campos = decoded;
+				}
+			});
 		}
+		console.log("hola campos", this.campos)
 
 
 
@@ -75,6 +84,9 @@ export class NuevaOperacionPage {
 
 		this.formulario = formBuilder.group({
 			dniProfesional: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
+			apellidoProfesional: [''],
+			nombreProfesional: [''],
+			mailProfesional: [''],
 			dniCliente: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
 			apellidoCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
 			nombreCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
@@ -87,6 +99,9 @@ export class NuevaOperacionPage {
 			importeCarga: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
 			importeCuota: [''],
 			tipoTarjeta: [''],
+			profesionProfesional: [''],
+			especialidadProfesional: [''],
+			telefonoProfesional: [''],
 		});
 
 	}
