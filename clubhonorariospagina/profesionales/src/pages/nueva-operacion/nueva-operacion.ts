@@ -63,18 +63,19 @@ export class NuevaOperacionPage {
 			this.campos = {};
 
 		if (this.navParams.get('campos') == '') {
-			this.desde = 'ningunLado'
+			this.desde = 'adminOp'
 		} else {
 			this.desde = 'mpop';
 			jwt.verify(this.navParams.get('campos'), 'shhola',(err,decoded) => {
 				if (err){
-					console.log("error jwt");
+					console.log("error jwt", err);
 				}else{
 					console.log("decodificado",decoded)
 					this.campos = decoded;
 				}
 			});
 		}
+		console.log("desde:",this.desde)
 		console.log("hola campos", this.campos)
 
 

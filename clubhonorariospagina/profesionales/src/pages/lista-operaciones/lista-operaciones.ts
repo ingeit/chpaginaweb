@@ -128,7 +128,7 @@ export class ListaOperacionesPage {
     this.storage.get('idUsuarioMD5').then((value) =>{
       console.log(value);
       // let url = 'https://clubhonorarios.com/mpop/#/'+value;
-      let url = 'http://localhost/ch/#/'+value;
+      let url = 'http://localhost:81/mpop/#/'+value;
       const browser = this.iab.create(url);
     });
   }

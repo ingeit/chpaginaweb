@@ -13,6 +13,7 @@ import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2';
+import { CalendarioPage } from '../pages/calendario/calendario';
 
 import { MenuController } from 'ionic-angular';
 import { LoginProvider } from './../providers/login/login';
@@ -56,7 +57,6 @@ export class MyApp {
            this.storage.get('rol').then((rol) => {
              console.log('el usario tiene el rol de',rol);
               this.menu.enable(true);
-              this.rootPage = DashboardPage;
            });
          }
        }).catch((err)=>{ 

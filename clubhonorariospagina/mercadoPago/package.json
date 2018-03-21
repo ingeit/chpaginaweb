@@ -44,6 +44,7 @@
     "ionic-plugin-keyboard": "^2.2.1",
     "ionic-tooltips": "^2.0.0",
     "ionicons": "3.0.0",
+    "jsonwebtoken": "^8.2.0",
     "ngx-pagination": "^3.0.1",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",

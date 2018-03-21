@@ -26,6 +26,7 @@ export class LoginProvider {
         this.http.post(configServer.data.urlServidor+'/auth/login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
             let data = res.json();
+            console.log("datos del usuario", data)
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
             this.storage.set('rol', data.user.rol);

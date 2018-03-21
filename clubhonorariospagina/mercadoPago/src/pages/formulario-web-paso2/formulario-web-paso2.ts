@@ -3,10 +3,13 @@ import { App, NavController, NavParams, IonicPage, AlertController, LoadingContr
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { DatePipe } from '@angular/common';
 import { ModalPage } from '../modal/modal';
 import { FormularioWebPage } from '../formulario-web/formulario-web';
 import { LoginPage } from '../login/login';
+import * as jwt from 'jsonwebtoken';
+
 declare var Mercadopago;
 
 @Component({
@@ -37,12 +40,13 @@ export class FormularioWebPaso2Page {
       public opProv: OperacionesProvider,
       public formBuilder: FormBuilder,
       public modalCtrl: ModalController,
+      public iab: InAppBrowser,
       public navParams: NavParams) {
 
       this.respuesta = navParams.get('respuesta');
       this.campos = this.navParams.get('campos');
 
-      console.log(this.respuesta , this.campos);
+      console.log(this.respuesta, this.campos);
       if (this.respuesta.mp.codigo == 'error') {
          this.mostrarCartelMPError = true;
       } else {
@@ -91,7 +95,7 @@ export class FormularioWebPaso2Page {
          this.fechaPago.getUTCHours(),
          this.fechaPago.getUTCMinutes(),
          this.fechaPago.getUTCSeconds());
-         this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
+      this.fechaPago = datePipe.transform(this.fechaPago, 'dd/MM/yyyy');
    }
 
 
@@ -181,6 +185,17 @@ export class FormularioWebPaso2Page {
 
    volver() {
       Mercadopago.clearSession();
-      this.navCtrl.setRoot('login',{'idMD5' : this.campos.usuario.idUsuarioMD5});
+      this.navCtrl.setRoot('login', { 'idMD5': this.campos.usuario.idUsuarioMD5 });
    }
+
+   otroMetodo() {
+      let value = jwt.sign({
+         campos: this.campos
+      }, 'shhola', { expiresIn: 5 * 60 });
+
+      // let url = 'https://clubhonorarios.com/mpop/#/'+value;
+      let url = 'http://localhost:81/adminop/#/op/' + value;
+      const browser = this.iab.create(url);
+   }
+
 }
