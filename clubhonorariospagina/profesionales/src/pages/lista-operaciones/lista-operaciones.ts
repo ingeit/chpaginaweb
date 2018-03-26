@@ -133,6 +133,10 @@ export class ListaOperacionesPage {
     });
   }
 
+  cargarOperacion(){
+    this.navCtrl.setRoot('NuevaOperacion', { 'campos': '' });
+  }
+
   mostrarAlerta(titulo,mensaje) {
     let alert = this.alertCtrl.create({
     title: titulo,

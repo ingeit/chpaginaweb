@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, IonicPage, NavController, LoadingController, AlertController, NavParams, ModalController, Content } from 'ionic-angular';
+import { App, IonicPage, NavController, LoadingController, AlertController, NavParams, ModalController, Content, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
@@ -9,6 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import ModeloFormulario from '../../modelos/modelo-formulario';
 import * as token from './../../server';
 import * as jwt from 'jsonwebtoken';
+import { DashboardPage } from '../dashboard/dashboard';
 
 /**
  * Generated class for the NuevaOperacionPage page.
@@ -29,7 +30,7 @@ import * as jwt from 'jsonwebtoken';
 export class NuevaOperacionPage {
 	private campos: any;
 	private tarjetas: any;
-	private desde:any;
+	private desde: any;
 	formulario: FormGroup;
 	submitAttempt: boolean = false;
 	loading: any;
@@ -52,6 +53,7 @@ export class NuevaOperacionPage {
 
 	constructor(public navCtrl: NavController,
 		public alertCtrl: AlertController,
+		private toastCtrl: ToastController,
 		private _app: App,
 		public navParams: NavParams,
 		private menu: MenuController,
@@ -60,26 +62,8 @@ export class NuevaOperacionPage {
 		public modalCtrl: ModalController,
 		public iab: InAppBrowser,
 		public opProv: OperacionesProvider) {
-			this.campos = {};
 
-		if (this.navParams.get('campos') == '') {
-			this.desde = 'adminOp'
-		} else {
-			this.desde = 'mpop';
-			jwt.verify(this.navParams.get('campos'), 'shhola',(err,decoded) => {
-				if (err){
-					console.log("error jwt", err);
-				}else{
-					console.log("decodificado",decoded)
-					this.campos = decoded;
-				}
-			});
-		}
-		console.log("desde:",this.desde)
-		console.log("hola campos", this.campos)
-
-
-
+		this.campos = {};
 		this.dameFechas();
 		this.dameTarjetas();
 
@@ -104,6 +88,26 @@ export class NuevaOperacionPage {
 			especialidadProfesional: [''],
 			telefonoProfesional: [''],
 		});
+
+		if (this.navParams.get('campos') == '') {
+			this.desde = 'adminOp'
+		} else {
+			this.desde = 'mpop';
+			jwt.verify(this.navParams.get('campos'), 'shhola', (err, decoded) => {
+				if (err) {
+					this.presentToast("ERROR, Sesion Expirada");
+					this.navCtrl.setRoot(DashboardPage);
+					console.log("error jwt", err);
+				} else {
+					console.log("decodificado", decoded)
+					this.campos = decoded.campos;
+					this.cargarValores();
+				}
+			});
+		}
+		console.log("desde:", this.desde)
+		console.log("hola campos", this.campos)
+
 
 	}
 
@@ -274,6 +278,20 @@ export class NuevaOperacionPage {
 		});
 		alert.present();
 	}
+
+	presentToast(mensaje) {
+		let toast = this.toastCtrl.create({
+		  message: mensaje,
+		  duration: 3000,
+		  position: 'middle'
+		});
+	 
+		toast.onDidDismiss(() => {
+		  console.log('Dismissed toast');
+		});
+	 
+		toast.present();
+	 }
 
 	confirmar() {
 		//confirmar mediante modal
