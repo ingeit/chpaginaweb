@@ -9,6 +9,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { VerOperacionPage } from '../ver-operacion/ver-operacion';
 import * as configServer from './../../server'
 import { DashboardPage  } from '../dashboard/dashboard';
+import * as jwt from 'jsonwebtoken';
 
 
 @Component({
@@ -125,8 +126,10 @@ export class ListaOperacionesPage {
   }
 
   nuevaOperacion(){
-    this.storage.get('idUsuarioMD5').then((value) =>{
-      console.log(value);
+    this.storage.get('idUsuario').then((respuesta) =>{
+      let value = jwt.sign({
+        idUsuario: respuesta
+     }, 'shhola', { expiresIn: 5 * 60 });
       // let url = 'https://clubhonorarios.com/mpop/#/'+value;
       let url = 'http://localhost:81/mpop/#/'+value;
       const browser = this.iab.create(url);

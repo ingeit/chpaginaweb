@@ -11,9 +11,9 @@ var connection = mysql.createConnection({
 });
 
 exports.usuarioDame = function (campo, fn) {
-    var idUsuarioMD5 = '"' + campo.idUsuarioMD5 + '"';
-    console.log(idUsuarioMD5)
-    connection.query('call usuario_dame(' + idUsuarioMD5 + ')', function (err, rows) {
+    var idUsuario = '"' + campo.idUsuario + '"';
+    console.log("idUsuario node",idUsuario)
+    connection.query('call usuario_dame(' + idUsuario + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);

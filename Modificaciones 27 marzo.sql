@@ -2478,7 +2478,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_dame`(uIdUsuarioMD5 VARCHAR(32))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_dame`(uIdUsuario VARCHAR(32))
 PROC: BEGIN
 	/*
     Procedimiento que devuelve productos a partir de una cadena. Para buscar todo, cadena vacia.
@@ -2491,12 +2491,12 @@ PROC: BEGIN
 		ROLLBACK;
 	 END;
      
-	IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE idUsuarioMD5 = uIdUsuarioMD5 AND estado='A') THEN
+	IF NOT EXISTS (SELECT idUsuario FROM Usuarios WHERE idUsuario = uIdUsuario AND estado='A') THEN
 		SELECT 0 as codigo, 'El Usuario no existe o esta dado de baja' mensaje;
         LEAVE PROC;
 	END IF;
     
-    SELECT 1 AS codigo, u.idUsuario, u.idUsuarioMD5, u.nombre, u.apellido FROM Usuarios AS u WHERE idUsuarioMD5 = uIdUsuarioMD5;
+    SELECT 1 AS codigo, u.idUsuario, u.nombre, u.apellido FROM Usuarios AS u WHERE idUsuario = uIdUsuario;
     
 END ;;
 DELIMITER ;
@@ -2631,4 +2631,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-23 12:19:08
+-- Dump completed on 2018-03-27 18:01:35

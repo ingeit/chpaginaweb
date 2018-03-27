@@ -5,6 +5,7 @@ import { FormularioWebPage } from '../formulario-web/formulario-web';
 import { FormularioProvider } from '../../providers/formulario/formulario';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import ProfesionalModelo from '../../modelos/profesional';
+import * as jwt from 'jsonwebtoken';
 
 /**
  * Generated class for the LoginPage page.
@@ -15,7 +16,7 @@ import ProfesionalModelo from '../../modelos/profesional';
 
 @IonicPage({
    name: 'login',
-   segment: ':idMD5'
+   segment: ':idUsuario'
 })
 @Component({
    selector: 'page-login',
@@ -50,18 +51,25 @@ export class LoginPage {
    }
 
    public getUsuario() {
-      let details = {
-         idUsuarioMD5: this.navParams.get('idMD5')
-      };
-      this.usuarioProv.usuarioDame(details).then((respuesta: any) => {
-         if (respuesta[0].codigo == 1) {
-            this.usuario = respuesta[0];
-            delete this.usuario.codigo;
-         } else {
-            this.usuario.idUsuarioMD5 = '';
-         }
-         console.log("usuario final",this.usuario)
+      let idUsuario = 
+      jwt.verify(this.navParams.get('idUsuario'), 'shhola', (err, decoded) => {
+         console.log("id jwt decodificado", decoded)
+         let details = {
+            idUsuario: decoded.idUsuario
+         };
+         this.usuarioProv.usuarioDame(details).then((respuesta: any) => {
+            if (respuesta[0].codigo == 1) {
+               this.usuario = respuesta[0];
+               delete this.usuario.codigo;
+            } else {
+               this.usuario.idUsuarioMD5 = '';
+            }
+            console.log("usuario final", this.usuario)
+         });
       });
+
+
+      
    }
 
    public getProfesional() {

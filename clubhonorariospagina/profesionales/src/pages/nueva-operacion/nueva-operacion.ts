@@ -179,6 +179,25 @@ export class NuevaOperacionPage {
 		console.log(this.tarjetas)
 	}
 
+	cargarValores(){
+		
+		this.formulario.controls['dniProfesional'].setValue(this.campos.profesional.dni);
+		this.formulario.controls['apellidoProfesional'].setValue(this.campos.profesional.apellido);
+		this.formulario.controls['nombreProfesional'].setValue(this.campos.profesional.nombre);
+		this.formulario.controls['mailProfesional'].setValue(this.campos.profesional.mail);
+		this.formulario.controls['profesionProfesional'].setValue(this.campos.profesional.profesion);
+		this.formulario.controls['especialidadProfesional'].setValue(this.campos.profesional.especialidad);
+		this.formulario.controls['telefonoProfesional'].setValue(this.campos.profesional.telefono);
+		this.tipoTarjeta = "credito";
+		this.formulario.controls['tipoTarjeta'].setValue("credito");
+		this.formulario.controls['dniCliente'].setValue(this.campos.cliente.dni);
+		this.formulario.controls['apellidoCliente'].setValue(this.campos.cliente.apellido);
+		this.formulario.controls['nombreCliente'].setValue(this.campos.cliente.nombre);
+		this.formulario.controls['telefonoCliente'].setValue(this.campos.cliente.celular);
+		this.formulario.controls['mailCliente'].setValue(this.campos.cliente.mail);
+		
+	}
+	
 	generar() {
 		console.log("dentro de genererar");
 		if (!this.formulario.valid || this.lapos === undefined) {
