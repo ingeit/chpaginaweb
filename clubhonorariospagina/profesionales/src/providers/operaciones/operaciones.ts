@@ -11,6 +11,25 @@ export class OperacionesProvider {
   constructor(public http: Http) {
   }
 
+  cargarOperacion(credentials){
+    console.log("dentro del funcion opnueva provider");
+    return new Promise((resolve, reject) => {
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        
+        this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log(res);
+          resolve(res);
+        }, (err) => {
+          console.log(err);
+          reject(err);
+        });
+    });
+}
+
   obtenerOperaciones(){
     return new Promise((resolve, reject) => {
         this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`)

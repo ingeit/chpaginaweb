@@ -6,13 +6,84 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>nuevaOperacionPaso2</ion-title>
-  </ion-navbar>
+   <ion-navbar>
+      <ion-title>nuevaOperacionPaso2</ion-title>
+   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+   <div class="contenedor">
+      <div class="card2 card-container">
+         <!-- <h2>Datos previos</h2> -->
+         <!-- <p>Solo puede modificar cantidad de cuotas</p> -->
+         <ion-grid style="margin-bottom: -39px;">
+            <ion-row>
+               <ion-col col-10>
+                  <ion-row>
+                     <ion-col class="subtitulo" col-12>
+                        Importe total de transaccion (valor a cargar en pagina de {{tarjetaNombre}})
+                     </ion-col>
+                     <ion-col col-12 style="text-align: center;font-size: 20px;font-weight: bold;">
+                        {{impTotal}}
+                     </ion-col>
+                  </ion-row>
+               </ion-col>
+               <ion-col col-2>
+                  <ion-row>
+                     <ion-col col-12 class="subtitulo" style="font-size: 16px;">
+                        Cuotas
+                     </ion-col>
+                     <ion-col col-12>
+                        <ion-select [(ngModel)]="cuotas" (ionChange)='autoCompletarImportes()' interface="popover" style="margin-top: -14px;font-size: 20px;padding: 14px 4px;">
+                           <ion-option value="02">2</ion-option>
+                           <ion-option value="03">3</ion-option>
+                           <ion-option value="04">4</ion-option>
+                           <ion-option value="05">5</ion-option>
+                           <ion-option value="06">6</ion-option>
+                           <ion-option value="07">7</ion-option>
+                           <ion-option value="08">8</ion-option>
+                           <ion-option value="09">9</ion-option>
+                           <ion-option value="10">10</ion-option>
+                           <ion-option value="11">11</ion-option>
+                           <ion-option value="12">12</ion-option>
+                        </ion-select>
+                     </ion-col>
+                  </ion-row>
+               </ion-col>
+            </ion-row>
+         </ion-grid>
+         <h2>Copiar Codigos</h2>
+         <div>
+            <ion-item>
+               <ion-label stacked>CUPON</ion-label>
+               <ion-input placeholder="Ingrese número de cupón" [(ngModel)]="cupon" type="number" class="form-control" name="cupon" id="cupon"></ion-input>
+            </ion-item>
+         </div>
+         <ion-item>
+            <ion-label stacked>Codigo</ion-label>
+            <ion-input type="number" placeholder="N° de 2 a 6 Digitos" [(ngModel)]="codigoAuto" name="codigoAuto" id="codigoAuto"></ion-input>
+         </ion-item>
+         <button float-right style="margin-top: 20px;" color="secondary" ion-button type="submit" (click)="botonEnviar()">Enviar</button>
+      </div>
 
+      <div class="bloque card-container" style="max-width: 1000px;">
+         <div class="titulo">
+            <span>Datos Previos</span>
+            <!-- Este div me ayuda a que se carguen los CSS. pequeño truco -->
+            <div id="preloadfont">.</div>
+         </div>
+
+         <canvas style="display:none" #myCanvas></canvas>
+
+         <img [src]="urlImagenCanvasAzul" *ngIf="imagenEditadaAzul" imageViewer alt="">
+
+         <img [src]="urlImagenCanvas" *ngIf="imagenEditada" imageViewer alt="">
+
+         <!-- <span class="datos"><strong>Datos Profesional: </strong>{{this.formulario?.apellidoProfesional.value}} {{this.formulario?.nombreProfesional.value}} - DNI: {{this.formulario?.dniProfesional.value}} - {{this.formulario?.mailProfesional.value}}</span> 
+        <span class="datos"><strong>Datos Cliente: </strong>{{this.formulario?.apellidoCliente.value}} {{this.formulario?.nombreCliente.value}} - DNI: {{this.formulario?.dniCliente.value}} - {{this.formulario?.mailCliente.value}} - Telefono: {{this.formulario?.telefonoCliente.value}}</span> 
+        <span class="datos"><strong>Datos Venta: </strong>{{this.tarjeta}} - I.Carga: ${{this.formulario?.importeCarga.value}} - I.Cobrar: ${{this.formulario?.importeCobrar.value}} - Cant. Coutas: {{this.formulario?.cuotas.value}} - I.Couta: ${{this.formulario?.importeCuota.value}} - I.Venta: ${{this.formulario?.importeVenta.value}}</span> -->
+      </div>
+   </div>
 </ion-content>

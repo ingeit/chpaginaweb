@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController } from 'ionic-angular';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-// import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
-// import { ModalPage } from '../modal/modal';
+import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
+import { NuevaOperacionModalPage } from '../nueva-operacion-modal/nueva-operacion-modal';
 import ModeloFormulario from '../../modelos/modelo-formulario';
 import * as token from './../../server';
 import * as jwt from 'jsonwebtoken';
@@ -42,6 +42,7 @@ export class NuevaOperacionPage {
 	importeCarga: number;
 	importeCuota: number;
 	tarjeta: any;
+	arrayCuotas: any;
 	cuotas: number;
 	comision: number;
 	tarjetasComisiones: any;
@@ -176,11 +177,11 @@ export class NuevaOperacionPage {
 				i--; // hacemos esto, porque si hay 2 undefined consecutivos, el segundo undefined ocupa el lugar del primero (i-1), y el for ya no lo recorre para borrarlo
 			}
 		}
-		console.log(this.tarjetas)
+		console.log("tarjetas de mysql ya ordenadas", this.tarjetas)
 	}
 
-	cargarValores(){
-		
+	cargarValores() {
+
 		this.formulario.controls['dniProfesional'].setValue(this.campos.profesional.dni);
 		this.formulario.controls['apellidoProfesional'].setValue(this.campos.profesional.apellido);
 		this.formulario.controls['nombreProfesional'].setValue(this.campos.profesional.nombre);
@@ -195,9 +196,9 @@ export class NuevaOperacionPage {
 		this.formulario.controls['nombreCliente'].setValue(this.campos.cliente.nombre);
 		this.formulario.controls['telefonoCliente'].setValue(this.campos.cliente.celular);
 		this.formulario.controls['mailCliente'].setValue(this.campos.cliente.mail);
-		
+
 	}
-	
+
 	generar() {
 		console.log("dentro de genererar");
 		if (!this.formulario.valid || this.lapos === undefined) {
@@ -213,9 +214,6 @@ export class NuevaOperacionPage {
 	autoCompletarImportes() {
 		this.tipoTarjeta = this.cuotas = this.formulario.get('tipoTarjeta').value;
 		//var x yy son para armar la busqueda.. VER MYSQL tabla Tarjetas - observaciones en idTarjeta.
-		let x;
-		let yy;
-		let xyy;
 		// antes de autocompletar, controlo que haya un importe venta, para no rellenar con ceros.
 		if (this.formulario.get('importeVenta').value) {
 
@@ -228,36 +226,6 @@ export class NuevaOperacionPage {
 			this.tarjeta = this.formulario.get('tarjeta').value;
 			if (this.tipoTarjeta === 'credito') {
 				this.cuotas = this.formulario.get('cuotas').value;
-			}
-
-			//paso de numero a nombre de tarjeta para el label de IMPORTE TOTAL.
-			switch (this.tarjeta) {
-				case '1':
-					this.tarjetaNombre = 'AMERICAN'
-					break;
-				case '2':
-					this.tarjetaNombre = 'MASTER'
-					break;
-				case '3':
-					this.tarjetaNombre = 'VISA'
-					break;
-				default:
-					break;
-			}
-
-			x = this.tarjeta;
-			//armo el YY de mysql con el 0 adelante en caso de cuotas menores a 10
-
-			yy = this.cuotas;
-			// Listo, ya tengo el idTarjeta. ahora recorremos todo el array donde estan las comisiones buscando este id
-			xyy = x + yy;
-
-			for (let t of this.tarjetasComisiones) {
-				if (t.idTarjeta.toString() === xyy) {
-					console.log("coincidencia en " + t.idTarjeta);
-					this.comision = t.tasa;
-					console.log(" y la comision es " + this.comision);
-				}
 			}
 			// Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
 			// Ej: 10.225 = 10.23
@@ -282,6 +250,22 @@ export class NuevaOperacionPage {
 		}
 	}
 
+	dameCuotasyComisiones(idTarjeta) {
+		// seteamos el nombre de la tarjeta en una variable para llevar al paso 2
+		this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.tarjetaNombre = e.nombre } });
+		// aqui obtenemos las cuotas y comiusiones segun tarjeta elegida
+		this.arrayCuotas = [];
+		this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.arrayCuotas = e.cuotaComision } });
+		console.log("arraycuotas coomisiion", this.arrayCuotas)
+	}
+
+	setComision(cantCuota) {
+		console.log("cantcuota", cantCuota)
+		this.arrayCuotas.map(e => { if (e.cantidadCuota == cantCuota) { this.comision = e.comision } });
+		console.log("comision", this.comision);
+		this.autoCompletarImportes();
+	}
+
 	showLoader(mensaje) {
 		this.loading = this.loadingCtrl.create({
 			content: mensaje
@@ -300,44 +284,46 @@ export class NuevaOperacionPage {
 
 	presentToast(mensaje) {
 		let toast = this.toastCtrl.create({
-		  message: mensaje,
-		  duration: 3000,
-		  position: 'middle'
+			message: mensaje,
+			duration: 3000,
+			position: 'middle'
 		});
-	 
+
 		toast.onDidDismiss(() => {
-		  console.log('Dismissed toast');
+			console.log('Dismissed toast');
 		});
-	 
+
 		toast.present();
-	 }
+	}
 
 	confirmar() {
-		//confirmar mediante modal
-		//Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
-		// console.log("desde confirmar se trae el formulario: ", this.formulario.controls);
-		// if (this.lapos === 'si') {
-		// 	console.log("tiene lapos")
-		// 	this.navCtrl.setRoot(FormularioWebPaso2Page, {
-		// 		fechaTransaccion: this.fechaTransaccionMysql,
-		// 		fechaPago: this.fechaPagoMysql,
-		// 		formulario: this.formulario.controls,
-		// 		tarjetaNombre: this.tarjetaNombre,
-		// 		tarjetasComisiones: this.tarjetasComisiones,
-		// 		tipoTarjeta: this.tipoTarjeta
-		// 	});
-		// } else {
-		// 	console.log("no tiene lapos, yendo a modal y visa");
-		// 	let confirmarModal = this.modalCtrl.create(ModalPage, {
-		// 		desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
-		// 		fechaPago: this.fechaPagoMysql,
-		// 		formulario: this.formulario.controls,
-		// 		tarjetaNombre: this.tarjetaNombre,
-		// 		tarjetasComisiones: this.tarjetasComisiones,
-		// 		tipoTarjeta: this.tipoTarjeta
-		// 	});
-		// 	confirmarModal.present();
-		// }
+		// confirmar mediante modal
+		// Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
+		console.log("desde confirmar se trae el formulario: ", this.formulario.controls);
+		if (this.lapos === 'si') {
+			console.log("tiene lapos")
+			console.log("fecha pago",this.fechaPagoMysql)
+			console.log("fecha trans",this.fechaTransaccionMysql)
+			this.navCtrl.setRoot(NuevaOperacionPaso2Page, {
+				fechaTransaccion: this.fechaTransaccionMysql,
+				fechaPago: this.fechaPagoMysql,
+				formulario: this.formulario.controls,
+				tarjetaNombre: this.tarjetaNombre,
+				tarjetasComisiones: this.tarjetasComisiones,
+				tipoTarjeta: this.tipoTarjeta
+			});
+		} else {
+			console.log("no tiene lapos, yendo a modal y visa");
+			let confirmarModal = this.modalCtrl.create(NuevaOperacionModalPage, {
+				desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
+				fechaPago: this.fechaPagoMysql,
+				formulario: this.formulario.controls,
+				tarjetaNombre: this.tarjetaNombre,
+				tarjetasComisiones: this.tarjetasComisiones,
+				tipoTarjeta: this.tipoTarjeta
+			});
+			confirmarModal.present();
+		}
 
 	}
 

@@ -1,3 +1,40 @@
 page-nueva-operacion-paso2 {
+   .datos{
+       width: 100%;
+       list-style: none;
+       display: list-item;
+       padding: 12px 15px;
+   }
 
+   #preloadfont {
+   font-family: BeautifulCreatures;
+   // opacity:0;
+   height:0;
+   width:0;
+   display:inline-block;
+   }
+
+   img{
+       max-width: 50%;
+       border: 0;
+       float: left;
+   }
+
+   .subtitulo{
+       font-size: 14px;
+       color: #5c5f69;
+       font-weight: 300;
+   }
+
+   .select-text {
+       min-width: 28px !important;
+   }
+
+   .select-icon{
+       position: absolute !important;
+   }
+
+   .select-icon-inner {
+       left: 29px !important;
+   }
 }

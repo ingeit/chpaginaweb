@@ -1,0 +1,102 @@
+<!--
+  Generated template for the ModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header style="height: 200px;">
+
+  <ion-navbar color="alert" *ngIf="form1">
+    <ion-row>
+      <ion-col text-center>
+       <ion-title><h3 style="font-size: 84px;"><ion-icon name="alert"></ion-icon></h3></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -33px;">
+      <ion-col text-center>
+       <ion-title><h3>SIGUIENTE PASO</h3></ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+  <ion-navbar color="ok" *ngIf="!form1 && idOperacion !== 0">
+    <ion-row>
+      <ion-col text-center>
+        <ion-title>
+          <h3 style="font-size: 84px;">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </h3>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -33px;">
+      <ion-col text-center>
+       <ion-title>
+         <h3>{{mensaje}}</h3>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+  <ion-navbar color="error" *ngIf="!form1 && idOperacion === 0">
+    <ion-row>
+      <ion-col text-center>
+        <ion-title>
+          <h3 style="font-size: 84px;">
+            <ion-icon name="close-circle"></ion-icon>
+          </h3>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -33px;">
+      <ion-col text-center>
+       <ion-title>
+         <h3>Error</h3>
+        </ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="form1"> 
+    <h1>Usted ingresará a la WEB de {{tarjetaNombre}}</h1>
+    <p style="text-align: justify">
+        - La información que cargue, en esta web, es la que se procesará.
+    </p>
+    <p style="text-align: justify">
+        - Tome nota del:
+    </p>
+      <ul>
+        <li>Código de autorización</li>
+        <li>Número de cupón</li>
+      </ul>
+    <button class="botones" ion-button color="alert" style="color:white" (click)="irPaso2()">Aceptar</button>
+    <button class="botones" ion-button color="danger" (click)="dismiss()">Cancelar</button>
+  </div>
+  
+  <!-- Este es el mensaje final de OP exitosa o no.  -->
+  <div *ngIf="!form1">
+    <div class="cuerpo" *ngIf="idOperacion !== 0">
+      <h4>Fecha de Transaccion: {{fechaTransaccion}}</h4>
+      <h4>Fecha de cobro cupón: {{fechaPago}}</h4>
+      <h4>Envio de email al profesional 
+          <ion-icon *ngIf="mailProf !== 'error'" style="color: darkgreen;" name="checkmark-circle"></ion-icon>
+          <ion-icon *ngIf="mailProf === 'error'" style="color: darkred;" name="close-circle"></ion-icon>
+      </h4>
+      <h4>Envio de email al cliente 
+        <ion-icon *ngIf="mailCliente === 'ok'" style="color: darkgreen;" name="checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="mailCliente === 'error'" style="color: darkred;" name="close-circle"></ion-icon>
+      </h4>
+    </div>
+    <div *ngIf="idOperacion === 0">
+       <h4>
+        {{mensaje}}
+       </h4> 
+    </div>
+      
+    <button *ngIf="idOperacion !== 0" class="botones" style="margin-right: 0px !important;" ion-button color="ok" (click)="cerrarModal()">Cerrar</button>
+    <button *ngIf="idOperacion === 0" class="botones" style="margin-right: 0px !important;" ion-button color="error" (click)="cerrarModal()">Volver</button>
+  </div>
+  
+</ion-content>

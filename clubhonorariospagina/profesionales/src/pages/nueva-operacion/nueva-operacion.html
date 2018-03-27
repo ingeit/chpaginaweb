@@ -123,27 +123,15 @@
                   <h2>Informacion de operacion</h2>
                   <ion-item>
                      <ion-label stacked>Elija marca de la tarjeta *</ion-label>
-                     <ion-select (ionChange)='dameCuotasyComisiones()' interface="popover" formControlName="tarjeta">
+                     <ion-select (ionChange)='dameCuotasyComisiones($event)' interface="popover" formControlName="tarjeta">
                         <ion-option *ngFor="let t of tarjetas" value="{{t.idTarjeta}}">{{t.nombreCorto}}</ion-option>
-                        <ion-option value="2">MASTERCARD/MAESTRO</ion-option>
-                        <ion-option value="1">AMERICAN EX.</ion-option>
                      </ion-select>
                   </ion-item>
                   <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.tarjeta.valid  &&  submitAttempt">Por favor, elija una tarjeta</p>
                   <ion-item *ngIf="tipoTarjeta==='credito'">
                      <ion-label stacked>Elija cantidad de cuotas *</ion-label>
-                     <ion-select (ionChange)='autoCompletarImportes()' interface="popover" formControlName="cuotas">
-                        <ion-option value="02">2</ion-option>
-                        <ion-option value="03">3</ion-option>
-                        <ion-option value="04">4</ion-option>
-                        <ion-option value="05">5</ion-option>
-                        <ion-option value="06">6</ion-option>
-                        <ion-option value="07">7</ion-option>
-                        <ion-option value="08">8</ion-option>
-                        <ion-option value="09">9</ion-option>
-                        <ion-option value="10">10</ion-option>
-                        <ion-option value="11">11</ion-option>
-                        <ion-option value="12">12</ion-option>
+                     <ion-select (ionChange)='setComision($event)' interface="popover" formControlName="cuotas">
+                        <ion-option *ngFor="let c of arrayCuotas" value="{{c.cantidadCuota}}">{{c.cantidadCuota}}</ion-option>
                      </ion-select>
                   </ion-item>
                   <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.cuotas.valid  && submitAttempt">Por favor, elija la cantidad de cuotas</p>

@@ -1,0 +1,32 @@
+page-nueva-operacion-modal{
+
+   .botones{
+       position: absolute;
+       right: 15px;
+       bottom: 15px;
+   }
+   .botones:last-child{
+       margin-right: 100px;
+   }
+
+   ion-navbar{
+       height: 200px;
+   }
+
+   h2,h3{
+       color: white !important;
+   }
+
+   .scroll-content{
+       background: white !important;
+   }
+
+   .header-md::after{
+       background-image: none !important;
+   }
+
+   .cuerpo h3{
+       color: black !important;
+   }
+       
+}
