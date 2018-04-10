@@ -302,11 +302,11 @@ export class NuevaOperacionPage {
 		console.log("desde confirmar se trae el formulario: ", this.formulario.controls);
 		if (this.lapos === 'si') {
 			console.log("tiene lapos")
-			console.log("fecha pago",this.fechaPagoMysql)
-			console.log("fecha trans",this.fechaTransaccionMysql)
+			console.log("fecha pago",this.campos.fechas.pago)
+			console.log("fecha trans",this.campos.fechas.transaccion)
 			this.navCtrl.setRoot(NuevaOperacionPaso2Page, {
-				fechaTransaccion: this.fechaTransaccionMysql,
-				fechaPago: this.fechaPagoMysql,
+				fechaTransaccion: this.campos.fechas.transaccion,
+				fechaPago: this.campos.fechas.pago,
 				formulario: this.formulario.controls,
 				tarjetaNombre: this.tarjetaNombre,
 				tarjetasComisiones: this.tarjetasComisiones,
@@ -315,8 +315,8 @@ export class NuevaOperacionPage {
 		} else {
 			console.log("no tiene lapos, yendo a modal y visa");
 			let confirmarModal = this.modalCtrl.create(NuevaOperacionModalPage, {
-				desde: 'form1', fechaTransaccion: this.fechaTransaccionMysql,
-				fechaPago: this.fechaPagoMysql,
+				desde: 'form1', fechaTransaccion: this.campos.fechas.transaccion,
+				fechaPago: this.campos.fechas.pago,
 				formulario: this.formulario.controls,
 				tarjetaNombre: this.tarjetaNombre,
 				tarjetasComisiones: this.tarjetasComisiones,

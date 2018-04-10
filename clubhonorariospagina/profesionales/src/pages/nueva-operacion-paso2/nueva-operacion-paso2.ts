@@ -83,7 +83,7 @@ export class NuevaOperacionPaso2Page {
 
   ionViewDidLoad() {
     // creamos una instancia del objeto DatePipe para usar en las fechas luego.
-    let datePipe = new DatePipe('es-AR');
+    let datePipe = new DatePipe('en-US');
     // usamos new Date para crear una nueva fecha del tipo Date de angular, para despues aplicar un pipe...
     this.fechaTransaccionMysql = new Date(this.navParams.get('fechaTransaccion'));
     console.log("fecha transaccion desde form 2 en view load", this.fechaTransaccionMysql);
