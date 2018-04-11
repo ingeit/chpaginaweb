@@ -29,8 +29,8 @@ export class LoginProvider {
             console.log("datos del usuario", data)
             this.storage.set('token', data.token);
             this.storage.set('idUsuario', data.user._id);
-            this.storage.set('rol', data.user.rol);
-            this.storage.set('idUsuarioMD5', data.user.idUsuarioMD5);            
+            this.storage.set('rol', data.user.rol);          
+            this.storage.set('usuario', data.user);            
             resolve(data);
           }, (err) => {
             reject(err);

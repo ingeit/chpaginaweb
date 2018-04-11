@@ -173,15 +173,15 @@
          <!-- /form -->
          <ion-list *ngIf="tipoTarjeta!==null" radio-group [(ngModel)]="lapos">
             <ion-list-header>
-               ¿Usted Cuenta con LaPos?
+               Seleccione el tipo de operacion
             </ion-list-header>
             <ion-item>
-               <ion-label>SI</ion-label>
-               <ion-radio required value="si"></ion-radio>
+               <ion-label>LaPos Presencial</ion-label>
+               <ion-radio required value="presencial"></ion-radio>
             </ion-item>
             <ion-item>
-               <ion-label>NO</ion-label>
-               <ion-radio required value="no"></ion-radio>
+               <ion-label>LaPos Web</ion-label>
+               <ion-radio required value="web"></ion-radio>
             </ion-item>
             <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="lapos === undefined && submitAttempt">Por favor, seleccione SI o NO</p>
          </ion-list>

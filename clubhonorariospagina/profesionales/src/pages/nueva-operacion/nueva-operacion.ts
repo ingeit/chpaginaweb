@@ -10,6 +10,7 @@ import ModeloFormulario from '../../modelos/modelo-formulario';
 import * as token from './../../server';
 import * as jwt from 'jsonwebtoken';
 import { DashboardPage } from '../dashboard/dashboard';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the NuevaOperacionPage page.
@@ -62,9 +63,16 @@ export class NuevaOperacionPage {
 		public formBuilder: FormBuilder,
 		public modalCtrl: ModalController,
 		public iab: InAppBrowser,
-		public opProv: OperacionesProvider) {
+		public opProv: OperacionesProvider,
+		public storage: Storage) {
+
 
 		this.campos = {};
+		this.storage.get('usuario').then((usuario) => {
+			this.campos.usuario = usuario;
+			console.log("campos idUsuario", this.campos.idUsuario)
+		});
+
 		this.dameFechas();
 		this.dameTarjetas();
 
@@ -300,31 +308,23 @@ export class NuevaOperacionPage {
 		// confirmar mediante modal
 		// Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
 		console.log("desde confirmar se trae el formulario: ", this.formulario.controls);
-		if (this.lapos === 'si') {
-			console.log("tiene lapos")
-			console.log("fecha pago",this.campos.fechas.pago)
-			console.log("fecha trans",this.campos.fechas.transaccion)
-			this.navCtrl.setRoot(NuevaOperacionPaso2Page, {
-				fechaTransaccion: this.campos.fechas.transaccion,
-				fechaPago: this.campos.fechas.pago,
-				formulario: this.formulario.controls,
-				tarjetaNombre: this.tarjetaNombre,
-				tarjetasComisiones: this.tarjetasComisiones,
-				tipoTarjeta: this.tipoTarjeta
-			});
-		} else {
-			console.log("no tiene lapos, yendo a modal y visa");
-			let confirmarModal = this.modalCtrl.create(NuevaOperacionModalPage, {
-				desde: 'form1', fechaTransaccion: this.campos.fechas.transaccion,
-				fechaPago: this.campos.fechas.pago,
-				formulario: this.formulario.controls,
-				tarjetaNombre: this.tarjetaNombre,
-				tarjetasComisiones: this.tarjetasComisiones,
-				tipoTarjeta: this.tipoTarjeta
-			});
-			confirmarModal.present();
-		}
+		if (this.lapos === 'web') { //abrir paginas
 
+		}
+		console.log("tiene lapos")
+		console.log("fecha pago", this.campos.fechas.pago)
+		console.log("fecha trans", this.campos.fechas.transaccion)
+		this.navCtrl.setRoot(NuevaOperacionPaso2Page, {
+			tipoOperacion: this.lapos,
+			campos: this.campos,
+			fechaTransaccion: this.campos.fechas.transaccion,
+			fechaPago: this.campos.fechas.pago,
+			idProfesional: this.campos.profesional.id,
+			formulario: this.formulario.controls,
+			tarjetaNombre: this.tarjetaNombre,
+			tarjetasComisiones: this.tarjetasComisiones,
+			tipoTarjeta: this.tipoTarjeta
+		});
 	}
 
 	generarDebug() {
@@ -343,12 +343,16 @@ export class NuevaOperacionPage {
 				this.respuesta = result[0];
 				this.loading.dismiss();
 				if (this.respuesta.codigo === 1) {
+
 					let apellidoProfesional = this.respuesta.apellido;
 					let nombreProfesional = this.respuesta.nombre;
 					let mailProfesional = this.respuesta.mail;
 					let profesionProfesional = this.respuesta.profesion;
 					let especialidadProfesional = this.respuesta.especialidad;
 					let telefonoProfesional = this.respuesta.telefono;
+					this.campos.profesional = {
+						id: this.respuesta.idProfesional
+					}
 					this.formulario.controls['dniProfesional'].setValue(this.dniProfesionalForm);
 					this.formulario.controls['apellidoProfesional'].setValue(apellidoProfesional);
 					this.formulario.controls['nombreProfesional'].setValue(nombreProfesional);
@@ -356,6 +360,7 @@ export class NuevaOperacionPage {
 					this.formulario.controls['profesionProfesional'].setValue(profesionProfesional);
 					this.formulario.controls['especialidadProfesional'].setValue(especialidadProfesional);
 					this.formulario.controls['telefonoProfesional'].setValue(telefonoProfesional);
+					console.log("respuesta prof", this.campos);
 				} else {
 					this.mostrarAlerta('ERROR', this.respuesta.mensaje + ". Por favor comunicarse via telefonica a nuestras oficinas");
 				}

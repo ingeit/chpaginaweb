@@ -64,6 +64,41 @@ exports.getComisiones = function (fn) {
     });
 }
 
+exports.operacionNuevaOP = function (req, fn) {
+
+    console.log("entrando a op nueva model")
+
+    var idProfesional = req.body.idProfesional;
+    var idUsuario = req.body.idUsuario;
+    var nombreTarjeta = '"' + req.body.tarjeta + '"';
+    var dniCliente = req.body.dniCliente;
+    var apellidoCliente = '"' + req.body.apellidoCliente + '"';
+    var nombreCliente = '"' + req.body.nombreCliente + '"';
+    var telefonoCliente = '"' + req.body.telefonoCliente + '"';
+    var mailCliente = '"' + req.body.mailCliente + '"';
+    var tipoTarjeta = '"' + req.body.tipoTarjeta + '"';
+    var tipoOperacion = '"' + req.body.tipoOperacion + '"';
+    var importeVenta = req.body.importeVenta;
+    var importeCobrar = req.body.importeCobrar;
+    var cuotas = req.body.cuotas;
+    var importeCuota = req.body.importeCuota;
+    var importeCarga = req.body.importeCarga;
+    var codigoAuto = req.body.codigoAuto;
+    var cupon = req.body.cupon;
+    
+
+
+    connection.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
+        dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
+        importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
+            if (err) {
+                consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }]
+                fn(consulta);
+            } else fn(rows[0]);
+
+        });
+}
+
 exports.operacionNueva = function (campos, payment, fn) {
     var idProfesional = campos.profesional.id;
     var idUsuario = null;

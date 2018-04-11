@@ -117,16 +117,15 @@ export class NuevaOperacionPaso2Page {
     
     console.log("en operacionNueva");
      let details = {
-              dniProfesional: parseInt(this.formulario.dniProfesional.value),
-              apellidoProfesional: this.formulario.apellidoProfesional.value,
-              nombreProfesional: this.formulario.nombreProfesional.value,
-              mailProfesional: this.formulario.mailProfesional.value,
+              idProfesional: this.navParams.get('idProfesional'),
+              idUsuario: this.navParams.get('campos').usuario._id,
               dniCliente: parseInt(this.formulario.dniCliente.value),
               apellidoCliente: this.formulario.apellidoCliente.value,
               nombreCliente: this.formulario.nombreCliente.value,
               telefonoCliente: this.formulario.telefonoCliente.value,
               mailCliente: this.formulario.mailCliente.value,
               tarjeta: this.tarjeta,
+              tipoOperacion: this.navParams.get('tipoOperacion'),
               cuotas: this.cuotas,
               importeVenta: parseFloat(this.formulario.importeVenta.value),
               importeCobrar: parseFloat(this.formulario.importeCobrar.value),
@@ -136,7 +135,7 @@ export class NuevaOperacionPaso2Page {
               codigoAuto: this.codigoAuto,
               tipoTarjeta: this.tipoTarjeta,
         };
-            console.log(details);
+            console.log("mostrando details op nueva",details);
       this.showLoader('Enviando formulario. Espere por favor...');  
       this.opProv.cargarOperacion(details).then((data)=>{
       this.loading.dismiss();
