@@ -38,7 +38,7 @@ tipoTarjeta: any;
     private _app: App,
     public iab: InAppBrowser){
 
-
+      console.log("en modal page")
     if(navParams.get('desde') === 'form1'){
       this.form1 = true;
       this.fechaTransaccion = navParams.get('fechaTransaccion');

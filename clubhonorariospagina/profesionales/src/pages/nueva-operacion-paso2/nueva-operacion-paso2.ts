@@ -119,6 +119,10 @@ export class NuevaOperacionPaso2Page {
      let details = {
               idProfesional: this.navParams.get('idProfesional'),
               idUsuario: this.navParams.get('campos').usuario._id,
+              dniProfesional: this.formulario.dniProfesional.value,
+              apellidoProfesional:this.formulario.apellidoProfesional.value,
+              nombreProfesional:this.formulario.nombreProfesional.value,
+              mailProfesional:this.formulario.mailProfesional.value,
               dniCliente: parseInt(this.formulario.dniCliente.value),
               apellidoCliente: this.formulario.apellidoCliente.value,
               nombreCliente: this.formulario.nombreCliente.value,
@@ -263,6 +267,7 @@ export class NuevaOperacionPaso2Page {
   }
 
   mostrarModal(respuesta){
+    console.log("por ir a modal")
     let modalRes = this.modalCtrl.create(NuevaOperacionModalPage, {desde: 'form2', mensaje: respuesta }, {enableBackdropDismiss: false});
     modalRes.present();
   }

@@ -65,7 +65,7 @@ exports.operacionBaja = function (req, res, next) {
 
 exports.operacionNueva = function (req, res, next) {
 
-      console.log("dentro de op nueva controller",req.body)
+   console.log("dentro de op nueva controller", req.body)
 
    if (req.body.tipoTarjeta === 'C') {
       var oCuotas = req.body.cuotas;
@@ -75,94 +75,69 @@ exports.operacionNueva = function (req, res, next) {
    // hago lo siguiente ya que desde ionic no puede hacer que si es debito asigne un 1 a cuota NOSE PORQUE!!!, seguro es por el ngIF que nunca muestra y no inicia la variable parece.. NO SE ME ROMPIO LA CABEZA
    // console.log("desde opcontroller vemos el tipo de tarjeta y cuotas:",oTipoTarjeta,oCuotas);
    operacion.operacionNuevaOP(req, function (consulta) {
+      var respuesta = consulta[0];
+      if (respuesta.codigo != 0) {
+         console.log("respuesta controller para hacer mail",respuesta);
+        // var oFechaTransaccion = respuesta.fechaTransaccion;
+      //    var oFechaPago = respuesta.fechaPago;
+      //    var oIdOperacion = respuesta.codigo;
 
-      //CAMBIAR TIPO DE RESPUESTA A IONIC AQUI ABAJO, EL PRIEMR BLOQUE ES EL VIEJO, EL SEGUND OES EL NUEVO, AMOLDAR DESPUES EN IONIC LA RESPUESTA CREADA DESDE AQUI
-
-         // console.log(consulta);
-         // if (consulta[0].codigo >= 1) {
-         //    var respuesta = consulta[0];
-         //    var oFechaTransaccion = respuesta.fechaTransaccion;
-         //    var oFechaPago = respuesta.fechaPago;
-         //    var oIdOperacion = respuesta.codigo;
-         //    email('profesional', req.body, oIdOperacion, oFechaTransaccion, oFechaPago, function (res1) {
-         //       console.log("enviando mail desde operacion nueva: ", res1);
-         //       console.log("mail cliente = ", req.body.mailCliente);
-         //       if (req.body.mailCliente != '') {
-         //          console.log("mail cliente no es vacio, mandando mail");
-         //          email('cliente', req.body, oIdOperacion, oFechaTransaccion, oFechaPago, function (res2) {
-         //             console.log("enviando mail desde operacion nueva: ", res2);
-         //             let response = {
-         //                'mysql': consulta,
-         //                'mailProfesional': res1,
-         //                'mailCliente': res2
-         //             };
-         //             console.log(response);
-         //             res.json(response);
-         //          });
-         //       } else {
-         //          console.log("mail cliente vacio.. no se manda mail.. respondiendo solo mysql y mail prof");
-         //          let response = {
-         //             'mysql': consulta,
-         //             'mailProfesional': res1,
-         //             'mailCliente': 'error'
-         //          };
-         //          res.json(response);
-         //       }
-
-         //    });
-         // } else {
-         //    console.log("la op no se realizo, no se envian mails y se cancela", consulta);
-         //    let response = {
-         //       'mysql': consulta,
-         //       'mailProfesional': 'error',
-         //       'mailCliente': 'error'
-         //    };
-         //    res.json(response);
-         // }
-
-         var respuesta = consulta[0];
-            if (respuesta.codigo != 0) {
-               campos.fechas.transaccion = respuesta.fechaTransaccion;
-               campos.fechas.pago = respuesta.fechaPago;
-               campos.idOperacion = respuesta.codigo;
-               campos.codigoAuto = 0;
-               campos.cupon = payment.response.id;
-            //    email('profesional', campos);
-            //    if (campos.cliente.mail != campos.profesional.mail) {
-            //       email('cliente', campos);
-            //    }
-               let response = {
-                  mysql : {
-                     codigo: respuesta.codigo,
-                     mensaje: respuesta.mensaje
-                  },
-                  mp : {
-                     comprobante: payment.response.id,
-                     codigo: 'ok',
-                     mensaje: 'Pago Realizado Exitosamente'
-                  }
-               };
-               console.log(response);
-               res.json(response);
-            } else {
-               console.log("la op no se realizo, no se envian mails y se cancela", consulta);
-               let response = {
-                  mysql : {
-                     codigo: 0,
-                     mensaje: respuesta.mensaje
-                  },
-                  mp : {
-                     comprobante: payment.response.id,
-                     codigo: 'ok',
-                     mensaje: 'Pago Realizado Exitosamente'
-                  }
-               };
-               console.log(response);
-               res.json(response);
-            }
+         let campos = {
+            fechas: {
+               'transaccion': respuesta.fechaTransaccion,
+               'fechaPago': respuesta.fechaPago
+            },
+            profesional: {
+               'dni':req.body.dniProfesional,
+               'apellido':req.body.apellidoProfesional,
+               'nombre':req.body.nombreProfesional,
+               'mail':req.body.mailProfesional
+            },
+            cliente: {
+               'dni':req.body.dniCliente,
+               'apellido':req.body.apellidoCliente,
+               'nombre':req.body.nombreCliente,
+               'mail':req.body.mailCliente
+            },
+            'idOperacion': respuesta.codigo,
+            tarjeta : {
+               'nombre': req.body.tarjeta
+            },
+            importes : {
+               'venta':req.body.importeVenta,
+               'cobrar':req.body.importeCobrar,
+               'cuota':req.body.importeCuota,
+               'cantCuotas':req.body.cuotas
+            },
+            'codigoAuto': req.body.codigoAuto,
+            'cupon':req.body.cupon
+         };
+         let response = {
+            'mysql': consulta,
+            'mailProfesional': 'ok',
+            'mailCliente': 'error'
+         };
+         //    email('profesional', campos);
+         //    if (req.body.mailCliente != null || req.body.mailCliente != '') {
+         //       response.mailCliente = 'ok'
+         //       email('cliente', campos);
+         //    }
+         
+         console.log(response);
+         res.json(response);
+      } else {
+         console.log("la op no se realizo, no se envian mails y se cancela", consulta);
+         let response = {
+            'mysql': consulta,
+            'mailProfesional': 'error',
+            'mailCliente': 'error'
+         };
+         console.log(response);
+         res.json(response);
+      }
 
 
-      });
+   });
 }
 
 exports.operacionNuevaMP = function (req, res, next) {
@@ -208,16 +183,16 @@ exports.operacionNuevaMP = function (req, res, next) {
                campos.idOperacion = respuesta.codigo;
                campos.codigoAuto = 0;
                campos.cupon = payment.response.id;
-            //    email('profesional', campos);
-            //    if (campos.cliente.mail != campos.profesional.mail) {
-            //       email('cliente', campos);
-            //    }
+               //    email('profesional', campos);
+               //    if (campos.cliente.mail != campos.profesional.mail) {
+               //       email('cliente', campos);
+               //    }
                let response = {
-                  mysql : {
+                  mysql: {
                      codigo: respuesta.codigo,
                      mensaje: respuesta.mensaje
                   },
-                  mp : {
+                  mp: {
                      comprobante: payment.response.id,
                      codigo: 'ok',
                      mensaje: 'Pago Realizado Exitosamente'
@@ -228,11 +203,11 @@ exports.operacionNuevaMP = function (req, res, next) {
             } else {
                console.log("la op no se realizo, no se envian mails y se cancela", consulta);
                let response = {
-                  mysql : {
+                  mysql: {
                      codigo: 0,
                      mensaje: respuesta.mensaje
                   },
-                  mp : {
+                  mp: {
                      comprobante: payment.response.id,
                      codigo: 'ok',
                      mensaje: 'Pago Realizado Exitosamente'
@@ -257,11 +232,11 @@ exports.operacionNuevaMP = function (req, res, next) {
                   var respuesta = consulta[0];
                   if (respuesta.codigo != 0) {
                      let response = {
-                        mysql : {
+                        mysql: {
                            codigo: respuesta.codigo,
                            mensaje: respuesta.mensaje
                         },
-                        mp : {
+                        mp: {
                            comprobante: id,
                            codigo: 'enProceso',
                            mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
@@ -272,11 +247,11 @@ exports.operacionNuevaMP = function (req, res, next) {
                   } else {
                      console.log("la op no se realizo, no se envian mails y se cancela", consulta);
                      let response = {
-                        mysql : {
+                        mysql: {
                            codigo: 0,
                            mensaje: respuesta.mensaje
                         },
-                        mp : {
+                        mp: {
                            comprobante: id,
                            codigo: 'enProceso',
                            mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
@@ -293,7 +268,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                console.log("informacion de la cancelacion:  ", data);
                console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                let response = {
-                  mp : {
+                  mp: {
                      codigo: 'error',
                      mensaje: 'El pago no se realizo. Motivo: Operacion cancelada'
                   }
@@ -309,7 +284,7 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log("veamos si existe: este es el payment completo: ", payment);
          console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
          let response = {
-            mp : {
+            mp: {
                codigo: 'error',
                mensaje: 'El pago no se realizo. Motivo: ' + payment.response.status_detail
             }
@@ -331,7 +306,7 @@ exports.operacionNuevaMP = function (req, res, next) {
          console.log('no se pudo cambiar el nombre del error a español, error del catch: ', tryError);
       }
       let response = {
-         mp : {
+         mp: {
             codigo: 'error',
             mensaje: 'El pago no se realizo. Motivo: ' + error
          }
