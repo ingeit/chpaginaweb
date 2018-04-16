@@ -45,6 +45,7 @@ export class FormularioWebPaso2Page {
 
       this.respuesta = navParams.get('respuesta');
       this.campos = this.navParams.get('campos');
+      console.log("campos de primera pagina",this.campos)
 
       console.log(this.respuesta, this.campos);
       if (this.respuesta.mp.codigo == 'error') {
@@ -185,7 +186,12 @@ export class FormularioWebPaso2Page {
 
    volver() {
       Mercadopago.clearSession();
-      this.navCtrl.setRoot('login', { 'idMD5': this.campos.usuario.idUsuarioMD5 });
+      this.navCtrl.setRoot('login', { 'idUsuario': ''});
+   }
+
+   aceptarOperacion(){
+      let url = 'http://clubhonorarios.com/adminop';
+      const browser = this.iab.create(url);
    }
 
    otroMetodo() {

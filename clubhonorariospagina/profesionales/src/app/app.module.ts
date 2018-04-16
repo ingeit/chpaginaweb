@@ -8,6 +8,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //Pages
@@ -57,6 +58,7 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
+    BrowserAnimationsModule,
     TooltipsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {

@@ -1,5 +1,5 @@
 import { Component,HostListener,ViewChild } from '@angular/core';
-import { App, NavController, NavParams, IonicPage,AlertController, LoadingController, ModalController } from 'ionic-angular';
+import { App, NavController, NavParams, IonicPage,AlertController, LoadingController, ModalController, ToastController  } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
@@ -50,7 +50,8 @@ export class NuevaOperacionPaso2Page {
               public opProv: OperacionesProvider,
               public formBuilder: FormBuilder,
               public modalCtrl: ModalController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public toastCtrl: ToastController) {
 
       this.formulario = this.navParams.get('formulario');  
       console.log("formulario campos",this.formulario)
@@ -144,7 +145,14 @@ export class NuevaOperacionPaso2Page {
       this.opProv.cargarOperacion(details).then((data)=>{
       this.loading.dismiss();
           this.respuesta = data;
-          this.mostrarModal(this.respuesta);
+          if(this.respuesta.mysql[0].codigo == 0){
+            this.showAlert('Error',this.respuesta.mysql[0].mensaje)
+          }else{
+            this.presentToast(`OPERACION Nº ${this.respuesta.mysql[0].codigo} CREADA CON EXITO`);
+          }
+          
+          console.log("respuesta nodejs",this.respuesta);
+          // this.mostrarModal(this.respuesta);
           
           // let mysql = this.respuesta.mysql[0]; //mysql.codigo, fechaTransaccion, fechaPago, mensaje...
           // let mailProf = this.respuesta.mailProfesional; // si hay error.. aparece 'error', sino '250 OK ......'         
@@ -257,6 +265,18 @@ export class NuevaOperacionPaso2Page {
       buttons: ['Aceptar']
     });
     alert.present();
+  }
+
+  presentToast(mensaje) {
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: 10000,
+      position: 'middle',
+      showCloseButton: true,
+      closeButtonText: 'ACEPTAR'
+
+    });
+    toast.present();
   }
 
   showLoader(mensaje){

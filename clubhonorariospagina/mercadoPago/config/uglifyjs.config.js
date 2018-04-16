@@ -1,3 +1,3 @@
-module.exports = {
-	compress: { drop_console: true }
-};
+// module.exports = {
+// 	compress: { drop_console: true }
+// };

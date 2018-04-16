@@ -51,25 +51,25 @@ export class LoginPage {
    }
 
    public getUsuario() {
-      let idUsuario = 
-      jwt.verify(this.navParams.get('idUsuario'), 'shhola', (err, decoded) => {
-         console.log("id jwt decodificado", decoded)
-         let details = {
-            idUsuario: decoded.idUsuario
-         };
-         this.usuarioProv.usuarioDame(details).then((respuesta: any) => {
-            if (respuesta[0].codigo == 1) {
-               this.usuario = respuesta[0];
-               delete this.usuario.codigo;
-            } else {
-               this.usuario.idUsuarioMD5 = '';
-            }
-            console.log("usuario final", this.usuario)
+      let idUsuario = this.navParams.get('idUsuario');
+      if(idUsuario != ''){
+         jwt.verify(this.navParams.get('idUsuario'), 'shhola', (err, decoded) => {
+            console.log("id jwt decodificado", decoded)
+            let details = {
+               idUsuario: decoded.idUsuario
+            };
+            this.usuarioProv.usuarioDame(details).then((respuesta: any) => {
+               if (respuesta[0].codigo == 1) {
+                  this.usuario = respuesta[0];
+                  delete this.usuario.codigo;
+               } else {
+                  this.usuario.idUsuarioMD5 = '';
+               }
+               console.log("usuario final", this.usuario)
+            });
          });
-      });
 
-
-      
+      }
    }
 
    public getProfesional() {

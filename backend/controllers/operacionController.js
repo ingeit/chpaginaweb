@@ -217,7 +217,7 @@ exports.operacionNuevaMP = function (req, res, next) {
                res.json(response);
             }
          });
-      } else if (payment.response.status == 'in_process' || payment.response.status == 'in_process' || payment.response.status == 'rejected') {
+      } else if (payment.response.status == 'in_process') {
          console.log("pago en proceso.. lo cancelamos, el ID es: ", payment.response.id);
          let id = payment.response.id;
          mp.cancelPayment(id, function (err, data) {
