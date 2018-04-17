@@ -3,6 +3,7 @@ import { NavController,LoadingController,AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginProvider } from '../../providers/login/login';
 import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
+import { DashboardPage } from '../dashboard/dashboard';
 import { MenuController } from 'ionic-angular';
 
 
@@ -53,7 +54,7 @@ export class HomePage {
           if(this.respuesta.codigo !== 0){
             console.log(this.login.value.username)
             this.menu.enable(true);
-            this.navCtrl.setRoot(ListaOperacionesPage);
+            this.navCtrl.setRoot(DashboardPage);
           }
         }, (err) => {
             this.loading.dismiss();

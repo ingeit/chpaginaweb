@@ -70,7 +70,7 @@ export class NuevaOperacionPage {
 		this.campos = {};
 		this.storage.get('usuario').then((usuario) => {
 			this.campos.usuario = usuario;
-			console.log("campos idUsuario", this.campos.idUsuario)
+			console.log("campos idUsuario", this.campos.usuario)
 		});
 
 		this.dameFechas();
@@ -97,8 +97,8 @@ export class NuevaOperacionPage {
 			especialidadProfesional: [''],
 			telefonoProfesional: [''],
 		});
-
-		if (this.navParams.get('campos') == '') {
+		console.log("navparms campos nuevaOP",this.navParams.get('campos'))
+		if (this.navParams.get('campos') == '' ) {
 			this.desde = 'adminOp'
 		} else {
 			this.desde = 'mpop';
@@ -234,6 +234,8 @@ export class NuevaOperacionPage {
 			this.tarjeta = this.formulario.get('tarjeta').value;
 			if (this.tipoTarjeta === 'credito') {
 				this.cuotas = this.formulario.get('cuotas').value;
+			}else{
+				this.cuotas = 1;
 			}
 			// Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
 			// Ej: 10.225 = 10.23
@@ -252,7 +254,7 @@ export class NuevaOperacionPage {
 			if (this.tipoTarjeta === 'credito') {
 				this.importeCuota = Math.round((this.importeCarga / this.cuotas) * 100) / 100;
 			} else {
-				this.importeCuota = 0;
+				this.importeCuota = this.importeVenta;
 			}
 			this.formulario.controls['importeCuota'].setValue(this.importeCuota);
 		}
@@ -316,6 +318,7 @@ export class NuevaOperacionPage {
 		console.log("fecha trans", this.campos.fechas.transaccion)
 		this.navCtrl.setRoot(NuevaOperacionPaso2Page, {
 			tipoOperacion: this.lapos,
+			cuotas: this.cuotas,
 			campos: this.campos,
 			fechaTransaccion: this.campos.fechas.transaccion,
 			fechaPago: this.campos.fechas.pago,

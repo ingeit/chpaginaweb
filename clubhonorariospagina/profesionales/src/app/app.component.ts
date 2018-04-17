@@ -38,9 +38,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { tituloPrincipal: 'Menu Principal', iconoPrincipal: 'menu', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: DashboardPage }] },
       { tituloPrincipal: 'Operaciones', iconoPrincipal: 'card', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: ListaOperacionesPage }] },
       { tituloPrincipal: 'Profesionales', iconoPrincipal: 'people', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: ListarProfesionalesPage }, { titulo: 'Nuevo', icono: 'person-add', componente: FormProfesionalPage }] },
-      { tituloPrincipal: 'Tarjetas', iconoPrincipal: 'card', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: TarjetasPage }, { titulo: 'Nueva', icono: 'card-add', componente: FormTarjetaPage }] }
+      { tituloPrincipal: 'Tarjetas', iconoPrincipal: 'card', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: TarjetasPage }, { titulo: 'Nueva', icono: 'card-add', componente: FormTarjetaPage }] },
+      { tituloPrincipal: 'Calendario', iconoPrincipal: 'calendar', mostrarComponentes: false, componenentes: [{ titulo: 'Ver', icono: 'calendar', componente: CalendarioPage }] },
     ];
   }
 

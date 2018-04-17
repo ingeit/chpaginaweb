@@ -5,6 +5,7 @@ import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { DatePipe } from '@angular/common';
 import { NuevaOperacionModalPage } from '../nueva-operacion-modal/nueva-operacion-modal';
+import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 
 @Component({
   selector: 'page-nueva-operacion-paso2',
@@ -64,7 +65,8 @@ export class NuevaOperacionPaso2Page {
           this.tipoTarjeta = 'D'
         }
       console.log("tipo tarjeta ya en paso 2: ",this.tipoTarjeta);
-      this.cuotas = this.formulario.cuotas.value;
+      this.cuotas = this.navParams.get('cuotas');
+      console.log(this.cuotas);
       this.impTotal = this.formulario.importeCarga.value;
       this.impCuota = this.formulario.importeCuota.value;
       
@@ -148,7 +150,9 @@ export class NuevaOperacionPaso2Page {
           if(this.respuesta.mysql[0].codigo == 0){
             this.showAlert('Error',this.respuesta.mysql[0].mensaje)
           }else{
+            this.navCtrl.setRoot('NuevaOperacion', { 'campos': '' });
             this.presentToast(`OPERACION Nº ${this.respuesta.mysql[0].codigo} CREADA CON EXITO`);
+
           }
           
           console.log("respuesta nodejs",this.respuesta);
@@ -270,11 +274,10 @@ export class NuevaOperacionPaso2Page {
   presentToast(mensaje) {
     let toast = this.toastCtrl.create({
       message: mensaje,
-      duration: 10000,
+      duration: 4000,
       position: 'middle',
       showCloseButton: true,
       closeButtonText: 'ACEPTAR'
-
     });
     toast.present();
   }
