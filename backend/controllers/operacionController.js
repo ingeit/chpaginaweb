@@ -56,6 +56,13 @@ exports.dameOperacion = function (req, res, next) {
    });
 }
 
+exports.pagarOperacion = function (req, res, next) {
+   var idOperacion = req.body.idOperacion;
+   operacion.pagarOperacion(idOperacion, function (consulta) {
+      res.json(consulta);
+   });
+}
+
 exports.operacionBaja = function (req, res, next) {
    var idOperacion = req.body.idOperacion;
    operacion.operacionBaja(idOperacion, function (consulta) {

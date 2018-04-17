@@ -13,6 +13,7 @@ router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
 router.post('/dameOperacion',OperacionController.dameOperacion);
+router.post('/pagarOperacion',OperacionController.pagarOperacion);
 router.get('/dameFechas', OperacionController.getFechas);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);

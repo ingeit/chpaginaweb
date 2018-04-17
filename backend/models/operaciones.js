@@ -36,6 +36,12 @@ exports.dameOperacion = function (idOperacion, fn) {
         else fn(rows[0]);
     });
 }
+exports.pagarOperacion = function (idOperacion, fn) {
+    connection.query('call operacion_modificar_estadoPago(' + idOperacion + ')', function (err, rows) {
+        if (err) fn(err);
+        else fn(rows[0]);
+    });
+}
 
 exports.operacionBaja = function (idOperacion, fn) {
     connection.query('call operacion_baja(' + idOperacion + ')', function (err, rows) {

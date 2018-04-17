@@ -37,6 +37,7 @@ export class OperacionesProvider {
         .subscribe(res => {
           // transformamos las fechas a UTC por culpa del pipe...
           res = this.transformarFechas(res);
+          console.log("respuesta en provider",res);
           resolve(res);
         }, (err) => {
           reject(err);
@@ -71,6 +72,22 @@ export class OperacionesProvider {
         .map(res => res.json())
         .subscribe(res => {
           res = this.transformarFechas(res);
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  pagarOperacion(credentials){
+    return new Promise((resolve, reject) => { 
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this.http.post(`${configServer.data.urlServidor}/api/pagarOperacion`, JSON.stringify(credentials), {headers: headers})
+        .map(res => res.json())
+        .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);

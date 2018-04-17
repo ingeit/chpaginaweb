@@ -12,6 +12,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { TarjetasPage } from '../pages/tarjetas/tarjetas';
 import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
+import { NuevaOperacionPage } from '../pages/nueva-operacion/nueva-operacion';
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2';
 import { NuevaOperacionModalPage } from '../pages/nueva-operacion-modal/nueva-operacion-modal';
 import { CalendarioPage } from '../pages/calendario/calendario';
@@ -42,7 +43,7 @@ export class MyApp {
       { tituloPrincipal: 'Operaciones', iconoPrincipal: 'card', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: ListaOperacionesPage }] },
       { tituloPrincipal: 'Profesionales', iconoPrincipal: 'people', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: ListarProfesionalesPage }, { titulo: 'Nuevo', icono: 'person-add', componente: FormProfesionalPage }] },
       { tituloPrincipal: 'Tarjetas', iconoPrincipal: 'card', mostrarComponentes: false, componenentes: [{ titulo: 'Listar', icono: 'list', componente: TarjetasPage }, { titulo: 'Nueva', icono: 'card-add', componente: FormTarjetaPage }] },
-      { tituloPrincipal: 'Calendario', iconoPrincipal: 'calendar', mostrarComponentes: false, componenentes: [{ titulo: 'Ver', icono: 'calendar', componente: CalendarioPage }] },
+      { tituloPrincipal: 'Calendario', iconoPrincipal: 'calendar', mostrarComponentes: false, componenentes: [{ titulo: 'Ver/Editar', icono: 'calendar', componente: CalendarioPage }] },
     ];
   }
 
@@ -59,6 +60,7 @@ export class MyApp {
         } else {
           this.storage.get('rol').then((rol) => {
             console.log('el usario tiene el rol de', rol);
+            this.rootPage = DashboardPage;
             this.menu.enable(true);
           });
         }
