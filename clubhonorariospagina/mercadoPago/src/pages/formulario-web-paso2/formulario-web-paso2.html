@@ -12,7 +12,7 @@
 <ion-content padding>
   <div class="contenedor">
       <div id="botonCentrado">
-        <button *ngIf="campos.usuario.idUsuario $$ !mostrarCartelMPError" (click)="aceptarOperacion()" color="secondary" ion-button>
+        <button *ngIf="campos.usuario.idUsuario && !mostrarCartelMPError" (click)="aceptarOperacion()" color="secondary" ion-button>
             <ion-icon name="ios-card"></ion-icon> ACEPTAR
         </button>
         <button *ngIf="!campos.usuario.idUsuario" (click)="volver()" color="secondary" ion-button>

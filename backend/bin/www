@@ -8,7 +8,19 @@ var app = require('../app');
 var debug = require('debug')('tarjetas:server');
 var http = require('http');
 var https = require('https');
-var fs = require('fs')
+var fs = require('fs');
+var schedule = require('node-schedule');
+var mysql = require('mysql');
+var env = process.env.NODE_ENV || 'database',
+  databaseConfig = require('./../config/' + env + '.js');
+
+var connection = mysql.createConnection({
+  host: databaseConfig.host,
+  user: databaseConfig.user,
+  password: databaseConfig.password,
+  database: databaseConfig.database,
+  timezone: 'utc'
+});
 
 /**
  * Get port from environment and store in Express.
@@ -21,16 +33,16 @@ app.set('port', port);
  * Create HTTPSs server.
  */
 
-var privateKey = fs.readFileSync( './certificados/key.key', 'utf8').toString();
-var certificate = fs.readFileSync( './certificados/cert.crt', 'utf8').toString();
-var ca1 = fs.readFileSync( './certificados/ca1.pem', 'utf8').toString();
-var ca2 = fs.readFileSync( './certificados/ca2.pem', 'utf8').toString();
-var certintermediate = fs.readFileSync( './certificados/caBundle.crt', 'utf8').toString();
+var privateKey = fs.readFileSync('./certificados/key.key', 'utf8').toString();
+var certificate = fs.readFileSync('./certificados/cert.crt', 'utf8').toString();
+var ca1 = fs.readFileSync('./certificados/ca1.pem', 'utf8').toString();
+var ca2 = fs.readFileSync('./certificados/ca2.pem', 'utf8').toString();
+var certintermediate = fs.readFileSync('./certificados/caBundle.crt', 'utf8').toString();
 
 var server2 = https.createServer({
-    key: privateKey,
-    cert: certificate,
-    ca:certintermediate
+  key: privateKey,
+  cert: certificate,
+  ca: certintermediate
 }, app);
 
 var server = http.createServer(app);
@@ -47,7 +59,7 @@ server.on('listening', onListening);
 server.on('uncaughtException', function (req, res, route, err) {
   log.info('******* Begin Error *******\n%s\n*******\n%s\n******* End Error *******', route, err.stack);
   if (!res.headersSent) {
-    return res.send(500, {ok: false});
+    return res.send(500, { ok: false });
   }
   res.write('\n');
   res.end();
@@ -111,3 +123,23 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+//evento automatico
+// se ejecuta a las 18:07 todos los dias
+var j = schedule.scheduleJob('0 18 * * *', function () {
+                            // * * * * * *
+                            // ┬ ┬ ┬ ┬ ┬ ┬
+                            // │ │ │ │ │ |
+                            // │ │ │ │ │ └ day of week (0 - 7) (0 or 7 is Sun)
+                            // │ │ │ │ └───── month (1 - 12)
+                            // │ │ │ └────────── day of month (1 - 31)
+                            // │ │ └─────────────── hour (0 - 23)
+                            // │ └──────────────────── minute (0 - 59)
+                            // └───────────────────────── second (0 - 59, OPTIONAL)
+
+  connection.query('call cambiar_estado_pago_operacion()', function (err, rows) {
+    if (err) {
+      console.log('cambiar estado operacion pendientes: ',err);
+    } else console.log('cambiar estado operacion pendientes: ',rows[0]);
+  });
+});

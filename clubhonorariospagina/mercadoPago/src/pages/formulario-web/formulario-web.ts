@@ -352,10 +352,6 @@ export class FormularioWebPage {
 		this.formulario.controls['cardholderName'].setValue(opcion);
 	}
 	
-	volver() {
-      Mercadopago.clearSession();
-      this.navCtrl.setRoot('login',{'idMD5' : this.campos.usuario.idUsuarioMD5});
-   }
 }
 
 
