@@ -107,7 +107,7 @@ exports.operacionNuevaOP = function (req, fn) {
 
 exports.operacionNueva = function (campos, payment, fn) {
     var idProfesional = campos.profesional.id;
-    var idUsuario = null;
+    var idUsuario = campos.usuario.idUsuario;
     var nombreTarjeta = '"' + campos.tarjeta.nombre + '"';
     var dniCliente = campos.cliente.dni;
     var apellidoCliente = '"' + campos.cliente.apellido + '"';

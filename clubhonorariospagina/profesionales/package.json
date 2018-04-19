@@ -63,9 +63,6 @@
     "webpack": "^3.8.1"
   },
   "description": "An Ionic project",
-  "config": {
-    "ionic_uglifyjs": "./config/uglifyjs.config.js"
-  },
   "cordova": {
     "platforms": [
       "android",

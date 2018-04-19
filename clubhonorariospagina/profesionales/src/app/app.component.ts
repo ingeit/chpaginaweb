@@ -58,10 +58,12 @@ export class MyApp {
         if (token === '' || token === null) {
           this.rootPage = HomePage;
         } else {
-          this.storage.get('rol').then((rol) => {
-            console.log('el usario tiene el rol de', rol);
-            this.rootPage = DashboardPage;
+          // hago esto, para mostrar el dashboard en caso de ingresa solo a adminop, porque si vengo de mercadopago, me rutea al dash en vez de a la pagina de nueva operacion
+          this.storage.get('mpop').then((mpop) => {
             this.menu.enable(true);
+            if (mpop == 'no') {
+              this.rootPage = DashboardPage;
+            }
           });
         }
       }).catch((err) => {

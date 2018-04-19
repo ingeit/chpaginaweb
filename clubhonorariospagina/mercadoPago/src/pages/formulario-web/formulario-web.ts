@@ -78,7 +78,11 @@ export class FormularioWebPage {
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
 		this.campos.profesional = navParams.get('profesional');
-		this.campos.usuario = navParams.get('usuario');
+		if(navParams.get('usuario').idUsuario > 0){
+			this.campos.usuario = navParams.get('usuario');
+		}else{
+			this.campos.usuario.idUsuario = null;
+		}
 		console.log(this.campos);
 		this.dameFechas();
 		this.dameTarjetas();
@@ -314,6 +318,7 @@ export class FormularioWebPage {
 				this.campos.payment_method_id = this.tarjetaId;
 				this.campos.issuer_id = this.issuer_id;
 				this.campos.sdkResponse.id = sdkResponseHandler.id;
+				
 
 				this.operacionesProv.operacionNueva(this.campos).then((respuesta: any) => {
 					this.loading.dismiss();

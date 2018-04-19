@@ -27,27 +27,24 @@ export class LoginProvider {
         .subscribe(res => {
           let data = res.json();
           console.log("datos del usuario", data)
-          this.storage.clear().then((res) => {
-            console.log("respuesta destroy",res);
-            this.storage.set('token', data.token);
-            this.storage.set('_id', data.user._id);
-            this.storage.set('rol', data.user.rol);
-            this.storage.set('usuario', data.user);
-            resolve(data);
-          });
-        }, (err) => {
-          reject(err);
+          console.log("respuesta destroy", res);
+          this.storage.set('token', data.token);
+          this.storage.set('_id', data.user._id);
+          this.storage.set('rol', data.user.rol);
+          this.storage.set('usuario', data.user);
+          this.storage.set('mpop', 'no');
+          resolve(data);
         });
-
     });
-
   }
 
   logout() {
     return new Promise((resolve, reject) => {
       this.storage.set('token', '');
-      this.storage.set('idUsuario', '');
+      this.storage.set('_id', '');
       this.storage.set('rol', '');
+      this.storage.set('usuario', ''); 
+      this.storage.set('mpop', 'no');
       resolve(42);
     });
   }

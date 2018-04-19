@@ -187,11 +187,12 @@ export class ListaOperacionesPage {
   }
 
   public nuevaOperacion() {
-    this.storage.get('idUsuario').then((respuesta) => {
+    this.storage.get('usuario').then((respuesta) => {
       let value = jwt.sign({
-        idUsuario: respuesta
+        idUsuario: respuesta._id
       }, 'shhola', { expiresIn: 5 * 60 });
       // let url = 'https://clubhonorarios.com/mpop/#/'+value;
+      this.storage.set('mpop','si');
       let url = 'http://localhost:81/mpop/#/' + value;
       const browser = this.iab.create(url);
     });
