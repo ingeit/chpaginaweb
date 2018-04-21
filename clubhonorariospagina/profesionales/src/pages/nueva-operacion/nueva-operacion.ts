@@ -11,6 +11,7 @@ import * as token from './../../server';
 import * as jwt from 'jsonwebtoken';
 import { DashboardPage } from '../dashboard/dashboard';
 import { Storage } from '@ionic/storage';
+import swal from 'sweetalert';
 
 /**
  * Generated class for the NuevaOperacionPage page.
@@ -97,8 +98,8 @@ export class NuevaOperacionPage {
 			especialidadProfesional: [''],
 			telefonoProfesional: [''],
 		});
-		console.log("navparms campos nuevaOP",this.navParams.get('campos'))
-		if (this.navParams.get('campos') == '' ) {
+		console.log("navparms campos nuevaOP", this.navParams.get('campos'))
+		if (this.navParams.get('campos') == '') {
 			this.desde = 'adminOp'
 		} else {
 			this.desde = 'mpop';
@@ -108,6 +109,7 @@ export class NuevaOperacionPage {
 					this.navCtrl.setRoot(DashboardPage);
 					console.log("error jwt", err);
 				} else {
+					this.storage.set('mpop', 'no');
 					console.log("decodificado", decoded)
 					this.campos = decoded.campos;
 					this.cargarValores();
@@ -214,6 +216,10 @@ export class NuevaOperacionPage {
 			this.submitAttempt = true;
 		} else {
 			console.log("form valido");
+			if (this.lapos == "web") {
+				//mostrar alerta para ir a web visa o master
+				this.mostrarOpcionWeb();
+			}
 			this.confirmar();
 		}
 
@@ -234,7 +240,7 @@ export class NuevaOperacionPage {
 			this.tarjeta = this.formulario.get('tarjeta').value;
 			if (this.tipoTarjeta === 'credito') {
 				this.cuotas = this.formulario.get('cuotas').value;
-			}else{
+			} else {
 				this.cuotas = 1;
 			}
 			// Los calculos son con los numeros redondeados simplemente al siguiente segundo decimal. EJ
@@ -388,6 +394,34 @@ export class NuevaOperacionPage {
 	public move(bicho) {
 		let yOffset = document.getElementById(bicho).offsetTop;
 		this.content.scrollTo(0, yOffset, 1000);
+	}
+
+	mostrarOpcionWeb() {
+		swal({
+			title: "Elegir una opción",
+			icon: "warning",
+			buttons: {
+				visa: {
+					text: "VISA",
+					value: "visa",
+				},
+				master: {
+					text: "MASTERCARD",
+					value: "master",
+				},
+			},
+		}).then((value) => {
+			switch (value) {
+				case "master":
+					let URL1 = 'https://www1.posnet.com.ar/webposnet';
+					window.open(URL1, '_system');
+					break;
+				case "visa":
+					let URL = 'https://vnet.visa.com.ar/cspv/adm/GetLogin.event';
+					window.open(URL, '_system');
+					break;
+			}
+		});
 	}
 }
 

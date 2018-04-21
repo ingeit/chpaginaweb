@@ -91,7 +91,15 @@ exports.operacionNuevaOP = function (req, fn) {
     var importeCarga = req.body.importeCarga;
     var codigoAuto = req.body.codigoAuto;
     var cupon = req.body.cupon;
+
+    console.log("antes del sp: nombre tarjeta",nombreTarjeta)
+    console.log("antes del sp: tipo op",tipoOperacion)
     
+    if (nombreTarjeta == '"POINT PREFERENCIAL"') {
+        console.log("if se cumple, nombre es point preferencial, entocnes en tipo de operacion ponemos eso")
+        tipoOperacion = '"point preferencial"';
+        console.log("tipo op en el if cambiado",tipoOperacion)
+    }
 
 
     connection.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +

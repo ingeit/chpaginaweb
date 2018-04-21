@@ -197,6 +197,17 @@ export class ListaOperacionesPage {
       const browser = this.iab.create(url);
     });
   }
+  public nuevaOperacion1() {
+    this.storage.get('usuario').then((respuesta) => {
+      let value = jwt.sign({
+        idUsuario: respuesta._id
+      }, 'shhola', { expiresIn: 5 * 60 });
+      // let url = 'https://clubhonorarios.com/mpop1/#/'+value;
+      this.storage.set('mpop','si');
+      let url = 'http://localhost:81/mpop1/#/' + value;
+      const browser = this.iab.create(url);
+    });
+  }
 
   cargarOperacion() {
     this.navCtrl.setRoot('NuevaOperacion', { 'campos': '' });

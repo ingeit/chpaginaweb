@@ -25,7 +25,7 @@
               <img src="assets/clipgreen.png" alt="">
           </div>
           <h4>{{respuesta.mp.mensaje}}</h4>
-          <h4>Comprobante Nº: {{respuesta.mp.comprobante}}</h4>
+          <h4>Codigo Autorizacion: {{respuesta.mp.comprobante}}</h4>
           <h4 *ngIf="!mostrarCartelMysqlError">Operacion Nº: {{respuesta.mysql.codigo}}</h4>
       </div>  
       <div *ngIf="mostrarCartelMPError" class="cardRed card-container">

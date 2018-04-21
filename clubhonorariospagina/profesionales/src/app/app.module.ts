@@ -52,7 +52,7 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     FormTarjetaPage,
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
-    NuevaOperacionModalPage
+    NuevaOperacionModalPage,
   ],
   imports: [
     BrowserModule,

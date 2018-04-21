@@ -1,0 +1,4 @@
+2 botones para cargar op en MPOP (mpop y mpop1)
+direccionar a visa web cuando se elija lapos web
+agregar infomacion en lista de operacion el tipo: mp , point, web, etc
+boton reintentar para los admin de mpop

@@ -1,9 +1,0 @@
-modificar tabla tarjetas
-crear tabla cuotas
-SP tarjeta_baja
-SP tarjeta_cuota_baja
-SP tarjeta_modificar
-SP tarjeta_nueva
-
-FK rol en tabla usuarios
-tabla nueva rol

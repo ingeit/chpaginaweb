@@ -52,7 +52,7 @@ export class MyApp {
       this.menu.enable(false);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.storage.set('mpop','no');
       this.storage.get('token').then((token) => {
         console.log('token is', token);
         if (token === '' || token === null) {
