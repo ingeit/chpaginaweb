@@ -103,6 +103,10 @@ page-lista-operaciones {
         word-break: break-all;
         white-space: normal;   
     }
+
+    mat-cell, mat-header-cell{
+        min-width: 200px;
+    }
     
 
     
