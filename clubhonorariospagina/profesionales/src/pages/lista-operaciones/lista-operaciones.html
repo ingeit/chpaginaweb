@@ -37,18 +37,17 @@
     </div>
   </div>
 
-  <div class="contenedor">
-
+  <ion-grid col-10>
     <ion-row>
       <button (click)="nuevaOperacion()" ion-button color="light">
         <ion-icon name="book"></ion-icon>
         Nueva Operacion MP
       </button>
-      <button (click)="nuevaOperacion1()"  ion-button color="light">
+      <button (click)="nuevaOperacion1()" ion-button color="light">
         <ion-icon name="book"></ion-icon>
         Nueva Operacion MP1
       </button>
-      <button (click)="cargarOperacion()"  ion-button color="light">
+      <button (click)="cargarOperacion()" ion-button color="light">
         <ion-icon name="book"></ion-icon>
         Cargar Operacion en Base de Datos
       </button>
@@ -74,6 +73,49 @@
     <div *ngIf="mostrarTarjetas">
       <ion-row>
         <ion-col>
+
+          <mat-table #table [dataSource]="Operaciones">
+            <!-- Position Column -->
+            <ng-container matColumnDef="idOperacion">
+              <mat-header-cell *matHeaderCellDef> Operacion Nº </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="profesional">
+              <mat-header-cell *matHeaderCellDef> Profesional </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="dniProfesional">
+              <mat-header-cell *matHeaderCellDef> Prof. DNI </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.dniProfesional}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaTransaccion">
+              <mat-header-cell *matHeaderCellDef> Fecha de Operacion </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy'}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="fechaPago">
+              <mat-header-cell *matHeaderCellDef> Fecha de Pago </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.fechaPago | date:'dd/MM/yy'}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="tipoOperacion">
+              <mat-header-cell *matHeaderCellDef> Tipo de Operacion </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.tipoOperacion}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="estadoPago">
+              <mat-header-cell *matHeaderCellDef> Estado de Pago </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.estadoPago}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="tarjeta">
+              <mat-header-cell *matHeaderCellDef> Medio de pago </mat-header-cell>
+              <mat-cell *matCellDef="let o"> {{o.nombreTarjeta}} - {{o.cuotas}} Cuotas </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="importes">
+              <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
+              <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+            <mat-row *matRowDef="let rowData; columns: columnsToDisplay;"></mat-row>
+          </mat-table>
+
           <ion-card *ngFor="let o of Operaciones">
             <ion-row>
               <ion-col col-10>
@@ -94,10 +136,19 @@
             </ion-row>
 
             <ion-card-content>
-              <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
-              Fecha: {{o.fechaTransaccion | date:'dd/MM/yy H:mm'}}
-              <br> Estado de pago: {{o.estadoPago}}
-              <br> {{o.tarjeta}} - {{o.cuotas}} cuotas &bull; CodAuto: {{o.codigoAuto}} &bull; Cupon: {{o.cupon}}
+              <ion-col col-3>
+                <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
+                Fecha de transaccion: {{o.fechaTransaccion | date:'dd/MM/yy H:mm'}}
+                <br> Fecha de pago: {{o.fechaPago | date:'dd/MM/yy'}}
+                <br> Estado de pago: {{o.estadoPago}}
+                <br> Tipo de operación: {{o.tipoOperacion}}
+
+              </ion-col>
+              <ion-col col-3>
+                Medio de pago: {{o.nombreTarjeta}} - {{o.cuotas}} cuotas
+                <br>CodAuto: {{o.codigoAuto}} &bull; Cupon: {{o.cupon}}
+              </ion-col>
+
             </ion-card-content>
 
             <ion-row class="row" no-padding="">
@@ -167,5 +218,8 @@
     <div *ngIf="!mostrarTarjetas">
       <h3> No se encontraron Operaciones</h3>
     </div>
-  </div>
+
+  </ion-grid>
+
+
 </ion-content>

@@ -8,7 +8,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 //Pages
@@ -35,6 +34,10 @@ import { ProfesionalesProvider } from '../providers/profesionales/profesionales'
 import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habiles';
 import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
 
+//MATERIAL
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 @NgModule({
@@ -59,6 +62,7 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
     HttpModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
+    MatTableModule,
     TooltipsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {

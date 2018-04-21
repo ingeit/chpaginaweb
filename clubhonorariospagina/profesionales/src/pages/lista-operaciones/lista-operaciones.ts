@@ -27,6 +27,7 @@ export class ListaOperacionesPage {
   mostrarTarjetas = false;
   respuesta: any;
   montoTotal = 0;
+  columnsToDisplay = ['idOperacion','profesional','dniProfesional','fechaTransaccion','fechaPago','tipoOperacion','estadoPago','tarjeta','importes'];
 
   constructor(public navCtrl: NavController,
     public data: OperacionesProvider,

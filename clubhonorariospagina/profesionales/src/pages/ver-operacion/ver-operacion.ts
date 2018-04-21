@@ -25,6 +25,7 @@ export class VerOperacionPage {
               public loadingCtrl: LoadingController,
               private alertCtrl: AlertController){
     this.operacion = this.navParams.get('operacion');
+    console.log("ver operacion",this.operacion)
     if(this.operacion.tipoTarjeta === 'C'){
       this.operacion.tipoTarjeta = 'Credito'
     }else{

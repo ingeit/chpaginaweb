@@ -1,1 +1,0 @@
-agregar infomacion en lista de operacion el tipo: mp , point, web, etc
