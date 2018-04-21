@@ -18,6 +18,10 @@ import localeEs from '@angular/common/locales/es';
 import { CardIO } from '@ionic-native/card-io';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 registerLocaleData(localeEs);
 
@@ -32,6 +36,10 @@ registerLocaleData(localeEs);
   imports: [
     BrowserModule,
     HttpModule,
+    BrowserAnimationsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
     IonicImageViewerModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',

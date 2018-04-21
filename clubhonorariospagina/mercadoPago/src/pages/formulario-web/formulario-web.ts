@@ -22,6 +22,7 @@ declare var Mercadopago;
 	templateUrl: 'formulario-web.html',
 })
 export class FormularioWebPage {
+
 	private token: any;
 	private campos: ModeloFormulario;
 	private pasos: String;
@@ -38,6 +39,7 @@ export class FormularioWebPage {
 	private mostrarCuotaBanco: boolean = false;
 	private issuer_id: any = null;
 	private urlBannerTarjeta: any;
+	private informacionExtra: boolean = false;
 	@ViewChild(Content) content: Content;
 	@ViewChild('paymentMethodId') paymentMeth: any;
 	private paymentMethodId: any;
@@ -352,6 +354,11 @@ export class FormularioWebPage {
 					}
 				}
 			);
+	}
+
+	verInformacionExtra(){
+		console.log(this.informacionExtra)
+		this.informacionExtra = !this.informacionExtra;
 	}
 
 	simular(opcion) {

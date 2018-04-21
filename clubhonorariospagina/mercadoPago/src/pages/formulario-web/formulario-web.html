@@ -19,52 +19,57 @@
             <ion-col style="background-color: white" *ngIf="campos.usuario.idUsuario" col-12 col-md-12>
                <p>Usuario: {{this.campos.usuario.apellido | uppercase}}, {{this.campos.usuario.nombre}}</p>
             </ion-col>
-            <ion-col col-12 col-md-6>
-               <h3>
-                  <ion-icon name="contact"></ion-icon>&nbsp;{{campos.profesional.apellido | uppercase}}, {{campos.profesional.nombre}} - DNI: {{campos.profesional.dni}}
-               </h3>
-               <h2>
-                  <ion-icon name="briefcase"></ion-icon>&nbsp;{{campos.profesional.profesion}} - {{campos.profesional.especialidad}}
-               </h2>
-               <h2>
-                  <ion-icon name="mail"></ion-icon>&nbsp;{{campos.profesional.mail}} -
-                  <ion-icon name="phone-portrait"></ion-icon>&nbsp;{{campos.profesional.telefono}}
-               </h2>
-            </ion-col>
-            <ion-col col-12 col-md-6>
-               <ion-row>
-                  <ion-col>
-                     <label>Fecha de Transaccion:</label>
-                     <h4> {{campos.fechas?.transaccion | date:'dd-MM-yyyy HH:mm':'+0000'}}</h4>
-                  </ion-col>
-                  <ion-col>
-                     <label>Fecha de Pago: </label>
-                     <h4>{{campos.fechas?.pago | date:'dd-MM-yyyy':'+0000'}}</h4>
-                  </ion-col>
-               </ion-row>
+            <ion-col col-12>
+               <button style="margin: 0 auto; display: block;" mat-button color="primary" *ngIf="!informacionExtra" (click)="verInformacionExtra()">Ver profesional</button>
+               <button style="margin: 0 auto; display: block;" mat-button color="primary" *ngIf="informacionExtra" (click)="verInformacionExtra()">Ocultar profesional</button>
             </ion-col>
          </ion-row>
+         <div *ngIf="informacionExtra">
+            <ion-row>
+               <ion-col>
+                  <p style="color:black !important">
+                     <ion-icon name="contact"></ion-icon>&nbsp;{{campos.profesional.apellido | uppercase}}, {{campos.profesional.nombre}} - DNI: {{campos.profesional.dni}}
+                     &nbsp;&nbsp;
+                     <ion-icon name="phone-portrait"></ion-icon>&nbsp;{{campos.profesional.telefono}}
+                  </p>
+                  <p style="color:black !important">
+                     <ion-icon name="mail"></ion-icon>&nbsp;{{campos.profesional.mail}} -
+                     <ion-icon name="briefcase"></ion-icon>&nbsp;{{campos.profesional.profesion}} - {{campos.profesional.especialidad}}
+                  </p>
+               </ion-col>
+               <ion-col>
+                  <ion-row>
+                     <ion-col>
+                        <label for="fechaTransaccion">Fecha de Transaccion:</label>
+                        <p style="color:black !important" id="fechaTransaccion"> {{campos.fechas?.transaccion | date:'dd-MM-yyyy HH:mm':'+0000'}} Hs.</p>
+                     </ion-col>
+                     <ion-col>
+                        <label for="fechaPago">Fecha de Pago: </label>
+                        <p id="fechaPago" style="color:black !important" id="fechaTransaccion">{{campos.fechas?.pago | date:'dd-MM-yyyy'}}</p>
+                     </ion-col>
+                  </ion-row>
+               </ion-col>
+            </ion-row>
+         </div>
          <ion-row>
             <ion-col>
                <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
                   <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
                   <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
                      <ion-segment-button id="cliente" value="1">
-                        <ion-icon  name="person-add"></ion-icon>
-                        <label for="cliente">Datos cliente</label>
+                        <ion-icon col-12 col-sm-4 name="person-add"></ion-icon>
+                        <label col-12 col-sm-4 for="cliente">Datos cliente</label>
                      </ion-segment-button>
                      <ion-segment-button id="importes" value="2">
-                        <ion-icon name="logo-usd"></ion-icon>
-                        <label for="importes">Importes $ y cuotas</label>
+                        <ion-icon col-12 col-sm-4 name="logo-usd"></ion-icon>
+                        <label col-12 col-sm-4 for="importes">Importes $ y cuotas</label>
                      </ion-segment-button>
                      <ion-segment-button id="tarjeta" value="3">
-                        <ion-icon name="card"></ion-icon>
-                        <label for="tarjeta">Datos tarjeta</label>
+                        <ion-icon col-12 col-sm-4 name="card"></ion-icon>
+                        <label col-12 col-sm-4 for="tarjeta">Datos tarjeta</label>
                      </ion-segment-button>
                   </ion-segment>
-
                   <div [ngSwitch]="pasos">
-
                      <ion-list *ngSwitchCase="'1'">
                         <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
                         <ion-item>
@@ -90,7 +95,7 @@
                            <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
                            <ion-input value="rbrunount@gmail.com" formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
                         </ion-item>
-                        <button col-3 offset-8 color="secondary" ion-button (click)="otroPaso('2')">Siguiente</button>
+                        <button style="float:right" mat-button color="primary" (click)="otroPaso('2')">Paso siguiente</button>
                      </ion-list>
 
                      <ion-list *ngSwitchCase="'2'">
@@ -141,8 +146,9 @@
                            <ion-input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]='campos.importes.carga' type="number" step="0.05" class="form-control importes"
                               name="importeCarga" id="importeCarga"></ion-input>
                         </ion-item>
-                        <button col-3 color="secondary" ion-button (click)="otroPaso('1')">Anterior</button>
-                        <button col-3 offset-5 color="secondary" ion-button (click)="otroPaso('3')">Siguiente</button>
+
+                        <button mat-button color="primary" (click)="otroPaso('1')">Paso anterior</button>
+                        <button style="float:right" mat-button color="primary" (click)="otroPaso('3')">Paso siguiente</button>
                      </ion-list>
 
                      <ion-list *ngSwitchCase="'3'">
@@ -209,8 +215,8 @@
                               <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
                            </ion-select>
                         </ion-item>
-                        <button col-3 color="secondary" ion-button (click)="otroPaso('2')">Anterior</button>
-                        <button col-3 offset-5 color="secondary" ion-button type="submit" (click)="pagar()">Pagar</button>
+                        <button mat-button color="primary" (click)="otroPaso('2')">Paso anterior</button>
+                        <button style="float:right" mat-button color="primary" type="submit" (click)="pagar()">Aceptar</button>
                      </ion-list>
 
                   </div>
