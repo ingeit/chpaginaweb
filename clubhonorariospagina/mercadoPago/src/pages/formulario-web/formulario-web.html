@@ -49,14 +49,17 @@
                <form [formGroup]="formulario" method="post" class="form-signin" id="pay" name="pay">
                   <input id="docType" data-checkout="docType" type="hidden" value="DNI" />
                   <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
-                     <ion-segment-button value="1">
-                        <ion-icon name="person-add"></ion-icon>
+                     <ion-segment-button id="cliente" value="1">
+                        <ion-icon  name="person-add"></ion-icon>
+                        <label for="cliente">Datos cliente</label>
                      </ion-segment-button>
-                     <ion-segment-button value="2">
+                     <ion-segment-button id="importes" value="2">
                         <ion-icon name="logo-usd"></ion-icon>
+                        <label for="importes">Importes $ y cuotas</label>
                      </ion-segment-button>
-                     <ion-segment-button value="3">
+                     <ion-segment-button id="tarjeta" value="3">
                         <ion-icon name="card"></ion-icon>
+                        <label for="tarjeta">Datos tarjeta</label>
                      </ion-segment-button>
                   </ion-segment>
 
