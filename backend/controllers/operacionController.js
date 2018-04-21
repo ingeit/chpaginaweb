@@ -84,10 +84,10 @@ exports.operacionNueva = function (req, res, next) {
    operacion.operacionNuevaOP(req, function (consulta) {
       var respuesta = consulta[0];
       if (respuesta.codigo != 0) {
-         console.log("respuesta controller para hacer mail",respuesta);
-        // var oFechaTransaccion = respuesta.fechaTransaccion;
-      //    var oFechaPago = respuesta.fechaPago;
-      //    var oIdOperacion = respuesta.codigo;
+         console.log("respuesta controller para hacer mail", respuesta);
+         // var oFechaTransaccion = respuesta.fechaTransaccion;
+         //    var oFechaPago = respuesta.fechaPago;
+         //    var oIdOperacion = respuesta.codigo;
 
          let campos = {
             fechas: {
@@ -95,29 +95,29 @@ exports.operacionNueva = function (req, res, next) {
                'fechaPago': respuesta.fechaPago
             },
             profesional: {
-               'dni':req.body.dniProfesional,
-               'apellido':req.body.apellidoProfesional,
-               'nombre':req.body.nombreProfesional,
-               'mail':req.body.mailProfesional
+               'dni': req.body.dniProfesional,
+               'apellido': req.body.apellidoProfesional,
+               'nombre': req.body.nombreProfesional,
+               'mail': req.body.mailProfesional
             },
             cliente: {
-               'dni':req.body.dniCliente,
-               'apellido':req.body.apellidoCliente,
-               'nombre':req.body.nombreCliente,
-               'mail':req.body.mailCliente
+               'dni': req.body.dniCliente,
+               'apellido': req.body.apellidoCliente,
+               'nombre': req.body.nombreCliente,
+               'mail': req.body.mailCliente
             },
             'idOperacion': respuesta.codigo,
-            tarjeta : {
+            tarjeta: {
                'nombre': req.body.tarjeta
             },
-            importes : {
-               'venta':req.body.importeVenta,
-               'cobrar':req.body.importeCobrar,
-               'cuota':req.body.importeCuota,
-               'cantCuotas':req.body.cuotas
+            importes: {
+               'venta': req.body.importeVenta,
+               'cobrar': req.body.importeCobrar,
+               'cuota': req.body.importeCuota,
+               'cantCuotas': req.body.cuotas
             },
             'codigoAuto': req.body.codigoAuto,
-            'cupon':req.body.cupon
+            'cupon': req.body.cupon
          };
          let response = {
             'mysql': consulta,
@@ -129,7 +129,7 @@ exports.operacionNueva = function (req, res, next) {
          //       response.mailCliente = 'ok'
          //       email('cliente', campos);
          //    }
-         
+
          console.log(response);
          res.json(response);
       } else {
@@ -151,7 +151,7 @@ exports.operacionNuevaMP = function (req, res, next) {
    console.log("======================================================================================");
    console.log("======================================================================================");
    var MP = require("mercadopago");
-   var mp = new MP(configMP.access_token);
+   var mp = new MP(configMP.access_tokenTEST);
    var campos = req.body;
    console.log("req body = campos", campos);
    if (campos.cliente.mail == null || campos.cliente.mail == '' || campos.cliente.mail == undefined) {
@@ -322,6 +322,183 @@ exports.operacionNuevaMP = function (req, res, next) {
       res.json(response);
    });
 }
+
+exports.operacionNuevaMP1 = function (req, res, next) {
+   console.log("======================================================================================");
+   console.log("======================================================================================");
+   var MP = require("mercadopago");
+   var mp = new MP(configMP.access_tokenTEST1);
+   var campos = req.body;
+   console.log("req body = campos", campos);
+   if (campos.cliente.mail == null || campos.cliente.mail == '' || campos.cliente.mail == undefined) {
+      campos.cliente.mail = campos.profesional.mail;
+   }
+   var doPayment = mp.post("/v1/payments",
+      {
+         "transaction_amount": campos.importes.carga,
+         "token": campos.sdkResponse.id,
+         "description": "Pago de Honorarios a " + campos.profesional.apellido + ', ' + campos.profesional.nombre,
+         "payer": {
+            "email": campos.cliente.mail,
+         },
+         "installments": parseInt(campos.importes.cantCuotas),
+         "payment_method_id": campos.payment_method_id,
+         "issuer_id": parseInt(campos.issuer_id)
+      });
+
+   doPayment.then((payment) => {
+      payment.response.status_detail = traducirMensaje(payment.response.status_detail);
+      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log("fecha: ", fecha);
+      console.log("mercado pago respondio, estamos adentro de doPayment THEN");
+      console.log("mostramos la variable payment: ", payment);
+      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+      if (payment.response.status == 'approved') {
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         console.log("paymente.response.status es approved, entramos al if para guardar en mysql");
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         operacion.operacionNueva(campos, payment, function (consulta) {
+            var respuesta = consulta[0];
+            if (respuesta.codigo != 0) {
+               campos.fechas.transaccion = respuesta.fechaTransaccion;
+               campos.fechas.pago = respuesta.fechaPago;
+               campos.idOperacion = respuesta.codigo;
+               campos.codigoAuto = 0;
+               campos.cupon = payment.response.id;
+               //    email('profesional', campos);
+               //    if (campos.cliente.mail != campos.profesional.mail) {
+               //       email('cliente', campos);
+               //    }
+               let response = {
+                  mysql: {
+                     codigo: respuesta.codigo,
+                     mensaje: respuesta.mensaje
+                  },
+                  mp: {
+                     comprobante: payment.response.id,
+                     codigo: 'ok',
+                     mensaje: 'Pago Realizado Exitosamente'
+                  }
+               };
+               console.log(response);
+               res.json(response);
+            } else {
+               console.log("la op no se realizo, no se envian mails y se cancela", consulta);
+               let response = {
+                  mysql: {
+                     codigo: 0,
+                     mensaje: respuesta.mensaje
+                  },
+                  mp: {
+                     comprobante: payment.response.id,
+                     codigo: 'ok',
+                     mensaje: 'Pago Realizado Exitosamente'
+                  }
+               };
+               console.log(response);
+               res.json(response);
+            }
+         });
+      } else if (payment.response.status == 'in_process') {
+         console.log("pago en proceso.. lo cancelamos, el ID es: ", payment.response.id);
+         let id = payment.response.id;
+         mp.cancelPayment(id, function (err, data) {
+            if (err) {
+               console.log("error al cancelar el pago pendiente ");
+               console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+               console.log("mostramos el error: ", err);
+               console.log("lo guardamos en mysql y mostramos mensaje de pago pendiente para que CH decida que hacer");
+               console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+               operacion.operacionNueva(campos, payment, function (consulta) {
+                  console.log(consulta);
+                  var respuesta = consulta[0];
+                  if (respuesta.codigo != 0) {
+                     let response = {
+                        mysql: {
+                           codigo: respuesta.codigo,
+                           mensaje: respuesta.mensaje
+                        },
+                        mp: {
+                           comprobante: id,
+                           codigo: 'enProceso',
+                           mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        }
+                     };
+                     console.log(response);
+                     res.json(response);
+                  } else {
+                     console.log("la op no se realizo, no se envian mails y se cancela", consulta);
+                     let response = {
+                        mysql: {
+                           codigo: 0,
+                           mensaje: respuesta.mensaje
+                        },
+                        mp: {
+                           comprobante: id,
+                           codigo: 'enProceso',
+                           mensaje: "Pago pendiente. No se pudo cancelar por el siguiente motivo: " + err.message + "."
+                        }
+                     };
+                     console.log(response);
+                     res.json(response);
+                  }
+               });
+            } else {
+               console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+               console.log("el esta en proceso, y se pudo cancelar");
+               console.log("se cancelo el pago pendiente de id: ", id);
+               console.log("informacion de la cancelacion:  ", data);
+               console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+               let response = {
+                  mp: {
+                     codigo: 'error',
+                     mensaje: 'El pago no se realizo. Motivo: Operacion cancelada'
+                  }
+               };
+               console.log(response);
+               res.json(response);
+            }
+         });
+      } else {
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         console.log("el pago no esta aproved o en proceso, pasamos por el else");
+         console.log("vamos a leer el motivo del pago no realizado mediante payment.response.status_Detail, EXISTE ESO?");
+         console.log("veamos si existe: este es el payment completo: ", payment);
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         let response = {
+            mp: {
+               codigo: 'error',
+               mensaje: 'El pago no se realizo. Motivo: ' + payment.response.status_detail
+            }
+         };
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         console.log("mostrando payment.response.status_detail: ");
+         console.log(payment.response.status_detail);
+         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+         console.log(response);
+         res.json(response);
+      }
+   }, (error) => {
+      console.log("estamos en la parte de error del payment, mostrando error: ", error);
+      try {
+         if (error.message === 'payer.email must be a valid email') {
+            error.message = 'Email incorrecto. Por favor ingrese un email válido';
+         }
+      } catch (tryError) {
+         console.log('no se pudo cambiar el nombre del error a español, error del catch: ', tryError);
+      }
+      let response = {
+         mp: {
+            codigo: 'error',
+            mensaje: 'El pago no se realizo. Motivo: ' + error
+         }
+      };
+      console.log(response);
+      res.json(response);
+   });
+}
+
 
 function traducirMensaje(mensaje) {
    switch (mensaje) {

@@ -18,6 +18,7 @@ router.get('/dameFechas', OperacionController.getFechas);
 router.get('/dameComisiones', OperacionController.getComisiones);
 router.post('/operacionNueva', OperacionController.operacionNueva);
 router.post('/operacionNuevaMP', OperacionController.operacionNuevaMP);
+router.post('/operacionNuevaMP1', OperacionController.operacionNuevaMP1);
 router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
 router.post('/operacionBaja', OperacionController.operacionBaja);
