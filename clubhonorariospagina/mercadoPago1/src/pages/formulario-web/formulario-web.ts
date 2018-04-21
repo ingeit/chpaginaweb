@@ -67,29 +67,23 @@ export class FormularioWebPage {
 		public formularioProvider: FormularioProvider,
 		public operacionesProv: OperacionesProvider
 	) {
-		if(this.navParams.get('reintentar')=='si'){
+		if (this.navParams.get('reintentar') == 'si') {
 			location.reload(true);
 		}
-		// MP
-		// Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
-		Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
-		// Mercadopago.getIdentificationTypes(); 
 
 		// MP1
-		// Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
+		Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
 
 		// clave ricky sandbox
 		// Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
-
-		
 
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
 		this.campos.profesional = navParams.get('profesional');
 		this.token = navParams.get('idUsuario');
-		if(navParams.get('usuario').idUsuario > 0){
+		if (navParams.get('usuario').idUsuario > 0) {
 			this.campos.usuario = navParams.get('usuario');
-		}else{
+		} else {
 			this.campos.usuario.idUsuario = null;
 		}
 		console.log(this.campos);
@@ -327,7 +321,7 @@ export class FormularioWebPage {
 				this.campos.payment_method_id = this.tarjetaId;
 				this.campos.issuer_id = this.issuer_id;
 				this.campos.sdkResponse.id = sdkResponseHandler.id;
-				
+
 
 				this.operacionesProv.operacionNueva(this.campos).then((respuesta: any) => {
 					this.loading.dismiss();
@@ -346,26 +340,26 @@ export class FormularioWebPage {
 	scanearTarjeta() {
 		this.cardIO.canScan()
 			.then(
-			(res: boolean) => {
-				if (res) {
-					let options = {
-						requireExpiry: true,
-						requireCVV: false,
-						requirePostalCode: false,
-						hideCardIOLogo: true,
-					};
-					this.cardIO.scan(options).then((respuesta) => {
-						this.respuestaDeTarjeta = JSON.stringify(respuesta);
-					});
+				(res: boolean) => {
+					if (res) {
+						let options = {
+							requireExpiry: true,
+							requireCVV: false,
+							requirePostalCode: false,
+							hideCardIOLogo: true,
+						};
+						this.cardIO.scan(options).then((respuesta) => {
+							this.respuestaDeTarjeta = JSON.stringify(respuesta);
+						});
+					}
 				}
-			}
 			);
 	}
 
 	simular(opcion) {
 		this.formulario.controls['cardholderName'].setValue(opcion);
 	}
-	
+
 }
 
 
