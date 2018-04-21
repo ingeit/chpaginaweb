@@ -65,6 +65,9 @@
     "webpack": "^3.8.1"
   },
   "description": "An Ionic project",
+  "config": {
+      "ionic_copy": "./config/copy.config.js"
+  },
   "cordova": {
     "platforms": [
       "android",

@@ -5,6 +5,24 @@ page-lista-operaciones {
     //     }
     // }
 
+    
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: scroll;
+    overflow-x:auto;
+    max-height: 500px;
+  }
+  
+  .mat-header-cell.mat-sort-header-sorted {
+    color: black;
+  }
+
     .scroll-content{
         background: #F1F1F1 !important;
     }

@@ -37,6 +37,7 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
 //MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 
 
 
@@ -63,6 +64,7 @@ import {MatTableModule} from '@angular/material/table';
     NgxPaginationModule,
     BrowserAnimationsModule,
     MatTableModule,
+    ScrollDispatchModule,
     TooltipsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
