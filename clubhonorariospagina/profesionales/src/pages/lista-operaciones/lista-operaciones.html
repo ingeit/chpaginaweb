@@ -73,10 +73,10 @@
     <div *ngIf="mostrarTarjetas">
       <ion-row>
         <ion-col>
+          <div class="example-container mat-elevation-z8">
+            <mat-table #table [dataSource]="Operaciones">
+              <!-- Position Column -->
 
-          <mat-table #table [dataSource]="Operaciones">
-            <!-- Position Column -->
-            
               <ng-container matColumnDef="idOperacion">
                 <mat-header-cell *matHeaderCellDef> Operacion Nº </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
@@ -111,38 +111,50 @@
               </ng-container>
               <ng-container matColumnDef="importes">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes1">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes2">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes3">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes4">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes5">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes6">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}} <br>Carga: ${{o.importeCarga}} <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
               <mat-row *matRowDef="let rowData; columns: columnsToDisplay;"></mat-row>
-           
-  
-          </mat-table>
-
+            </mat-table>
+          </div>
           <ion-card *ngFor="let o of Operaciones">
             <ion-row>
               <ion-col col-10>
