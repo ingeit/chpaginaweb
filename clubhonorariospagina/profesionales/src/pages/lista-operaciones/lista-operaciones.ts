@@ -64,6 +64,18 @@ export class ListaOperacionesPage {
   obtenerOperaciones() {
     this.data.obtenerOperaciones().then((data) => {
       this.Operaciones = data;
+      console.log("operaciones sin ordenar",this.Operaciones);
+      this.Operaciones.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+      console.log("op ordenadas por importe de venta",this.Operaciones);
       if (this.Operaciones[0].codigo != 0) {
         this.mostrarTarjetas = true;
         console.log("operaciones: ", this.Operaciones);
@@ -156,6 +168,18 @@ export class ListaOperacionesPage {
       this.data.obtenerOperacionesFiltrado(details).then((data) => {
         this.loading.dismiss();
         this.Operaciones = data;
+        console.log("operaciones sin ordenar",this.Operaciones);
+      this.Operaciones.sort(function (a, b) {
+        if (a.importeVenta > b.importeVenta) {
+          return -1;
+        }
+        if (a.importeVenta < b.importeVenta) {
+          return 1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+      console.log("op ordenadas por importe de venta",this.Operaciones);
         if (this.Operaciones[0].codigo != 0) {
           this.mostrarTarjetas = true;
           this.montoTotal = 0;
