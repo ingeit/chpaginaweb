@@ -54,14 +54,12 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
         <ion-icon name="book"></ion-icon>
         Cargar Operacion en Base de Datos
       </button>
+      <button *ngIf="mostrarTarjetas" (click)="exportar()" ion-button color="light">
+        <ion-icon name="book"></ion-icon>
+        Exportar
+      </button>
       <ion-col col-12>
         <h3>Operaciones</h3>
-      </ion-col>
-      <ion-col col-6 col-sm>
-        <button *ngIf="mostrarTarjetas" (click)="exportar()" style="float: right;top: 28px;right: 8px;" ion-button color="light">
-          <ion-icon name="book"></ion-icon>
-          Exportar
-        </button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -78,8 +76,20 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
         <ion-col>
           <div class="example-container mat-elevation-z8">
             <mat-table #table [dataSource]="Operaciones">
-              <!-- Position Column -->
-
+              <ng-container matColumnDef="Acciones">
+                <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                <mat-cell *matCellDef="let o">
+                  <div class="button-row">
+                    <button mat-button routerLink (click)="verOperacion(o)">Ver</button>
+                  </div>
+                  <div class="button-row">
+                    <button mat-button color="primary" *ngIf="o.estadoPago == 'A PAGAR'" (click)="botonPagarOperacion(o.idOperacion)">Pagar</button>
+                  </div>
+                  <div class="button-row">
+                    <button mat-button color="warn" (click)="botonEliminar(o.idOperacion)">Eliminar</button>
+                  </div>
+                </mat-cell>
+              </ng-container>
               <ng-container matColumnDef="idOperacion">
                 <mat-header-cell *matHeaderCellDef> Operacion Nº </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
@@ -118,53 +128,26 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
                   <br>Carga: ${{o.importeCarga}}
                   <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
               </ng-container>
-              <ng-container matColumnDef="importes1">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+              <ng-container matColumnDef="codigoAuto">
+                <mat-header-cell *matHeaderCellDef> Codigo Auto </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.codigoAuto}} </mat-cell>
               </ng-container>
-              <ng-container matColumnDef="importes2">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="importes3">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="importes4">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="importes5">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="importes6">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+              <ng-container matColumnDef="cupon">
+                <mat-header-cell *matHeaderCellDef> Cupon Nº </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.cupon}}</mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
               <mat-row *matRowDef="let rowData; columns: columnsToDisplay;"></mat-row>
             </mat-table>
           </div>
-          <ion-card *ngFor="let o of Operaciones">
+
+
+          <!-- <ion-card *ngFor="let o of Operaciones">
             <ion-row>
               <ion-col col-10>
                 <ion-item>
                   <ion-avatar item-start>
                     <i class="fa fa-2x" [ngClass]="setClasses(o.tarjeta)" aria-hidden="true"></i>
-                    <!-- <img src="img/marty-avatar.png"> -->
                   </ion-avatar>
                   <h2>Operacion Nº: {{ o.idOperacion }}</h2>
                   <p>Profesional: {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} - DNI: {{o.dniProfesional}}</p>
@@ -179,7 +162,6 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
 
             <ion-card-content>
               <ion-col col-3>
-                <!-- EN ESTE PIPE ESTA EL PROBLEMA, ionic al hacer el pipe, resta la hora original...  -->
                 Fecha de transaccion: {{o.fechaTransaccion | date:'dd/MM/yy H:mm'}}
                 <br> Fecha de pago: {{o.fechaPago | date:'dd/MM/yy'}}
                 <br> Estado de pago: {{o.estadoPago}}
@@ -195,20 +177,7 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
 
             <ion-row class="row" no-padding="">
               <ion-col col-4 col-sm class="col">
-                <!-- 
-                      Para snippet:
-                      npm install @angular/animations@4.1.3 --save
-                      npm install ionic-tooltips --save 
-                      en module.ts
-                      import { TooltipsModule } from 'ionic-tooltips';
-        
-                      imports: [
-                        ....
-                      TooltipsModule,
-                      .....
-                      tooltips propiedades::
-                     tooltip="hello" positionV="top" arrow (este arrow saca una flecha del tag de donde viene)
-                    duration="2500" (en ms)  -->
+               
                 <button tooltip="Importe de venta" positionV="top" duration="1500" arrow clear="" color="secondary" icon-start="" ion-button=""
                   small="" class="disable-hover button button-md button-clear button-clear-md button-small button-small-md button-clear-md-secondary"
                   style="transition: none;">
@@ -252,10 +221,9 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
                 </button>
               </ion-col>
             </ion-row>
-          </ion-card>
+          </ion-card> -->
         </ion-col>
       </ion-row>
-
     </div>
     <div *ngIf="!mostrarTarjetas">
       <h3> No se encontraron Operaciones</h3>

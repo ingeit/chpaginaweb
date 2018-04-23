@@ -10,6 +10,7 @@ import { VerOperacionPage } from '../ver-operacion/ver-operacion';
 import * as configServer from './../../server'
 import { DashboardPage } from '../dashboard/dashboard';
 import * as jwt from 'jsonwebtoken';
+import * as swal from 'sweetalert';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ListaOperacionesPage {
   mostrarTarjetas = false;
   respuesta: any;
   montoTotal = 0;
-  columnsToDisplay = ['idOperacion','profesional','dniProfesional','fechaTransaccion','fechaPago','tipoOperacion','estadoPago','tarjeta','importes','importes1','importes2','importes3','importes4','importes5','importes6'];
+  columnsToDisplay = ['Acciones', 'idOperacion', 'profesional', 'dniProfesional', 'fechaTransaccion', 'fechaPago', 'tipoOperacion', 'estadoPago', 'tarjeta', 'importes', 'codigoAuto','cupon'];
 
   constructor(public navCtrl: NavController,
     public data: OperacionesProvider,
@@ -64,20 +65,20 @@ export class ListaOperacionesPage {
   obtenerOperaciones() {
     this.data.obtenerOperaciones().then((data) => {
       this.Operaciones = data;
-      console.log("operaciones sin ordenar",this.Operaciones);
-      this.Operaciones.sort(function (a, b) {
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
-      console.log("op ordenadas por importe de venta",this.Operaciones);
+      console.log("operaciones sin ordenar", this.Operaciones);
+      console.log("op ordenadas por importe de venta", this.Operaciones);
       if (this.Operaciones[0].codigo != 0) {
         this.mostrarTarjetas = true;
+        this.Operaciones.sort(function (a, b) {
+          if (a.idOperacion > b.idOperacion) {
+            return 1;
+          }
+          if (a.idOperacion < b.idOperacion) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        });
         console.log("operaciones: ", this.Operaciones);
         this.montoTotal = 0;
         for (let o of this.Operaciones) {
@@ -91,6 +92,53 @@ export class ListaOperacionesPage {
 
   verOperacion(operacion) {
     this.navCtrl.push(VerOperacionPage, { operacion: operacion });
+  }
+
+
+
+  botonEliminar(idOperacion) {
+    let titulo = "Eliminar Operación";
+    let mensaje = "¿Está seguro que desea eliminar la operación?";
+    this.confirmarEliminar(titulo, mensaje, idOperacion);
+  }
+
+  confirmarEliminar(titulo, mensaje, idOperacion) {
+    let alert = this.alertCtrl.create({
+      title: titulo,
+      message: mensaje,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.eliminar(idOperacion);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  eliminar(idOperacion) {
+    let details = {
+      idOperacion: parseInt(idOperacion),
+    };
+    this.data.operacionBaja(details).then((data) => {
+      this.respuesta = data[0];
+      if (this.respuesta.codigo !== 0) {
+        this.presentToast('Operacion eliminada exitosamente');
+        this.navCtrl.setRoot(ListaOperacionesPage);
+      } else {
+        this.mostrarAlerta('ERROR', this.respuesta.mensaje);
+      }
+    });
+
   }
 
   botonPagarOperacion(idOperacion) {
@@ -133,8 +181,8 @@ export class ListaOperacionesPage {
       if (respuesta[0].codigo != 0) {
         this.presentToast(`Operacion Nº ${idOperacion} pagada con exito`);
         this.navCtrl.setRoot(ListaOperacionesPage);
-      }else{
-        this.mostrarAlerta('ERROR',`No se pudo pagar la operacion. Motivo: ${respuesta[0].mensaje}`);
+      } else {
+        this.mostrarAlerta('ERROR', `No se pudo pagar la operacion. Motivo: ${respuesta[0].mensaje}`);
       }
 
     });
@@ -144,13 +192,15 @@ export class ListaOperacionesPage {
     let toast = this.toastCtrl.create({
       message: mensaje,
       duration: 3000,
-      position: 'middle'
+      position: 'middle',
+      showCloseButton: true,
+      closeButtonText: 'OK'
     });
-  
+
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
-  
+
     toast.present();
   }
 
@@ -168,18 +218,18 @@ export class ListaOperacionesPage {
       this.data.obtenerOperacionesFiltrado(details).then((data) => {
         this.loading.dismiss();
         this.Operaciones = data;
-        console.log("operaciones sin ordenar",this.Operaciones);
-      this.Operaciones.sort(function (a, b) {
-        if (a.importeVenta > b.importeVenta) {
-          return -1;
-        }
-        if (a.importeVenta < b.importeVenta) {
-          return 1;
-        }
-        // a must be equal to b
-        return 0;
-      });
-      console.log("op ordenadas por importe de venta",this.Operaciones);
+        console.log("operaciones sin ordenar", this.Operaciones);
+        this.Operaciones.sort(function (a, b) {
+          if (a.importeVenta > b.importeVenta) {
+            return -1;
+          }
+          if (a.importeVenta < b.importeVenta) {
+            return 1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+        console.log("op ordenadas por importe de venta", this.Operaciones);
         if (this.Operaciones[0].codigo != 0) {
           this.mostrarTarjetas = true;
           this.montoTotal = 0;
@@ -217,7 +267,7 @@ export class ListaOperacionesPage {
         idUsuario: respuesta._id
       }, 'shhola', { expiresIn: 5 * 60 });
       // let url = 'https://clubhonorarios.com/mpop/#/'+value;
-      this.storage.set('mpop','si');
+      this.storage.set('mpop', 'si');
       let url = 'http://localhost:81/mpop/#/' + value;
       const browser = this.iab.create(url);
     });
@@ -228,7 +278,7 @@ export class ListaOperacionesPage {
         idUsuario: respuesta._id
       }, 'shhola', { expiresIn: 5 * 60 });
       // let url = 'https://clubhonorarios.com/mpop1/#/'+value;
-      this.storage.set('mpop','si');
+      this.storage.set('mpop', 'si');
       let url = 'http://localhost:81/mpop1/#/' + value;
       const browser = this.iab.create(url);
     });
