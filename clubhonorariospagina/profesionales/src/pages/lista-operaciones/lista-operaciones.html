@@ -91,20 +91,20 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
                 </mat-cell>
               </ng-container>
               <ng-container matColumnDef="idOperacion">
-                <mat-header-cell *matHeaderCellDef> Operacion Nº </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Op. Nº </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="profesional">
-                <mat-header-cell *matHeaderCellDef> Profesional </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Apellido y Nombre Prof. </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="dniProfesional">
-                <mat-header-cell *matHeaderCellDef> Prof. DNI </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> DNI Prof. </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.dniProfesional}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="fechaTransaccion">
                 <mat-header-cell *matHeaderCellDef> Fecha de Operacion </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy'}} </mat-cell>
+                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy'}} <br> {{o.fechaTransaccion | date:'h:MM'}} HS </mat-cell>
               </ng-container>
               <ng-container matColumnDef="fechaPago">
                 <mat-header-cell *matHeaderCellDef> Fecha de Pago </mat-header-cell>
@@ -120,7 +120,7 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
               </ng-container>
               <ng-container matColumnDef="tarjeta">
                 <mat-header-cell *matHeaderCellDef> Medio de pago </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.nombreTarjeta}} - {{o.cuotas}} Cuotas </mat-cell>
+                <mat-cell *matCellDef="let o"> {{o.nombreTarjeta}}<br>{{o.cuotas}} Cuotas </mat-cell>
               </ng-container>
               <ng-container matColumnDef="importes">
                 <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
