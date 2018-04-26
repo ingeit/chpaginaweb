@@ -11,10 +11,11 @@ var https = require('https');
 var fs = require('fs');
 var schedule = require('node-schedule');
 var mysql = require('mysql');
+var mysqlDump = require('mysqldump')
 var env = process.env.NODE_ENV || 'database',
   databaseConfig = require('./../config/' + env + '.js');
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
   host: databaseConfig.host,
   user: databaseConfig.user,
   password: databaseConfig.password,
@@ -125,21 +126,70 @@ function onListening() {
 }
 
 //evento automatico
-// se ejecuta a las 18:07 todos los dias
-var j = schedule.scheduleJob('0 18 * * *', function () {
-                            // * * * * * *
-                            // ┬ ┬ ┬ ┬ ┬ ┬
-                            // │ │ │ │ │ |
-                            // │ │ │ │ │ └ day of week (0 - 7) (0 or 7 is Sun)
-                            // │ │ │ │ └───── month (1 - 12)
-                            // │ │ │ └────────── day of month (1 - 31)
-                            // │ │ └─────────────── hour (0 - 23)
-                            // │ └──────────────────── minute (0 - 59)
-                            // └───────────────────────── second (0 - 59, OPTIONAL)
+// se ejecuta a las 6:00 am todos los dias
+var j = schedule.scheduleJob('0 6 * * *', function () {
+  // * * * * * *
+  // ┬ ┬ ┬ ┬ ┬ ┬
+  // │ │ │ │ │ |
+  // │ │ │ │ │ └ day of week (0 - 7) (0 or 7 is Sun)
+  // │ │ │ │ └───── month (1 - 12)
+  // │ │ │ └────────── day of month (1 - 31)
+  // │ │ └─────────────── hour (0 - 23)
+  // │ └──────────────────── minute (0 - 59)
+  // └───────────────────────── second (0 - 59, OPTIONAL)
 
-  connection.query('call cambiar_estado_pago_operacion()', function (err, rows) {
+  pool.query('call cambiar_estado_pago_operacion()', function (err, rows) {
     if (err) {
-      console.log('cambiar estado operacion pendientes: ',err);
-    } else console.log('cambiar estado operacion pendientes: ',rows[0]);
+      console.log('cambiar estado operacion pendientes: ', err);
+    } else console.log('cambiar estado operacion pendientes: ', rows[0]);
   });
+});
+
+var backupMysql = schedule.scheduleJob('0 0 * * 7 ', function () {
+  //   * * * * * *
+  //   ┬ ┬ ┬ ┬ ┬ ┬
+  //   │ │ │ │ │ |
+  //   │ │ │ │ │ └ day of week (0 - 7) (0 or 7 is Sun)
+  //   │ │ │ │ └───── month (1 - 12)
+  //   │ │ │ └────────── day of month (1 - 31)
+  //   │ │ └─────────────── hour (0 - 23)
+  //   │ └──────────────────── minute (0 - 59)
+  //   └───────────────────────── second (0 - 59, OPTIONAL)
+  var f = new Date();
+  let dia = f.getDate();
+  let mes = f.getMonth();
+  mes = mes + 1;
+  let anio = f.getFullYear();
+  f = dia + '-' + mes + '-' + anio;
+  mysqlDump({
+    host: databaseConfig.host,
+    user: databaseConfig.user,
+    password: databaseConfig.password,
+    database: databaseConfig.database,
+    tables: ['Categorias'
+      ,'Ciudades'
+      ,'Clientes'
+      ,'DiasHabiles'
+      ,'Historial'
+      ,'Operaciones'
+      ,'Permisos'
+      ,'Permisos_Roles'
+      ,'Permisos_Temporarios'
+      ,'Permisos_Usuarios'
+      ,'Profesional_Categoria'
+      ,'Profesionales'
+      ,'ProfesionalesTemp'
+      ,'Provincias'
+      ,'Roles'
+      ,'Tarjetas'
+      ,'Tarjetas_Cuotas'
+      ,'Usuarios'
+      ,'Vendedores'], // only these tables
+    // getDump: false,//BOOLEAN Return dump as a raw data on callback instead of create file Default: false;
+    // where: {'players': 'id < 1000'}, // Only test players with id < 1000
+    dest: `./+Backup/backup tablas ${f}.sql` // destination file 
+  }, function (err) {
+    if (err) console.log("error", err);
+    else console.log("Dump correcto desde models");
+  })
 });
