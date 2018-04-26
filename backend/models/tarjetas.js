@@ -2,7 +2,8 @@ var mysql = require('mysql');
 var env = process.env.NODE_ENV || 'database',
     databaseConfig = require('./../config/' + env + '.js');
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit: 113,
     host: databaseConfig.host,
     user: databaseConfig.user,
     password: databaseConfig.password,
@@ -15,7 +16,7 @@ exports.nuevaTarjeta = function (req, fn) {
     var nombre = '"' + req.body.nombre + '"';
     var nombreCorto = '"' + req.body.nombreCorto + '"';
     var cadena = '"' + req.body.arrayCuotasComisiones + '"';
-    connection.query('call tarjeta_nueva(' + nombre + ',' + nombreCorto + ',' + cadena + ')', function (err, rows) {
+    pool.query('call tarjeta_nueva(' + nombre + ',' + nombreCorto + ',' + cadena + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -29,7 +30,7 @@ exports.modificarTarjeta = function (req, fn) {
     var nombre = '"' + req.body.nombre + '"';
     var nombreCorto = '"' + req.body.nombreCorto + '"';
     var cadena = '"' + req.body.arrayCuotasComisiones + '"';
-    connection.query('call tarjeta_modificar(' + idTarjeta + ',' + nombre + ',' + nombreCorto + ',' + cadena + ')', function (err, rows) {
+    pool.query('call tarjeta_modificar(' + idTarjeta + ',' + nombre + ',' + nombreCorto + ',' + cadena + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -38,7 +39,7 @@ exports.modificarTarjeta = function (req, fn) {
 }
 
 exports.listarTarjetas = function (fn) {
-    connection.query('call tarjeta_listar()', function (err, rows) {
+    pool.query('call tarjeta_listar()', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -48,7 +49,7 @@ exports.listarTarjetas = function (fn) {
 
 exports.eliminarTarjeta = function (req, fn) {
     var idTarjeta = req.body.idTarjeta;
-    connection.query('call tarjeta_baja(' + idTarjeta + ')', function (err, rows) {
+    pool.query('call tarjeta_baja(' + idTarjeta + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -58,7 +59,7 @@ exports.eliminarTarjeta = function (req, fn) {
 
 exports.dameCuotasyComisiones = function (req, fn) {
     var idTarjeta = req.body.idTarjeta;
-    connection.query('call tarjeta_dameCuotasyComisiones(' + idTarjeta + ')', function (err, rows) {
+    pool.query('call tarjeta_dameCuotasyComisiones(' + idTarjeta + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);

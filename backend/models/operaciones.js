@@ -2,7 +2,8 @@ var mysql = require('mysql');
 var env = process.env.NODE_ENV || 'database',
     databaseConfig = require('./../config/' + env + '.js');
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit: 113,
     host: databaseConfig.host,
     user: databaseConfig.user,
     password: databaseConfig.password,
@@ -16,7 +17,7 @@ var connection = mysql.createConnection({
 
 
 exports.getOperaciones = function (fn) {
-    connection.query('call operacion_listar_dia()', function (err, rows) {
+    pool.query('call operacion_listar_dia()', function (err, rows) {
         // console.log(rows[0]);
         if (err) fn(err);
         else fn(rows[0]);
@@ -24,27 +25,27 @@ exports.getOperaciones = function (fn) {
 }
 
 exports.getOperacionesPorFecha = function (fechaInicio, fechaFin, fn) {
-    connection.query('call operacion_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
+    pool.query('call operacion_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
 }
 
 exports.dameOperacion = function (idOperacion, fn) {
-    connection.query('call operacion_dame(' + idOperacion + ')', function (err, rows) {
+    pool.query('call operacion_dame(' + idOperacion + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
 }
 exports.pagarOperacion = function (idOperacion, fn) {
-    connection.query('call operacion_modificar_estadoPago(' + idOperacion + ')', function (err, rows) {
+    pool.query('call operacion_modificar_estadoPago(' + idOperacion + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
 }
 
 exports.operacionBaja = function (idOperacion, fn) {
-    connection.query('call operacion_baja(' + idOperacion + ')', function (err, rows) {
+    pool.query('call operacion_baja(' + idOperacion + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
@@ -52,7 +53,7 @@ exports.operacionBaja = function (idOperacion, fn) {
 
 
 exports.getFechas = function (fn) {
-    connection.query('call dame_fechas()', function (err, rows) {
+    pool.query('call dame_fechas()', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -61,7 +62,7 @@ exports.getFechas = function (fn) {
 }
 
 exports.getComisiones = function (fn) {
-    connection.query('call dame_comisiones()', function (err, rows) {
+    pool.query('call dame_comisiones()', function (err, rows) {
         console.log(rows)
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
@@ -92,17 +93,17 @@ exports.operacionNuevaOP = function (req, fn) {
     var codigoAuto = req.body.codigoAuto;
     var cupon = req.body.cupon;
 
-    console.log("antes del sp: nombre tarjeta",nombreTarjeta)
-    console.log("antes del sp: tipo op",tipoOperacion)
-    
+    console.log("antes del sp: nombre tarjeta", nombreTarjeta)
+    console.log("antes del sp: tipo op", tipoOperacion)
+
     if (nombreTarjeta == '"POINT PREFERENCIAL"') {
         console.log("if se cumple, nombre es point preferencial, entocnes en tipo de operacion ponemos eso")
         tipoOperacion = '"point preferencial"';
-        console.log("tipo op en el if cambiado",tipoOperacion)
+        console.log("tipo op en el if cambiado", tipoOperacion)
     }
 
 
-    connection.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
+    pool.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
         dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
             if (err) {
@@ -132,7 +133,7 @@ exports.operacionNueva = function (campos, payment, fn) {
     var codigoAuto = 0;
     var cupon = payment.response.id;
 
-    connection.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
+    pool.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
         dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
             if (err) {
@@ -145,14 +146,14 @@ exports.operacionNueva = function (campos, payment, fn) {
 
 exports.crash = function (fn) {
     //sha soporteit
-    connection.query('call a()', (err, rows) => {
+    pool.query('call a()', (err, rows) => {
         if (err) fn(err);
         fn(rows[0]);
     });
 }
 
 exports.test = function (idOperacion, fn) {
-    connection.query('call operacion_dame(' + idOperacion + ')', function (err, rows) {
+    pool.query('call operacion_dame(' + idOperacion + ')', function (err, rows) {
         // console.log("desde model errr ",err,"desde model rows ", rows);
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]

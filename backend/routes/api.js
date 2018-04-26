@@ -7,7 +7,6 @@ var ProfesionalesController = require('./../controllers/profesionalesController'
 var UsuariosController = require('./../controllers/usuariosController');
 var CalendarioController = require('./../controllers/calendarioController');
 var TarjetaController = require('./../controllers/tarjetaController');
-var MysqlController = require('./../controllers/mysqlController');
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
@@ -38,9 +37,6 @@ router.get('/listarVendedores', ProfesionalesController.dameVendedores);
 //Usuarios
 router.post('/usuarioDame', UsuariosController.usuarioDame);
 
-
-//router.get('/mysql', MysqlController.dump);
-//router.post('/test',OperacionController.test);
 
 //Calendario
 router.get('/listarFechasHabiles', CalendarioController.listarFechasHabiles); // Por mes

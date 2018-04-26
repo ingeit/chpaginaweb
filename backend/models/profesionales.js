@@ -2,7 +2,8 @@ var mysql = require('mysql');
 var env = process.env.NODE_ENV || 'database',
     databaseConfig = require('./../config/' + env + '.js');
 
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit: 113,
     host: databaseConfig.host,
     user: databaseConfig.user,
     password: databaseConfig.password,
@@ -12,7 +13,7 @@ var connection = mysql.createConnection({
 
 exports.dameProfesional = function (dni, fn) {
     // console.log('desde el modelo',dni)
-    connection.query('call profesionalTemp_dame(' + dni + ')', function (err, rows) {
+    pool.query('call profesionalTemp_dame(' + dni + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -21,7 +22,7 @@ exports.dameProfesional = function (dni, fn) {
 }
 
 exports.bajaProfesional = function (idProfesional, fn) {
-    connection.query('call profesionalTemp_baja(' + idProfesional + ')', function (err, rows) {
+    pool.query('call profesionalTemp_baja(' + idProfesional + ')', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -31,7 +32,7 @@ exports.bajaProfesional = function (idProfesional, fn) {
 
 exports.listarProfesionales = function (fn) {
     // console.log("entrado al modelo listarProf");
-    connection.query('call profesionalTemp_listar()', function (err, rows) {
+    pool.query('call profesionalTemp_listar()', function (err, rows) {
         if (err) {
             consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + " descripcion: " + err.message }]
             fn(consulta);
@@ -41,7 +42,7 @@ exports.listarProfesionales = function (fn) {
 
 exports.nuevoProfesional = function (fechaImpresion, dni, apellido, nombre, especialidad, domicilio, localidad, provincia,
     telefono, profesion, mail, vendedor, autorizado, dniAutorizado, fn) {
-    connection.query('call profesionalTemp_nuevo(' + fechaImpresion + ',' + dni + ',' + apellido + ',' + nombre + ',' + especialidad + ',' +
+    pool.query('call profesionalTemp_nuevo(' + fechaImpresion + ',' + dni + ',' + apellido + ',' + nombre + ',' + especialidad + ',' +
         domicilio + ',' + localidad + ',' + provincia + ',' + telefono + ',' + profesion + ',' + mail + ',' + vendedor + ',' +
         autorizado + ',' + dniAutorizado + ')', function (err, rows) {
             if (err) {
@@ -53,7 +54,7 @@ exports.nuevoProfesional = function (fechaImpresion, dni, apellido, nombre, espe
 
 exports.modificarProfesional = function (idProfesional, apellido, nombre, especialidad, domicilio, localidad, provincia,
     telefono, profesion, mail, vendedor, autorizado, dniAutorizado, fn) {
-    connection.query('call profesionalTemp_modificar(' + idProfesional + ',' + apellido + ',' + nombre + ',' + especialidad + ',' +
+    pool.query('call profesionalTemp_modificar(' + idProfesional + ',' + apellido + ',' + nombre + ',' + especialidad + ',' +
         domicilio + ',' + localidad + ',' + provincia + ',' + telefono + ',' + profesion + ',' + mail + ',' + vendedor + ',' +
         autorizado + ',' + dniAutorizado + ')', function (err, rows) {
             if (err) {
@@ -64,21 +65,21 @@ exports.modificarProfesional = function (idProfesional, apellido, nombre, especi
 }
 
 exports.getProfesionalesPorFecha = function (fechaInicio, fechaFin, fn) {
-    connection.query('call profesionalTemp_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
+    pool.query('call profesionalTemp_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
 }
 
 exports.dameProvincias = function (fn) {
-    connection.query('call dame_provincias()', function (err, rows) {
+    pool.query('call dame_provincias()', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
 }
 
 exports.dameCiudades = function (idProvincia, fn) {
-    connection.query('call dame_ciudades(' + idProvincia + ')', function (err, rows) {
+    pool.query('call dame_ciudades(' + idProvincia + ')', function (err, rows) {
         if (err) fn(err);
         else fn(rows[0]);
     });
