@@ -28,7 +28,7 @@
     "@ionic-native/in-app-browser": "^4.4.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
-    "@ionic/storage": "1.1.6",
+    "@ionic/storage": "^1.1.6",
     "@types/cryptojs": "^3.1.29",
     "@types/sweetalert": "^2.0.4",
     "ajv": "^5.3.0",

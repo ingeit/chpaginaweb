@@ -109,7 +109,7 @@ export class NuevaOperacionPage {
 					this.navCtrl.setRoot(DashboardPage);
 					console.log("error jwt", err);
 				} else {
-					this.storage.set('mpop', 'no');
+					
 					console.log("decodificado", decoded)
 					this.campos = decoded.campos;
 					this.cargarValores();
@@ -120,6 +120,10 @@ export class NuevaOperacionPage {
 		console.log("hola campos", this.campos)
 
 
+	}
+
+	ionViewDidLeave(){
+		this.storage.set('mpop', 'no');
 	}
 
 	ionViewDidEnter() {

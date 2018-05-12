@@ -52,7 +52,6 @@ export class MyApp {
       this.menu.enable(false);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.storage.set('mpop','no');
       this.storage.get('token').then((token) => {
         console.log('token is', token);
         if (token === '' || token === null) {
@@ -61,8 +60,11 @@ export class MyApp {
           // hago esto, para mostrar el dashboard en caso de ingresa solo a adminop, porque si vengo de mercadopago, me rutea al dash en vez de a la pagina de nueva operacion
           this.storage.get('mpop').then((mpop) => {
             this.menu.enable(true);
+            console.log('mpop para mostrar dashboard',mpop)
             if (mpop == 'no') {
               this.rootPage = DashboardPage;
+            }else{
+              this.storage.set('mpop','no');
             }
           });
         }

@@ -46,6 +46,7 @@ export class LoginProvider {
       this.storage.set('usuario', ''); 
       this.storage.set('mpop', 'no');
       resolve(42);
+     
     });
   }
 
