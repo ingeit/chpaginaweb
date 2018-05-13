@@ -157,7 +157,7 @@ exports.operacionNuevaMP = function (req, res, next) {
    console.log("======================================================================================");
    console.log("======================================================================================");
    var MP = require("mercadopago");
-   var mp = new MP(configMP.access_tokenTEST);
+   var mp = new MP(configMP.access_token);
    var campos = req.body;
    console.log("req body = campos", campos);
    if (campos.cliente.mail == null || campos.cliente.mail == '' || campos.cliente.mail == undefined) {
