@@ -22,6 +22,7 @@ router.get('/excel/:fechaInicio/:fechaFin', OperacionController.excel);
 router.get('/pdf', OperacionController.pdf);
 router.post('/operacionBaja', OperacionController.operacionBaja);
 router.get('/verPagos', OperacionController.verPagos);
+router.post('/mpoptoadminop', OperacionController.otroMetodo);
 
 //Profesionales
 router.post('/dameProfesional', ProfesionalesController.dameProfesional);

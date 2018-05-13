@@ -29,6 +29,12 @@ exports.verPagos = function (req, res, next) {
 
 }
 
+exports.otroMetodo = function (req, res, next) {
+      var uri = req.body.value
+      var respuesta = 'http://clubhonorarios.com/adminop/#/op/'+uri
+      res.json(respuesta);
+   }
+
 exports.getOperacionesPorFecha = function (req, res, next) {
    var fechaInicio = '"' + req.body.fechaInicio + '"';
    var fechaFin = '"' + req.body.fechaFin + '"';
