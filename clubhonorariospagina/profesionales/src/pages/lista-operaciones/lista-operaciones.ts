@@ -266,13 +266,11 @@ export class ListaOperacionesPage {
       let value = jwt.sign({
         idUsuario: respuesta._id
       }, 'shhola', { expiresIn: 5 * 60 });
-      // let url = 'https://clubhonorarios.com/mpop/#/'+value;
       this.storage.set('mpop', 'si');
-      this.storage.get('mpop').then(res =>{
-        console.log("guardando mpop: ",res)
-      });
-      let url = 'http://localhost:81/mpop/#/' + value;
+      let url = 'https://clubhonorarios.com/mpop/#/'+value;
+      // let url = 'http://localhost:81/mpop/#/' + value;
       const browser = this.iab.create(url);
+      
     });
   }
   public nuevaOperacion1() {
@@ -280,12 +278,9 @@ export class ListaOperacionesPage {
       let value = jwt.sign({
         idUsuario: respuesta._id
       }, 'shhola', { expiresIn: 5 * 60 });
-      // let url = 'https://clubhonorarios.com/mpop1/#/'+value;
       this.storage.set('mpop', 'si');
-      this.storage.get('mpop').then(res =>{
-        console.log("guardando mpop: ",res)
-      });
-      let url = 'http://localhost:81/mpop1/#/' + value;
+      let url = 'https://clubhonorarios.com/1mpop/#/'+value;
+      // let url = 'http://localhost:81/1mpop/#/' + value;
       const browser = this.iab.create(url);
     });
   }
