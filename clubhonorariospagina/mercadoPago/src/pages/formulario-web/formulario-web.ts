@@ -73,8 +73,7 @@ export class FormularioWebPage {
 			location.reload(true);
 		}
 		// MP
-		// Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
-		Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
+		Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
 		// Mercadopago.getIdentificationTypes(); 		
 
 		this.pasos = "1";
@@ -361,9 +360,9 @@ export class FormularioWebPage {
 		this.informacionExtra = !this.informacionExtra;
 	}
 
-	simular(opcion) {
-		this.formulario.controls['cardholderName'].setValue(opcion);
-	}
+	// simular(opcion) {
+	// 	this.formulario.controls['cardholderName'].setValue(opcion);
+	// }
 
 }
 
