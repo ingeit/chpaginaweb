@@ -96,13 +96,6 @@ exports.operacionNuevaOP = function (req, fn) {
     console.log("antes del sp: nombre tarjeta", nombreTarjeta)
     console.log("antes del sp: tipo op", tipoOperacion)
 
-    if (nombreTarjeta == '"POINT PREFERENCIAL"') {
-        console.log("if se cumple, nombre es point preferencial, entocnes en tipo de operacion ponemos eso")
-        tipoOperacion = '"point preferencial"';
-        console.log("tipo op en el if cambiado", tipoOperacion)
-    }
-
-
     pool.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
         dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {

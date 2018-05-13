@@ -92,27 +92,31 @@
                      <ion-radio (click)="move('formularioDesplegar')" required value="debito"></ion-radio>
                   </ion-item>
                </ion-list>
-               <ion-list *ngIf="tipoTarjeta!==null" radio-group  [ngModelOptions]="{standalone: true}" [(ngModel)]="lapos">
+               <ion-list *ngIf="tipoTarjeta!==null" (ionChange)='tipoOpRadio()' radio-group [ngModelOptions]="{standalone: true}" [(ngModel)]="lapos">
                   <ion-list-header>
                      Seleccione el tipo de operacion
                   </ion-list-header>
                   <ion-item>
                      <ion-label>LaPos Presencial</ion-label>
-                     <ion-radio required value="presencial"></ion-radio>
+                     <ion-radio (click)="move('formularioDesplegar')" required value="presencial"></ion-radio>
                   </ion-item>
                   <ion-item>
                      <ion-label>LaPos Web</ion-label>
-                     <ion-radio required value="web"></ion-radio>
+                     <ion-radio (click)="move('formularioDesplegar')" required value="web"></ion-radio>
                   </ion-item>
                   <ion-item>
                      <ion-label>Point</ion-label>
-                     <ion-radio required value="point"></ion-radio>
+                     <ion-radio (click)="move('formularioDesplegar')" required value="point"></ion-radio>
+                  </ion-item>
+                  <ion-item>
+                     <ion-label>Point Preferencial</ion-label>
+                     <ion-radio (click)="move('formularioDesplegar')" required value="point preferencial"></ion-radio>
                   </ion-item>
                   <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="lapos === undefined && submitAttempt">Por favor, seleccione SI o NO</p>
                </ion-list>
                <!-- este div es solo para el autoscroll -->
                <div id="formularioDesplegar"></div>
-               <ion-col *ngIf="tipoTarjeta!==null">
+               <ion-col *ngIf="tipoTarjeta!==null && lapos != null || lapos != undefined">
                   <h2 style="margin-top: 0.3rem;">Datos del titular de la tarjeta</h2>
                   <ion-item>
                      <ion-label stacked>DNI </ion-label>
@@ -139,10 +143,10 @@
                      <ion-input formControlName="mailCliente" type="text" class="form-control" name="mailCliente" id="mailCliente"></ion-input>
                   </ion-item>
                   <h2>Informacion de operacion</h2>
-                  <ion-item>
+                  <ion-item *ngIf="lapos != null || lapos != undefined">
                      <ion-label stacked>Elija marca de la tarjeta *</ion-label>
-                     <ion-select (ionChange)='dameCuotasyComisiones($event)' interface="popover" formControlName="tarjeta">
-                        <ion-option *ngFor="let t of tarjetas" value="{{t.idTarjeta}}">{{t.nombreCorto}}</ion-option>
+                     <ion-select  (ionChange)='dameCuotasyComisiones($event)' interface="popover" formControlName="tarjeta">
+                        <ion-option *ngFor="let t of tarjetasSelect" value="{{t.idTarjeta}}">{{t.nombreCorto}}</ion-option>
                      </ion-select>
                   </ion-item>
                   <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.tarjeta.valid  &&  submitAttempt">Por favor, elija una tarjeta</p>

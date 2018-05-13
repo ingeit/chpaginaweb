@@ -12,6 +12,7 @@ import * as jwt from 'jsonwebtoken';
 import { DashboardPage } from '../dashboard/dashboard';
 import { Storage } from '@ionic/storage';
 import swal from 'sweetalert';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the NuevaOperacionPage page.
@@ -32,6 +33,7 @@ import swal from 'sweetalert';
 export class NuevaOperacionPage {
 	private campos: any;
 	private tarjetas: any;
+	private tarjetasSelect: any;
 	private desde: any;
 	formulario: FormGroup;
 	submitAttempt: boolean = false;
@@ -70,7 +72,11 @@ export class NuevaOperacionPage {
 
 		this.campos = {};
 		this.storage.get('usuario').then((usuario) => {
-			this.campos.usuario = usuario;
+			if (usuario.hasOwnProperty('_id')) {
+				this.campos.usuario = usuario;
+			} else {
+				this.navCtrl.setRoot(HomePage);
+			}
 			console.log("campos idUsuario", this.campos.usuario)
 		});
 
@@ -109,7 +115,7 @@ export class NuevaOperacionPage {
 					this.navCtrl.setRoot(DashboardPage);
 					console.log("error jwt", err);
 				} else {
-					
+
 					console.log("decodificado", decoded)
 					this.campos = decoded.campos;
 					this.cargarValores();
@@ -122,7 +128,7 @@ export class NuevaOperacionPage {
 
 	}
 
-	ionViewDidLeave(){
+	ionViewDidLeave() {
 		this.storage.set('mpop', 'no');
 	}
 
@@ -191,7 +197,10 @@ export class NuevaOperacionPage {
 				i--; // hacemos esto, porque si hay 2 undefined consecutivos, el segundo undefined ocupa el lugar del primero (i-1), y el for ya no lo recorre para borrarlo
 			}
 		}
+		// armamos tarjetasSelect para mostrar en la vista, es decir, mostrar todas menos la tarjeta POINT PREFERENCIAL, ya que solo se usa para obtener comisiones y no para seleccionarla
+		this.tarjetasSelect = this.tarjetas.filter(tarjeta => tarjeta.nombreCorto != 'POINT')
 		console.log("tarjetas de mysql ya ordenadas", this.tarjetas)
+		console.log("tarjetas de mysql ya ordenadas SELECT SIN POINT", this.tarjetasSelect)
 	}
 
 	cargarValores() {
@@ -270,12 +279,30 @@ export class NuevaOperacionPage {
 		}
 	}
 
+	tipoOpRadio() {
+		this.formulario.controls['tarjeta'].setValue(null);
+	}
+
 	dameCuotasyComisiones(idTarjeta) {
+
 		// seteamos el nombre de la tarjeta en una variable para llevar al paso 2
 		this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.tarjetaNombre = e.nombre } });
 		// aqui obtenemos las cuotas y comiusiones segun tarjeta elegida
 		this.arrayCuotas = [];
-		this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.arrayCuotas = e.cuotaComision } });
+		switch (this.lapos) {
+			case 'point':
+				console.log("case point")
+				this.tarjetas.map(e => { if (e.idTarjeta == 3) { this.arrayCuotas = e.cuotaComision } });
+				break;
+			case 'point preferencial':
+				console.log("case point preferencial")
+				this.tarjetas.map(e => { if (e.idTarjeta == 4) { this.arrayCuotas = e.cuotaComision } });
+				break;
+			default:
+				this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.arrayCuotas = e.cuotaComision } });
+				console.log("case defaul")
+				break;
+		}
 		console.log("arraycuotas coomisiion", this.arrayCuotas)
 	}
 
@@ -320,9 +347,6 @@ export class NuevaOperacionPage {
 		// confirmar mediante modal
 		// Si ya tiene lapos, no muestro modal ni abro el link a visa y solo voy al paso 2
 		console.log("desde confirmar se trae el formulario: ", this.formulario.controls);
-		if (this.lapos === 'web') { //abrir paginas
-
-		}
 		console.log("tiene lapos")
 		console.log("fecha pago", this.campos.fechas.pago)
 		console.log("fecha trans", this.campos.fechas.transaccion)
