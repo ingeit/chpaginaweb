@@ -203,10 +203,7 @@ export class FormularioWebPaso2Page {
       let value = jwt.sign({
          campos: this.campos
       }, 'shhola', { expiresIn: 5 * 60 });
-
-      // let url = 'https://clubhonorarios.com/mpop/#/'+value;
-      let url = 'http://localhost:81/adminop/#/op/' + value;
-      const browser = this.iab.create(url);
+      this.opProv.otroMetodo(value);
    }
 
    reintentar(){

@@ -22,6 +22,7 @@ declare var Mercadopago;
 	templateUrl: 'formulario-web.html',
 })
 export class FormularioWebPage {
+
 	private token: any;
 	private campos: ModeloFormulario;
 	private pasos: String;
@@ -38,6 +39,7 @@ export class FormularioWebPage {
 	private mostrarCuotaBanco: boolean = false;
 	private issuer_id: any = null;
 	private urlBannerTarjeta: any;
+	private informacionExtra: boolean = false;
 	@ViewChild(Content) content: Content;
 	@ViewChild('paymentMethodId') paymentMeth: any;
 	private paymentMethodId: any;
@@ -70,12 +72,10 @@ export class FormularioWebPage {
 		if (this.navParams.get('reintentar') == 'si') {
 			location.reload(true);
 		}
-
-		// MP1
-		Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
-
-		// clave ricky sandbox
-		// Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30");
+		// MP
+		// Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
+		Mercadopago.setPublishableKey("TEST-5c52ff27-a015-43cd-ab9f-f38a97e2d283");
+		// Mercadopago.getIdentificationTypes(); 		
 
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
@@ -354,6 +354,11 @@ export class FormularioWebPage {
 					}
 				}
 			);
+	}
+
+	verInformacionExtra(){
+		console.log(this.informacionExtra)
+		this.informacionExtra = !this.informacionExtra;
 	}
 
 	simular(opcion) {
