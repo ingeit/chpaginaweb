@@ -7,7 +7,7 @@
             <form [formGroup]="profesionalForm" method="post" class="form-signin" name="profesionalForm">
                 <ion-item>
                     <ion-label floating>Ingrese DNI del profesional</ion-label>
-                    <ion-input type="text" formControlName="dni" name="dni" id="dni" value="11111111" [class.errorClubHonorarios]="!profesionalForm.controls.dni.valid && (profesionalForm.controls.dni.touched || submitAttempt)"></ion-input>
+                    <ion-input type="text" formControlName="dni" name="dni" id="dni" [class.errorClubHonorarios]="!profesionalForm.controls.dni.valid && (profesionalForm.controls.dni.touched || submitAttempt)"></ion-input>
                 </ion-item>
                 <p  class="help-block text-danger errorClubHonorarios errorP" *ngIf="!profesionalForm.controls.dni.valid  && (profesionalForm.controls.dni.touched || submitAttempt)">Por favor ingrese un DNI válido</p>
                 <button style="margin-top: 20px;" ion-button type="submit" (click)="getProfesional()">Aceptar</button>
