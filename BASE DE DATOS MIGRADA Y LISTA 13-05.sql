@@ -4,7 +4,7 @@ USE `ClubHonorarios`;
 --
 -- Host: localhost    Database: ClubHonorarios
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -105,7 +105,7 @@ CREATE TABLE `Clientes` (
   `apellido` varchar(45) NOT NULL,
   `mail` varchar(45) DEFAULT NULL,
   `telefono` varchar(45) DEFAULT NULL,
-  `fechaAlta` timestamp NOT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `estado` char(1) NOT NULL,
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -157,7 +157,7 @@ CREATE TABLE `Historial` (
   `tabla` varchar(45) NOT NULL,
   `accion` varchar(45) NOT NULL,
   `idTarget` varchar(45) NOT NULL,
-  `fecha` timestamp NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idHistorial`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -567,7 +567,7 @@ CREATE TABLE `Usuarios` (
   `estado` char(1) NOT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `usuario_UNIQUE` (`usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,7 +576,7 @@ CREATE TABLE `Usuarios` (
 
 LOCK TABLES `Usuarios` WRITE;
 /*!40000 ALTER TABLE `Usuarios` DISABLE KEYS */;
-INSERT INTO `Usuarios` VALUES (1,'c4ca4238a0b923820dcc509a6f75849b','Ramiro','Lobo Quintero','ramiro','7b6cf1f9168cdfa3135ce28ec84ac693','2018-01-29 21:35:16',NULL,'A');
+INSERT INTO `Usuarios` VALUES (2,'c81e728d9d4c2f636f067f89cc14862c','Astrid','-','astrid','f9ac7546e2834790c135ae51f9aa9d56','2018-05-14 00:45:52',NULL,'A'),(3,'eccbc87e4b5ce2fe28308fd9f2a7baf3','Gilda','-','gilda','11cd4b7997d07eb83a66dfb6b757392c','2018-05-14 00:46:25',NULL,'A'),(4,'a87ff679a2f3e71d9181a67b7542122c','Nieves','-','nieves','fbb54201f48686c5ef92e00e920399bf','2018-05-14 00:47:02',NULL,'A'),(5,'e4da3b7fbbce2345d7772b0674a318d5','Samanta','-','samanta','00d0cf56a708e09324ff36b30f95ddff','2018-05-14 00:47:33',NULL,'A'),(6,'1679091c5a880faf6fb5e6087eb1b2dc','Luciana','-','luciana','6720aa2f32fd93daa4fda88efdab683d','2018-05-14 00:48:43',NULL,'A'),(7,'8f14e45fceea167a5a36dedd4bea2543','OP1','-','op1','488fe011e70625406bd514c699fb5ed6','2018-05-14 00:49:04',NULL,'A'),(8,'c9f0f895fb98ab9159f51fd0297e236d','OP2','-','op2','388b06df010a841555ce7fe2a623e88e','2018-05-14 00:49:16',NULL,'A'),(9,'45c48cce2e2d7fbdea1afc51c7c6ad26','Ramiro','Lobo','rlobo','bd590e5d6aa9be9a557c260d63397d82','2018-05-14 00:50:00',NULL,'A');
 /*!40000 ALTER TABLE `Usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2799,7 +2799,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uIdRol INT, uNombre VARCHAR(45), uApellido VARCHAR(45), uUsuario VARCHAR(45), uContrasenia VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuario_nuevo`(uNombre VARCHAR(45), uApellido VARCHAR(45), uUsuario VARCHAR(45), uContrasenia VARCHAR(45))
 PROC: BEGIN
 
 	DECLARE uIdUsuario INT;
@@ -2833,16 +2833,12 @@ PROC: BEGIN
 		SELECT 0 as codigo, 'El nombre de usuario se encuentra en uso' mensaje;
         LEAVE PROC;
 	END IF;
-    
-    IF NOT EXISTS (SELECT idRol FROM Roles WHERE idRol = uIdRol) THEN
-		SELECT 0 as codigo, 'Rol inexistente en el sistema' mensaje;
-        LEAVE PROC;
-	END IF;
+
         
     START TRANSACTION;
     
     SET uIdUsuario = 1 + (SELECT COALESCE(MAX(idUsuario),0) FROM Usuarios);
-	INSERT INTO Usuarios VALUES (idUsuario,MD5(idUsuario),uIdRol,uNombre,uApellido,uUsuario,MD5(uContrasenia),NOW(),null,'A');
+	INSERT INTO Usuarios VALUES (uIdUsuario,MD5(uIdUsuario),uNombre,uApellido,uUsuario,MD5(uContrasenia),NOW(),null,'A');
 	SELECT uIdUsuario AS codigo, 'Usuario creado exitosamente' mensaje;
     COMMIT;
 END ;;
@@ -2881,4 +2877,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-13 20:50:34
+-- Dump completed on 2018-05-13 21:52:50
