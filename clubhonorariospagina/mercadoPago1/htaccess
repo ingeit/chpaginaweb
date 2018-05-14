@@ -4,4 +4,4 @@ AddHandler x-httpd-php7 .php
 RewriteEngine On
 RewriteBase /
 RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://clubhonorarios.com/mpop
+RewriteRule ^(.*)$ https://clubhonorarios.com/1mpop
