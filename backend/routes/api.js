@@ -23,6 +23,7 @@ router.get('/pdf', OperacionController.pdf);
 router.post('/operacionBaja', OperacionController.operacionBaja);
 router.get('/verPagos', OperacionController.verPagos);
 router.post('/mpoptoadminop', OperacionController.otroMetodo);
+router.post('/dameUrlUnsafe', OperacionController.dameUrlUnsafe);
 
 //Profesionales
 router.post('/dameProfesional', ProfesionalesController.dameProfesional);

@@ -71,10 +71,10 @@ export class ListaOperacionesPage {
         this.mostrarTarjetas = true;
         this.Operaciones.sort(function (a, b) {
           if (a.idOperacion > b.idOperacion) {
-            return 1;
+            return -1;
           }
           if (a.idOperacion < b.idOperacion) {
-            return -1;
+            return 1;
           }
           // a must be equal to b
           return 0;
@@ -220,10 +220,10 @@ export class ListaOperacionesPage {
         this.Operaciones = data;
         console.log("operaciones sin ordenar", this.Operaciones);
         this.Operaciones.sort(function (a, b) {
-          if (a.importeVenta > b.importeVenta) {
+          if (a.idOperacion > b.idOperacion) {
             return -1;
           }
-          if (a.importeVenta < b.importeVenta) {
+          if (a.idOperacion < b.idOperacion) {
             return 1;
           }
           // a must be equal to b

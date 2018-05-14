@@ -194,9 +194,7 @@ export class FormularioWebPaso2Page {
    }
 
    aceptarOperacion(){
-      let url = 'http://clubhonorarios.com/adminop';
-      // let url = 'http://localhost:81/adminop';
-      const browser = this.iab.create(url);
+      this.opProv.dameUrlUnsafe();
    }
 
    otroMetodo() {

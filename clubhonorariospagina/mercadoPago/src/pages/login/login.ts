@@ -7,13 +7,6 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
 import ProfesionalModelo from '../../modelos/profesional';
 import * as jwt from 'jsonwebtoken';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage({
    name: 'login',
    segment: ':idUsuario'
