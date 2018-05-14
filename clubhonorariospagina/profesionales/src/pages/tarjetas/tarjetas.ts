@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { TarjetasProvider } from '../../providers/tarjetas/tarjetas';
 import { FormModificarTarjetaPage } from '../form-modificar-tarjeta/form-modificar-tarjeta';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the TarjetasPage page.
@@ -15,19 +16,24 @@ import { FormModificarTarjetaPage } from '../form-modificar-tarjeta/form-modific
   templateUrl: 'tarjetas.html',
 })
 export class TarjetasPage {
-
+  private username: any;
   private respuesta: any;
   private arrayTarjetas: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public tarjetaProv: TarjetasProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public storage: Storage) {
     this.listarTarjetas();
+    this.storage.get('usuario').then(res => {
+      this.username = res.username;
+    }, err => {});
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TarjetasPage');
+    
   }
 
   listarTarjetas() {

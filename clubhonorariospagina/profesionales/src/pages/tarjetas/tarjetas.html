@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <ion-grid>
+  <ion-grid *ngIf="username == 'rlobo' || username == 'gilda'">
     <ion-row *ngIf="arrayTarjetas">
       <ion-col col-md-3 col-12 *ngFor="let t of arrayTarjetas">
         <ion-item-group>

@@ -4,6 +4,7 @@ import { Validators, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Tarjeta } from './tarjeta.interface';
 import { TarjetasPage } from '../tarjetas/tarjetas';
 import { TarjetasProvider } from '../../providers/tarjetas/tarjetas';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the FormTarjetaPage page.
  *
@@ -16,7 +17,7 @@ import { TarjetasProvider } from '../../providers/tarjetas/tarjetas';
   templateUrl: 'form-tarjeta.html',
 })
 export class FormTarjetaPage {
-
+private username: any;
   private formularioTarjeta: FormGroup; // our form model
   private submitAttempt: boolean = false;
   private loading: any;
@@ -28,10 +29,14 @@ export class FormTarjetaPage {
     public tarjetaProv: TarjetasProvider,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public storage: Storage) {
   }
 
   ngOnInit() {
+    this.storage.get('usuario').then(res => {
+      this.username = res.username;
+    }, err => {});
     this.formularioTarjeta = this._fb.group({
       nombre: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],
       nombreCorto: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]],

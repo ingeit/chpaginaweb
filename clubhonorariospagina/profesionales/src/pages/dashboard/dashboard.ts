@@ -7,6 +7,7 @@ import { TarjetasPage } from '../tarjetas/tarjetas';
 import { FormTarjetaPage } from '../form-tarjeta/form-tarjeta';
 import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DashboardPage page.
@@ -20,11 +21,17 @@ import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacio
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private username: any;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public storage: Storage) {
   }
 
   ionViewDidLoad() {
+    this.storage.get('usuario').then(res => {
+      this.username = res.username;
+    }, err => {});
     console.log('ionViewDidLoad DashboardPage');
   }
 

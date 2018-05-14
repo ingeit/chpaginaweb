@@ -46,7 +46,7 @@
 
          
 
-         <ion-col col-12 col-sm>
+         <ion-col *ngIf="username == 'rlobo' || username == 'gilda'" col-12 col-sm>
             <div class="card" style="background:#1AB1E4" (click)="ir('tarjetas')">
                <ion-row>
                   <ion-col style="margin-top: 12px;">

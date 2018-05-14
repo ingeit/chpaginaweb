@@ -29,11 +29,11 @@ export class HomePage {
       this.login = formBuilder.group({
         username: ['',Validators.compose([
           Validators.maxLength(30),
-          Validators.minLength(5), 
+          Validators.minLength(2), 
           Validators.required])],
         password: ['',Validators.compose([
           Validators.maxLength(30),
-          Validators.minLength(5), 
+          Validators.minLength(2), 
           Validators.required])],
       });
   }

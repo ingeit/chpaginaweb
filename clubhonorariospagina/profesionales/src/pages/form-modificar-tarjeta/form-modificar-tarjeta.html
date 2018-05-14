@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-    <div col-md-6 offset-md-3 col-12>
+    <div *ngIf="username == 'rlobo' || username == 'gilda'" col-md-6 offset-md-3 col-12>
         <form [formGroup]="formularioTarjeta" novalidate (ngSubmit)="nuevaTarjeta()">
             <h4>Agregar Tarjeta</h4>
             <ion-item>
