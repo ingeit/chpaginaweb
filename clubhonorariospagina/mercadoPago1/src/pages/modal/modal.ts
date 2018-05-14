@@ -5,13 +5,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FormularioWebPaso2Page } from '../formulario-web-paso2/formulario-web-paso2';
 import { FormularioWebPage } from '../formulario-web/formulario-web';
 
-/**
- * Generated class for the ModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-modal',
   templateUrl: 'modal.html',

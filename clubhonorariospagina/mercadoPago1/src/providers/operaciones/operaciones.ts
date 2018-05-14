@@ -54,4 +54,14 @@ export class OperacionesProvider {
       });
   }
 
+  dameUrlUnsafe() {
+    this.http.get(`${configServer.data.urlServidor}/api/dameUrlUnsafe/`)
+      .map(res => res.json())
+      .subscribe(res => {
+        let url = res;
+        console.log(url)
+        const browser = this.iab.create(url);
+      }, (err) => {
+      });
+  }
 }
