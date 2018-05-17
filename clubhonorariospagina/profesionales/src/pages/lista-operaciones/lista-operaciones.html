@@ -76,6 +76,40 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
         <ion-col>
           <div class="example-container mat-elevation-z8">
             <mat-table #table [dataSource]="Operaciones">
+              <ng-container  matColumnDef="idOperacion">
+                <mat-header-cell *matHeaderCellDef> Op. Nº </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="tipoOperacion">
+                <mat-header-cell *matHeaderCellDef> Tipo de Operacion </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.tipoOperacion}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="profesional">
+                <mat-header-cell *matHeaderCellDef> Apellido y Nombre Prof. </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="dniProfesional">
+                <mat-header-cell *matHeaderCellDef> DNI Prof. </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.dniProfesional}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="fechaTransaccion">
+                <mat-header-cell *matHeaderCellDef> Fecha de Operacion </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy H:m'}} Hs  </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="fechaPago">
+                <mat-header-cell *matHeaderCellDef> Fecha de Pago </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.fechaPago | date:'dd/MM/yy'}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="importes">
+                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
+                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
+                  <br>Carga: ${{o.importeCarga}}
+                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="cupon">
+                <mat-header-cell *matHeaderCellDef> Cupon Nº </mat-header-cell>
+                <mat-cell *matCellDef="let o"> {{o.cupon}}</mat-cell>
+              </ng-container>
               <ng-container matColumnDef="Acciones">
                 <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
                 <mat-cell *matCellDef="let o">
@@ -89,52 +123,6 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
                     <button mat-button color="warn" (click)="botonEliminar(o.idOperacion)">Eliminar</button>
                   </div>
                 </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="idOperacion">
-                <mat-header-cell *matHeaderCellDef> Op. Nº </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="profesional">
-                <mat-header-cell *matHeaderCellDef> Apellido y Nombre Prof. </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.apellidoProfesional | uppercase}}, {{o.nombreProfesional}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="dniProfesional">
-                <mat-header-cell *matHeaderCellDef> DNI Prof. </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.dniProfesional}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="fechaTransaccion">
-                <mat-header-cell *matHeaderCellDef> Fecha de Operacion </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy'}} <br> {{o.fechaTransaccion | date:'h:MM'}} HS </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="fechaPago">
-                <mat-header-cell *matHeaderCellDef> Fecha de Pago </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.fechaPago | date:'dd/MM/yy'}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="tipoOperacion">
-                <mat-header-cell *matHeaderCellDef> Tipo de Operacion </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.tipoOperacion}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="estadoPago">
-                <mat-header-cell *matHeaderCellDef> Estado de Pago </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.estadoPago}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="tarjeta">
-                <mat-header-cell *matHeaderCellDef> Medio de pago </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.nombreTarjeta}}<br>{{o.cuotas}} Cuotas </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="importes">
-                <mat-header-cell *matHeaderCellDef> Importes </mat-header-cell>
-                <mat-cell *matCellDef="let o"> Venta: ${{o.importeVenta}}
-                  <br>Carga: ${{o.importeCarga}}
-                  <br> Honorarios: ${{o.importeCobrar}}</mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="codigoAuto">
-                <mat-header-cell *matHeaderCellDef> Codigo Auto </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.codigoAuto}} </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="cupon">
-                <mat-header-cell *matHeaderCellDef> Cupon Nº </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.cupon}}</mat-cell>
               </ng-container>
               <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
               <mat-row *matRowDef="let rowData; columns: columnsToDisplay;"></mat-row>
