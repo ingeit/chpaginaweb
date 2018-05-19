@@ -298,6 +298,14 @@ export class NuevaOperacionPage {
 				console.log("case point preferencial")
 				this.tarjetas.map(e => { if (e.idTarjeta == 4) { this.arrayCuotas = e.cuotaComision } });
 				break;
+			case 'MP':
+				console.log("MP")
+				this.tarjetas.map(e => { if (e.idTarjeta == 3) { this.arrayCuotas = e.cuotaComision } });
+				break;
+			case 'MP1':
+				console.log("MP1")
+				this.tarjetas.map(e => { if (e.idTarjeta == 3) { this.arrayCuotas = e.cuotaComision } });
+				break;
 			default:
 				this.tarjetas.map(e => { if (e.idTarjeta == idTarjeta) { this.arrayCuotas = e.cuotaComision } });
 				console.log("case defaul")

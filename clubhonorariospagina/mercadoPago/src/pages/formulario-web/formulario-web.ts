@@ -197,6 +197,10 @@ export class FormularioWebPage {
 			this.campos.importes.carga = Math.round(this.campos.importes.venta * this.comision * 100) / 100;
 			this.campos.importes.cuota = Math.round((this.campos.importes.carga / this.campos.importes.cantCuotas) * 100) / 100;
 		}
+		if(this.formulario.get('importeVenta').value){
+			this.campos.importes.venta = this.formulario.get('importeVenta').value;
+			this.campos.importes.cobrar = Math.round(this.campos.importes.venta * 0.95 * 100) / 100;
+		}
 	}
 
 	showLoader(mensaje) {
