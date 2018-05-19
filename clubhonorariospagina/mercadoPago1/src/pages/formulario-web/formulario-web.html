@@ -71,33 +71,6 @@
                   </ion-segment>
                   <div [ngSwitch]="pasos">
                      <ion-list *ngSwitchCase="'1'">
-                        <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
-                        <ion-item>
-                           <ion-label floating>Apellido *</ion-label>
-                           <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
-                              [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
-                        </ion-item>
-                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
-
-                        <ion-item>
-                           <ion-label floating>Nombre *</ion-label>
-                           <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
-                        </ion-item>
-                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
-
-                        <ion-item>
-                           <ion-label floating>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977) </ion-label>
-                           <ion-input formControlName="telefonoCliente" type="text" class="form-control" name="telefonoCliente" id="telefonoCliente"></ion-input>
-                        </ion-item>
-
-                        <ion-item>
-                           <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
-                           <ion-input formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
-                        </ion-item>
-                        <button style="float:right" mat-button color="primary" (click)="otroPaso('2')">Paso siguiente</button>
-                     </ion-list>
-
-                     <ion-list *ngSwitchCase="'2'">
                         <h2 style="margin-top: 0.3rem;">Informacion de operacion</h2>
                         <ion-item>
                            <ion-label floating>Importe de venta</ion-label>
@@ -145,12 +118,14 @@
                            <ion-input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]='campos.importes.carga' type="number" step="0.05" class="form-control importes"
                               name="importeCarga" id="importeCarga"></ion-input>
                         </ion-item>
-
-                        <button mat-button color="primary" (click)="otroPaso('1')">Paso anterior</button>
-                        <button style="float:right" mat-button color="primary" (click)="otroPaso('3')">Paso siguiente</button>
+                        <button style="float:right" mat-button color="primary" (click)="otroPaso('2')">Paso siguiente</button>
                      </ion-list>
 
-                     <ion-list *ngSwitchCase="'3'">
+
+
+
+
+                     <ion-list *ngSwitchCase="'2'">
                         <h2 style="margin-top: 0.3rem;">Datos de la tarjeta</h2>
                         <div id="imagenTajeta">
                            <ion-item>
@@ -211,8 +186,38 @@
                               <ion-option *ngFor="let b of listaSimulaciones" value="{{b.cod}}">{{b.desc}}</ion-option>
                            </ion-select>
                         </ion-item> -->
-                        <button mat-button color="primary" (click)="otroPaso('2')">Paso anterior</button>
+                        <button mat-button color="primary" style="float:right" (click)="otroPaso('3')">Paso siguiente</button>
+                        <button mat-button color="primary" style="float:right" (click)="otroPaso('1')">Paso anterior</button>
+                        
+                     </ion-list>
+
+
+                     <ion-list *ngSwitchCase="'3'">
+                        <h2 style="margin-top: 0.3rem;">Informacion del cliente</h2>
+                        <ion-item>
+                           <ion-label floating>Apellido *</ion-label>
+                           <ion-input formControlName="apellidoCliente" type="text" class="form-control" name="apellidoCliente" id="apellidoCliente"
+                              [class.errorClubHonorarios]="!formulario.controls.apellidoCliente.valid &&  submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.apellidoCliente.valid  && submitAttempt">Por favor, ingrese el apellido</p>
+
+                        <ion-item>
+                           <ion-label floating>Nombre *</ion-label>
+                           <ion-input formControlName="nombreCliente" type="text" class="form-control" name="nombreCliente" id="nombreCliente" [class.errorClubHonorarios]="!formulario.controls.nombreCliente.valid && submitAttempt"></ion-input>
+                        </ion-item>
+                        <p style="color:red;" class="help-block text-danger errorClubHonorarios errorP" *ngIf="!formulario.controls.nombreCliente.valid  && submitAttempt">Por favor, ingrese el nombre</p>
+
+                        <ion-item>
+                           <ion-label floating>Celular (0 + Cod Area + 15 + Num. Ej: 0381154889977)</ion-label>
+                           <ion-input formControlName="telefonoCliente" type="text" class="form-control" name="telefonoCliente" id="telefonoCliente"></ion-input>
+                        </ion-item>
+
+                        <ion-item>
+                           <ion-label for="email" floating>Mail (Se usara para el envio del comprobante de pago)</ion-label>
+                           <ion-input formControlName="mailCliente" type="text" class="form-control" id="email" name="email"></ion-input>
+                        </ion-item>
                         <button style="float:right" mat-button color="primary" type="submit" (click)="pagar()">Aceptar</button>
+                        <button style="float:right" mat-button color="primary" (click)="otroPaso('2')">Paso anterior</button>
                      </ion-list>
                   </div>
                </form>
