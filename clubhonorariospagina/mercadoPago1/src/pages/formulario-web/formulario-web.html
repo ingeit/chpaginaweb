@@ -58,15 +58,15 @@
                   <ion-segment [(ngModel)]="pasos" [ngModelOptions]="{standalone: true}" color="primary">
                      <ion-segment-button id="cliente" value="1">
                         <ion-icon col-12 col-sm-4 name="person-add"></ion-icon>
-                        <label col-12 col-sm-4 for="cliente">Datos cliente</label>
+                        <label col-12 col-sm-4 for="cliente">Importes $ y cuotas</label>
                      </ion-segment-button>
                      <ion-segment-button id="importes" value="2">
                         <ion-icon col-12 col-sm-4 name="logo-usd"></ion-icon>
-                        <label col-12 col-sm-4 for="importes">Importes $ y cuotas</label>
+                        <label col-12 col-sm-4 for="importes">Datos tarjeta</label>
                      </ion-segment-button>
                      <ion-segment-button id="tarjeta" value="3">
                         <ion-icon col-12 col-sm-4 name="card"></ion-icon>
-                        <label col-12 col-sm-4 for="tarjeta">Datos tarjeta</label>
+                        <label col-12 col-sm-4 for="tarjeta">Datos cliente</label>
                      </ion-segment-button>
                   </ion-segment>
                   <div [ngSwitch]="pasos">
@@ -188,7 +188,7 @@
                         </ion-item> -->
                         <button mat-button color="primary" style="float:right" (click)="otroPaso('3')">Paso siguiente</button>
                         <button mat-button color="primary" style="float:right" (click)="otroPaso('1')">Paso anterior</button>
-                        
+
                      </ion-list>
 
 
