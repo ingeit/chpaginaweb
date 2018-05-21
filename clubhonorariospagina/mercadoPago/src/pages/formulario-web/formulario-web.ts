@@ -75,6 +75,7 @@ export class FormularioWebPage {
 		// MP
 		Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
 		// Mercadopago.getIdentificationTypes(); 		
+		// Mercadopago.setPublishableKey("TEST-301d86de-e460-48ae-a06a-e0aba83c39dd");
 
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
