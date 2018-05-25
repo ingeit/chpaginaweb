@@ -36,6 +36,21 @@ export class OperacionesProvider {
     });
   }
 
+  generarPreferencia() {
+    console.log("dentro del funcion opnueva provider");
+    return new Promise((resolve, reject) => {
+      this.http.get(`${configServer.data.urlServidor}/api/generarPreferencia/`)
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log("res preference",res);
+          resolve(res.body);
+        }, (err) => {
+          console.log("err preference",err);
+          reject(err);
+        });
+    });
+  }
+
   otroMetodo(jwt) {
     let uri = {
       value: jwt

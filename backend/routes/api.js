@@ -8,6 +8,10 @@ var UsuariosController = require('./../controllers/usuariosController');
 var CalendarioController = require('./../controllers/calendarioController');
 var TarjetaController = require('./../controllers/tarjetaController');
 
+router.get('/generarPreferencia', OperacionController.generarPreferencia);
+
+
+
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
