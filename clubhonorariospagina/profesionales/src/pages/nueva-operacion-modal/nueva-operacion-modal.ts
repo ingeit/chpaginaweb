@@ -4,13 +4,6 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
 import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 
-/**
- * Generated class for the ModalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-nueva-operacion-modal',
   templateUrl: 'nueva-operacion-modal.html',

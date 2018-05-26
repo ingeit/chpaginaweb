@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>MercadoPago CheckOut</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col>
+      <form [formGroup]="formulario" method="post" class="form-signin" id="myform" name="formulario">
+        <h2>Datos del profesional/prestador de servicio</h2>
+
+        <form (ngSubmit)="consultarProfesional()">
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label stacked>DNI/CUIT *</ion-label>
+                <ion-input type="number" [(ngModel)]="dniProfesionalForm" [ngModelOptions]="{standalone: true}"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="margin-top: -11px;">
+              <ion-buttons end>
+                <button float-right color="secondary" ion-button outline type="submit">
+                  <ion-icon name="search" style="margin-right: 5px;"></ion-icon>BUSCAR</button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </form>
+        <ion-item>
+          <ion-label stacked>Apellido</ion-label>
+          <ion-input disabled formControlName="apellidoProfesional" type="text" class="form-control" name="apellidoProfesional" id="apellidoProfesional"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Nombre </ion-label>
+          <ion-input disabled formControlName="nombreProfesional" type="text" class="form-control" name="nombreProfesional" id="nombreProfesional"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Mail </ion-label>
+          <ion-input disabled formControlName="mailProfesional" type="text" class="form-control" name="mailProfesional" id="mailProfesional"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Precio de venta</ion-label>
+          <ion-input type="number"  formControlName="precioVenta" type="text" class="form-control" name="precioVenta" id="precioVenta"></ion-input>
+        </ion-item>
+      </form>
+
+      <!-- /form -->
+      <!-- OJO! El boton va a la funcion GENERAR, no generarDebug.. -->
+      <button ion-button (click)="generarPreferencia()">Generar Pago</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {MatButtonModule} from '@angular/material/button';
+import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado-pago-check-out';
 
 
 
@@ -58,6 +59,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
     NuevaOperacionModalPage,
+    MercadoPagoCheckOutPage
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,8 @@ import {MatButtonModule} from '@angular/material/button';
     TarjetasPage,
     FormTarjetaPage,
     FormModificarTarjetaPage,
-    NuevaOperacionPaso2Page
+    NuevaOperacionPaso2Page,
+    MercadoPagoCheckOutPage
   ],
   providers: [
     StatusBar,

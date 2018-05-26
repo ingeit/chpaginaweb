@@ -8,7 +8,7 @@ var UsuariosController = require('./../controllers/usuariosController');
 var CalendarioController = require('./../controllers/calendarioController');
 var TarjetaController = require('./../controllers/tarjetaController');
 
-router.get('/generarPreferencia', OperacionController.generarPreferencia);
+router.post('/generarPreferencia', OperacionController.generarPreferencia);
 
 
 

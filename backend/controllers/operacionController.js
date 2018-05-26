@@ -9,6 +9,7 @@ var fecha = now.toString();
 
 
 exports.generarPreferencia = function (req, res, next) {
+   console.log("reqbody", req.body)
    var mp = require("mercadopago");
    mp.configure({
       client_id: '3022311402676069',
@@ -20,13 +21,13 @@ exports.generarPreferencia = function (req, res, next) {
    var preference = {};
    var items = [
       item = {
-        id: '1',
-        title: 'Pago de Honorarios a Gomez, Kevin',
-        quantity: 1,
-        currency_id: 'ARS',
-        unit_price: 1023
+         id: req.body.id,
+         title: `Pago de Honorarios a ${req.body.apellido}, ${req.body.nombre}`,
+         quantity: 1,
+         currency_id: 'ARS',
+         unit_price: req.body.precioVenta
       }
-    ];
+   ];
 
    preference.items = items;
 
@@ -49,17 +50,17 @@ exports.generarPreferencia = function (req, res, next) {
          zip_code: "4000"
       }
    };
-preference.payer = payer
+   preference.payer = payer
 
 
-   mp.preferences.create(preference)
-      .then(function (preference) {
-            console.log(preference)
-         res.status(200).json(preference)
-      }).catch(function (error) {
-         res.status(400).send(error)
-         console.log(error)
-      });
+      mp.preferences.create(preference)
+         .then(function (preference) {
+               console.log(preference)
+            res.status(200).json(preference)
+         }).catch(function (error) {
+            res.status(400).send(error)
+            console.log(error)
+         });
 
 
 }
@@ -77,21 +78,21 @@ exports.verPagos = function (req, res, next) {
    var mp = new MP(configMP.access_token);
    var filters = {
       "status": "approved",
-	"operation_type": "regular_payment",
-	"range": "date_created",
-	"begin_date": "NOW-2DAYS",
-	"end_date": "NOW"
-};
+      "operation_type": "regular_payment",
+      "range": "date_created",
+      "begin_date": "NOW-2DAYS",
+      "end_date": "NOW"
+   };
 
-mp.searchPayment (filters, function (err, data){
-	if (err) {
-            console.log (err);
-            res.send(err)
-	} else {
-            res.send(data)
-		console.log (JSON.stringify (data, null, 4));
-	}
-});
+   mp.searchPayment(filters, function (err, data) {
+      if (err) {
+         console.log(err);
+         res.send(err)
+      } else {
+         res.send(data)
+         console.log(JSON.stringify(data, null, 4));
+      }
+   });
 
 }
 

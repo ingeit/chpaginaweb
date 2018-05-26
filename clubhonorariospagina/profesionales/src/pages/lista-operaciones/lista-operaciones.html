@@ -7,7 +7,7 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title (click)="ir()">
-      <img class="titleMenu ocultarMenu" src="http://clubhonorarios.com/img/logo/logo-max.png" />
+      <img class="titleMenu ocultarMenu" src="https://clubhonorarios.com/img/logo/logo-max.png" />
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -42,6 +42,10 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
 
   <ion-grid col-10>
     <ion-row>
+      <button (click)="nuevaOperacionMPCO()" ion-button color="light">
+        <ion-icon name="book"></ion-icon>
+        Nueva Operacion MP check out
+      </button>
       <button (click)="nuevaOperacion()" ion-button color="light">
         <ion-icon name="book"></ion-icon>
         Nueva Operacion MP
@@ -76,7 +80,7 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
         <ion-col>
           <div class="example-container mat-elevation-z8">
             <mat-table #table [dataSource]="Operaciones">
-              <ng-container  matColumnDef="idOperacion">
+              <ng-container matColumnDef="idOperacion">
                 <mat-header-cell *matHeaderCellDef> Op. Nº </mat-header-cell>
                 <mat-cell *matCellDef="let o"> {{o.idOperacion}} </mat-cell>
               </ng-container>
@@ -94,7 +98,7 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
               </ng-container>
               <ng-container matColumnDef="fechaTransaccion">
                 <mat-header-cell *matHeaderCellDef> Fecha de Operacion </mat-header-cell>
-                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy H:m'}} Hs  </mat-cell>
+                <mat-cell *matCellDef="let o"> {{o.fechaTransaccion | date:'dd/MM/yy H:m'}} Hs </mat-cell>
               </ng-container>
               <ng-container matColumnDef="fechaPago">
                 <mat-header-cell *matHeaderCellDef> Fecha de Pago </mat-header-cell>

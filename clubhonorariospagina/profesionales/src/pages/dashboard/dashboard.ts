@@ -9,13 +9,6 @@ import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
 import { Storage } from '@ionic/storage';
 
-/**
- * Generated class for the DashboardPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',

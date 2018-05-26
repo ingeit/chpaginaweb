@@ -4,12 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Categorias } from '../../modelos/categoria.interface';
 import { LoginProvider } from '../../providers/login/login';
 
-/**
- * Generated class for the CategoriasPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage({
   name: 'listarCategorias',
   segment: 'categorias/:categoriaId'

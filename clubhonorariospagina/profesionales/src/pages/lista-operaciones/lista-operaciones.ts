@@ -11,6 +11,7 @@ import * as configServer from './../../server'
 import { DashboardPage } from '../dashboard/dashboard';
 import * as jwt from 'jsonwebtoken';
 import * as swal from 'sweetalert';
+import { MercadoPagoCheckOutPage } from '../mercado-pago-check-out/mercado-pago-check-out';
 
 
 @Component({
@@ -261,6 +262,9 @@ export class ListaOperacionesPage {
 
   }
 
+  public nuevaOperacionMPCO() {
+    this.navCtrl.setRoot(MercadoPagoCheckOutPage);
+  }
   public nuevaOperacion() {
     this.storage.get('usuario').then((respuesta) => {
       let value = jwt.sign({
@@ -268,7 +272,6 @@ export class ListaOperacionesPage {
       }, 'shhola', { expiresIn: 5 * 60 });
       this.storage.set('mpop', 'si');
       let url = 'https://clubhonorarios.com/mpop/#/'+value;
-      // let url = 'http://localhost:81/mpop/#/' + value;
       const browser = this.iab.create(url);
       
     });
@@ -280,7 +283,6 @@ export class ListaOperacionesPage {
       }, 'shhola', { expiresIn: 5 * 60 });
       this.storage.set('mpop', 'si');
       let url = 'https://clubhonorarios.com/1mpop/#/'+value;
-      // let url = 'http://localhost:81/1mpop/#/' + value;
       const browser = this.iab.create(url);
     });
   }

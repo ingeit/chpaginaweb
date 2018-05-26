@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http,Headers } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as configServer from './../../server'
 
@@ -11,14 +11,14 @@ export class OperacionesProvider {
   constructor(public http: Http) {
   }
 
-  cargarOperacion(credentials){
+  cargarOperacion(credentials) {
     console.log("dentro del funcion opnueva provider");
     return new Promise((resolve, reject) => {
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        
-        this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), {headers: headers})
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(`${configServer.data.urlServidor}/api/operacionNueva/`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           console.log(res);
@@ -28,16 +28,49 @@ export class OperacionesProvider {
           reject(err);
         });
     });
-}
+  }
 
-  obtenerOperaciones(){
+  generarPreferencia(campos) {
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    campos = {site_id:"MLA"}
     return new Promise((resolve, reject) => {
-        this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`)
+      this.http.post(`https://api.mercadopago.com/users/test_user?access_token=TEST-3022311402676069-032114-dfe9c37083bcc10ae45456598d956821-303952467`, JSON.stringify(campos), { headers: headers })
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log("res preference", res);
+          resolve(res.body);
+        }, (err) => {
+          console.log("err preference", err);
+          reject(err);
+        });
+    });
+
+    // console.log("dentro del funcion opnueva provider");
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // return new Promise((resolve, reject) => {
+    //   this.http.post(`${configServer.data.urlServidor}/api/generarPreferencia/`, JSON.stringify(campos), { headers: headers })
+    //     .map(res => res.json())
+    //     .subscribe(res => {
+    //       console.log("res preference", res);
+    //       resolve(res.body);
+    //     }, (err) => {
+    //       console.log("err preference", err);
+    //       reject(err);
+    //     });
+    // });
+  }
+
+  obtenerOperaciones() {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${configServer.data.urlServidor}/api/listarOperaciones/`)
         .map(res => res.json())
         .subscribe(res => {
           // transformamos las fechas a UTC por culpa del pipe...
           res = this.transformarFechas(res);
-          console.log("respuesta en provider",res);
+          console.log("respuesta en provider", res);
           resolve(res);
         }, (err) => {
           reject(err);
@@ -45,13 +78,13 @@ export class OperacionesProvider {
     });
   }
 
-  obtenerOperacionesFiltrado(credentials){
+  obtenerOperacionesFiltrado(credentials) {
     return new Promise((resolve, reject) => {
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        
-        this.http.post(`${configServer.data.urlServidor}/api/listarOperacionesPorFecha/`, JSON.stringify(credentials), {headers: headers})
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(`${configServer.data.urlServidor}/api/listarOperacionesPorFecha/`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           res = this.transformarFechas(res);
@@ -62,13 +95,13 @@ export class OperacionesProvider {
     });
   }
 
-  dameOperacion(credentials){
-    return new Promise((resolve, reject) => { 
+  dameOperacion(credentials) {
+    return new Promise((resolve, reject) => {
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-        this.http.post(`${configServer.data.urlServidor}/api/dameOperacion`, JSON.stringify(credentials), {headers: headers})
+      this.http.post(`${configServer.data.urlServidor}/api/dameOperacion`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           res = this.transformarFechas(res);
@@ -79,13 +112,13 @@ export class OperacionesProvider {
     });
   }
 
-  pagarOperacion(credentials){
-    return new Promise((resolve, reject) => { 
+  pagarOperacion(credentials) {
+    return new Promise((resolve, reject) => {
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-        this.http.post(`${configServer.data.urlServidor}/api/pagarOperacion`, JSON.stringify(credentials), {headers: headers})
+      this.http.post(`${configServer.data.urlServidor}/api/pagarOperacion`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -95,13 +128,13 @@ export class OperacionesProvider {
     });
   }
 
-  operacionBaja(credentials){
-    return new Promise((resolve, reject) => { 
+  operacionBaja(credentials) {
+    return new Promise((resolve, reject) => {
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-        this.http.post(`${configServer.data.urlServidor}/api/operacionBaja`, JSON.stringify(credentials), {headers: headers})
+      this.http.post(`${configServer.data.urlServidor}/api/operacionBaja`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -111,63 +144,63 @@ export class OperacionesProvider {
     });
   }
 
-  transformarFechas(valores){
-    valores.forEach((element, index) => {    
-        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion);
-        valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion.getUTCFullYear(),
-                                                  valores[index].fechaTransaccion.getUTCMonth(),
-                                                  valores[index].fechaTransaccion.getUTCDate(),
-                                                  valores[index].fechaTransaccion.getUTCHours(),
-                                                  valores[index].fechaTransaccion.getUTCMinutes(),
-                                                  valores[index].fechaTransaccion.getUTCSeconds());
-    valores[index].fechaPago = new Date(valores[index].fechaPago);
-        valores[index].fechaPago = new Date(valores[index].fechaPago.getUTCFullYear(),
-                                                  valores[index].fechaPago.getUTCMonth(),
-                                                  valores[index].fechaPago.getUTCDate(),
-                                                  valores[index].fechaPago.getUTCHours(),
-                                                  valores[index].fechaPago.getUTCMinutes(),
-                                                  valores[index].fechaPago.getUTCSeconds());
+  transformarFechas(valores) {
+    valores.forEach((element, index) => {
+      valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion);
+      valores[index].fechaTransaccion = new Date(valores[index].fechaTransaccion.getUTCFullYear(),
+        valores[index].fechaTransaccion.getUTCMonth(),
+        valores[index].fechaTransaccion.getUTCDate(),
+        valores[index].fechaTransaccion.getUTCHours(),
+        valores[index].fechaTransaccion.getUTCMinutes(),
+        valores[index].fechaTransaccion.getUTCSeconds());
+      valores[index].fechaPago = new Date(valores[index].fechaPago);
+      valores[index].fechaPago = new Date(valores[index].fechaPago.getUTCFullYear(),
+        valores[index].fechaPago.getUTCMonth(),
+        valores[index].fechaPago.getUTCDate(),
+        valores[index].fechaPago.getUTCHours(),
+        valores[index].fechaPago.getUTCMinutes(),
+        valores[index].fechaPago.getUTCSeconds());
     });
     return valores;
   }
 
-  public dameFechas(){
+  public dameFechas() {
     return new Promise((resolve, reject) => {
       let url;
       url = `${configServer.data.urlServidor}/api/dameFechas`
-        this.http.get(url).map(res => res.json())
-          .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
- 
+      this.http.get(url).map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+
     });
   }
 
-  public dameTarjetas(){
+  public dameTarjetas() {
     return new Promise((resolve, reject) => {
       let url;
       url = `${configServer.data.urlServidor}/api/listarTarjetas`
-        this.http.get(url).map(res => res.json())
-          .subscribe(res => {
-            resolve(res);
-          }, (err) => {
-            reject(err);
-          });
- 
+      this.http.get(url).map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+
     });
   }
 
-  public dameProfesional(credentials){
+  public dameProfesional(credentials) {
     return new Promise((resolve, reject) => {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        
-        this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), {headers: headers})
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      this.http.post(`${configServer.data.urlServidor}/api/dameProfesional`, JSON.stringify(credentials), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
-          console.log("respuesta del subscribe: ",res);
+          console.log("respuesta del subscribe: ", res);
           resolve(res);
         }, (err) => {
           console.log(err);
@@ -176,6 +209,6 @@ export class OperacionesProvider {
     });
   }
 
-  
+
 
 }

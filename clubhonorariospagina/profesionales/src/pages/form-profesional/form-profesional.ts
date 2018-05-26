@@ -4,12 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfesionalesProvider } from '../../providers/profesionales/profesionales';
 import { AlertController,LoadingController } from 'ionic-angular';
 import { ListarProfesionalesPage } from '../listar-profesionales/listar-profesionales';
-/**
- * Generated class for the FormProfesionalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @Component({
   selector: 'page-form-profesional',
   templateUrl: 'form-profesional.html',

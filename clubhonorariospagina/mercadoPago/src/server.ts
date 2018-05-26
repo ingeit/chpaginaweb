@@ -1,5 +1,4 @@
 export let data = {
-    // "urlServidor": 'https://servidorrlq.com',
-    "urlServidor": 'http://localhost:3000',
+    "urlServidor": 'https://servidorrlq.com',
     "password": "false"
 };

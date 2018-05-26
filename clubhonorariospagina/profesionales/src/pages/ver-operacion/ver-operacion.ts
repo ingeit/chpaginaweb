@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { ListaOperacionesPage  } from '../lista-operaciones/lista-operaciones';
 
-/**
- * Generated class for the VerOperacionPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @Component({
   selector: 'page-ver-operacion',
   templateUrl: 'ver-operacion.html',
