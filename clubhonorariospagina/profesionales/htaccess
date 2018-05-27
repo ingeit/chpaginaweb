@@ -1,0 +1,7 @@
+AddHandler x-httpd-php7 .php
+# AddHandler x-httpd-php5-5 .php
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://clubhonorarios.com/adminop
