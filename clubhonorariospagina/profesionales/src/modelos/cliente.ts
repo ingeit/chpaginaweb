@@ -5,11 +5,11 @@ export default class ClienteModelo {
    mail: string;
    celular: string;
 
-   constructor(dni, nombre, apellido, mail, celular) {
-      this.dni = dni;
-      this.nombre = nombre;
-      this.apellido = apellido;
-      this.mail = mail;
-      this.celular = celular;
+   constructor() {
+      this.dni = null;
+      this.nombre = null;
+      this.apellido = null;
+      this.mail = null;
+      this.celular = null;
    }
 }

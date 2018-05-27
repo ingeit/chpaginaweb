@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, LoadingController, MenuController,
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
+import { ListaOperacionesPage } from '../lista-operaciones/lista-operaciones';
+import ModeloFormulario from './modelo-formulario';
+import ClienteModelo from '../../modelos/cliente';
+import ProfesionalModelo from '../../modelos/profesional';
 
 @Component({
   selector: 'page-mercado-pago-check-out',
@@ -10,7 +14,7 @@ import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 })
 export class MercadoPagoCheckOutPage {
 
-  private campos: any = {};
+  private campos: ModeloFormulario;
 	private tarjetas: any;
 	private tarjetasSelect: any;
 	private desde: any;
@@ -30,14 +34,12 @@ export class MercadoPagoCheckOutPage {
 	comision: number;
 	tarjetasComisiones: any;
 	tarjetaNombre: any = false;
-	dniProfesionalForm: any;
 	lapos: any;
 	tipoTarjeta: string = null;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public iab: InAppBrowser,
-    public operacionesProv: OperacionesProvider,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
 		private toastCtrl: ToastController,
@@ -45,14 +47,8 @@ export class MercadoPagoCheckOutPage {
 		public loadingCtrl: LoadingController,
 		public opProv: OperacionesProvider,
   ) {
-    this.formulario = formBuilder.group({
-      dniProfesional: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(7), Validators.pattern(/()\d/g), Validators.required])],
-      apellidoProfesional: [''],
-      nombreProfesional: [''],
-      mailProfesional: [''],
-      precioVenta: ['', Validators.compose([Validators.maxLength(12), Validators.minLength(1), Validators.pattern(/()\d/g), Validators.required])],
-    });
-
+		this.campos = new ModeloFormulario();
+		this.dameTarjetas();
   }
 
   ionViewDidLoad() {
@@ -60,9 +56,9 @@ export class MercadoPagoCheckOutPage {
   }
 
   consultarProfesional() {
-		if (this.dniProfesionalForm) {
+		if (this.campos.profesional.dni) {
 			let details = {
-				dni: parseInt(this.dniProfesionalForm),
+				dni: this.campos.profesional.dni,
 			};
 			console.log('dni en form: ', details);
 			this.showLoader('Consultando Profesional');
@@ -72,14 +68,10 @@ export class MercadoPagoCheckOutPage {
         this.loading.dismiss();
         console.log("antes del iF",this.respuesta)
 				if (this.respuesta.codigo === 1) {
-          this.campos.apellido = this.respuesta.apellido;
-					this.campos.nombre = this.respuesta.nombre;
-					this.campos.mail = this.respuesta.mail;
-          this.campos.id = this.respuesta.idProfesional
-					this.formulario.controls['dniProfesional'].setValue(this.dniProfesionalForm);
-					this.formulario.controls['apellidoProfesional'].setValue( this.campos.apellido);
-					this.formulario.controls['nombreProfesional'].setValue( this.campos.nombre);
-					this.formulario.controls['mailProfesional'].setValue( this.campos.mail);
+          this.campos.profesional.apellido = this.respuesta.apellido;
+					this.campos.profesional.nombre = this.respuesta.nombre;
+					this.campos.profesional.mail = this.respuesta.mail;
+          this.campos.profesional.id = this.respuesta.idProfesional;
 					console.log("campos", this.campos);
 				} else {
 					this.mostrarAlerta('ERROR', this.respuesta.mensaje + ". Por favor comunicarse via telefonica a nuestras oficinas");
@@ -93,11 +85,73 @@ export class MercadoPagoCheckOutPage {
 		}
 	}
 
+	dameTarjetas() {
+		this.opProv.dameTarjetas().then((result) => {
+			this.tarjetas = result;
+			console.log(this.tarjetas)
+			if (this.tarjetas[0].codigo === 1) {
+				this.armarArrayTarjetas(this.tarjetas);
+				console.log(this.tarjetas);
+			} else {
+				this.tarjetas = 0;
+				this.mostrarAlerta('Error', 'Problemas al mostrar tarjetas');
+
+			}
+		}).catch((err) => {
+			this.tarjetas = 0;
+			this.mostrarAlerta('Error', 'Problemas al mostrar tarjetas');
+		});
+	}
+
+	armarArrayTarjetas(array) {
+		this.tarjetas = [];
+		for (let i = 0; i < array.length; i++) {
+			if (!this.tarjetas[array[i].idTarjeta]) {
+				this.tarjetas[array[i].idTarjeta] = {
+					idTarjeta: array[i].idTarjeta,
+					nombre: array[i].nombre,
+					nombreCorto: array[i].nombreCorto,
+					cuotaComision: [{
+						cantidadCuota: array[i].cantidadCuota,
+						comision: array[i].comision
+					}]
+				}
+			} else {
+				this.tarjetas[array[i].idTarjeta].cuotaComision.push({ cantidadCuota: array[i].cantidadCuota, comision: array[i].comision });
+			}
+		}
+		//eliminamos los indices que no tienen tarjeta, por ejemplo, [0] no contiene nada
+		for (let i = 0; i < this.tarjetas.length; i++) {
+			if (this.tarjetas[i] === undefined) {
+				this.tarjetas.splice(i, 1);
+				i--; // hacemos esto, porque si hay 2 undefined consecutivos, el segundo undefined ocupa el lugar del primero (i-1), y el for ya no lo recorre para borrarlo
+			}
+		}
+	}
+
+	autoCompletarImportes() {
+		// antes de autocompletar, controlo que haya un importe venta, para no rellenar con ceros.
+		if (this.campos.importes.venta && this.campos.importes.cantCuotas) {
+			console.log("entrado a autocompletarimportes")
+			this.campos.importes.cobrar = Math.round(this.campos.importes.venta * 0.95 * 100) / 100;
+
+			let i = this.tarjetas.findIndex(t => t.nombreCorto == "VISA");
+			let j = this.tarjetas[i].cuotaComision.findIndex(c => c.cantidadCuota == this.campos.importes.cantCuotas);
+			this.comision = this.tarjetas[i].cuotaComision[j].comision;
+
+			this.campos.importes.carga = Math.round(this.campos.importes.venta * this.comision * 100) / 100;
+			this.campos.importes.cuota = Math.round((this.campos.importes.carga / this.campos.importes.cantCuotas) * 100) / 100;
+		}
+		if(this.campos.importes.venta){
+			this.campos.importes.cobrar = Math.round(this.campos.importes.venta * 0.95 * 100) / 100;
+		}
+	}
+
   generarPreferencia() {
-    this.campos.precioVenta = parseInt(this.formulario.get('precioVenta').value);
-    this.operacionesProv.generarPreferencia(this.campos).then((respuesta: any) => {
+    this.opProv.generarPreferencia(this.campos).then((respuesta: any) => {
       console.log(respuesta);
-      this.iab.create(respuesta.sandbox_init_point);
+			this.navCtrl.setRoot(ListaOperacionesPage)
+			this.iab.create(respuesta.init_point);
     }, err => {
       console.log(err)
     });

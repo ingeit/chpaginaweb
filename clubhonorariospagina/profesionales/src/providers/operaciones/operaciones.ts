@@ -31,12 +31,11 @@ export class OperacionesProvider {
   }
 
   generarPreferencia(campos) {
-
+    console.log("dentro del funcion opnueva provider");
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    campos = {site_id:"MLA"}
     return new Promise((resolve, reject) => {
-      this.http.post(`https://api.mercadopago.com/users/test_user?access_token=TEST-3022311402676069-032114-dfe9c37083bcc10ae45456598d956821-303952467`, JSON.stringify(campos), { headers: headers })
+      this.http.post(`${configServer.data.urlServidor}/api/generarPreferencia/`, JSON.stringify(campos), { headers: headers })
         .map(res => res.json())
         .subscribe(res => {
           console.log("res preference", res);
@@ -46,21 +45,6 @@ export class OperacionesProvider {
           reject(err);
         });
     });
-
-    // console.log("dentro del funcion opnueva provider");
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // return new Promise((resolve, reject) => {
-    //   this.http.post(`${configServer.data.urlServidor}/api/generarPreferencia/`, JSON.stringify(campos), { headers: headers })
-    //     .map(res => res.json())
-    //     .subscribe(res => {
-    //       console.log("res preference", res);
-    //       resolve(res.body);
-    //     }, (err) => {
-    //       console.log("err preference", err);
-    //       reject(err);
-    //     });
-    // });
   }
 
   obtenerOperaciones() {

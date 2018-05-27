@@ -8,14 +8,14 @@ export default class ProfesionalModelo {
    mail: string;
    telefono: string;
 
-   constructor(id, dni, nombre, apellido, profesion, especialidad, mail, telefono) {
-      this.id = id;
-      this.dni = dni;
-      this.nombre = nombre;
-      this.apellido = apellido;
-      this.profesion = profesion;
-      this.especialidad = especialidad;
-      this.mail = mail;
-      this.telefono = telefono;
+   constructor() {
+      this.id = null;
+      this.dni = null;
+      this.nombre = null;
+      this.apellido = null;
+      this.profesion = null;
+      this.especialidad = null;
+      this.mail = null;
+      this.telefono = null;
    }
 }

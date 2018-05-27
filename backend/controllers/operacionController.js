@@ -6,61 +6,71 @@ var dateformat = require('dateformat');
 var configMP = require('./../config/mercadoPago.js');
 var now = new Date();
 var fecha = now.toString();
-
+var mp = require("mercadopago");
+var bandera = 0;
 
 exports.generarPreferencia = function (req, res, next) {
    console.log("reqbody", req.body)
-   var mp = require("mercadopago");
-   mp.configure({
-      client_id: '3022311402676069',
-      client_secret: 'bP0pvHyMw9zhZt4BeZEjAwpgUZDoTVCf'
-   });
+   console.log("mp configure", mp)
+   let campos = req.body;
+   if (bandera == 0) {
+      mp.configure({
+         client_id: '3022311402676069',
+         client_secret: 'bP0pvHyMw9zhZt4BeZEjAwpgUZDoTVCf'
+      });
+      bandera = 1;
+   }
 
 
+   //    { vendedor
+   //       "id": 324402379,
+   //       "nickname": "TEST0AHKQTUQ",
+   //       "password": "qatest705",
+   //       "site_status": "active",
+   //       "email": "test_user_61392493@testuser.com"
+   //   }
+
+   // {
+   //       "id": 324403264,
+   //       "nickname": "TESTFLQRFTAG",
+   //       "password": "qatest8492",
+   //       "site_status": "active",
+   //       "email": "test_user_63749490@testuser.com"
+   //   }
 
    var preference = {};
    var items = [
       item = {
-         id: req.body.id,
-         title: `Pago de Honorarios a ${req.body.apellido}, ${req.body.nombre}`,
+         id: campos.profesional.dni,
+         title: `Pago de Honorarios a ${campos.profesional.apellido}, ${campos.profesional.nombre}`,
          quantity: 1,
          currency_id: 'ARS',
-         unit_price: req.body.precioVenta
+         unit_price: campos.importes.carga
       }
    ];
 
    preference.items = items;
 
    var payer = {
-      name: "Ricardo",
-      surname: "Bruno",
-      email: "abruno@yahoo.com",
-      date_created: "2015-06-02T12:58:41.425-04:00",
-      phone: {
-         area_code: "381",
-         number: 6168291
-      },
+      name: campos.cliente.nombre,
+      surname: campos.cliente.apellido,
+      email: campos.cliente.mail,
       identification: {
          type: "DNI",
-         number: "33971162"
+         number: campos.cliente.dni
       },
-      address: {
-         street_name: "Balcarce",
-         street_number: 32,
-         zip_code: "4000"
-      }
    };
    preference.payer = payer
 
-
-      mp.preferences.create(preference)
-         .then(function (preference) {
-               console.log(preference)
-            res.status(200).json(preference)
-         }).catch(function (error) {
-            res.status(400).send(error)
-            console.log(error)
-         });
+   console.log("creando preference", preference)
+   mp.preferences.create(preference)
+      .then(function (preference) {
+         console.log("dentro del call res", preference)
+         res.status(200).json(preference)
+      }).catch(function (error) {
+         res.status(400).send(error)
+         console.log("dentro del call error", error)
+      });
 
 
 }
