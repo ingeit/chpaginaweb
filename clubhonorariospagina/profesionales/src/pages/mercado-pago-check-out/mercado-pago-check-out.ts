@@ -151,7 +151,12 @@ export class MercadoPagoCheckOutPage {
     this.opProv.generarPreferencia(this.campos).then((respuesta: any) => {
       console.log(respuesta);
 			this.navCtrl.setRoot(ListaOperacionesPage)
-			this.iab.create(respuesta.init_point);
+
+			// hago un clear cache, porque si MP se abre con la cuenta de CH logueada, me dice que no puede pagar la misma persona que recibe el pago
+			// y el funcionamiento de esto es que cuando yo paso el mail del que paga, deberia "iniciarse sesion automaticamente"
+			//pero como la cuenta de ramiro ya esta iniciada sesion, no le da bola, entonces hacemos clear cache asi se desloguea y se loguea el que va a pagar
+			// el mail es OBLIGATORIO, sino da error al redireccionar
+			this.iab.create(respuesta.init_point , "clearcache = yes");
     }, err => {
       console.log(err)
     });
