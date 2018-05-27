@@ -127,15 +127,6 @@ export class FormularioWebPage {
 		});
 	}
 
-	generarPreferencia(){
-		this.operacionesProv.generarPreferencia().then((respuesta: any) => {
-			console.log(respuesta);
-			this.iab.create(respuesta.sandbox_init_point);
-		}, err=> {
-			console.log(err)
-		});
-	}
-
 	dameTarjetas() {
 		this.formularioProvider.dameTarjetas().then((result) => {
 			this.tarjetas = result;
