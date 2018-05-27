@@ -148,6 +148,7 @@ export class MercadoPagoCheckOutPage {
 	}
 
   generarPreferencia() {
+		this.showLoader('Redireccionando...');
 		if(this.campos.cliente.mail == null || this.campos.cliente.mail == ''){
 			this.mostrarAlerta("Error", "Ingrese un mail de cliente valido")
 		}else if(this.campos.importes.cantCuotas == null || this.campos.importes.cantCuotas == ''){
@@ -156,7 +157,8 @@ export class MercadoPagoCheckOutPage {
 			this.mostrarAlerta("Error", "Importe total incorrecto")
 		}
     this.opProv.generarPreferencia(this.campos).then((respuesta: any) => {
-      console.log(respuesta);
+			console.log(respuesta);
+			this.loading.dismiss();
 			this.navCtrl.setRoot(ListaOperacionesPage)
 
 			// hago un clear cache, porque si MP se abre con la cuenta de CH logueada, me dice que no puede pagar la misma persona que recibe el pago
@@ -165,7 +167,8 @@ export class MercadoPagoCheckOutPage {
 			// el mail es OBLIGATORIO, sino da error al redireccionar
 			this.iab.create(respuesta.init_point , "clearcache = yes");
     }, err => {
-      console.log(err)
+			this.loading.dismiss();
+      this.mostrarAlerta("Error", "No se pudo redireccionar")
     });
   }
   
