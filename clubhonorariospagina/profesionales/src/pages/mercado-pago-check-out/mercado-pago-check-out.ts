@@ -148,6 +148,13 @@ export class MercadoPagoCheckOutPage {
 	}
 
   generarPreferencia() {
+		if(this.campos.cliente.mail == null || this.campos.cliente.mail == ''){
+			this.mostrarAlerta("Error", "Ingrese un mail de cliente valido")
+		}else if(this.campos.importes.cantCuotas == null || this.campos.importes.cantCuotas == ''){
+			this.mostrarAlerta("Error", "Ingrese una cantidad de cuotas")
+		}else if(this.campos.importes.carga == null || this.campos.importes.carga == 0){
+			this.mostrarAlerta("Error", "Importe total incorrecto")
+		}
     this.opProv.generarPreferencia(this.campos).then((respuesta: any) => {
       console.log(respuesta);
 			this.navCtrl.setRoot(ListaOperacionesPage)
