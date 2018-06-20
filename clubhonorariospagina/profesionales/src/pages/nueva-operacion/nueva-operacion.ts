@@ -7,7 +7,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
 import { NuevaOperacionModalPage } from '../nueva-operacion-modal/nueva-operacion-modal';
 import ModeloFormulario from '../../modelos/modelo-formulario';
-import * as token from './../../server';
+import * as token from './../../server'
 import * as jwt from 'jsonwebtoken';
 import { DashboardPage } from '../dashboard/dashboard';
 import { Storage } from '@ionic/storage';
@@ -93,6 +93,7 @@ export class NuevaOperacionPage {
 			nombreCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
 			telefonoCliente: [''],
 			mailCliente: [''],
+			productoAdquirido: [''],
 			tarjeta: ['', Validators.compose([Validators.required])],
 			cuotas: [''],
 			importeVenta: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],

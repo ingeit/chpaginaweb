@@ -76,6 +76,7 @@ export class FormularioWebPage {
 		Mercadopago.setPublishableKey("APP_USR-d5410487-ba29-4418-9af6-38d29e96daa0");
 		// Mercadopago.getIdentificationTypes(); 		
 		// Mercadopago.setPublishableKey("TEST-301d86de-e460-48ae-a06a-e0aba83c39dd");
+		// Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30"); // ricky
 
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
@@ -102,6 +103,7 @@ export class FormularioWebPage {
 			nombreCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
 			telefonoCliente: [''],
 			mailCliente: [''],
+			productoAdquirido: [''],
 			importeVenta: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
 		});
 	}
@@ -320,6 +322,7 @@ export class FormularioWebPage {
 				// termino de completar los campos para enviar
 				let cliente = new ClienteModelo(this.formulario.get('dniCliente').value, this.formulario.get('nombreCliente').value, this.formulario.get('apellidoCliente').value, this.formulario.get('mailCliente').value, this.formulario.get('telefonoCliente').value);
 				this.campos.cliente = cliente;
+				this.campos.productoAdquirido = this.formulario.get('productoAdquirido').value;
 
 				// informacion para MP
 				this.campos.payment_method_id = this.tarjetaId;

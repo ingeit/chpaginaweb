@@ -75,6 +75,7 @@ export class FormularioWebPage {
 		// MP
 		Mercadopago.setPublishableKey("APP_USR-8c8b7f60-3b84-4c5a-a99c-d2e3b90b9a8a");
 		// Mercadopago.getIdentificationTypes(); 		
+		// Mercadopago.setPublishableKey("TEST-8fccfbca-7104-4f69-8493-4d0204458f30"); // ricky
 
 		this.pasos = "1";
 		this.campos = new ModeloFormulario();
@@ -101,6 +102,7 @@ export class FormularioWebPage {
 			nombreCliente: ['', Validators.compose([Validators.maxLength(45), Validators.minLength(1), Validators.pattern(/()\w/g), Validators.required])],
 			telefonoCliente: [''],
 			mailCliente: [''],
+			productoAdquirido: [''],
 			importeVenta: ['', Validators.compose([Validators.maxLength(30), Validators.minLength(1), Validators.required])],
 		});
 	}
@@ -197,7 +199,7 @@ export class FormularioWebPage {
 			this.campos.importes.carga = Math.round(this.campos.importes.venta * this.comision * 100) / 100;
 			this.campos.importes.cuota = Math.round((this.campos.importes.carga / this.campos.importes.cantCuotas) * 100) / 100;
 		}
-		if(this.formulario.get('importeVenta').value){
+		if (this.formulario.get('importeVenta').value) {
 			this.campos.importes.venta = this.formulario.get('importeVenta').value;
 			this.campos.importes.cobrar = Math.round(this.campos.importes.venta * 0.95 * 100) / 100;
 		}
@@ -319,6 +321,7 @@ export class FormularioWebPage {
 				// termino de completar los campos para enviar
 				let cliente = new ClienteModelo(this.formulario.get('dniCliente').value, this.formulario.get('nombreCliente').value, this.formulario.get('apellidoCliente').value, this.formulario.get('mailCliente').value, this.formulario.get('telefonoCliente').value);
 				this.campos.cliente = cliente;
+				this.campos.productoAdquirido = this.formulario.get('productoAdquirido').value;
 
 				// informacion para MP
 				this.campos.payment_method_id = this.tarjetaId;
@@ -359,7 +362,7 @@ export class FormularioWebPage {
 			);
 	}
 
-	verInformacionExtra(){
+	verInformacionExtra() {
 		console.log(this.informacionExtra)
 		this.informacionExtra = !this.informacionExtra;
 	}

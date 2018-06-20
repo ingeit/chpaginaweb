@@ -21,6 +21,7 @@ export default class ModeloFormulario{
       cuota: null,
       carga: null,
    };
+   productoAdquirido = null;
    tarjeta = {
       nombre: null,
       numero: null,

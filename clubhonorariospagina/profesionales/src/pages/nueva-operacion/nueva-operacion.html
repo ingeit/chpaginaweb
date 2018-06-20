@@ -151,9 +151,13 @@
                      <ion-input formControlName="mailCliente" type="text" class="form-control" name="mailCliente" id="mailCliente"></ion-input>
                   </ion-item>
                   <h2>Informacion de operacion</h2>
+                  <ion-item>
+                     <ion-label stacked>Producto o servicio adquirido</ion-label>
+                     <ion-input formControlName="productoAdquirido" type="text" class="form-control" name="productoAdquirido" id="productoAdquirido"></ion-input>
+                  </ion-item>
                   <ion-item *ngIf="lapos != null || lapos != undefined">
                      <ion-label stacked>Elija marca de la tarjeta *</ion-label>
-                     <ion-select  (ionChange)='dameCuotasyComisiones($event)' interface="popover" formControlName="tarjeta">
+                     <ion-select (ionChange)='dameCuotasyComisiones($event)' interface="popover" formControlName="tarjeta">
                         <ion-option *ngFor="let t of tarjetasSelect" value="{{t.idTarjeta}}">{{t.nombreCorto}}</ion-option>
                      </ion-select>
                   </ion-item>

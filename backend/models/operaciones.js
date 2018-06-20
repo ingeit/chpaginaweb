@@ -85,6 +85,7 @@ exports.operacionNuevaOP = function (req, fn) {
     var mailCliente = '"' + req.body.mailCliente + '"';
     var tipoTarjeta = '"' + req.body.tipoTarjeta + '"';
     var tipoOperacion = '"' + req.body.tipoOperacion + '"';
+    var productoAdquirido = '"' + req.body.productoAdquirido + '"';
     var importeVenta = req.body.importeVenta;
     var importeCobrar = req.body.importeCobrar;
     var cuotas = req.body.cuotas;
@@ -97,7 +98,7 @@ exports.operacionNuevaOP = function (req, fn) {
     console.log("antes del sp: tipo op", tipoOperacion)
 
     pool.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
-        dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
+        dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + productoAdquirido + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
             if (err) {
                 consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }]
@@ -108,6 +109,7 @@ exports.operacionNuevaOP = function (req, fn) {
 }
 
 exports.operacionNueva = function (campos, payment, fn) {
+    console.log('​exports.operacionNueva -> campos', campos);
     var idProfesional = campos.profesional.id;
     var idUsuario = campos.usuario.idUsuario;
     var nombreTarjeta = '"' + campos.tarjeta.nombre + '"';
@@ -118,6 +120,7 @@ exports.operacionNueva = function (campos, payment, fn) {
     var mailCliente = '"' + campos.cliente.mail + '"';
     var tipoTarjeta = '"C"';
     var tipoOperacion = '"MP"';
+    var productoAdquirido = '"' + campos.productoAdquirido + '"';
     var importeVenta = campos.importes.venta;
     var importeCobrar = campos.importes.cobrar;
     var cuotas = campos.importes.cantCuotas;
@@ -127,7 +130,7 @@ exports.operacionNueva = function (campos, payment, fn) {
     var cupon = payment.response.id;
 
     pool.query('call operacion_nueva(' + idProfesional + ',' + idUsuario + ',' + nombreTarjeta + ',' +
-        dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + importeVenta + ',' +
+        dniCliente + ',' + apellidoCliente + ',' + nombreCliente + ',' + telefonoCliente + ',' + mailCliente + ',' + tipoTarjeta + ',' + tipoOperacion + ',' + productoAdquirido + ',' + importeVenta + ',' +
         importeCobrar + ',' + cuotas + ',' + importeCuota + ',' + importeCarga + ',' + codigoAuto + ',' + cupon + ')', function (err, rows) {
             if (err) {
                 consulta = [{ 'codigo': 0, 'mensaje': "Error numero: " + err.errno + ". Descripcion: " + err.message }]
