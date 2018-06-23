@@ -212,11 +212,11 @@ exports.operacionNueva = function (req, res, next) {
             'mailProfesional': 'ok',
             'mailCliente': 'error'
          };
-         //    email('profesional', campos);
-         //    if (req.body.mailCliente != null || req.body.mailCliente != '') {
-         //       response.mailCliente = 'ok'
-         //       email('cliente', campos);
-         //    }
+         email('profesional', campos);
+         if (req.body.mailCliente != null || req.body.mailCliente != '') {
+            response.mailCliente = 'ok'
+            email('cliente', campos);
+         }
 
          console.log(response);
          res.json(response);
@@ -278,10 +278,10 @@ exports.operacionNuevaMP = function (req, res, next) {
                campos.idOperacion = respuesta.codigo;
                campos.codigoAuto = 0;
                campos.cupon = payment.response.id;
-               //    email('profesional', campos);
-               //    if (campos.cliente.mail != campos.profesional.mail) {
-               //       email('cliente', campos);
-               //    }
+               email('profesional', campos);
+               if (campos.cliente.mail != campos.profesional.mail) {
+                  email('cliente', campos);
+               }
                let response = {
                   mysql: {
                      codigo: respuesta.codigo,
@@ -454,10 +454,10 @@ exports.operacionNuevaMP1 = function (req, res, next) {
                campos.idOperacion = respuesta.codigo;
                campos.codigoAuto = 0;
                campos.cupon = payment.response.id;
-               //    email('profesional', campos);
-               //    if (campos.cliente.mail != campos.profesional.mail) {
-               //       email('cliente', campos);
-               //    }
+               email('profesional', campos);
+               if (campos.cliente.mail != campos.profesional.mail) {
+                  email('cliente', campos);
+               }
                let response = {
                   mysql: {
                      codigo: respuesta.codigo,
@@ -793,6 +793,11 @@ exports.excel = function (req, res, next) {
       type: 'string',
       width: 55
    },
+   {
+      caption: 'Producto adquirido',
+      type: 'string',
+      width: 120
+   },
    ];
 
    operacion.getOperacionesPorFecha(fechaInicio, fechaFin, function (consulta) {
@@ -820,6 +825,7 @@ exports.excel = function (req, res, next) {
             importeCuota = operaciones[i].importeCuota;
             mailCliente = operaciones[i].mailCliente;
             telefonoCliente = operaciones[i].telefonoCliente;
+            productoAdquirido = operaciones[i].productoAdquirido;
 
             fechaTransaccion = new Date(fechaTransaccion.getUTCFullYear(),
                fechaTransaccion.getUTCMonth(),
@@ -839,7 +845,7 @@ exports.excel = function (req, res, next) {
 
             fechaPago = dateformat(fechaPago, 'dd/mm/yyyy');
 
-            a = [cuit, fechaTransaccion, fechaPago, dniCliente, apellidoCliente, nombreCliente, tarjeta, importeVenta, 3, importeCobrar, comision, codigoAuto, cupon, cuotas, importeCarga, importeCuota, '', '', codInterno, '', '', '', '', '', '', '', '', mailCliente, telefonoCliente,];
+            a = [cuit, fechaTransaccion, fechaPago, dniCliente, apellidoCliente, nombreCliente, tarjeta, importeVenta, 3, importeCobrar, comision, codigoAuto, cupon, cuotas, importeCarga, importeCuota, '', '', codInterno, '', '', '', '', '', '', '', '', mailCliente, telefonoCliente, productoAdquirido];
             arr.push(a);
          }
 
