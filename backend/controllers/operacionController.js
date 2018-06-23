@@ -887,6 +887,7 @@ var email = function (destino, campos) {
       'codigoAuto': campos.codigoAuto,
       'cupon': campos.cupon,
       'mailCliente': campos.cliente.mail,
+      'productoAdquirido': campos.productoAdquirido
    }
    config = {
       "format": "A4",        // allowed units: A3, A4, A5, Legal, Letter, Tabloid 
