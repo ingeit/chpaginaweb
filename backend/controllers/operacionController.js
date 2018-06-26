@@ -922,7 +922,7 @@ var email = function (destino, campos) {
       secure: false,
       auth: {
          user: 'op@clubhonorarios.com',
-         pass: 'ch2017Astrid'
+         pass: 'Mocha2018'
       }
       //  user: 'chonorarios@gmail.com',
       //  pass: 'ramiro123'
