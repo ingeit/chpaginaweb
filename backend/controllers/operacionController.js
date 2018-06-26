@@ -899,17 +899,17 @@ var email = function (destino, campos) {
    switch (destino) {
       case 'profesional':
          var ejs = require('ejs')
-            // , path = '/home/backend/views/tamplateProfesional.ejs'
+            , path = '/home/backend/views/tamplateProfesional.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
-            , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
+            // , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
          var html = ejs.render(str, data);
          break;
       case 'cliente':
          var ejs = require('ejs')
-            // , path = '/home/backend/views/tamplateCliente.ejs'
+            , path = '/home/backend/views/tamplateCliente.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
-            , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
+            // , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
          var html = ejs.render(str, data);
          break;
