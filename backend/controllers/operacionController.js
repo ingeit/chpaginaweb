@@ -812,7 +812,12 @@ exports.excel = function (req, res, next) {
             dniCliente = operaciones[i].dniCliente;
             apellidoCliente = operaciones[i].apellidoCliente;
             nombreCliente = operaciones[i].nombreCliente;
-            tarjeta = operaciones[i].nombreTarjeta;
+            if (operaciones[i].tipoOperacion == 'MP' || operaciones[i].tipoOperacion == 'POINT' || operaciones[i].tipoOperacion == 'POINT PREFERENCIAL') {
+               tarjeta = 'MP';
+            }
+            if (operaciones[i].tipoOperacion === 'PRESENCIAL' || operaciones[i].tipoOperacion === 'WEB') {
+               tarjeta = operaciones[i].nombreTarjeta;
+            }
             importeVenta = operaciones[i].importeVenta;
             importeCobrar = operaciones[i].importeCobrar;
             importeVenta = parseFloat(importeVenta);
