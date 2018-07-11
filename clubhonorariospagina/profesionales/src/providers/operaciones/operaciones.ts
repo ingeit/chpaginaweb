@@ -67,7 +67,6 @@ export class OperacionesProvider {
       this.http.get(`${configServer.data.urlServidor}/api/opNoConciliadas/`)
         .map(res => res.json())
         .subscribe(res => {
-          console.log("op no conciliadas", res);
           resolve(res);
         }, (err) => {
           reject(err);

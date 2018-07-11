@@ -25,6 +25,7 @@ import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2'
 import { NuevaOperacionModalPage } from '../pages/nueva-operacion-modal/nueva-operacion-modal'
+import { ConciliarPage } from '../pages/conciliar/conciliar';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -59,7 +60,8 @@ import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
     NuevaOperacionModalPage,
-    MercadoPagoCheckOutPage
+    MercadoPagoCheckOutPage,
+    ConciliarPage
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado
     FormTarjetaPage,
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
-    MercadoPagoCheckOutPage
+    MercadoPagoCheckOutPage,
+    ConciliarPage
   ],
   providers: [
     StatusBar,
