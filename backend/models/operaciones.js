@@ -38,6 +38,18 @@ exports.getOperacionesPorFecha = function (fechaInicio, fechaFin, fn) {
         else fn(rows[0]);
     });
 }
+exports.setConciliadas = array => {
+    return new Promise((resolve, reject) => {
+        console.log('​exports.setConciliadas -> array', array);
+        pool.query('call operaciones_conciliar(' + array + ')', function (err, rows) {
+            if (err) reject(err);
+            else {
+                console.log('​exports.setConciliadas -> rows[0]', rows[0]);
+                resolve(rows[0])
+            };
+        });
+    })
+}
 
 exports.dameOperacion = function (idOperacion, fn) {
     pool.query('call operacion_dame(' + idOperacion + ')', function (err, rows) {

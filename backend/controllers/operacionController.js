@@ -131,6 +131,16 @@ exports.getOperacionesPorFecha = function (req, res, next) {
       res.json(consulta);
    });
 }
+exports.setConciliadas = function (req, res) {
+   var array = '"' + req.body.array + '"';
+   operacion.setConciliadas(array)
+      .then(respuesta => {
+         res.status(200).json(respuesta);
+      })
+      .catch(() => {
+         res.status(500).end();
+      })
+}
 
 exports.getFechas = function (req, res, next) {
    fechas.getFechas(function (consulta) {

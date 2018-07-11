@@ -116,7 +116,7 @@ import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado
     OperacionesProvider,
     ProfesionalesProvider,
     FechasHabilesProvider,
-    TarjetasProvider
+    TarjetasProvider,
   ]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import * as XLSX from 'xlsx';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
@@ -10,18 +10,25 @@ type AOA = any[][];
   templateUrl: 'conciliar.html',
 })
 export class ConciliarPage {
+@ViewChild('inputFile') inputFile: ElementRef;
+
+  loading: any;
   data: any[][];
   opDB: any;
   opExcel: any;
   opConciliadas: any = [];
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private opPrv: OperacionesProvider) {
+    private opPrv: OperacionesProvider,
+    public loadingCtrl: LoadingController,
+    private toastCtrl: ToastController) {
 
   }
 
   /* File Input element for browser */
   onFileChange(evt: any) {
+    this.showLoader();
     this.opPrv.obtenerOpNoConciliadas()
       .then(res => {
         this.opDB = res;
@@ -37,10 +44,12 @@ export class ConciliarPage {
           };
           reader.readAsBinaryString(target.files[0]);
         } else {
+          this.loading.dismiss();
           console.log("no hay op para conciliar")
         }
       })
       .catch(err => {
+        this.loading.dismiss();
         console.log('​CoinciliarPage -> obtenerOpNoConciliadas -> err', err);
       })
   }
@@ -66,6 +75,7 @@ export class ConciliarPage {
       console.log('​CoinciliarPage -> read -> opExcel', this.opExcel);
       this.cambiarEstado();
     }
+    this.loading.dismiss();
 
   }
 
@@ -83,8 +93,50 @@ export class ConciliarPage {
         }
       }
     }
-    console.log('​ConciliarPage -> cambiarEstado ->  this.opConciliadas',  this.opConciliadas);
+    if (this.opConciliadas.length != 0) {
+      // todo ok.. listo para ir a mysql
+      this.opConciliadas.toString();
+      this.opPrv.setConciliadas(this.opConciliadas)
+        .then(res => {
+          console.log('​ConciliarPage -> cambiarEstado -> res', res);
+          this.presentToast(res[0].mensaje, "toastConciliacion", false)
+        })
+        .catch(err => {
+          console.log('​ConciliarPage -> cambiarEstado -> err', err);
+          this.presentToast("Error al conciliar operaciones", "toastErrorConciliacion", true)
+        })
+    } else {
+      this.presentToast("No se encontraron nuevas conciliaciones", "toastNoConciliacion", false)
+    }
+    // elimino el archivo del input para volver a subir otro.
+    this.inputFile.nativeElement.value = null;
+    console.log('​ConciliarPage -> cambiarEstado ->  this.opConciliadas', this.opConciliadas);
   }
 
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Procesando información...'
+    });
+    this.loading.present();
+  }
+
+  presentToast(mensaje, clase, botonCerrar) {
+    let duracion: number;
+    (botonCerrar) ? duracion = 0 : duracion = 3000
+    let toast = this.toastCtrl.create({
+      message: mensaje,
+      duration: duracion,
+      position: 'middle',
+      cssClass: clase,
+      showCloseButton: botonCerrar,
+      closeButtonText: "Cerrar"
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
 
 }

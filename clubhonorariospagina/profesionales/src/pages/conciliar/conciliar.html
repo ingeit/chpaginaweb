@@ -10,7 +10,7 @@
 <ion-content padding>
   <ion-row>
     <ion-col>
-      <input type="file" (change)="onFileChange($event)" multiple="false" />
+      <input #inputFile type="file" (change)="onFileChange($event)" multiple="false" />
     </ion-col>
   </ion-row>
 
