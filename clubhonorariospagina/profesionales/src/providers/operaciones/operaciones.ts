@@ -62,6 +62,19 @@ export class OperacionesProvider {
     });
   }
 
+  obtenerOpNoConciliadas() {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${configServer.data.urlServidor}/api/opNoConciliadas/`)
+        .map(res => res.json())
+        .subscribe(res => {
+          console.log("op no conciliadas", res);
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   obtenerOperacionesFiltrado(credentials) {
     return new Promise((resolve, reject) => {
 

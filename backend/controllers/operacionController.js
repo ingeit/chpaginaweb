@@ -81,6 +81,13 @@ exports.getOperaciones = function (req, res, next) {
       res.json(consulta);
    });
 }
+
+exports.opNoConciliadas = function (req, res, next) {
+   operacion.opNoConciliadas(function (consulta) {
+      res.json(consulta);
+   });
+}
+
 exports.verPagos = function (req, res, next) {
 
    var MP = require("mercadopago");

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import * as XLSX from 'xlsx';
+import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
 type AOA = any[][];
 
@@ -12,8 +13,21 @@ export class CoinciliarPage {
   data: any[][];
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams, ) {
+    public navParams: NavParams,
+    private opPrv: OperacionesProvider) {
+      this.obtenerOpNoConciliadas();
+  }
 
+  obtenerOpNoConciliadas(){
+    this.opPrv.obtenerOpNoConciliadas()
+    .then(res => {
+    console.log('​CoinciliarPage -> obtenerOpNoConciliadas -> res', res);
+      
+    })
+    .catch(err => {
+    console.log('​CoinciliarPage -> obtenerOpNoConciliadas -> err', err);
+      
+    })
   }
 
   read(bstr: string) {
@@ -28,7 +42,7 @@ export class CoinciliarPage {
     this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
     let datos = this.data.map(fila => {
       return {
-        id: parseInt(fila[18].replace(',','')),
+        id: parseInt(fila[18].replace(',', '')),
         cupon: fila[30]
       }
     });

@@ -24,6 +24,14 @@ exports.getOperaciones = function (fn) {
     });
 }
 
+exports.opNoConciliadas = function (fn) {
+    pool.query('call operacion_listar_no_conciliadas()', function (err, rows) {
+        // console.log(rows[0]);
+        if (err) fn(err);
+        else fn(rows[0]);
+    });
+}
+
 exports.getOperacionesPorFecha = function (fechaInicio, fechaFin, fn) {
     pool.query('call operacion_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
         if (err) fn(err);

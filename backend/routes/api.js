@@ -14,6 +14,7 @@ router.post('/generarPreferencia', OperacionController.generarPreferencia);
 
 router.get('/listarCategorias/:id?', CategoriasController.getCategorias);
 router.get('/listarOperaciones', OperacionController.getOperaciones);
+router.get('/opNoConciliadas', OperacionController.opNoConciliadas);
 router.post('/listarOperacionesPorFecha', OperacionController.getOperacionesPorFecha);
 router.post('/dameOperacion',OperacionController.dameOperacion);
 router.post('/pagarOperacion',OperacionController.pagarOperacion);
