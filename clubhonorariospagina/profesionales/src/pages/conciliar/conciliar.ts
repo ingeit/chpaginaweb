@@ -3,6 +3,18 @@ import { NavController, NavParams, LoadingController, ToastController } from 'io
 import * as XLSX from 'xlsx';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
+//Table
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
 type AOA = any[][];
 
 @Component({

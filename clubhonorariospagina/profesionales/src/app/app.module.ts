@@ -37,10 +37,14 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
 
 //MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTableModule} from '@angular/material/table';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
-import {MatButtonModule} from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { MatButtonModule } from '@angular/material/button';
 import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado-pago-check-out';
+//Table Materialize
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatCheckboxModule } from '@angular/material';
+import { MatSortModule } from '@angular/material/sort';
 
 
 
