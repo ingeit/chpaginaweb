@@ -10,7 +10,7 @@ type AOA = any[][];
   templateUrl: 'conciliar.html',
 })
 export class ConciliarPage {
-@ViewChild('inputFile') inputFile: ElementRef;
+  @ViewChild('inputFile') inputFile: ElementRef;
 
   loading: any;
   data: any[][];
@@ -23,35 +23,41 @@ export class ConciliarPage {
     private opPrv: OperacionesProvider,
     public loadingCtrl: LoadingController,
     private toastCtrl: ToastController) {
-
+    this.obtenerOpNoConciliadas();
   }
 
-  /* File Input element for browser */
-  onFileChange(evt: any) {
-    this.showLoader();
+  obtenerOpNoConciliadas() {
     this.opPrv.obtenerOpNoConciliadas()
       .then(res => {
         this.opDB = res;
         console.log('​ConciliarPage -> onFileChange -> this.opDB', this.opDB);
-        if (this.opDB.length != 0) {
-          /* wire up file reader */
-          const target: DataTransfer = <DataTransfer>(evt.target);
-          if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-          const reader: FileReader = new FileReader();
-          reader.onload = (e: any) => {
-            const bstr: string = e.target.result;
-            this.read(bstr);
-          };
-          reader.readAsBinaryString(target.files[0]);
-        } else {
-          this.loading.dismiss();
-          console.log("no hay op para conciliar")
-        }
+
       })
       .catch(err => {
-        this.loading.dismiss();
         console.log('​CoinciliarPage -> obtenerOpNoConciliadas -> err', err);
       })
+  }
+
+  subirArchivo() {
+    this.inputFile.nativeElement.click();
+  }
+
+  onFileChange(evt: any) {
+    this.showLoader();
+    if (this.opDB.length != 0) {
+      /* wire up file reader */
+      const target: DataTransfer = <DataTransfer>(evt.target);
+      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        const bstr: string = e.target.result;
+        this.read(bstr);
+      };
+      reader.readAsBinaryString(target.files[0]);
+    } else {
+      this.loading.dismiss();
+      console.log("no hay op para conciliar")
+    }
   }
 
   async read(bstr: string) {
@@ -80,9 +86,9 @@ export class ConciliarPage {
   }
 
   cambiarEstado() {
-    for (let o of this.opDB) {
+    for (let i = 0; i < this.opDB.length; i++) {
       let fila = this.opExcel.find((fila) => {
-        return fila.idOperacion === o.idOperacion;
+        return fila.idOperacion === this.opDB[i].idOperacion;
       });
       // si fila es undefined es porq no se encontro nada en el find, entonces primero corroboro q no sea eso..
       if (fila) {
@@ -90,16 +96,21 @@ export class ConciliarPage {
         // liquidacion es un string en caso q haya y undefined si no esta conciliada en el excel
         if (fila.liquidacion) {
           this.opConciliadas.push(fila.idOperacion);
+          this.opDB.splice(this.opDB.indexOf(this.opDB[i]), 1);
+          i = i - 1;
         }
       }
     }
+  }
+
+  aceptarConciliar() {
     if (this.opConciliadas.length != 0) {
       // todo ok.. listo para ir a mysql
-      this.opConciliadas.toString();
-      this.opPrv.setConciliadas(this.opConciliadas)
+      this.opPrv.setConciliadas(this.opConciliadas.toString())
         .then(res => {
           console.log('​ConciliarPage -> cambiarEstado -> res', res);
           this.presentToast(res[0].mensaje, "toastConciliacion", false)
+          this.opConciliadas = [];
         })
         .catch(err => {
           console.log('​ConciliarPage -> cambiarEstado -> err', err);
@@ -108,7 +119,7 @@ export class ConciliarPage {
     } else {
       this.presentToast("No se encontraron nuevas conciliaciones", "toastNoConciliacion", false)
     }
-    // elimino el archivo del input para volver a subir otro.
+    //elimino el archivo del input para volver a subir otro.
     this.inputFile.nativeElement.value = null;
     console.log('​ConciliarPage -> cambiarEstado ->  this.opConciliadas', this.opConciliadas);
   }

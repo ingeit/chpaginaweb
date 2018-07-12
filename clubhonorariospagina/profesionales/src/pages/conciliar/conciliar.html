@@ -9,8 +9,42 @@
 
 <ion-content padding>
   <ion-row>
-    <ion-col>
-      <input #inputFile type="file" (change)="onFileChange($event)" multiple="false" />
+    <ion-col col-9>
+
+    </ion-col>
+    <ion-col col-3>
+      <button class="botonSubirExcel" ion-button block outline icon-start (click)="subirArchivo()">
+        <ion-icon name="add"></ion-icon>
+        Subir excel
+      </button>
+      <button [disabled]="opConciliadas.length == 0" style="background-color: #4caf50" ion-button block icon-start (click)="aceptarConciliar()">
+        <ion-icon name="checkmark"></ion-icon>
+        Conciliar
+      </button>
+      <ion-list no-lines>
+        <ion-list-header>
+          Operaciones sin conciliar
+        </ion-list-header>
+        <ion-label *ngFor="let o of opDB" style="padding-left: 20px;">
+          {{o.idOperacion}}
+        </ion-label>
+      </ion-list>
+      <ion-list no-lines>
+        <ion-list-header>
+          Operaciones a conciliar
+        </ion-list-header>
+        <div *ngIf="opConciliadas.length != 0">
+          <ion-label *ngFor="let o of opConciliadas" style="padding-left: 20px;">
+            {{o}}
+          </ion-label>
+        </div>
+        <div *ngIf="opConciliadas.length == 0">
+          <ion-label >
+            No hay operaciones para conciliar
+          </ion-label>
+        </div>
+      </ion-list>
+      <input #inputFile style="display:none" type="file" (change)="onFileChange($event)" multiple="false" />
     </ion-col>
   </ion-row>
 
