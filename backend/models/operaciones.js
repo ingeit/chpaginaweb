@@ -42,8 +42,11 @@ exports.setConciliadas = array => {
     return new Promise((resolve, reject) => {
         console.log('​exports.setConciliadas -> array', array);
         pool.query('call operaciones_conciliar(' + array + ')', function (err, rows) {
-            if (err) reject(err);
-            else {
+            if (err) {
+                console.log('​err', err);
+                reject(err);
+            }
+                else {
                 console.log('​exports.setConciliadas -> rows[0]', rows[0]);
                 resolve(rows[0])
             };

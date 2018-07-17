@@ -37,14 +37,39 @@ import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
 
 //MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { MatButtonModule } from '@angular/material/button';
-import { MercadoPagoCheckOutPage } from '../pages/mercado-pago-check-out/mercado-pago-check-out';
 //Table Materialize
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl, MatCheckboxModule } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
+
+//Date Materialize
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
+//Form Input Material
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+
+//Tabs Material
+import { MatTabsModule } from '@angular/material/tabs';
+
+//Button 
+import { MatButtonModule } from '@angular/material/button';
+
+//Icon
+import { MatIconModule } from '@angular/material/icon';
+
+//SideNavBar
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+//Chip
+import { MatChipsModule } from '@angular/material/chips';
+
+//ToolTip
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 
@@ -64,17 +89,27 @@ import { MatSortModule } from '@angular/material/sort';
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
     NuevaOperacionModalPage,
-    MercadoPagoCheckOutPage,
     ConciliarPage
   ],
   imports: [
+    MatTableModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatSortModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatButtonModule,
     BrowserModule,
     HttpModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatButtonModule,
-    ScrollDispatchModule,
     TooltipsModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
@@ -107,7 +142,6 @@ import { MatSortModule } from '@angular/material/sort';
     FormTarjetaPage,
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
-    MercadoPagoCheckOutPage,
     ConciliarPage
   ],
   providers: [
@@ -116,6 +150,7 @@ import { MatSortModule } from '@angular/material/sort';
     InAppBrowser,
     Storage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     LoginProvider,
     OperacionesProvider,
     ProfesionalesProvider,
