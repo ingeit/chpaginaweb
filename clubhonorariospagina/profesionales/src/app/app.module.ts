@@ -34,6 +34,7 @@ import { OperacionesProvider } from '../providers/operaciones/operaciones';
 import { ProfesionalesProvider } from '../providers/profesionales/profesionales';
 import { FechasHabilesProvider } from '../providers/fechas-habiles/fechas-habiles';
 import { TarjetasProvider } from '../providers/tarjetas/tarjetas';
+import { CajaProvider } from '../providers/caja/caja';
 
 //MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -157,6 +158,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     ProfesionalesProvider,
     FechasHabilesProvider,
     TarjetasProvider,
+    CajaProvider,
   ]
 })
 export class AppModule { }

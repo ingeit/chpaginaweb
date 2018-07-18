@@ -64,6 +64,14 @@ exports.modificarProfesional = function (idProfesional, apellido, nombre, especi
         });
 }
 
+exports.obtenerOpLiquidar = function (params, fn) {
+    console.log(params)
+    pool.query('call liquidacion_profesional_periodo( ?,?,?)', [params.dni, params.fechaInicio, params.fechaFin], function (err, rows) {
+        if (err) fn(err);
+        else fn(rows);
+    });
+}
+
 exports.getProfesionalesPorFecha = function (fechaInicio, fechaFin, fn) {
     pool.query('call profesionalTemp_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {
         if (err) fn(err);

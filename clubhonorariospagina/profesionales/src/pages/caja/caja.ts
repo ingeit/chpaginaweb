@@ -17,6 +17,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CajaProvider } from '../../providers/caja/caja';
 
 
 // variable para conciliar
@@ -71,7 +72,9 @@ export class CajaPage {
     public navParams: NavParams,
     private opPrv: OperacionesProvider,
     public loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private cajaProv: CajaProvider
+
   ) {
     this.obtenerOpNoConciliadas();
     this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
@@ -86,7 +89,20 @@ export class CajaPage {
     if (this.dniProfesional == null || this.dniProfesional.toString().length < 7 || this.dniProfesional.toString().length > 11) {
       swal("Numero DNI invalido", "Ingrese un numero de 7 hasta 11 caracteres", "error");
     } else {
-      console.log(this.dniProfesional, fInicio, fFin)
+      let parametros = {
+        dni: this.dniProfesional,
+        fechaInicio: fInicio,
+        fechaFin: fFin
+      }
+      this.cajaProv.obtenerOpLiquidar(parametros)
+      .then(res => {
+      console.log('​CajaPage -> periodos -> res', res);
+
+      })
+      .catch(err => {
+      console.log('​CajaPage -> periodos -> err', err);
+        
+      })
     }
   }
 

@@ -229,6 +229,12 @@ exports.dameCiudades = function(req, res, next){
     });
 }
 
+exports.obtenerOpLiquidar = function (req, res, next) {
+    profesional.obtenerOpLiquidar(req.body,function (consulta) {
+       res.json(consulta);
+    });
+ }
+
 exports.dameVendedores = function(req, res, next){
     vendedores.listarVendedores(function(consulta){
         if(typeof consulta[0].codigo !== 'undefined' && consulta[0].codigo === 0){
