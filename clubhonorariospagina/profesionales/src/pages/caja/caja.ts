@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
@@ -9,7 +10,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -58,19 +59,35 @@ export class CajaPage {
 
   //tabla
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource:any;
+  dataSource: any;
   selection: SelectionModel<PeriodicElement>;
 
-  mode = new FormControl('over');
+  // busqueda de profesional
+  dniProfesional: Number = null;
+  fechaInicio: Date = new Date();
+  fechaFin: Date = new Date();
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private opPrv: OperacionesProvider,
     public loadingCtrl: LoadingController,
-    private toastCtrl: ToastController) {
-      this.obtenerOpNoConciliadas();
-      this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-      this.selection = new SelectionModel<PeriodicElement>(true, []);
+    private toastCtrl: ToastController
+  ) {
+    this.obtenerOpNoConciliadas();
+    this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+    this.selection = new SelectionModel<PeriodicElement>(true, []);
+    this.fechaInicio.setFullYear(2018, 0, 1);
+    this.fechaFin.setFullYear(this.fechaFin.getFullYear(), this.fechaFin.getMonth(), this.fechaFin.getDate());
+  }
+
+  periodos() {
+    let fInicio = this.fechaInicio.toISOString().slice(0, 10);
+    let fFin = this.fechaFin.toISOString().slice(0, 10);
+    if (this.dniProfesional == null || this.dniProfesional.toString().length < 7 || this.dniProfesional.toString().length > 11) {
+      swal("Numero DNI invalido", "Ingrese un numero de 7 hasta 11 caracteres", "error");
+    } else {
+      console.log(this.dniProfesional, fInicio, fFin)
+    }
   }
 
   obtenerOpNoConciliadas() {

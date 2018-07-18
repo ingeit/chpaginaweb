@@ -1,108 +1,127 @@
 <ion-header>
+  <ion-navbar color="caja">
+    <ion-title>Caja</ion-title>
+    <ion-buttons end>
+      <button style="padding-right: 50px;" ion-button clear (click)="sidenav.toggle()">Conciliar</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
-    <ion-navbar>
-      <ion-title>Caja</ion-title>
-    </ion-navbar>
-  
-  </ion-header>
-  
-  
-  <ion-content padding>
-    <ion-grid>
-      <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav position="end" #sidenav [mode]="mode.value">
-          <p>
-            <button mat-button (click)="sidenav.toggle()">Toggle 1</button>
-          </p>
-          <ion-row>
-            <ion-col>
-              <button class="botonSubirExcel" ion-button block outline icon-start (click)="subirArchivo()">
-                <ion-icon name="add"></ion-icon>
-                Subir excel
-              </button>
-              <button [disabled]="opConciliadas.length == 0" style="background-color: #4caf50" ion-button block icon-start (click)="aceptarConciliar()">
-                <ion-icon name="checkmark"></ion-icon>
-                Conciliar
-              </button>
-              <ion-list no-lines>
-                <ion-list-header>
-                  Operaciones sin conciliar
-                </ion-list-header>
-                <ion-label *ngFor="let o of opDB" style="padding-left: 20px;">
-                  {{o.idOperacion}}
+<ion-content padding>
+  <ion-grid>
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav position="end" #sidenav mode="over">
+        <ion-row>
+          <ion-col>
+            <button ion-button clear style="float: right" (click)="sidenav.toggle()">X</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button class="botonSubirExcel" ion-button block outline icon-start (click)="subirArchivo()">
+              <ion-icon name="add"></ion-icon>
+              Subir excel
+            </button>
+            <button [disabled]="opConciliadas.length == 0" style="background-color: #4caf50" ion-button block icon-start (click)="aceptarConciliar()">
+              <ion-icon name="checkmark"></ion-icon>
+              Conciliar
+            </button>
+            <ion-list no-lines>
+              <ion-list-header>
+                Operaciones sin conciliar
+              </ion-list-header>
+              <ion-label *ngFor="let o of opDB" style="padding-left: 20px;">
+                {{o.idOperacion}}
+              </ion-label>
+            </ion-list>
+            <ion-list no-lines>
+              <ion-list-header>
+                Operaciones a conciliar
+              </ion-list-header>
+              <div *ngIf="opConciliadas.length != 0">
+                <ion-label *ngFor="let o of opConciliadas" style="padding-left: 20px;">
+                  {{o}}
                 </ion-label>
-              </ion-list>
-              <ion-list no-lines>
-                <ion-list-header>
-                  Operaciones a conciliar
-                </ion-list-header>
-                <div *ngIf="opConciliadas.length != 0">
-                  <ion-label *ngFor="let o of opConciliadas" style="padding-left: 20px;">
-                    {{o}}
-                  </ion-label>
-                </div>
-                <div *ngIf="opConciliadas.length == 0">
-                  <ion-label>
-                    No hay operaciones para conciliar
-                  </ion-label>
-                </div>
-              </ion-list>
-              <input #inputFile style="display:none" type="file" (change)="onFileChange($event)" multiple="false" />
-            </ion-col>
-          </ion-row>
-        </mat-sidenav>
-  
-        <mat-sidenav-content>
-          <ion-row>
-            <ion-col>
-              <button mat-button (click)="sidenav.toggle()">Toggle2</button>
-              <div class="table-container mat-elevation-z8">
-                <mat-table #table [dataSource]="dataSource">
-  
-                  <!-- Checkbox Column -->
-                  <ng-container matColumnDef="select">
-                    <mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
-                      </mat-checkbox>
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
-                      </mat-checkbox>
-                    </mat-cell>
-                  </ng-container>
-  
-                  <!-- Position Column -->
-                  <ng-container matColumnDef="position">
-                    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-                  </ng-container>
-  
-                  <!-- Name Column -->
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                  </ng-container>
-  
-                  <!-- Weight Column -->
-                  <ng-container matColumnDef="weight">
-                    <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-                  </ng-container>
-  
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="symbol">
-                    <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-                  </ng-container>
-  
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-                  </mat-row>
-                </mat-table>
               </div>
-            </ion-col>
-          </ion-row>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </ion-grid>
-  </ion-content>
+              <div *ngIf="opConciliadas.length == 0">
+                <ion-label>
+                  No hay operaciones para conciliar
+                </ion-label>
+              </div>
+            </ion-list>
+            <input #inputFile style="display:none" type="file" (change)="onFileChange($event)" multiple="false" />
+          </ion-col>
+        </ion-row>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <ion-row>
+          <ion-col>
+            <mat-form-field>
+              <input matInput placeholder="DNI del profesional" (keyup.enter)="periodos()" [(ngModel)]="dniProfesional">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="fInicio" placeholder="Desde" [(ngModel)]="fechaInicio">
+              <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
+              <mat-datepicker #fInicio></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="fFin" placeholder="Hasta" [(ngModel)]="fechaFin">
+              <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
+              <mat-datepicker #fFin></mat-datepicker>
+            </mat-form-field>
+            <button ion-button clear (click)="periodos()">Buscar</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="table-container mat-elevation-z8">
+              <mat-table #table [dataSource]="dataSource">
+
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                  <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="symbol">
+                  <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                </mat-row>
+              </mat-table>
+            </div>
+          </ion-col>
+        </ion-row>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </ion-grid>
+</ion-content>
