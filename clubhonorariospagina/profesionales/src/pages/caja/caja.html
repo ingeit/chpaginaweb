@@ -77,9 +77,48 @@
           <ion-col>
             <div class="table-container mat-elevation-z8">
               <mat-table #table [dataSource]="dataSource">
-
+                <ng-container matColumnDef="orden">
+                  <mat-header-cell *matHeaderCellDef> Orden </mat-header-cell>
+                  <mat-cell *matCellDef="let element, let i = index"> {{i+1}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="codInterno">
+                  <mat-header-cell *matHeaderCellDef> Codigo Interno </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.idOperacion}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaTransaccion">
+                  <mat-header-cell *matHeaderCellDef> Fecha Transaccion </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.fechaTransaccion | date:'d/M/yy'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fechaPago">
+                  <mat-header-cell *matHeaderCellDef> Fecha Pago </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.fechaPago | date:'d/M/yy':'+0000'}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="dniCliente">
+                  <mat-header-cell *matHeaderCellDef> DNI Cliente </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.dniCliente}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="apellidoCliente">
+                  <mat-header-cell *matHeaderCellDef> Apellido Cliente </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.apellidoCliente}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="tarjeta">
+                  <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}}<br>{{element.nombreTarjeta | lowercase}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="honorariosProfesional">
+                  <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.importeVenta | currency}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="diasHabiles">
+                  <mat-header-cell *matHeaderCellDef> Dias Hábiles </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> 3 </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="montoPagar">
+                  <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.importeCobrar | currency}} </mat-cell>
+                </ng-container>
                 <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
+                <ng-container matColumnDef="pagar">
                   <mat-header-cell *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
@@ -89,31 +128,6 @@
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
-
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                </ng-container>
-
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-                </ng-container>
-
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                  <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-                </ng-container>
-
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
                 </mat-row>

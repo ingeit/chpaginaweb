@@ -24,25 +24,18 @@ import { CajaProvider } from '../../providers/caja/caja';
 type AOA = any[][];
 
 //para la tabla
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface Operacion {
+  apellidoCliente: string;
+  dniCliente: number;
+  estadoPago: string;
+  fechaPago: Date;
+  fechaTransaccion: Date;
+  idOperacion: number;
+  importeCobrar: number;
+  importeVenta: number;
+  nombreTarjeta: string;
+  tipoOperacion: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
 
 @Component({
   selector: 'page-caja',
@@ -59,14 +52,16 @@ export class CajaPage {
   opConciliadas: any = [];
 
   //tabla
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago','dniCliente','apellidoCliente','tarjeta','honorariosProfesional','diasHabiles','montoPagar','pagar'];
   dataSource: any;
-  selection: SelectionModel<PeriodicElement>;
+  selection: SelectionModel<Operacion>;
 
   // busqueda de profesional
-  dniProfesional: Number = null;
+  dniProfesional: Number = 30541192;
   fechaInicio: Date = new Date();
   fechaFin: Date = new Date();
+  profesional: any;
+  operaciones: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -77,8 +72,7 @@ export class CajaPage {
 
   ) {
     this.obtenerOpNoConciliadas();
-    this.dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    this.selection = new SelectionModel<PeriodicElement>(true, []);
+    this.selection = new SelectionModel<Operacion>(true, []);
     this.fechaInicio.setFullYear(2018, 0, 1);
     this.fechaFin.setFullYear(this.fechaFin.getFullYear(), this.fechaFin.getMonth(), this.fechaFin.getDate());
   }
@@ -94,13 +88,26 @@ export class CajaPage {
         fechaInicio: fInicio,
         fechaFin: fFin
       }
+      this.showLoader('Obteniendo información...');
       this.cajaProv.obtenerOpLiquidar(parametros)
       .then(res => {
-      console.log('​CajaPage -> periodos -> res', res);
-
+        this.loading.dismiss();
+        //[0][0] codigo, [1][0] prof  [2][i]operaciones a liquidar
+        if(res[0][0].codigo != 0){
+          this.profesional = res[1][0]
+          console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
+          this.operaciones = res[2]
+          console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
+          this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
+        }else{
+          //profesional no existe..
+          console.log("no existe el prof", this.profesional, this.operaciones)
+        }
       })
       .catch(err => {
-      console.log('​CajaPage -> periodos -> err', err);
+        this.loading.dismiss();
+       console.log('​CajaPage -> periodos -> err', err);
+       // problemas de conexion
         
       })
     }
@@ -123,7 +130,7 @@ export class CajaPage {
   }
 
   onFileChange(evt: any) {
-    this.showLoader();
+    this.showLoader('Procesando información...');
     if (this.opDB.length != 0) {
       /* wire up file reader */
       const target: DataTransfer = <DataTransfer>(evt.target);
@@ -218,9 +225,9 @@ export class CajaPage {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  showLoader() {
+  showLoader(mensaje) {
     this.loading = this.loadingCtrl.create({
-      content: 'Procesando información...'
+      content: mensaje
     });
     this.loading.present();
   }

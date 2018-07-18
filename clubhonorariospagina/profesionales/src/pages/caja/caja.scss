@@ -1,73 +1,79 @@
 page-caja {
+   .mat-row {
+      min-height: 35px;
+   }
 
-    .sidenav-container {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 20px;
-      }
-
-    .table-container {
-        display: flex;
-        flex-direction: column;
-        max-height: 500px;
-        min-width: 300px;
-      }
-      
-      .mat-table {
-        overflow: auto;
-        max-height: 500px;
-      }
-      
-      .mat-column-select {
-        overflow: visible;
-      }
-
-    .botonSubirExcel{
-        height: 70px;
-        border-style: dashed;
+   mat-row:nth-child(even){
+    background-color:#dcedc8;
     }
+
+   .sidenav-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+   }
+   .table-container {
+      display: flex;
+      flex-direction: column;
+      max-height: 500px;
+      min-width: 300px;
+   }
+   .mat-table {
+      overflow: auto;
+      max-height: 500px;
+   }
+   .mat-column-select {
+      overflow: visible;
+   }
+   .botonSubirExcel {
+      height: 70px;
+      border-style: dashed;
+   }
 }
 
-.toast-md > div{
+.toast-md>div {
    background: none !important;
 }
 
-.toast-md button{
+.toast-md button {
    color: #721c24;
 }
 
-.toastNoConciliacion > div > div{
+.toastNoConciliacion>div>div {
    background-color: #fff3cd;
-    border-color: #ffeeba !important;
-    border: 1px solid;
-    border-radius: 5px;
+   border-color: #ffeeba !important;
+   border: 1px solid;
+   border-radius: 5px;
 }
-.toastNoConciliacion > div > div > div{
+
+.toastNoConciliacion>div>div>div {
    color: #856404 !important;
    font-weight: 300;
 }
 
-.toastConciliacion > div > div{
+.toastConciliacion>div>div {
    background-color: #d4edda;
-    border-color: #c3e6cb !important;
-    border: 1px solid;
-    border-radius: 5px;
+   border-color: #c3e6cb !important;
+   border: 1px solid;
+   border-radius: 5px;
 }
-.toastConciliacion > div > div > div{
+
+.toastConciliacion>div>div>div {
    color: #155724 !important;
    font-weight: 300;
 }
 
-.toastErrorConciliacion > div > div{
+.toastErrorConciliacion>div>div {
    background-color: #f8d7da;
    border-color: #f5c6cb !important;
    border: 1px solid;
    border-radius: 5px;
 }
-.toastErrorConciliacion > div > div > div{
+
+.toastErrorConciliacion>div>div>div {
    color: #721c24 !important;
    font-weight: 300;
 }
