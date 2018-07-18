@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import * as XLSX from 'xlsx';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
@@ -8,6 +9,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -41,10 +43,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'page-conciliar',
-  templateUrl: 'conciliar.html',
+  selector: 'page-caja',
+  templateUrl: 'caja.html',
 })
-export class ConciliarPage {
+export class CajaPage {
   @ViewChild('inputFile') inputFile: ElementRef;
 
   loading: any;
@@ -58,7 +60,9 @@ export class ConciliarPage {
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource:any;
   selection: SelectionModel<PeriodicElement>;
-  
+
+  mode = new FormControl('over');
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private opPrv: OperacionesProvider,

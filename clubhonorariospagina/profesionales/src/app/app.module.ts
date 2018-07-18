@@ -25,7 +25,7 @@ import { FormTarjetaPage } from '../pages/form-tarjeta/form-tarjeta';
 import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-modificar-tarjeta';
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2'
 import { NuevaOperacionModalPage } from '../pages/nueva-operacion-modal/nueva-operacion-modal'
-import { ConciliarPage } from '../pages/conciliar/conciliar';
+import { CajaPage } from '../pages/caja/caja';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -56,6 +56,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 //Button 
 import { MatButtonModule } from '@angular/material/button';
+
 
 //Icon
 import { MatIconModule } from '@angular/material/icon';
@@ -89,7 +90,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
     NuevaOperacionModalPage,
-    ConciliarPage
+    CajaPage
   ],
   imports: [
     MatTableModule,
@@ -142,7 +143,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     FormTarjetaPage,
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
-    ConciliarPage
+    CajaPage
   ],
   providers: [
     StatusBar,

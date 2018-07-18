@@ -8,7 +8,7 @@ import { FormTarjetaPage } from '../form-tarjeta/form-tarjeta';
 import { NuevaOperacionPage } from '../nueva-operacion/nueva-operacion';
 import { NuevaOperacionPaso2Page } from '../nueva-operacion-paso2/nueva-operacion-paso2';
 import { Storage } from '@ionic/storage';
-import { ConciliarPage } from '../conciliar/conciliar';
+import { CajaPage } from '../caja/caja';
 
 
 @Component({
@@ -44,8 +44,8 @@ export class DashboardPage {
       case "tarjetas":
         this.navCtrl.setRoot(TarjetasPage);
         break;
-      case "coinciliar":
-        this.navCtrl.setRoot(ConciliarPage);
+      case "caja":
+        this.navCtrl.setRoot(CajaPage);
         break;
     }
   }
