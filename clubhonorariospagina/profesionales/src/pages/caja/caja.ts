@@ -1,8 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
+import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 
 //Table
@@ -65,17 +67,27 @@ export class CajaPage {
   operaciones: any;
   idLiquidacion: number;
   fechaEmision: Date;
+  idUsuario: number;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private opPrv: OperacionesProvider,
     public loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private cajaProv: CajaProvider
+    private cajaProv: CajaProvider,
+    public storage: Storage
 
   ) {
     this.obtenerOpNoConciliadas();
     this.setearVariablesInicio();
+    this.storage.get('usuario').then((usuario) => {
+      if (usuario.hasOwnProperty('_id')) {
+        this.idUsuario = usuario;
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
+      console.log("campos idUsuario", this.idUsuario)
+    });
   }
 
   setearVariablesInicio() {
@@ -114,9 +126,13 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
-            this.operaciones.map(op => op.checked = false)
+            this.operaciones.map(op => op.checked = true)
+            let total = 0;
+            for(let o of this.operaciones){
+              total = total + o.importeCobrar;
+            }
             this.operaciones.push({
-              importeCobrar: 0
+              importeCobrar: total
             })
             console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
             this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
