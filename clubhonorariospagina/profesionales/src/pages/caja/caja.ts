@@ -35,6 +35,7 @@ export interface Operacion {
   importeVenta: number;
   nombreTarjeta: string;
   tipoOperacion: string;
+  checked: boolean;
 }
 
 @Component({
@@ -113,8 +114,9 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
+            this.operaciones.map(op => op.checked = false)
             this.operaciones.push({
-              importeCobrar: 1550
+              importeCobrar: 0
             })
             console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
             this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
@@ -231,18 +233,14 @@ export class CajaPage {
     console.log('​ConciliarPage -> cambiarEstado ->  this.opConciliadas', this.opConciliadas);
   }
 
-  // tabla
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+  checkBox(fila) {
+    const indiceTotal = this.operaciones.length - 1;
+    fila.checked = !fila.checked
+    if (fila.checked) {
+      this.operaciones[indiceTotal].importeCobrar = this.operaciones[indiceTotal].importeCobrar + fila.importeCobrar;
+    } else {
+      this.operaciones[indiceTotal].importeCobrar = this.operaciones[indiceTotal].importeCobrar - fila.importeCobrar;
+    }
   }
 
   showLoader(mensaje) {

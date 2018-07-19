@@ -194,7 +194,7 @@
                   </mat-header-cell> -->
                   <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
                   <mat-cell *matCellDef="let row,let i = index">
-                    <mat-checkbox *ngIf="i+1 != operaciones.length" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                    <mat-checkbox *ngIf="i+1 != operaciones.length" (change)="checkBox(row)" [checked]="row.checked">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
