@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -8,6 +8,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TooltipsModule } from 'ionic-tooltips';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es-AR';
+registerLocaleData(localeEs, 'es-AR');
 
 
 //Pages
@@ -153,6 +157,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     Storage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: LOCALE_ID, useValue: 'es-AR' },
     LoginProvider,
     OperacionesProvider,
     ProfesionalesProvider,

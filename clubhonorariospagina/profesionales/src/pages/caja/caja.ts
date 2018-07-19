@@ -52,7 +52,7 @@ export class CajaPage {
   opConciliadas: any = [];
 
   //tabla
-  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago','dniCliente','apellidoCliente','tarjeta','honorariosProfesional','diasHabiles','montoPagar','pagar'];
+  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'montoPagar', 'pagar'];
   dataSource: any;
   selection: SelectionModel<Operacion>;
 
@@ -92,30 +92,34 @@ export class CajaPage {
       }
       this.showLoader('Obteniendo información...');
       this.cajaProv.obtenerOpLiquidar(parametros)
-      .then(res => {
-        console.log('​CajaPage -> periodos -> res', res);
-        this.loading.dismiss();
-        //[0][0] codigo, [1][0]idLiquidacion y fechaEmision [2][0] prof  [3][i]operaciones a liquidar
-        if(res[0][0].codigo != 0){
-          this.idLiquidacion = res[1][0].idLiquidacion
-          console.log('​CajaPage -> periodos -> idLiquidacion', this.idLiquidacion);
-          this.fechaEmision = res[1][0].fechaEmision;
-          this.profesional = res[2][0]
-          console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
-          this.operaciones = res[3]
-          console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
-          this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
-        }else{
-          //profesional no existe..
-          console.log("no existe el prof", this.profesional, this.operaciones)
-        }
-      })
-      .catch(err => {
-        this.loading.dismiss();
-       console.log('​CajaPage -> periodos -> err', err);
-       // problemas de conexion
-        
-      })
+        .then(res => {
+          console.log('​CajaPage -> periodos -> res', res);
+          this.loading.dismiss();
+          //[0][0] codigo, [1][0]idLiquidacion y fechaEmision [2][0] prof  [3][i]operaciones a liquidar
+          if (res[0][0].codigo != 0) {
+            this.idLiquidacion = res[1][0].idLiquidacion
+            console.log('​CajaPage -> periodos -> idLiquidacion', this.idLiquidacion);
+            this.fechaEmision = res[1][0].fechaEmision;
+            this.profesional = res[2][0]
+            console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
+            this.operaciones = res[3]
+            this.operaciones.push({
+              importeCobrar: 1550
+            })
+            console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
+            this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
+              console.log('​CajaPage -> periodos -> this.dataSource', this.dataSource);
+          } else {
+            //profesional no existe..
+            console.log("no existe el prof", this.profesional, this.operaciones)
+          }
+        })
+        .catch(err => {
+          this.loading.dismiss();
+          console.log('​CajaPage -> periodos -> err', err);
+          // problemas de conexion
+
+        })
     }
   }
 

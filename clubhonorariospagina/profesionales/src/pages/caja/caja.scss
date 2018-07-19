@@ -20,6 +20,14 @@ page-caja {
    mat-row:nth-child(even) {
       background-color: #dcedc8;
    }
+   mat-row:last-child {
+      background-color: #B0BEC5;
+   }
+   mat-row:last-child mat-cell {
+      font-size: 13px !important;
+      font-weight: 900 !important;
+      color:black;
+   }
    .mat-cell {
       overflow: visible;
       font-size: 12px;

@@ -75,26 +75,70 @@
         </ion-row>
         <ion-row class="informacionProfesional">
           <ion-col col-4>
-            <p><strong><u>Apellido:</u></strong> {{profesional?.apellido}}</p>
-            <p><strong><u>Nombre:</u></strong> {{profesional?.nombre}}</p>
-            <p><strong><u>Profesión:</u></strong> {{profesional?.profesion}}</p>
-            <p><strong><u>Fecha Alta:</u></strong> {{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
-            <p><strong><u>Teléfono:</u></strong> {{profesional?.telefono}}</p>
-            <p><strong><u>Nombre Fantasia:</u></strong> {{profesional?.especialidad}}</p>
+            <p>
+              <strong>
+                <u>Apellido:</u>
+              </strong> {{profesional?.apellido}}</p>
+            <p>
+              <strong>
+                <u>Nombre:</u>
+              </strong> {{profesional?.nombre}}</p>
+            <p>
+              <strong>
+                <u>Profesión:</u>
+              </strong> {{profesional?.profesion}}</p>
+            <p>
+              <strong>
+                <u>Fecha Alta:</u>
+              </strong> {{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
+            <p>
+              <strong>
+                <u>Teléfono:</u>
+              </strong> {{profesional?.telefono}}</p>
+            <p>
+              <strong>
+                <u>Nombre Fantasia:</u>
+              </strong> {{profesional?.especialidad}}</p>
           </ion-col>
           <ion-col col-4>
-            <p><strong><u>Domicilio:</u></strong> {{profesional?.domicilio}}</p>
-            <p><strong><u>Localidad:</u></strong> {{profesional?.localidad}}</p>
-            <p><strong><u>Provincia:</u></strong> {{profesional?.provincia}}</p>
-            <p><strong><u>Mail:</u></strong> {{profesional?.mail}}</p>
-            <p><strong><u>Autorizado:</u></strong> {{profesional?.autorizado}}</p>
-            <p><strong><u>DNI Autorizado:</u></strong> {{profesional?.dniAutorizado}}</p>
+            <p>
+              <strong>
+                <u>Domicilio:</u>
+              </strong> {{profesional?.domicilio}}</p>
+            <p>
+              <strong>
+                <u>Localidad:</u>
+              </strong> {{profesional?.localidad}}</p>
+            <p>
+              <strong>
+                <u>Provincia:</u>
+              </strong> {{profesional?.provincia}}</p>
+            <p>
+              <strong>
+                <u>Mail:</u>
+              </strong> {{profesional?.mail}}</p>
+            <p>
+              <strong>
+                <u>Autorizado:</u>
+              </strong> {{profesional?.autorizado}}</p>
+            <p>
+              <strong>
+                <u>DNI Autorizado:</u>
+              </strong> {{profesional?.dniAutorizado}}</p>
           </ion-col>
           <ion-col col-4>
-              <p><strong><u>Fecha de Emisión:</u></strong></p>
-              <p class="pRecuadro">{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
-              <p><strong><u>Comprobante de pago:</u></strong></p>
-              <p class="pRecuadro">{{idLiquidacion}}</p>
+            <p>
+              <strong>
+                <u>Fecha de Emisión:</u>
+              </strong>
+            </p>
+            <p class="pRecuadro">{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
+            <p>
+              <strong>
+                <u>Comprobante de pago:</u>
+              </strong>
+            </p>
+            <p class="pRecuadro">{{idLiquidacion}}</p>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -103,7 +147,7 @@
               <mat-table #table [dataSource]="dataSource">
                 <ng-container matColumnDef="orden">
                   <mat-header-cell *matHeaderCellDef> Orden </mat-header-cell>
-                  <mat-cell *matCellDef="let element, let i = index"> {{i+1}} </mat-cell>
+                  <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "": i+1}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="codInterno">
                   <mat-header-cell *matHeaderCellDef> Codigo Interno </mat-header-cell>
@@ -127,7 +171,8 @@
                 </ng-container>
                 <ng-container matColumnDef="tarjeta">
                   <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}} {{(element.nombreTarjeta)? " - "+element.nombreTarjeta : " - Sin informacion"}} </mat-cell>
+                  <mat-cell *matCellDef="let element, let i = index"> {{element.tipoOperacion}} {{(element.nombreTarjeta)? " - "+element.nombreTarjeta : ""}}
+                    </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="honorariosProfesional">
                   <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
@@ -135,7 +180,7 @@
                 </ng-container>
                 <ng-container matColumnDef="diasHabiles">
                   <mat-header-cell *matHeaderCellDef> Dias Hábiles </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> 3 </mat-cell>
+                  <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "TOTAL": 3}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="montoPagar">
                   <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
@@ -148,14 +193,13 @@
                     </mat-checkbox>
                   </mat-header-cell> -->
                   <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                  <mat-cell *matCellDef="let row,let i = index">
+                    <mat-checkbox *ngIf="i+1 != operaciones.length" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
-                </mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></mat-row>
               </mat-table>
             </div>
           </ion-col>
