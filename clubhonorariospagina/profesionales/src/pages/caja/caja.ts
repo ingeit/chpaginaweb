@@ -74,12 +74,22 @@ export class CajaPage {
 
   ) {
     this.obtenerOpNoConciliadas();
+    this.setearVariablesInicio();
+  }
+
+  setearVariablesInicio() {
     this.selection = new SelectionModel<Operacion>(true, []);
     this.fechaInicio.setFullYear(2018, 0, 1);
     this.fechaFin.setFullYear(this.fechaFin.getFullYear(), this.fechaFin.getMonth(), this.fechaFin.getDate());
+    this.idLiquidacion = null;
+    this.fechaEmision = null;
+    this.profesional = null;
+    this.operaciones = null;
+    this.dataSource = null;
   }
 
   periodos() {
+    this.setearVariablesInicio();
     let fInicio = this.fechaInicio.toISOString().slice(0, 10);
     let fFin = this.fechaFin.toISOString().slice(0, 10);
     if (this.dniProfesional == null || this.dniProfesional.toString().length < 7 || this.dniProfesional.toString().length > 11) {
@@ -108,17 +118,17 @@ export class CajaPage {
             })
             console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
             this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
-              console.log('​CajaPage -> periodos -> this.dataSource', this.dataSource);
+            console.log('​CajaPage -> periodos -> this.dataSource', this.dataSource);
           } else {
             //profesional no existe..
             console.log("no existe el prof", this.profesional, this.operaciones)
+            swal("Error", "Profesional inexistente", "error");
           }
         })
         .catch(err => {
           this.loading.dismiss();
           console.log('​CajaPage -> periodos -> err', err);
-          // problemas de conexion
-
+          swal("Error", "Problemas de comunicacion", "error");
         })
     }
   }
