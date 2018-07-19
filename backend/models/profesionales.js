@@ -70,6 +70,12 @@ exports.obtenerOpLiquidar = function (params, fn) {
         else fn(rows);
     });
 }
+exports.nuevaLiquidacion = function (params, fn) {
+    pool.query('call liquidacion_nueva(?,?,?,?)', [params.idUsuario, params.idProfesional, params.montoTotal, params.cadena], function (err, rows) {
+        if (err) fn(err);
+        else fn(rows);
+    });
+}
 
 exports.getProfesionalesPorFecha = function (fechaInicio, fechaFin, fn) {
     pool.query('call profesionalTemp_listar_rango(' + fechaInicio + ',' + fechaFin + ')', function (err, rows) {

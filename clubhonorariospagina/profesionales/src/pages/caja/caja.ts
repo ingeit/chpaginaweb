@@ -82,7 +82,7 @@ export class CajaPage {
     this.setearVariablesInicio();
     this.storage.get('usuario').then((usuario) => {
       if (usuario.hasOwnProperty('_id')) {
-        this.idUsuario = usuario;
+        this.idUsuario = usuario._id;
       } else {
         this.navCtrl.setRoot(HomePage);
       }
@@ -126,10 +126,10 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
-            this.operaciones.map(op => op.checked = true)
+            this.operaciones.map(op => op.checked = false) 
             let total = 0;
-            for(let o of this.operaciones){
-              total = total + o.importeCobrar;
+            for (let o of this.operaciones) {
+              if(o.checked) total = total + o.importeCobrar;
             }
             this.operaciones.push({
               importeCobrar: total
@@ -149,6 +149,36 @@ export class CajaPage {
           swal("Error", "Problemas de comunicacion", "error");
         })
     }
+  }
+
+  pagar() {
+    let cadena = "";
+    for (let op of this.operaciones) {
+      if (op.checked) {
+        cadena = cadena.concat(op.idOperacion.toString(),"*");
+      }
+    }
+    //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
+    cadena = cadena.slice(0, -1);
+    // redondeamos el montoTotal a 2 digitos para mysql
+    let montoTotal = Math.round( this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
+    let parametros = {
+      idUsuario: this.idUsuario,
+      idProfesional: this.profesional.idProfesional,
+      montoTotal,
+      cadena
+    }
+    console.log('​CajaPage -> pagar -> parametros', parametros);
+    this.cajaProv.liquidacionNueva(parametros)
+    .then(res => {
+    console.log('​CajaPage -> pagar -> res', res);
+
+    })
+    .catch(err => {
+    console.log('​CajaPage -> pagar -> err', err);
+      
+    })
+
   }
 
   obtenerOpNoConciliadas() {

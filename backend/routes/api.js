@@ -41,8 +41,10 @@ router.get('/dameProvincias', ProfesionalesController.dameProvincias);
 router.post('/dameCiudades', ProfesionalesController.dameCiudades);
 router.get('/excelProfesionales/:fechaInicio/:fechaFin', ProfesionalesController.excel);
 router.get('/listarVendedores', ProfesionalesController.dameVendedores);
+
 // prof asociado a caja:
 router.post('/obtenerOpLiquidar', ProfesionalesController.obtenerOpLiquidar);
+router.post('/nuevaLiquidacion', ProfesionalesController.nuevaLiquidacion);
 
 
 

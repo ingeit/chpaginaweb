@@ -234,6 +234,11 @@ exports.obtenerOpLiquidar = function (req, res, next) {
        res.json(consulta);
     });
  }
+exports.nuevaLiquidacion = function (req, res, next) {
+    profesional.nuevaLiquidacion(req.body,function (consulta) {
+       res.json(consulta);
+    });
+ }
 
 exports.dameVendedores = function(req, res, next){
     vendedores.listarVendedores(function(consulta){
