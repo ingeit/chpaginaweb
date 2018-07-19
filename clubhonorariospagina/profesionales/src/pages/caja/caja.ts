@@ -62,6 +62,7 @@ export class CajaPage {
   fechaFin: Date = new Date();
   profesional: any;
   operaciones: any;
+  idLiquidacion: number;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -91,12 +92,15 @@ export class CajaPage {
       this.showLoader('Obteniendo información...');
       this.cajaProv.obtenerOpLiquidar(parametros)
       .then(res => {
+        console.log('​CajaPage -> periodos -> res', res);
         this.loading.dismiss();
-        //[0][0] codigo, [1][0] prof  [2][i]operaciones a liquidar
+        //[0][0] codigo, [1][0]idLiquidacion [2][0] prof  [3][i]operaciones a liquidar
         if(res[0][0].codigo != 0){
-          this.profesional = res[1][0]
+          this.idLiquidacion = res[1][0].idLiquidacion
+          console.log('​CajaPage -> periodos -> idLiquidacion', this.idLiquidacion);
+          this.profesional = res[2][0]
           console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
-          this.operaciones = res[2]
+          this.operaciones = res[3]
           console.log('​CajaPage -> periodos -> this.operaciones', this.operaciones);
           this.dataSource = new MatTableDataSource<Operacion>(this.operaciones);
         }else{

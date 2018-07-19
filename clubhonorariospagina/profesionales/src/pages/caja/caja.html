@@ -73,6 +73,30 @@
             <button ion-button clear (click)="periodos()">Buscar</button>
           </ion-col>
         </ion-row>
+        <ion-row class="informacionProfesional">
+          <ion-col col-4>
+            <p><strong><u>Apellido:</u></strong> {{profesional?.apellido}}</p>
+            <p><strong><u>Nombre:</u></strong> {{profesional?.nombre}}</p>
+            <p><strong><u>Profesión:</u></strong> {{profesional?.profesion}}</p>
+            <p><strong><u>Fecha Alta:</u></strong> {{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
+            <p><strong><u>Teléfono:</u></strong> {{profesional?.telefono}}</p>
+            <p><strong><u>Nombre Fantasia:</u></strong> {{profesional?.especialidad}}</p>
+          </ion-col>
+          <ion-col col-4>
+            <p><strong><u>Domicilio:</u></strong> {{profesional?.domicilio}}</p>
+            <p><strong><u>Localidad:</u></strong> {{profesional?.localidad}}</p>
+            <p><strong><u>Provincia:</u></strong> {{profesional?.provincia}}</p>
+            <p><strong><u>Mail:</u></strong> {{profesional?.mail}}</p>
+            <p><strong><u>Autorizado:</u></strong> {{profesional?.autorizado}}</p>
+            <p><strong><u>DNI Autorizado:</u></strong> {{profesional?.dniAutorizado}}</p>
+          </ion-col>
+          <ion-col col-4>
+              <p><strong><u>Fecha de Emisión:</u></strong></p>
+              <p class="pRecuadro">{{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
+              <p><strong><u>Comprobante de pago:</u></strong></p>
+              <p class="pRecuadro">{{idLiquidacion}}</p>
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col>
             <div class="table-container mat-elevation-z8">
@@ -103,7 +127,8 @@
                 </ng-container>
                 <ng-container matColumnDef="tarjeta">
                   <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}}<br>{{element.nombreTarjeta | lowercase}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}}
+                    <br>{{element.nombreTarjeta | lowercase}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="honorariosProfesional">
                   <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
