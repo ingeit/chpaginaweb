@@ -1304,7 +1304,7 @@ DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	SET lIdProfesional = (SELECT idProfesional FROM ProfesionalesTemp WHERE dni = dniProfesional);
 	SET lIdLiquidacion =  (SELECT 1 + COALESCE(MAX(idLiquidacion),1000000) FROM Liquidaciones);
     SELECT 1 AS codigo;
-	SELECT lIdLiquidacion AS idLiquidacion;
+	SELECT lIdLiquidacion AS idLiquidacion, NOW() AS fechaEmision;
     SELECT * FROM ProfesionalesTemp WHERE idProfesional = lIdProfesional;
     SELECT 
 		o.idOperacion,o.fechaTransaccion,o.fechaPago,o.tipoOperacion,o.nombreTarjeta,o.importeVenta,o.importeCobrar, o.estadoPago,
@@ -3294,4 +3294,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-18 22:04:09
+-- Dump completed on 2018-07-19 12:17:04
