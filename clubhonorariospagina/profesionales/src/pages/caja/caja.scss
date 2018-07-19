@@ -1,25 +1,47 @@
 page-caja {
-   .mat-row {
-      min-height: 35px;
+   .informacionProfesional p {
+      font-size: 12px;
+      margin: 5px 0;
    }
-
-   mat-row:nth-child(even){
-    background-color:#dcedc8;
-    }
-
-    .informacionProfesional p{
-       margin: 5px 0;
-    }
-
-    .pRecuadro{
+   .pRecuadro {
       border: 2px solid #7cb342;
       margin: 0 !important;
       display: inline-flex;
       padding: 5px 20px;
-      width: 95px;
-      height: 31px;
-    }
-
+      width: 90px;
+      height: 29px;
+   }
+   .mat-row {
+      min-height: 35px;
+   }
+   .mat-header-row {
+      min-height: 35px;
+   }
+   mat-row:nth-child(even) {
+      background-color: #dcedc8;
+   }
+   .mat-cell {
+      overflow: visible;
+      font-size: 12px;
+   }
+   .mat-cell {
+      text-align: center;
+   }
+   .mat-header-cell {
+      text-align: center;
+   }
+   .mat-column-orden {
+      flex: 0 0 45px;
+   }
+   .mat-column-codInterno {
+      flex: 0 0 70px;
+   }
+   .mat-column-apellidoCliente {
+      text-align: left;
+   }
+   .mat-column-tarjeta {
+      text-align: left;
+   }
    .sidenav-container {
       position: absolute;
       top: 0;

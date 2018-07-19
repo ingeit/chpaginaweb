@@ -92,7 +92,7 @@
           </ion-col>
           <ion-col col-4>
               <p><strong><u>Fecha de Emisión:</u></strong></p>
-              <p class="pRecuadro">{{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
+              <p class="pRecuadro">{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
               <p><strong><u>Comprobante de pago:</u></strong></p>
               <p class="pRecuadro">{{idLiquidacion}}</p>
           </ion-col>
@@ -127,8 +127,7 @@
                 </ng-container>
                 <ng-container matColumnDef="tarjeta">
                   <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}}
-                    <br>{{element.nombreTarjeta | lowercase}} </mat-cell>
+                  <mat-cell *matCellDef="let element"> {{element.tipoOperacion}} {{(element.nombreTarjeta)? " - "+element.nombreTarjeta : " - Sin informacion"}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="honorariosProfesional">
                   <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
@@ -144,10 +143,11 @@
                 </ng-container>
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="pagar">
-                  <mat-header-cell *matHeaderCellDef>
+                  <!-- <mat-header-cell *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
                     </mat-checkbox>
-                  </mat-header-cell>
+                  </mat-header-cell> -->
+                  <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
                     </mat-checkbox>

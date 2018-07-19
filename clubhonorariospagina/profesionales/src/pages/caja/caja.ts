@@ -63,6 +63,7 @@ export class CajaPage {
   profesional: any;
   operaciones: any;
   idLiquidacion: number;
+  fechaEmision: Date;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -94,10 +95,11 @@ export class CajaPage {
       .then(res => {
         console.log('​CajaPage -> periodos -> res', res);
         this.loading.dismiss();
-        //[0][0] codigo, [1][0]idLiquidacion [2][0] prof  [3][i]operaciones a liquidar
+        //[0][0] codigo, [1][0]idLiquidacion y fechaEmision [2][0] prof  [3][i]operaciones a liquidar
         if(res[0][0].codigo != 0){
           this.idLiquidacion = res[1][0].idLiquidacion
           console.log('​CajaPage -> periodos -> idLiquidacion', this.idLiquidacion);
+          this.fechaEmision = res[1][0].fechaEmision;
           this.profesional = res[2][0]
           console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
           this.operaciones = res[3]
