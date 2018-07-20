@@ -384,8 +384,15 @@ export class CajaPage {
       doc.save(nombre);
     });
   }
-
+  // calcular cantidad de recibos
+  // calcular(){
+  //   let cantidad = ~~(total/1000); // esto devuelve el primer digito q seria el parametro para cantidad de recibos
+  //   let resto = (total%1000); // esto es para saber si el resto es 0 o no, porq si no es 0 se aumenta el numero de tiques de arriba
+  //   if(resto != 0) cantidad++;
+  // }
 }
+
+
 
 @Component({
   selector: 'page-modal',
