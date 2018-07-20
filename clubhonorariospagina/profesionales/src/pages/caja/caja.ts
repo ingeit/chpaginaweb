@@ -1,13 +1,15 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
+import * as html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf';
+
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
-import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';
+import { CajaProvider } from '../../providers/caja/caja';
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -21,7 +23,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CajaProvider } from '../../providers/caja/caja';
 
 
 // variable para conciliar
@@ -77,7 +78,8 @@ export class CajaPage {
     public loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private cajaProv: CajaProvider,
-    public storage: Storage
+    public storage: Storage,
+    private alertCtrl: AlertController
 
   ) {
     this.obtenerOpNoConciliadas();
@@ -154,40 +156,39 @@ export class CajaPage {
   }
 
   pagar() {
-    html2canvas(document.getElementById('pdf'),{scale:3,width:1208,height:653}).then(function (canvas) {
-      var img = canvas.toDataURL("image/jpeg");
-      var doc = new jsPDF("l","mm","a4");
-      doc.addImage(img, 'JPEG',25,10,250,133);
-      doc.save('testCanvas.pdf');
-    });
-    // let cadena = "";
-    // for (let op of this.operaciones) {
-    //   if (op.checked) {
-    //     cadena = cadena.concat(op.idOperacion.toString(), "*");
-    //   }
-    // }
-    // //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
-    // cadena = cadena.slice(0, -1);
-    // // redondeamos el montoTotal a 2 digitos para mysql
-    // let montoTotal = Math.round(this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
-    // let parametros = {
-    //   idUsuario: this.idUsuario,
-    //   idProfesional: this.profesional.idProfesional,
-    //   montoTotal,
-    //   cadena
-    // }
-    // console.log('​CajaPage -> pagar -> parametros', parametros);
-    // this.cajaProv.liquidacionNueva(parametros)
-    //   .then(res => {
-    //     console.log('​CajaPage -> pagar -> res', res);
-
-    //   })
-    //   .catch(err => {
-    //     console.log('​CajaPage -> pagar -> err', err);
-
-    //   })
+    let cadena = "";
+    for (let op of this.operaciones) {
+      if (op.checked) {
+        cadena = cadena.concat(op.idOperacion.toString(), "*");
+      }
+    }
+    //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
+    cadena = cadena.slice(0, -1);
+    // redondeamos el montoTotal a 2 digitos para mysql
+    let montoTotal = Math.round(this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
+    let parametros = {
+      idUsuario: this.idUsuario,
+      idProfesional: this.profesional.idProfesional,
+      montoTotal,
+      cadena
+    }
+    console.log('​CajaPage -> pagar -> parametros', parametros);
+    this.cajaProv.liquidacionNueva(parametros)
+      .then(res => {
+        console.log('​CajaPage -> pagar -> res', res);
+        if (res[0][0].codigo == 0) {
+          swal("Advertencia", res[0][0].mensaje, "info");
+        } else {
+          this.promptImprimir(res)
+        }
+      })
+      .catch(err => {
+        swal("Error", "Problemas de comunicacion con el servidor", "error");
+      })
 
   }
+
+
 
   obtenerOpNoConciliadas() {
     this.opPrv.obtenerOpNoConciliadas()
@@ -321,6 +322,63 @@ export class CajaPage {
     });
 
     toast.present();
+  }
+
+  promptImprimir(res) {
+    let alert = this.alertCtrl.create({
+      title: 'Liquidacion realizada con exito',
+      message: 'Seleccione una de las opciones',
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'PDF Liquidacion',
+          handler: () => {
+            this.generarPDFLiquidacion(res);
+          }
+        },
+        {
+          text: 'PDF Recibo Profesional',
+          handler: () => {
+            // this.generarPDFRecibos(res, "profesional");
+          }
+        },
+        {
+          text: 'PDF Recibo Cliente',
+          handler: () => {
+            // this.generarPDF(res, "cliente");
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  generarPDFLiquidacion(res) {
+    let date = new Date();
+    let dia = date.getDate();
+    let mes = date.getMonth();
+    mes = mes + 1;
+    let anio = date.getFullYear();
+    let nombre = `Liquidacion Nro ${res[0][0].codigo} - Prof ${this.profesional.apellido} ${this.profesional.nombre} - ${dia}-${mes}-${anio}.pdf`
+    this.descargarPDF(nombre, 'pdf')
+
+  }
+
+  descargarPDF(nombre, id) {
+    html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
+      var img = canvas.toDataURL("image/jpeg");
+      var doc = new jsPDF("l", "mm", "a4");
+      doc.addImage(img, 'JPEG', 25, 10, 250, 133);
+      doc.addPage();
+      doc.addImage(img, 'JPEG', 25, 10, 250, 133);
+      doc.save(nombre);
+    });
   }
 
 }
