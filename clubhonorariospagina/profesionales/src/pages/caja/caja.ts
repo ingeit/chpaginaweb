@@ -7,7 +7,6 @@ import * as XLSX from 'xlsx';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import * as jsPDF from 'jspdf';
-import * as rasterizeHTML from 'rasterizehtml';
 import * as html2canvas from 'html2canvas';
 
 //Table
