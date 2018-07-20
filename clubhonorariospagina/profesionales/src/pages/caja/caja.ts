@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
@@ -79,7 +79,8 @@ export class CajaPage {
     private toastCtrl: ToastController,
     private cajaProv: CajaProvider,
     public storage: Storage,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public modalCtrl: ModalController
 
   ) {
     this.obtenerOpNoConciliadas();
