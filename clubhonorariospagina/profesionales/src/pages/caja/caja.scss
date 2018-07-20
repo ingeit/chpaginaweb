@@ -1,6 +1,21 @@
 page-caja {
+   #pdf{
+      max-width: 1208px !important;
+      margin: 0 auto;
+   }
+   .logo{
+      text-align: center;
+   }
+   .logo img{
+      width: 190px;
+   }
+   .autorizPago{
+      font-weight: 900;
+      text-align: center;
+      font-size: 16px;
+   }
    .informacionProfesional p {
-      font-size: 12px;
+      font-size: 14px;
       margin: 5px 0;
    }
    .pRecuadro {
@@ -24,13 +39,13 @@ page-caja {
       background-color: #B0BEC5;
    }
    mat-row:last-child mat-cell {
-      font-size: 13px !important;
+      font-size: 14px !important;
       font-weight: 900 !important;
       color:black;
    }
    .mat-cell {
       overflow: visible;
-      font-size: 12px;
+      font-size: 14px;
    }
    .mat-cell {
       text-align: center;
