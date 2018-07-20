@@ -10,6 +10,7 @@ import * as jsPDF from 'jspdf';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { CajaProvider } from '../../providers/caja/caja';
+import { ModalPage} from './modal'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -180,7 +181,7 @@ export class CajaPage {
         if (res[0][0].codigo == 0) {
           swal("Advertencia", res[0][0].mensaje, "info");
         } else {
-          let profileModal = this.modalCtrl.create(ModalPage, { res, generarPDFLiquidacion: this.generarPDFLiquidacion(res) });
+          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res) },{enableBackdropDismiss: false});
           profileModal.present();
 
           // this.promptImprimir(res)
@@ -390,23 +391,4 @@ export class CajaPage {
   //   let resto = (total%1000); // esto es para saber si el resto es 0 o no, porq si no es 0 se aumenta el numero de tiques de arriba
   //   if(resto != 0) cantidad++;
   // }
-}
-
-
-
-@Component({
-  selector: 'page-modal',
-  templateUrl: `<div></div>`,
-})
-class ModalPage {
-  generarPDFLiquidacion: any;
-  constructor(params: NavParams,
-  ) {
-    this.generarPDFLiquidacion = params.get('generarPDFLiquidacion')
-  }
-  imprimir() {
-    console.log("imprimir desde modal")
-    this.generarPDFLiquidacion
-  }
-
 }
