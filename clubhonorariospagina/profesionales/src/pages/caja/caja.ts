@@ -6,6 +6,9 @@ import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
+import * as jsPDF from 'jspdf';
+import * as rasterizeHTML from 'rasterizehtml';
+import * as html2canvas from 'html2canvas';
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -126,10 +129,10 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
-            this.operaciones.map(op => op.checked = false) 
+            this.operaciones.map(op => op.checked = true)
             let total = 0;
             for (let o of this.operaciones) {
-              if(o.checked) total = total + o.importeCobrar;
+              if (o.checked) total = total + o.importeCobrar;
             }
             this.operaciones.push({
               importeCobrar: total
@@ -152,32 +155,38 @@ export class CajaPage {
   }
 
   pagar() {
-    let cadena = "";
-    for (let op of this.operaciones) {
-      if (op.checked) {
-        cadena = cadena.concat(op.idOperacion.toString(),"*");
-      }
-    }
-    //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
-    cadena = cadena.slice(0, -1);
-    // redondeamos el montoTotal a 2 digitos para mysql
-    let montoTotal = Math.round( this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
-    let parametros = {
-      idUsuario: this.idUsuario,
-      idProfesional: this.profesional.idProfesional,
-      montoTotal,
-      cadena
-    }
-    console.log('​CajaPage -> pagar -> parametros', parametros);
-    this.cajaProv.liquidacionNueva(parametros)
-    .then(res => {
-    console.log('​CajaPage -> pagar -> res', res);
+    html2canvas(document.getElementById('pdf')).then(function (canvas) {
+      var img = canvas.toDataURL("image/png");
+      var doc = new jsPDF("l","mm","a4");
+      doc.addImage(img, 'JPEG',15, 15, 250, 150);
+      doc.save('testCanvas.pdf');
+    });
+    // let cadena = "";
+    // for (let op of this.operaciones) {
+    //   if (op.checked) {
+    //     cadena = cadena.concat(op.idOperacion.toString(), "*");
+    //   }
+    // }
+    // //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
+    // cadena = cadena.slice(0, -1);
+    // // redondeamos el montoTotal a 2 digitos para mysql
+    // let montoTotal = Math.round(this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
+    // let parametros = {
+    //   idUsuario: this.idUsuario,
+    //   idProfesional: this.profesional.idProfesional,
+    //   montoTotal,
+    //   cadena
+    // }
+    // console.log('​CajaPage -> pagar -> parametros', parametros);
+    // this.cajaProv.liquidacionNueva(parametros)
+    //   .then(res => {
+    //     console.log('​CajaPage -> pagar -> res', res);
 
-    })
-    .catch(err => {
-    console.log('​CajaPage -> pagar -> err', err);
-      
-    })
+    //   })
+    //   .catch(err => {
+    //     console.log('​CajaPage -> pagar -> err', err);
+
+    //   })
 
   }
 
