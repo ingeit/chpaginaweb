@@ -157,7 +157,7 @@ export class CajaPage {
     html2canvas(document.getElementById('pdf'),{scale:3,width:1208,height:653}).then(function (canvas) {
       var img = canvas.toDataURL("image/jpeg");
       var doc = new jsPDF("l","mm","a4");
-      doc.addImage(img, 'JPEG',15,15,250,133);
+      doc.addImage(img, 'JPEG',25,10,250,133);
       doc.save('testCanvas.pdf');
     });
     // let cadena = "";
