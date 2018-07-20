@@ -155,10 +155,10 @@ export class CajaPage {
   }
 
   pagar() {
-    html2canvas(document.getElementById('pdf')).then(function (canvas) {
-      var img = canvas.toDataURL("image/png");
+    html2canvas(document.getElementById('pdf'),{scale:3,width:1280,height:720}).then(function (canvas) {
+      var img = canvas.toDataURL("image/jpeg");
       var doc = new jsPDF("l","mm","a4");
-      doc.addImage(img, 'JPEG',15, 15, 250, 150);
+      doc.addImage(img, 'JPEG',15,15,250,133);
       doc.save('testCanvas.pdf');
     });
     // let cadena = "";

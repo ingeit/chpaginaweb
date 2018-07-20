@@ -70,7 +70,7 @@
               <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
               <mat-datepicker #fFin></mat-datepicker>
             </mat-form-field>
-            <button ion-button clear (click)="periodos()">Buscar</button>
+            <button ion-button clear data-html2canvas-ignore="true" (click)="periodos()">Buscar</button>
           </ion-col>
         </ion-row>
         <ion-row class="informacionProfesional">
@@ -139,6 +139,13 @@
               </strong>
             </p>
             <p class="pRecuadro">{{idLiquidacion}}</p>
+            <div class="circle" style="
+            width:  100px;
+            height:  100px;
+            background: red;
+            border-radius:  50%;">
+
+            </div>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -202,7 +209,7 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></mat-row>
               </mat-table>
             </div>
-            <button ion-button (click)="pagar()">PAGAR</button>
+            <button ion-button data-html2canvas-ignore="true" (click)="pagar()">PAGAR</button>
           </ion-col>
         </ion-row>
       </mat-sidenav-content>
