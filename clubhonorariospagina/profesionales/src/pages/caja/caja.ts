@@ -180,7 +180,10 @@ export class CajaPage {
         if (res[0][0].codigo == 0) {
           swal("Advertencia", res[0][0].mensaje, "info");
         } else {
-          this.promptImprimir(res)
+          let profileModal = this.modalCtrl.create(ModalPage, { res, generarPDFLiquidacion: this.generarPDFLiquidacion(res) });
+          profileModal.present();
+
+          // this.promptImprimir(res)
         }
       })
       .catch(err => {
@@ -346,7 +349,7 @@ export class CajaPage {
         {
           text: 'PDF Recibo Profesional',
           handler: () => {
-            // this.generarPDFRecibos(res, "profesional");
+            // this.generarPDF(res, "profesional");
           }
         },
         {
@@ -360,7 +363,7 @@ export class CajaPage {
     alert.present();
   }
 
-  generarPDFLiquidacion(res) {
+  public generarPDFLiquidacion(res) {
     let date = new Date();
     let dia = date.getDate();
     let mes = date.getMonth();
@@ -380,6 +383,23 @@ export class CajaPage {
       doc.addImage(img, 'JPEG', 25, 10, 250, 133);
       doc.save(nombre);
     });
+  }
+
+}
+
+@Component({
+  selector: 'page-modal',
+  templateUrl: `<div></div>`,
+})
+class ModalPage {
+  generarPDFLiquidacion: any;
+  constructor(params: NavParams,
+  ) {
+    this.generarPDFLiquidacion = params.get('generarPDFLiquidacion')
+  }
+  imprimir() {
+    console.log("imprimir desde modal")
+    this.generarPDFLiquidacion
   }
 
 }
