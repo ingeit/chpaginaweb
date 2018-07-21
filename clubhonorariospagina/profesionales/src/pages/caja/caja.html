@@ -226,7 +226,7 @@
         </ion-grid>
 
         <!-- Vista liquidacion OK para imprimir  AGREGAR EL NGIF VISTAIMPRIMIR AL GRID-->
-        <ion-grid *ngIf="vistaImprimir">
+        <!-- <ion-grid *ngIf="vistaImprimir">
           <ion-row class="viOk">
             <ion-col>
               <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
@@ -236,9 +236,122 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            asd
+            <button ion-button (click)="generarPDFRecibo()">DESCARGAR PDF</button>
           </ion-row>
-        </ion-grid>
+        </ion-grid> -->
+
+        <!-- MODELO RECIBOS ESTO VA AFUERA DEL ION CONTENT PARA Q NO SE VEA Y SE TIENE Q SACAR EL NGIF, AHORA ESTA AQUI PARA DEBUGEAR -->
+        <ion-grid *ngIf="vistaImprimir" id="recibo">
+            <ion-row>
+              <ion-col style="text-align: center;">
+                  <img style="max-width: 170px;" src="../../assets/mutual.png" alt="">
+              </ion-col>
+            </ion-row>
+            <ion-row class="fila1">
+              <ion-col style="border-right: none !important" col-5>
+                <ion-row class="unouno">
+                  <p>ASOC MUTUAL P EL PODER JUDICIAL Y TRAB. INDEPENDIENTES CONGRESO DE TUCUMAN</p>
+                </ion-row>
+                <ion-row style="border-top: 1px solid black !important;">
+                  <p>CUIT 307002340558</p>
+                </ion-row>
+                <ion-row style="border-top: 1px solid black !important;">
+                  <p>9 de Julio 485</p>
+                </ion-row>
+                <ion-row style="border-top: 1px solid black !important;">
+                  <p>4000 San Miguel de Tucuman</p>
+                </ion-row>
+              </ion-col>
+              <ion-col style="border-right: none !important" col-2>
+                <ion-row class="unodos">
+                  <p style="padding: 14px 14px;">ORIGINAL</p>
+                </ion-row>
+                <ion-row style="border-top: 1px solid black !important;">
+                  <p style="padding: 27px 39px;">X</p>
+                </ion-row>
+              </ion-col>
+              <ion-col col-5>
+                <ion-row>
+                  <p style="font-weight: 900;padding: 31px 0 0 46px;height: 74px !important;">RECIBO DE COBRANZAS</p>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="text-align: right;border: none;border-top: 1px solid black;border-right: 1px solid black">
+                    <p>Nº:</p>
+                  </ion-col>
+                  <ion-col style="text-align: center;border: none;border-top: 1px solid black;">
+                    <p>{{numeroActual}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="text-align: right;border: none;border-top: 1px solid black;border-right: 1px solid black">
+                    <p>Fecha:</p>
+                  </ion-col>
+                  <ion-col style="text-align: center;border: none;border-top: 1px solid black;">
+                    <p>{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+            <ion-row class="fila2">
+              <ion-col>
+                <ion-row>
+                  <ion-col>
+                    <p>DNI/CUIT</p>
+                  </ion-col>
+                  <ion-col>
+                    <p style="border: 1.5px solid black;">{{dniProfesional}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Nombre</p>
+                  </ion-col>
+                  <ion-col>
+                    <p style="border: 1.5px solid black;">{{profesional?.apellido | uppercase}}, {{profesional?.nombre}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Importe</p>
+                  </ion-col>
+                  <ion-col>
+                    <p style="border: 1.5px solid black;">{{montoRecibos | currency}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Liquidacion</p>
+                  </ion-col>
+                  <ion-col>
+                    <p style="border: 1.5px solid black;"> {{codLiqDB}} </p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Concepto</p>
+                  </ion-col>
+                  <ion-col>
+                    <p style="border: 1.5px solid black;">{{concepto}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+            <ion-row class="fila3">
+              <ion-col class="col3" col-5 offset-7>
+                <div class="divTotal">
+                  <p class="pTotal">TOTAL </p>
+                  <p class="pTotal">{{montoRecibos | currency}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col style="text-align: center;padding: 30px 0;">
+                <p class="pFirma">Conforme de Operacion</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
       </mat-sidenav-content>
     </mat-sidenav-container>
   </ion-grid>
@@ -246,112 +359,3 @@
 </ion-content>
 
 <!-- MODELO RECIBOS  -->
-<!-- <ion-grid id="recibo">
-    <ion-row>
-      <ion-col style="text-align: center;">
-          <img style="max-width: 170px;" src="../../assets/mutual.png" alt="">
-      </ion-col>
-    </ion-row>
-    <ion-row class="fila1">
-      <ion-col style="border-right: none !important" col-5>
-        <ion-row class="unouno">
-          <p>ASOC MUTUAL P EL PODER JUDICIAL Y TRAB. INDEPENDIENTES CONGRESO DE TUCUMAN</p>
-        </ion-row>
-        <ion-row style="border-top: 1px solid black !important;">
-          <p>CUIT 307002340558</p>
-        </ion-row>
-        <ion-row style="border-top: 1px solid black !important;">
-          <p>9 de Julio 485</p>
-        </ion-row>
-        <ion-row style="border-top: 1px solid black !important;">
-          <p>4000 San Miguel de Tucuman</p>
-        </ion-row>
-      </ion-col>
-      <ion-col style="border-right: none !important" col-2>
-        <ion-row class="unodos">
-          <p style="padding: 14px 14px;">ORIGINAL</p>
-        </ion-row>
-        <ion-row style="border-top: 1px solid black !important;">
-          <p style="padding: 27px 39px;">X</p>
-        </ion-row>
-      </ion-col>
-      <ion-col col-5>
-        <ion-row>
-          <p style="font-weight: 900;padding: 31px 0 0 46px;height: 74px !important;">RECIBO DE COBRANZAS</p>
-        </ion-row>
-        <ion-row>
-          <ion-col style="text-align: right;border: none;border-top: 1px solid black;border-right: 1px solid black">
-            <p>Nº:</p>
-          </ion-col>
-          <ion-col style="text-align: center;border: none;border-top: 1px solid black;">
-            <p>09120390123</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col style="text-align: right;border: none;border-top: 1px solid black;border-right: 1px solid black">
-            <p>Fecha:</p>
-          </ion-col>
-          <ion-col style="text-align: center;border: none;border-top: 1px solid black;">
-            <p>20/12/2018</p>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row class="fila2">
-      <ion-col>
-        <ion-row>
-          <ion-col>
-            <p>DNI/CUIT</p>
-          </ion-col>
-          <ion-col>
-            <p style="border: 1.5px solid black;">12312323</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <p>Nombre</p>
-          </ion-col>
-          <ion-col>
-            <p style="border: 1.5px solid black;">LEPEN vansea</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <p>Importe</p>
-          </ion-col>
-          <ion-col>
-            <p style="border: 1.5px solid black;">$920</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <p>Liquidacion</p>
-          </ion-col>
-          <ion-col>
-            <p style="border: 1.5px solid black;">92.132</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <p>Concepto</p>
-          </ion-col>
-          <ion-col>
-            <p style="border: 1.5px solid black;">Ropa indumentaria deportiva</p>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row class="fila3">
-      <ion-col class="col3" col-5 offset-7>
-        <div class="divTotal">
-          <p class="pTotal">TOTAL </p>
-          <p class="pTotal">$1233</p>
-        </div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col style="text-align: center;padding: 30px 0;">
-        <p class="pFirma">Conforme de Operacion</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->

@@ -65,6 +65,8 @@ export class CajaPage {
   cantidadRecibos: number;
   montoRecibos: number;
   importeTotalHonorarios: number;
+  concepto: string;
+  numeroActual: any;
 
   //tabla
   displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'conciliada', 'montoPagar', 'pagar', 'exclamacion'];
@@ -117,6 +119,7 @@ export class CajaPage {
     this.cantidadRecibos = null
     this.montoRecibos = null;
     this.importeTotalHonorarios = null;
+    this.concepto = "";
   }
 
   periodos() {
@@ -178,6 +181,7 @@ export class CajaPage {
     for (let op of this.operaciones) {
       if (op.checked) {
         cadena = cadena.concat(op.idOperacion.toString(), "*");
+        this.concepto = this.concepto + " " + op.productoAdquirido;
       }
     }
     //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
@@ -374,10 +378,42 @@ export class CajaPage {
       doc.addImage(img, 'JPEG', 25, 10, 250, 133);
       doc.save(nombre);
     }).catch(err => {
-    console.log('​CajaPage -> descargarPDF -> err', err);
-    swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
+      console.log('​CajaPage -> descargarPDF -> err', err);
+      swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
     })
     this.vistaImprimir = true;
+  }
+
+  public generarPDFRecibo() {
+    let date = new Date();
+    let dia = date.getDate();
+    let mes = date.getMonth();
+    mes = mes + 1;
+    let anio = date.getFullYear();
+    let nombre = `Recibos Honorarios para Liquidacion Nro ${this.codLiqDB} - ${dia}-${mes}-${anio}.pdf`
+    this.descargarPDFRecibo(nombre, 'recibo')
+
+  }
+
+  descargarPDFRecibo(nombre, id) {
+    var doc = new jsPDF("l", "mm", "a4");
+    let cantRec = this.cantidadRecibos;
+    for (let i = 1; i <= cantRec; i++) {
+      this.numeroActual = `0001-${this.codLiqDB}0${i}`
+      console.log('​descargarPDFRecibo -> this.numeroActual', this.numeroActual);
+      html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
+        var img = canvas.toDataURL("image/jpeg");
+        doc.addImage(img, 'JPEG', 25, 10, 250, 133);
+        if (i != cantRec) {
+          doc.addPage();
+        } else {
+          doc.save(nombre);
+        }
+      }).catch(err => {
+        console.log('​CajaPage -> descargarPDF -> err', err);
+        swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
+      })
+    }
   }
 
 }
