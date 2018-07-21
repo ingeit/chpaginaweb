@@ -10,7 +10,7 @@ import * as jsPDF from 'jspdf';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { CajaProvider } from '../../providers/caja/caja';
-import { ModalPage} from './modal'
+import { ModalPage } from './modal'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -72,6 +72,8 @@ export class CajaPage {
   idLiquidacion: number;
   fechaEmision: Date;
   idUsuario: number;
+
+  botonPDF: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -181,13 +183,12 @@ export class CajaPage {
         if (res[0][0].codigo == 0) {
           swal("Advertencia", res[0][0].mensaje, "info");
         } else {
-          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res) },{enableBackdropDismiss: false});
+          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res), botonPDF: this.botonPDF }, { enableBackdropDismiss: false });
           profileModal.present();
-
-          // this.promptImprimir(res)
         }
       })
       .catch(err => {
+        console.log('​CajaPage -> pagar -> err', err);
         swal("Error", "Problemas de comunicacion con el servidor", "error");
       })
 
@@ -329,41 +330,6 @@ export class CajaPage {
     toast.present();
   }
 
-  promptImprimir(res) {
-    let alert = this.alertCtrl.create({
-      title: 'Liquidacion realizada con exito',
-      message: 'Seleccione una de las opciones',
-      buttons: [
-        {
-          text: 'Cerrar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'PDF Liquidacion',
-          handler: () => {
-            this.generarPDFLiquidacion(res);
-          }
-        },
-        {
-          text: 'PDF Recibo Profesional',
-          handler: () => {
-            // this.generarPDF(res, "profesional");
-          }
-        },
-        {
-          text: 'PDF Recibo Cliente',
-          handler: () => {
-            // this.generarPDF(res, "cliente");
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   public generarPDFLiquidacion(res) {
     let date = new Date();
     let dia = date.getDate();
@@ -371,7 +337,7 @@ export class CajaPage {
     mes = mes + 1;
     let anio = date.getFullYear();
     let nombre = `Liquidacion Nro ${res[0][0].codigo} - Prof ${this.profesional.apellido} ${this.profesional.nombre} - ${dia}-${mes}-${anio}.pdf`
-    this.descargarPDF(nombre, 'pdf')
+    if(this.botonPDF) this.descargarPDF(nombre, 'pdf')
 
   }
 

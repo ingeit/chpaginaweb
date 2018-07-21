@@ -88,39 +88,60 @@ page-caja {
       border-style: dashed;
    } // CSS PARA RECIBO
    #recibo {
-      font-size: 12px;
+      font-size: 13px;
       max-width: 600px;
    }
-   #recibo p{
-      margin:5px;
-   }
-   .fila1 ion-row {
-      border: 1px solid red;
+   #recibo p {
+      margin: 5px;
+      font-weight: 500;
    }
    .fila1 ion-col {
       padding: 0px;
+      border: 1.5px solid black;
+   }
+   .unouno {
+      text-align: center;
+      border: none !important;
+      height: 55px !important;
+   }
+   .unodos {
+      border-right: 0px !important;
+      height: 55px !important;
+      border-bottom: 0px !important;
    }
    .fila2 {
       margin-top: 5px;
-      border: 1px solid red;
+      border: 1.5px solid black;
    }
-   .col3{
+   .fila2>ion-col {
+      padding: 10px 80px;
+   }
+   .fila2>ion-col>ion-row>ion-col {
+      padding: 2px 0;
+   }
+   .fila2>ion-col>ion-row {
+      text-align: center;
+   }
+   .col3 {
       padding-right: 0px;
    }
-   .divTotal{
-      border: 1px solid red;
+   .divTotal {
+      border: 1.5px solid black;
+      text-align: center;
    }
-   .pTotal{
-      margin: 0;
+   .pTotal {
+      margin: 0 !important;
       padding: 5px 30px 5px 30px;
       display: inline-block;
    }
-   .pFirma{
+   .pFirma {
       margin-top: 50px;
       padding: 10px 0;
-      border-top: 1px solid red;
+      border-top: 1px solid black;
       max-width: 200px;
-   }
+   } 
+   // para botones modal
+  
 }
 
 .toast-md>div {
