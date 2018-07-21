@@ -28,6 +28,10 @@ page-caja {
    }
    .mat-row {
       min-height: 35px;
+      padding: 0px 0px 0px 24px;
+   }
+   .mat-header-row {
+      padding: 0px 0px 0px 24px;
    }
    .mat-header-row {
       min-height: 35px;
@@ -64,6 +68,14 @@ page-caja {
    }
    .mat-column-tarjeta {
       text-align: left;
+   }
+   .mat-column-exclamacion {
+      text-align: left;
+      flex: 0 0 25px;
+   }
+   .mat-column-exclamacion ion-icon {
+      font-size: 22px;
+      color: #e53935;
    }
    .sidenav-container {
       position: absolute;

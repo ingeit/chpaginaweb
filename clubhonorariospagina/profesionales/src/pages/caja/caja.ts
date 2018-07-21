@@ -10,7 +10,7 @@ import * as jsPDF from 'jspdf';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { CajaProvider } from '../../providers/caja/caja';
-import { ModalPage} from './modal'
+import { ModalPage } from './modal'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -34,6 +34,7 @@ export interface Operacion {
   apellidoCliente: string;
   dniCliente: number;
   estadoPago: string;
+  conciliada: string;
   fechaPago: Date;
   fechaTransaccion: Date;
   idOperacion: number;
@@ -59,7 +60,7 @@ export class CajaPage {
   opConciliadas: any = [];
 
   //tabla
-  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'montoPagar', 'pagar'];
+  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'conciliada', 'montoPagar', 'pagar','exclamacion'];
   dataSource: any;
   selection: SelectionModel<Operacion>;
 
@@ -132,7 +133,7 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
-            this.operaciones.map(op => op.checked = true)
+            this.operaciones.map(op => (op.conciliada == 'SI')? op.checked = true :op.checked = false )
             let total = 0;
             for (let o of this.operaciones) {
               if (o.checked) total = total + o.importeCobrar;
@@ -181,7 +182,7 @@ export class CajaPage {
         if (res[0][0].codigo == 0) {
           swal("Advertencia", res[0][0].mensaje, "info");
         } else {
-          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res) },{enableBackdropDismiss: false});
+          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res) }, { enableBackdropDismiss: false });
           profileModal.present();
         }
       })

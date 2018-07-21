@@ -155,7 +155,7 @@
               <mat-table #table [dataSource]="dataSource">
                 <ng-container matColumnDef="orden">
                   <mat-header-cell *matHeaderCellDef> Orden </mat-header-cell>
-                  <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "": i+1}} </mat-cell>
+                  <mat-cell *matCellDef="let element, let i = index">{{(i+1 == operaciones.length)? "": i+1}} </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="codInterno">
                   <mat-header-cell *matHeaderCellDef> Codigo Interno </mat-header-cell>
@@ -190,6 +190,10 @@
                   <mat-header-cell *matHeaderCellDef> Dias Hábiles </mat-header-cell>
                   <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "TOTAL": 3}} </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="conciliada">
+                  <mat-header-cell *matHeaderCellDef> Conciliada </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.conciliada}} </mat-cell>
+                </ng-container>
                 <ng-container matColumnDef="montoPagar">
                   <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.importeCobrar | currency}} </mat-cell>
@@ -201,11 +205,15 @@
                     </mat-checkbox>
                   </mat-cell>
                 </ng-container>
+                <ng-container matColumnDef="exclamacion">
+                  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> <ion-icon *ngIf="element.conciliada == 'NO'"name="md-alert"></ion-icon> </mat-cell>
+                </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></mat-row>
               </mat-table>
             </div>
-            <button ion-button data-html2canvas-ignore="true" *ngIf="operaciones.length != 0" (click)="pagar()">PAGAR</button>
+            <button ion-button data-html2canvas-ignore="true" outline medium style="float: right" *ngIf="operaciones.length != 0" (click)="pagar()">PAGAR</button>
           </ion-col>
         </ion-row>
       </mat-sidenav-content>
