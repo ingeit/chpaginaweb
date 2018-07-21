@@ -68,13 +68,10 @@ export class ModalPage {
   botonPDF: boolean;
   constructor(private navParams: NavParams,
   ) {
-    this.generarPDFLiquidacion = this.navParams.get('generarPDFLiquidacion')
-    this.botonPDF = this.navParams.get('botonPDF')
   }
 
   liquidacion() {
-    this.botonPDF = !this.botonPDF;
-    console.log('​ModalPage -> liquidacion -> this.botonPDF', this.botonPDF);
+    this.generarPDFLiquidacion = this.navParams.get('generarPDFLiquidacion')
 
   }
 
