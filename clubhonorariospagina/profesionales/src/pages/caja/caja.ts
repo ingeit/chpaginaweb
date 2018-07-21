@@ -181,7 +181,7 @@ export class CajaPage {
     for (let op of this.operaciones) {
       if (op.checked) {
         cadena = cadena.concat(op.idOperacion.toString(), "*");
-        this.concepto = this.concepto + " " + op.productoAdquirido;
+        if(op.productoAdquirido) this.concepto = this.concepto + " " + op.productoAdquirido;
       }
     }
     //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
