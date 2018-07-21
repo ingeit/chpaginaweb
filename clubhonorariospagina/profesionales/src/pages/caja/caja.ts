@@ -58,9 +58,16 @@ export class CajaPage {
   opDB: any;
   opExcel: any;
   opConciliadas: any = [];
+  vistaImprimir: boolean = false;
+  codLiqDB: any;
+
+  //recibos
+  cantidadRecibos: number;
+  montoRecibos: number;
+  importeTotalHonorarios: number;
 
   //tabla
-  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'conciliada', 'montoPagar', 'pagar','exclamacion'];
+  displayedColumns: string[] = ['orden', 'codInterno', 'fechaTransaccion', 'fechaPago', 'dniCliente', 'apellidoCliente', 'tarjeta', 'honorariosProfesional', 'diasHabiles', 'conciliada', 'montoPagar', 'pagar', 'exclamacion'];
   dataSource: any;
   selection: SelectionModel<Operacion>;
 
@@ -106,6 +113,10 @@ export class CajaPage {
     this.profesional = null;
     this.operaciones = [];
     this.dataSource = null;
+    this.codLiqDB = null;
+    this.cantidadRecibos = null
+    this.montoRecibos = null;
+    this.importeTotalHonorarios = null;
   }
 
   periodos() {
@@ -133,10 +144,14 @@ export class CajaPage {
             this.profesional = res[2][0]
             console.log('​CajaPage -> periodos -> this.profesional', this.profesional);
             this.operaciones = res[3]
-            this.operaciones.map(op => (op.conciliada == 'SI')? op.checked = true :op.checked = false )
+            this.operaciones.map(op => (op.conciliada == 'SI') ? op.checked = true : op.checked = false)
             let total = 0;
+            this.importeTotalHonorarios = 0;
             for (let o of this.operaciones) {
-              if (o.checked) total = total + o.importeCobrar;
+              if (o.checked) {
+                total = total + o.importeCobrar;
+                this.importeTotalHonorarios = this.importeTotalHonorarios + o.importeVenta
+              }
             }
             this.operaciones.push({
               importeCobrar: total
@@ -182,17 +197,26 @@ export class CajaPage {
         if (res[0][0].codigo == 0) {
           swal("Advertencia", res[0][0].mensaje, "info");
         } else {
-          let profileModal = this.modalCtrl.create(ModalPage, { generarPDFLiquidacion: this.generarPDFLiquidacion(res) }, { enableBackdropDismiss: false });
-          profileModal.present();
+          // todo okey.
+          this.codLiqDB = res[0][0].codigo;
+          this.generarPDFLiquidacion()
+          this.calcularRecibos();
         }
       })
       .catch(err => {
+        console.log('​CajaPage -> pagar -> err', err);
         swal("Error", "Problemas de comunicacion con el servidor", "error");
       })
 
   }
 
-
+  // calcular cantidad de recibos sorbe el importe de honorarios IMPORTE VENTA! IMPORTANTE!
+  calcularRecibos() {
+    this.cantidadRecibos = ~~(this.importeTotalHonorarios / 999); // esto devuelve el primer digito q seria el parametro para cantidad de recibos
+    let resto = (this.importeTotalHonorarios % 999); // esto es para saber si el resto es 0 o no, porq si no es 0 se aumenta el numero de tiques de arriba
+    if (resto != 0) this.cantidadRecibos = this.cantidadRecibos + 1;
+    this.montoRecibos = Math.round(this.importeTotalHonorarios / this.cantidadRecibos * 100) / 100;
+  }
 
   obtenerOpNoConciliadas() {
     this.opPrv.obtenerOpNoConciliadas()
@@ -297,8 +321,10 @@ export class CajaPage {
     fila.checked = !fila.checked
     if (fila.checked) {
       this.operaciones[indiceTotal].importeCobrar = this.operaciones[indiceTotal].importeCobrar + fila.importeCobrar;
+      this.importeTotalHonorarios = this.importeTotalHonorarios + fila.importeVenta;
     } else {
       this.operaciones[indiceTotal].importeCobrar = this.operaciones[indiceTotal].importeCobrar - fila.importeCobrar;
+      this.importeTotalHonorarios = this.importeTotalHonorarios - fila.importeVenta;
     }
   }
 
@@ -328,31 +354,30 @@ export class CajaPage {
     toast.present();
   }
 
-  public generarPDFLiquidacion(res) {
+  public generarPDFLiquidacion() {
     let date = new Date();
     let dia = date.getDate();
     let mes = date.getMonth();
     mes = mes + 1;
     let anio = date.getFullYear();
-    let nombre = `Liquidacion Nro ${res[0][0].codigo} - Prof ${this.profesional.apellido} ${this.profesional.nombre} - ${dia}-${mes}-${anio}.pdf`
+    let nombre = `Liquidacion Nro ${this.codLiqDB} - Prof ${this.profesional.apellido} ${this.profesional.nombre} - ${dia}-${mes}-${anio}.pdf`
     this.descargarPDF(nombre, 'pdf')
 
   }
 
   descargarPDF(nombre, id) {
-    html2canvas(document.getElementById("prueba"), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
+    html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
       var img = canvas.toDataURL("image/jpeg");
       var doc = new jsPDF("l", "mm", "a4");
       doc.addImage(img, 'JPEG', 25, 10, 250, 133);
       doc.addPage();
       doc.addImage(img, 'JPEG', 25, 10, 250, 133);
       doc.save(nombre);
-    });
+    }).catch(err => {
+    console.log('​CajaPage -> descargarPDF -> err', err);
+    swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
+    })
+    this.vistaImprimir = true;
   }
-  // calcular cantidad de recibos
-  // calcular(){
-  //   let cantidad = ~~(total/999); // esto devuelve el primer digito q seria el parametro para cantidad de recibos
-  //   let resto = (total%1000); // esto es para saber si el resto es 0 o no, porq si no es 0 se aumenta el numero de tiques de arriba
-  //   if(resto != 0) cantidad++;
-  // }
+
 }

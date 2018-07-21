@@ -1,4 +1,7 @@
 page-caja {
+   ::-webkit-scrollbar {
+      display: none;
+   }
    #pdf {
       max-width: 1208px !important;
       margin: 0 auto;
@@ -25,6 +28,9 @@ page-caja {
       padding: 5px 20px;
       width: 90px;
       height: 29px;
+   }
+   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+      background-color: #558b2f;
    }
    .mat-row {
       min-height: 35px;
@@ -95,6 +101,14 @@ page-caja {
    .mat-column-select {
       overflow: visible;
    }
+   .botonPagar {
+      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+      background-color: #7cb342;
+      float: right;
+      margin-top: 20px;
+      width: 300px;
+      height: 45px;
+   }
    .botonSubirExcel {
       height: 70px;
       border-style: dashed;
@@ -151,9 +165,23 @@ page-caja {
       padding: 10px 0;
       border-top: 1px solid black;
       max-width: 200px;
-   } 
-   // para botones modal
-  
+   } //vista imprimir recibos
+   .viOk {
+      width: 100%;
+      height: 275px;
+      background: #66BB6A;
+   }
+   .viOk ion-col {
+      text-align: center;
+   }
+   .viOk ion-icon {
+      font-size: 135px;
+      color: white;
+   }
+   .viOk p {
+      color: white;
+      font-size: 20px;
+   }
 }
 
 .toast-md>div {

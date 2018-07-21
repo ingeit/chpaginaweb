@@ -54,168 +54,191 @@
         </ion-row>
       </mat-sidenav>
 
-      <mat-sidenav-content id="pdf">
-        <ion-row>
-          <ion-col col-4 offset-4>
-            <p class="autorizPago">Autorización Pago a Profesionales</p>
-          </ion-col>
-          <ion-col col-4 class="logo">
-            <img src="../../assets/logo-max.png" alt="">
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <mat-form-field>
-              <input matInput placeholder="DNI del profesional" (keyup.enter)="periodos()" [(ngModel)]="dniProfesional">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput [matDatepicker]="fInicio" placeholder="Desde" [(ngModel)]="fechaInicio">
-              <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
-              <mat-datepicker #fInicio></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput [matDatepicker]="fFin" placeholder="Hasta" [(ngModel)]="fechaFin">
-              <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
-              <mat-datepicker #fFin></mat-datepicker>
-            </mat-form-field>
-            <button ion-button clear data-html2canvas-ignore="true" (click)="periodos()">Buscar</button>
-          </ion-col>
-        </ion-row>
-        <ion-row class="informacionProfesional">
-          <ion-col col-4>
-            <p>
-              <strong>
-                <u>Apellido:</u>
-              </strong> {{profesional?.apellido}}</p>
-            <p>
-              <strong>
-                <u>Nombre:</u>
-              </strong> {{profesional?.nombre}}</p>
-            <p>
-              <strong>
-                <u>Profesión:</u>
-              </strong> {{profesional?.profesion}}</p>
-            <p>
-              <strong>
-                <u>Fecha Alta:</u>
-              </strong> {{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
-            <p>
-              <strong>
-                <u>Teléfono:</u>
-              </strong> {{profesional?.telefono}}</p>
-            <p>
-              <strong>
-                <u>Nombre Fantasia:</u>
-              </strong> {{profesional?.especialidad}}</p>
-          </ion-col>
-          <ion-col style="padding-left: 7%" col-4>
-            <p>
-              <strong>
-                <u>Domicilio:</u>
-              </strong> {{profesional?.domicilio}}</p>
-            <p>
-              <strong>
-                <u>Localidad:</u>
-              </strong> {{profesional?.localidad}}</p>
-            <p>
-              <strong>
-                <u>Provincia:</u>
-              </strong> {{profesional?.provincia}}</p>
-            <p>
-              <strong>
-                <u>Mail:</u>
-              </strong> {{profesional?.mail}}</p>
-            <p>
-              <strong>
-                <u>Autorizado:</u>
-              </strong> {{profesional?.autorizado}}</p>
-            <p>
-              <strong>
-                <u>DNI Autorizado:</u>
-              </strong> {{profesional?.dniAutorizado}}</p>
-          </ion-col>
-          <ion-col style="padding-left: 15%" col-4>
-            <p>
-              <strong>
-                <u>Fecha de Emisión:</u>
-              </strong>
-            </p>
-            <p class="pRecuadro">{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
-            <p>
-              <strong>
-                <u>Comprobante de pago:</u>
-              </strong>
-            </p>
-            <p class="pRecuadro">{{idLiquidacion}}</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <div *ngIf="operaciones.length != 0" class="table-container mat-elevation-z8">
-              <mat-table #table [dataSource]="dataSource">
-                <ng-container matColumnDef="orden">
-                  <mat-header-cell *matHeaderCellDef> Orden </mat-header-cell>
-                  <mat-cell *matCellDef="let element, let i = index">{{(i+1 == operaciones.length)? "": i+1}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="codInterno">
-                  <mat-header-cell *matHeaderCellDef> Codigo Interno </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.idOperacion}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="fechaTransaccion">
-                  <mat-header-cell *matHeaderCellDef> Fecha Transaccion </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.fechaTransaccion | date:'d/M/yy'}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="fechaPago">
-                  <mat-header-cell *matHeaderCellDef> Fecha Pago </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.fechaPago | date:'d/M/yy':'+0000'}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="dniCliente">
-                  <mat-header-cell *matHeaderCellDef> DNI Cliente </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.dniCliente}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="apellidoCliente">
-                  <mat-header-cell *matHeaderCellDef> Apellido Cliente </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.apellidoCliente}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="tarjeta">
-                  <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
-                  <mat-cell *matCellDef="let element, let i = index"> {{element.tipoOperacion}} {{(element.nombreTarjeta)? " - "+element.nombreTarjeta : ""}}
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="honorariosProfesional">
-                  <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.importeVenta | currency}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="diasHabiles">
-                  <mat-header-cell *matHeaderCellDef> Dias Hábiles </mat-header-cell>
-                  <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "TOTAL": 3}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="conciliada">
-                  <mat-header-cell *matHeaderCellDef> Conciliada </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.conciliada}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="montoPagar">
-                  <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.importeCobrar | currency}} </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="pagar">
-                  <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
-                  <mat-cell *matCellDef="let row,let i = index">
-                    <mat-checkbox *ngIf="i+1 != operaciones.length" (change)="checkBox(row)" [checked]="row.checked">
-                    </mat-checkbox>
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="exclamacion">
-                  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> <ion-icon *ngIf="element.conciliada == 'NO'"name="md-alert"></ion-icon> </mat-cell>
-                </ng-container>
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></mat-row>
-              </mat-table>
-            </div>
-            <button ion-button data-html2canvas-ignore="true" outline medium style="float: right" *ngIf="operaciones.length != 0" (click)="pagar()">PAGAR</button>
-          </ion-col>
-        </ion-row>
+      <mat-sidenav-content>
+
+        <!-- Vista para tabla liquidacion -->
+        <ion-grid id="pdf" *ngIf="!vistaImprimir">
+          <ion-row>
+            <ion-col col-4 offset-4>
+              <p class="autorizPago">Autorización Pago a Profesionales</p>
+            </ion-col>
+            <ion-col col-4 class="logo">
+              <img src="../../assets/logo-max.png" alt="">
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <mat-form-field>
+                <input matInput placeholder="DNI del profesional" (keyup.enter)="periodos()" [(ngModel)]="dniProfesional">
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [matDatepicker]="fInicio" placeholder="Desde" [(ngModel)]="fechaInicio">
+                <mat-datepicker-toggle matSuffix [for]="fInicio"></mat-datepicker-toggle>
+                <mat-datepicker #fInicio></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput [matDatepicker]="fFin" placeholder="Hasta" [(ngModel)]="fechaFin">
+                <mat-datepicker-toggle matSuffix [for]="fFin"></mat-datepicker-toggle>
+                <mat-datepicker #fFin></mat-datepicker>
+              </mat-form-field>
+              <button ion-button clear data-html2canvas-ignore="true" (click)="periodos()">Buscar</button>
+            </ion-col>
+          </ion-row>
+          <ion-row class="informacionProfesional">
+            <ion-col col-4>
+              <p>
+                <strong>
+                  <u>Apellido:</u>
+                </strong> {{profesional?.apellido}}</p>
+              <p>
+                <strong>
+                  <u>Nombre:</u>
+                </strong> {{profesional?.nombre}}</p>
+              <p>
+                <strong>
+                  <u>Profesión:</u>
+                </strong> {{profesional?.profesion}}</p>
+              <p>
+                <strong>
+                  <u>Fecha Alta:</u>
+                </strong> {{profesional?.fechaAlta | date:'d/M/yy':'+0000'}}</p>
+              <p>
+                <strong>
+                  <u>Teléfono:</u>
+                </strong> {{profesional?.telefono}}</p>
+              <p>
+                <strong>
+                  <u>Nombre Fantasia:</u>
+                </strong> {{profesional?.especialidad}}</p>
+            </ion-col>
+            <ion-col style="padding-left: 7%" col-4>
+              <p>
+                <strong>
+                  <u>Domicilio:</u>
+                </strong> {{profesional?.domicilio}}</p>
+              <p>
+                <strong>
+                  <u>Localidad:</u>
+                </strong> {{profesional?.localidad}}</p>
+              <p>
+                <strong>
+                  <u>Provincia:</u>
+                </strong> {{profesional?.provincia}}</p>
+              <p>
+                <strong>
+                  <u>Mail:</u>
+                </strong> {{profesional?.mail}}</p>
+              <p>
+                <strong>
+                  <u>Autorizado:</u>
+                </strong> {{profesional?.autorizado}}</p>
+              <p>
+                <strong>
+                  <u>DNI Autorizado:</u>
+                </strong> {{profesional?.dniAutorizado}}</p>
+            </ion-col>
+            <ion-col style="padding-left: 15%" col-4>
+              <p>
+                <strong>
+                  <u>Fecha de Emisión:</u>
+                </strong>
+              </p>
+              <p class="pRecuadro">{{fechaEmision | date:'d/M/yy':'+0000'}}</p>
+              <p>
+                <strong>
+                  <u>Comprobante de pago:</u>
+                </strong>
+              </p>
+              <p class="pRecuadro">{{idLiquidacion}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div *ngIf="operaciones.length != 0" class="table-container mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource">
+                  <ng-container matColumnDef="orden">
+                    <mat-header-cell *matHeaderCellDef> Orden </mat-header-cell>
+                    <mat-cell *matCellDef="let element, let i = index">{{(i+1 == operaciones.length)? "": i+1}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="codInterno">
+                    <mat-header-cell *matHeaderCellDef> Codigo Interno </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.idOperacion}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="fechaTransaccion">
+                    <mat-header-cell *matHeaderCellDef> Fecha Transaccion </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.fechaTransaccion | date:'d/M/yy'}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="fechaPago">
+                    <mat-header-cell *matHeaderCellDef> Fecha Pago </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.fechaPago | date:'d/M/yy':'+0000'}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="dniCliente">
+                    <mat-header-cell *matHeaderCellDef> DNI Cliente </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.dniCliente}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="apellidoCliente">
+                    <mat-header-cell *matHeaderCellDef> Apellido Cliente </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.apellidoCliente}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="tarjeta">
+                    <mat-header-cell *matHeaderCellDef> Tarjeta </mat-header-cell>
+                    <mat-cell *matCellDef="let element, let i = index"> {{element.tipoOperacion}} {{(element.nombreTarjeta)? " - "+element.nombreTarjeta : ""}}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="honorariosProfesional">
+                    <mat-header-cell *matHeaderCellDef> Honorarios Profesional </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.importeVenta | currency}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="diasHabiles">
+                    <mat-header-cell *matHeaderCellDef> Dias Hábiles </mat-header-cell>
+                    <mat-cell *matCellDef="let element, let i = index"> {{(i+1 == operaciones.length)? "TOTAL": 3}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="conciliada">
+                    <mat-header-cell *matHeaderCellDef> Conciliada </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.conciliada}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="montoPagar">
+                    <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.importeCobrar | currency}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="pagar">
+                    <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
+                    <mat-cell *matCellDef="let row,let i = index">
+                      <mat-checkbox *ngIf="i+1 != operaciones.length" (change)="checkBox(row)" [checked]="row.checked">
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="exclamacion">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <ion-icon *ngIf="element.conciliada == 'NO'" name="md-alert"></ion-icon>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)"></mat-row>
+                </mat-table>
+              </div>
+              <button ion-button data-html2canvas-ignore="true" icon-start class="botonPagar" *ngIf="operaciones.length != 0" (click)="pagar()">
+                <ion-icon name="md-checkmark-circle-outline"></ion-icon>
+                Liquidar y Descargar PDF</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- Vista liquidacion OK para imprimir  AGREGAR EL NGIF VISTAIMPRIMIR AL GRID-->
+        <ion-grid *ngIf="vistaImprimir">
+          <ion-row class="viOk">
+            <ion-col>
+              <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
+              <p>Liquidación Nº {{codLiqDB}} guardada con éxito</p>
+              <p>Se generaron {{cantidadRecibos}} recibos</p>
+              <p>Importe de c/recibo: {{montoRecibos | currency}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            asd
+          </ion-row>
+        </ion-grid>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </ion-grid>
