@@ -376,7 +376,7 @@ export class CajaPage {
   }
 
   descargarPDF(nombre, id) {
-    html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
+    html2canvas(document.getElementById("prueba"), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
       var img = canvas.toDataURL("image/jpeg");
       var doc = new jsPDF("l", "mm", "a4");
       doc.addImage(img, 'JPEG', 25, 10, 250, 133);
@@ -387,7 +387,7 @@ export class CajaPage {
   }
   // calcular cantidad de recibos
   // calcular(){
-  //   let cantidad = ~~(total/1000); // esto devuelve el primer digito q seria el parametro para cantidad de recibos
+  //   let cantidad = ~~(total/999); // esto devuelve el primer digito q seria el parametro para cantidad de recibos
   //   let resto = (total%1000); // esto es para saber si el resto es 0 o no, porq si no es 0 se aumenta el numero de tiques de arriba
   //   if(resto != 0) cantidad++;
   // }

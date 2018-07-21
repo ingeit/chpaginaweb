@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
+  <!-- <ion-grid>
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav position="end" #sidenav mode="over">
         <ion-row>
@@ -194,12 +194,7 @@
                   <mat-header-cell *matHeaderCellDef> Monto Pagar </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{element.importeCobrar | currency}} </mat-cell>
                 </ng-container>
-                <!-- Checkbox Column -->
                 <ng-container matColumnDef="pagar">
-                  <!-- <mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
-                      </mat-checkbox>
-                    </mat-header-cell> -->
                   <mat-header-cell *matHeaderCellDef> Pagar </mat-header-cell>
                   <mat-cell *matCellDef="let row,let i = index">
                     <mat-checkbox *ngIf="i+1 != operaciones.length" (change)="checkBox(row)" [checked]="row.checked">
@@ -215,5 +210,113 @@
         </ion-row>
       </mat-sidenav-content>
     </mat-sidenav-container>
+  </ion-grid> -->
+
+
+
+  <!-- MODELO RECIBOS  -->
+  <ion-grid id="recibo">
+    <ion-row class="fila1">
+      <ion-col col-5>
+        <ion-row>
+          <p>ASOC MUTUAL P EL PODER JUDICIAL Y TRAB. INDEPENDIENTES CONGRESO DE TUCUMAN</p>
+        </ion-row>
+        <ion-row>
+          <p>CUIT 307002340558</p>
+        </ion-row>
+        <ion-row>
+          <p>9 de Julio 485</p>
+        </ion-row>
+        <ion-row>
+          <p>4000 San Miguel de Tucuman</p>
+        </ion-row>
+      </ion-col>
+      <ion-col col-2>
+        <ion-row>
+          <p style="padding: 14px 14px;">ORIGINAL</p>
+        </ion-row>
+        <ion-row>
+          <p style="padding: 27px 39px;">X</p>
+        </ion-row>
+      </ion-col>
+      <ion-col col-5>
+        <ion-row>
+          <p>RECIBO DE COBRANZAS</p>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Nº</p>
+          </ion-col>
+          <ion-col>
+            <p>09120390123</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Fecha:</p>
+          </ion-col>
+          <ion-col>
+            <p>20/12/2018</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="fila2">
+      <ion-col>
+        <ion-row>
+          <ion-col>
+            <p>DNI CUIT</p>
+          </ion-col>
+          <ion-col>
+            <p>12312323</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Nombre</p>
+          </ion-col>
+          <ion-col>
+            <p>LEPEN vansea</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Importe</p>
+          </ion-col>
+          <ion-col>
+            <p>$920</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Liquidacion</p>
+          </ion-col>
+          <ion-col>
+            <p>92.132</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Concepto</p>
+          </ion-col>
+          <ion-col>
+            <p>Ropa</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="fila3">
+      <ion-col class="col3" col-5 offset-7>
+        <div class="divTotal">
+          <p class="pTotal">TOTAL </p>
+          <p class="pTotal">$1233</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p class="pFirma">Conforme de Operacion</p>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
