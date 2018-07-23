@@ -75,7 +75,7 @@ export class CajaPage {
   selection: SelectionModel<Operacion>;
 
   // busqueda de profesional
-  dniProfesional: Number = 30541192;
+  dniProfesional: number; //30541192 para probar
   fechaInicio: Date = new Date();
   fechaFin: Date = new Date();
   profesional: any;
