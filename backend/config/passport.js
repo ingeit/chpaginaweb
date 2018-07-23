@@ -13,6 +13,7 @@ var localLogin = new LocalStrategy(
         var user = '"'+username+'"';
         var pass = '"'+password+'"';
         User.login(user,pass, function(response) {
+            console.log('​response', response);
             var respuesta = response[0];
             if(respuesta.codigo != 0){
                 return done(null, username);

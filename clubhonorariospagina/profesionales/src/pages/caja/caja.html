@@ -226,7 +226,7 @@
         </ion-grid>
 
         <!-- Vista liquidacion OK para imprimir  AGREGAR EL NGIF VISTAIMPRIMIR AL GRID-->
-        <!-- <ion-grid *ngIf="vistaImprimir">
+        <ion-grid *ngIf="vistaImprimir">
           <ion-row class="viOk">
             <ion-col>
               <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
@@ -235,12 +235,20 @@
               <p>Importe de c/recibo: {{montoRecibos | currency}}</p>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <button ion-button (click)="generarPDFRecibo()">DESCARGAR PDF</button>
+          <ion-row style="margin: 0 auto">
+            <button class="botonPDFRecibo" ion-button (click)="generarPDFRecibo()">Descargar PDF Recibos</button>
+            <button class="botonNuevaLiq" ion-button (click)="botonNuevaLiq()">Nueva Liquidación</button>
           </ion-row>
-        </ion-grid> -->
+        </ion-grid>
 
-        <!-- MODELO RECIBOS ESTO VA AFUERA DEL ION CONTENT PARA Q NO SE VEA Y SE TIENE Q SACAR EL NGIF, AHORA ESTA AQUI PARA DEBUGEAR -->
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </ion-grid>
+
+</ion-content>
+
+<!-- MODELO RECIBOS  -->
+ <!-- MODELO RECIBOS ESTO VA AFUERA DEL ION CONTENT PARA Q NO SE VEA Y SE TIENE Q SACAR EL NGIF, AHORA ESTA AQUI PARA DEBUGEAR -->
         <ion-grid *ngIf="vistaImprimir" id="recibo">
             <ion-row>
               <ion-col style="text-align: center;">
@@ -350,12 +358,3 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-
-
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </ion-grid>
-
-</ion-content>
-
-<!-- MODELO RECIBOS  -->

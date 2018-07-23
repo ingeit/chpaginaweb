@@ -71,7 +71,7 @@ exports.obtenerOpLiquidar = function (params, fn) {
     });
 }
 exports.nuevaLiquidacion = function (params, fn) {
-    pool.query('call liquidacion_nueva(?,?,?,?)', [params.idUsuario, params.idProfesional, params.montoTotal, params.cadena], function (err, rows) {
+    pool.query('call liquidacion_nueva(?,?,?,?,?,?,?)', [params.idUsuario, params.idProfesional, params.montoTotal, params.cadena,params.cantidadRecibos,params.importeRecibos,params.conceptoRecibos], function (err, rows) {
         if (err) fn(err);
         else fn(rows);
     });

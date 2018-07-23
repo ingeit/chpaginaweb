@@ -236,6 +236,7 @@ exports.obtenerOpLiquidar = function (req, res, next) {
  }
 exports.nuevaLiquidacion = function (req, res, next) {
     profesional.nuevaLiquidacion(req.body,function (consulta) {
+        console.log('​exports.nuevaLiquidacion -> consulta', consulta);
        res.json(consulta);
     });
  }

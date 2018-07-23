@@ -1,4 +1,6 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+// URGENTE: CORREGIR IMPORTE CUOTA CON IMPORTE CARGA DESDE EL PRINCIPIO HASTA LA OP ID 52367.. estan intercambiados los importes
+
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NavController, NavParams, LoadingController, ToastController, AlertController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -91,7 +93,8 @@ export class CajaPage {
     private cajaProv: CajaProvider,
     public storage: Storage,
     private alertCtrl: AlertController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private zone: NgZone
 
   ) {
     this.obtenerOpNoConciliadas();
@@ -181,18 +184,23 @@ export class CajaPage {
     for (let op of this.operaciones) {
       if (op.checked) {
         cadena = cadena.concat(op.idOperacion.toString(), "*");
-        if(op.productoAdquirido) this.concepto = this.concepto + " " + op.productoAdquirido;
+        if (op.productoAdquirido) this.concepto = this.concepto + " " + op.productoAdquirido;
       }
     }
     //eliminamos el ultimp * por que sino el loop de mysql da error, hay q enviarlo de la forma id*id*id, sin * al final
     cadena = cadena.slice(0, -1);
     // redondeamos el montoTotal a 2 digitos para mysql
     let montoTotal = Math.round(this.operaciones[this.operaciones.length - 1].importeCobrar * 100) / 100;
+    this.calcularRecibos();
     let parametros = {
       idUsuario: this.idUsuario,
       idProfesional: this.profesional.idProfesional,
       montoTotal,
-      cadena
+      cadena,
+      // enviamos parametros de recibos tb
+      cantidadRecibos: this.cantidadRecibos,
+      importeRecibos: this.montoRecibos,
+      conceptoRecibos: this.concepto
     }
     console.log('​CajaPage -> pagar -> parametros', parametros);
     this.cajaProv.liquidacionNueva(parametros)
@@ -204,7 +212,6 @@ export class CajaPage {
           // todo okey.
           this.codLiqDB = res[0][0].codigo;
           this.generarPDFLiquidacion()
-          this.calcularRecibos();
         }
       })
       .catch(err => {
@@ -359,6 +366,7 @@ export class CajaPage {
   }
 
   public generarPDFLiquidacion() {
+    this.showLoader('PDF Liquidación en proceso...');
     let date = new Date();
     let dia = date.getDate();
     let mes = date.getMonth();
@@ -369,22 +377,25 @@ export class CajaPage {
 
   }
 
-  descargarPDF(nombre, id) {
-    html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
-      var img = canvas.toDataURL("image/jpeg");
-      var doc = new jsPDF("l", "mm", "a4");
-      doc.addImage(img, 'JPEG', 25, 10, 250, 133);
-      doc.addPage();
-      doc.addImage(img, 'JPEG', 25, 10, 250, 133);
-      doc.save(nombre);
-    }).catch(err => {
-      console.log('​CajaPage -> descargarPDF -> err', err);
+  async descargarPDF(nombre, id) {
+    try {
+      let canvas = await html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 });
+      if (canvas) {
+        var img = canvas.toDataURL("image/jpeg");
+        var doc = new jsPDF("l", "mm", "a4");
+        doc.addImage(img, 'JPEG', 25, 10, 250, 133);
+        this.loading.dismiss();
+        doc.save(nombre);
+      }
+    } catch (error) {
+      console.log('​CajaPage -> descargarPDF -> err', error);
       swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
-    })
+    }
     this.vistaImprimir = true;
   }
 
   public generarPDFRecibo() {
+    this.showLoader('PDF Recibo en proceso...');
     let date = new Date();
     let dia = date.getDate();
     let mes = date.getMonth();
@@ -395,25 +406,37 @@ export class CajaPage {
 
   }
 
-  descargarPDFRecibo(nombre, id) {
-    var doc = new jsPDF("l", "mm", "a4");
+  async descargarPDFRecibo(nombre, id) {
+    var doc = new jsPDF("p", "mm", "a4");
     let cantRec = this.cantidadRecibos;
-    for (let i = 1; i <= cantRec; i++) {
-      this.numeroActual = `0001-${this.codLiqDB}0${i}`
+    // PROBLEMA: al hacer este algoritmo como corresponde, por algun problema del dom, me genera un recibo con el numeroActual vacio
+    // y despues arranca con el siguiente recibo con el numeroActual = 1 como debe ser, entocnes lo que hice fue
+    // el primer loop no genero ninguna imagen ni la agrego al doc, sino recien el segudno loop, por eso en el loop i e smenor igual que cantRecibos + 1, porq tengo q "generar" 1 recibo mas..
+    for (let i = 1; i <= cantRec + 1; i++) {
+      this.numeroActual = `0001-${this.codLiqDB}0${i}`;
       console.log('​descargarPDFRecibo -> this.numeroActual', this.numeroActual);
-      html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 }).then(function (canvas) {
-        var img = canvas.toDataURL("image/jpeg");
-        doc.addImage(img, 'JPEG', 25, 10, 250, 133);
-        if (i != cantRec) {
-          doc.addPage();
-        } else {
-          doc.save(nombre);
+      try {
+        let canvas = await html2canvas(document.getElementById(id), { scale: 3, width: 1208, height: 653 })
+        if (canvas) {
+          var img = canvas.toDataURL("image/jpeg");
+          if (i != 1) doc.addImage(img, 'JPEG', 45, 50, 250, 133);
+          if (i != cantRec + 1) {
+            if (i != 1) doc.addPage();
+          } else {
+            doc.save(nombre);
+            this.loading.dismiss();
+          }
         }
-      }).catch(err => {
-        console.log('​CajaPage -> descargarPDF -> err', err);
+      } catch (error) {
+        console.log('​CajaPage -> descargarPDF -> err', error);
         swal("Error PDF", "La liquidacion fue correcta. Pero hubo inconvenientes para generar el PDF", "error");
-      })
+        break;
+      }
     }
   }
+  botonNuevaLiq() {
+    this.navCtrl.setRoot(CajaPage)
+  }
+
 
 }
