@@ -30,7 +30,6 @@ import { FormModificarTarjetaPage } from '../pages/form-modificar-tarjeta/form-m
 import { NuevaOperacionPaso2Page } from '../pages/nueva-operacion-paso2/nueva-operacion-paso2'
 import { NuevaOperacionModalPage } from '../pages/nueva-operacion-modal/nueva-operacion-modal'
 import { CajaPage } from '../pages/caja/caja';
-import { ModalPage } from '../pages/caja/modal';
 
 // Providers
 import { Storage } from '@ionic/storage';
@@ -97,7 +96,6 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     NuevaOperacionPaso2Page,
     NuevaOperacionModalPage,
     CajaPage,
-    ModalPage
   ],
   imports: [
     MatTableModule,
@@ -151,7 +149,6 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     FormModificarTarjetaPage,
     NuevaOperacionPaso2Page,
     CajaPage,
-    ModalPage
   ],
   providers: [
     StatusBar,

@@ -1,8 +1,8 @@
 // URGENTE: CORREGIR IMPORTE CUOTA CON IMPORTE CARGA DESDE EL PRINCIPIO HASTA LA OP ID 52367.. estan intercambiados los importes
 
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { NavController, NavParams, LoadingController, ToastController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import swal from 'sweetalert';
 import * as XLSX from 'xlsx';
@@ -12,7 +12,6 @@ import * as jsPDF from 'jspdf';
 import { HomePage } from '../home/home';
 import { OperacionesProvider } from '../../providers/operaciones/operaciones';
 import { CajaProvider } from '../../providers/caja/caja';
-import { ModalPage } from './modal'
 
 //Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -93,8 +92,6 @@ export class CajaPage {
     private cajaProv: CajaProvider,
     public storage: Storage,
     private alertCtrl: AlertController,
-    public modalCtrl: ModalController,
-    private zone: NgZone
 
   ) {
     this.obtenerOpNoConciliadas();
