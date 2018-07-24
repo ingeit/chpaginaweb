@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -11,8 +10,8 @@
 <ion-content padding>
   <ion-grid *ngIf="username == 'rlobo' || username == 'gilda'">
     <ion-row *ngIf="arrayTarjetas">
-      <ion-col col-md-3 col-12 *ngFor="let t of arrayTarjetas">
-        <ion-item-group>
+      <ion-col col-md-2 col-12 *ngFor="let t of arrayTarjetas">
+        <ion-item-group style="border: 1px solid lightgray;">
           <ion-row>
             <ion-item-divider>
               {{t.nombre}} ({{t.nombreCorto}})
@@ -23,14 +22,14 @@
           </ion-row>
           <ion-row *ngFor="let cc of t.cuotaComision">
             <ion-col>
-              <ion-item no-lines>
+              <p>
                 {{cc.cantidadCuota}}
-              </ion-item>
+              </p>
             </ion-col>
             <ion-col>
-              <ion-item no-lines>
+              <p>
                 {{cc.comision}}
-              </ion-item>
+              </p>
             </ion-col>
           </ion-row>
         </ion-item-group>
