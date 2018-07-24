@@ -113,9 +113,6 @@ Code Issues 0 Pull requests 0 Projects 0 Wiki Insights chpaginaweb/clubhonorario
                     <button mat-button routerLink (click)="verOperacion(o)">Ver</button>
                   </div>
                   <div class="button-row">
-                    <button mat-button color="primary" *ngIf="o.estadoPago == 'A PAGAR'" (click)="botonPagarOperacion(o.idOperacion)">Pagar</button>
-                  </div>
-                  <div class="button-row">
                     <button mat-button color="warn" (click)="botonEliminar(o.idOperacion)">Eliminar</button>
                   </div>
                 </mat-cell>

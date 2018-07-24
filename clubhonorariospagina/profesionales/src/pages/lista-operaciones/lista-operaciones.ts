@@ -142,53 +142,6 @@ export class ListaOperacionesPage {
 
   }
 
-  botonPagarOperacion(idOperacion) {
-    let titulo = "Pagar Operación";
-    let mensaje = "¿Está seguro que desea eliminar la operación?";
-    this.confirmarPagar(titulo, mensaje, idOperacion);
-  }
-
-  confirmarPagar(titulo, mensaje, idOperacion) {
-    let alert = this.alertCtrl.create({
-      title: titulo,
-      message: mensaje,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-
-          }
-        },
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.pagarOperacion(idOperacion);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  pagarOperacion(idOperacion) {
-    console.log("pagarOperacion", idOperacion)
-    let details = {
-      idOperacion: parseInt(idOperacion)
-    };
-    console.log("pagarOperacion details", idOperacion)
-    this.data.pagarOperacion(details).then((respuesta: any) => {
-      console.log("respuesta", respuesta)
-      if (respuesta[0].codigo != 0) {
-        this.presentToast(`Operacion Nº ${idOperacion} pagada con exito`);
-        this.navCtrl.setRoot(ListaOperacionesPage);
-      } else {
-        this.mostrarAlerta('ERROR', `No se pudo pagar la operacion. Motivo: ${respuesta[0].mensaje}`);
-      }
-
-    });
-  }
-
   presentToast(mensaje) {
     let toast = this.toastCtrl.create({
       message: mensaje,
