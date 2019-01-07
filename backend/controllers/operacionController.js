@@ -914,7 +914,7 @@ var email = function (destino, campos) {
    switch (destino) {
       case 'profesional':
          var ejs = require('ejs')
-            , path = '/home/backend/views/tamplateProfesional.ejs'
+            , path = '/home/ingeit/backend/views/tamplateProfesional.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateProfesional.ejs'
             // , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
@@ -922,7 +922,7 @@ var email = function (destino, campos) {
          break;
       case 'cliente':
          var ejs = require('ejs')
-            , path = '/home/backend/views/tamplateCliente.ejs'
+            , path = '/home/ingeit/backend/views/tamplateCliente.ejs'
             // , path = '/Applications/XAMPP/xamppfiles/htdocs/chpaginaweb/testMP/backend/views/tamplateCliente.ejs'
             // , path = 'D:/Proyectos/ClubHonorarios/chpaginaweb/backend/views'
             , str = fs.readFileSync(path, 'utf8');
@@ -1006,7 +1006,7 @@ exports.pdf = function (req, res, next) {
    // embedd js para escribiri variables en html
    var ejs = require('ejs')
       // , path = __dirname + '/../views/tamplateProfesional.ejs'
-      , path = '/home/backend/views/tamplateProfesional.ejs'
+      , path = '/home/ingeit/backend/views/tamplateProfesional.ejs'
       , str = fs.readFileSync(path, 'utf8');
 
    // console.log(path);
